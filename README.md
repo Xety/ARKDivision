@@ -1,6 +1,6 @@
 > <h1 align="center">ARKDivision</h1>
 > <p align="center">
->   <img src="https://cdn.discordapp.com/attachments/636575768809439232/637432715901403137/logo-ark-france-division2.png" alt="ARKDivision Logo" height="80"/>
+>   <img src="https://ark-division.fr/wp-content/uploads/2017/12/logo-ark-france-division.png" alt="ARKDivision Logo" height="80"/>
 > </p>
 
 > |PHP|PHP Extension|DBMS|NodeJS|npm|Others
