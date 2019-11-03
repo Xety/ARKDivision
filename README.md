@@ -9,7 +9,7 @@
 >
 
 > ## Install
-> After ServerPilot is installed : 
+> After ServerPilot is installed :
 > - Install PhpRedis for PHP 7.3 (Client): https://serverpilot.io/community/articles/how-to-install-the-php-redis-extension.html
 > - Install Redis (Server) : https://serverpilot.io/community/articles/how-to-install-redis.html
 > - Install Supervisor : https://laravel.com/docs/5.6/queues#supervisor-configuration
@@ -24,6 +24,7 @@
 > redirect_stderr=true
 > stdout_logfile=/srv/users/serverpilot/apps/0website/storage/logs/xetaravel-worker.log
 > ```
+> - Install NodeJS & NPM : https://github.com/nodesource/distributions
 >
 > Then install the application :
 > ```bash

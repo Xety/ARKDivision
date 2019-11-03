@@ -1,0 +1,104 @@
+{
+    "name": "xetaio/xetaravel",
+    "description": "A light version of Xeta's website using Laravel.",
+    "keywords": [
+        "Xeta",
+        "framework",
+        "laravel",
+        "website",
+        "blog",
+        "administration"
+    ],
+    "homepage": "https://github.com/XetaIO/Xetaravel",
+    "license": "MIT",
+    "type": "project",
+    "support": {
+        "source": "https://github.com/XetaIO/Xetaravel",
+        "issues": "https://github.com/XetaIO/Xetaravel/issues"
+    },
+    "authors": [
+        {
+            "name": "Xety",
+            "email": "zoro.fmt@gmail.com",
+            "homepage": "https://github.com/Xety"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "laravel/framework": "^5.8",
+        "laravel/socialite": "^3.0",
+        "laravel/tinker": "^1.0",
+        "xetaio/recaptcha": "^3.0",
+        "xetaio/roles": "^5.8",
+        "xetaio/xetaravel-editor-md": "^1.0",
+        "xetaio/xetaravel-iptraceable": "^1.0",
+        "xetaio/xetaravel-mentions": "^2.0",
+        "xety/breadcrumbs": "^1.0",
+        "spatie/laravel-analytics": "^3.6.4",
+        "spatie/laravel-medialibrary": "^7.0.0",
+        "spatie/laravel-menu": "^3.1",
+        "league/color-extractor": "^0.3.2",
+        "league/commonmark-ext-table": "^2.0",
+        "league/commonmark-ext-task-list": "^1.0",
+        "laravelcollective/html": "^5.8",
+        "fideloper/proxy": "^4.0",
+        "graham-campbell/markdown": "^11.0",
+        "kirkbushell/eloquence": "^2.0",
+        "rinvex/countries": "^6.1"
+    },
+    "require-dev": {
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^8.0",
+        "symfony/css-selector": "^4.0",
+        "symfony/dom-crawler": "^4.0",
+        "symfony/filesystem": "^4.0",
+        "squizlabs/php_codesniffer": "^3.2",
+        "phpro/grumphp": "^0.14",
+        "barryvdh/laravel-debugbar": "^3.1"
+    },
+    "autoload": {
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "psr-4": {
+            "Xetaravel\\": "app/",
+            "XetaravelInstaller\\": "install/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate",
+            "npm install",
+            "npm run development",
+            "XetaravelInstaller\\Installer::postInstall"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "process-timeout": 2000,
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
