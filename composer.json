@@ -1,20 +1,12 @@
 {
-    "name": "xetaio/xetaravel",
-    "description": "A light version of Xeta's website using Laravel.",
-    "keywords": [
-        "Xeta",
-        "framework",
-        "laravel",
-        "website",
-        "blog",
-        "administration"
-    ],
-    "homepage": "https://github.com/XetaIO/Xetaravel",
+    "name": "xety/arkdivision",
+    "description": "The discuss part of the ARK Division website.",
+    "homepage": "https://github.com/Xety/ARKDivision",
     "license": "MIT",
     "type": "project",
     "support": {
-        "source": "https://github.com/XetaIO/Xetaravel",
-        "issues": "https://github.com/XetaIO/Xetaravel/issues"
+        "source": "https://github.com/Xety/ARKDivision",
+        "issues": "https://github.com/Xety/ARKDivision/issues"
     },
     "authors": [
         {
@@ -64,8 +56,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "Xetaravel\\": "app/",
-            "XetaravelInstaller\\": "install/"
+            "Xetaravel\\": "app/"
         }
     },
     "autoload-dev": {
@@ -79,15 +70,6 @@
         }
     },
     "scripts": {
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "php artisan key:generate",
-            "npm install",
-            "npm run development",
-            "XetaravelInstaller\\Installer::postInstall"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"

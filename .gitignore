@@ -12,6 +12,7 @@ composer.lock
 package-lock.json
 studio.json
 vagrant-ssh
+vagrant-ssh.bat
 /node_modules
 /plugins
 /public/storage
