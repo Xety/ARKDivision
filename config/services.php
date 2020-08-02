@@ -35,9 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
-    'github' => [
-        'client_id' => env('GITHUB_ID'),
-        'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => env('GITHUB_REDIRECT'),
-    ],
+    'discord' => [
+        'client_id' => env('DISCORD_ID'),
+        'client_secret' => env('DISCORD_SECRET'),
+        'redirect' => env('DISCORD_REDIRECT'),
+    ]
 ];

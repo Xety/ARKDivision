@@ -1,8 +1,6 @@
 <?php
 namespace Xetaravel\Http\Controllers;
 
-use Xetaravel\Models\Article;
-use Xetaravel\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
@@ -14,20 +12,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('category', 'user')
-            ->latest()
-            ->limit(6)
-            ->get();
-
-        $comments = Comment::with('user')
-            ->whereHas('article', function ($query) {
-                $query->where('is_display', true);
-            })
-            ->latest()
-            ->limit(4)
-            ->get();
-
-        return view('page.index', ['articles' => $articles, 'comments' => $comments]);
+        return view('page.index');
     }
 
     /**

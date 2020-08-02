@@ -18,52 +18,6 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
-        | Blog Routes
-        |--------------------------------------------------------------------------
-        */
-        Route::group([
-            'namespace' => 'Blog',
-            'prefix' => 'blog',
-            'middleware' => ['permission:manage.blog']
-        ], function () {
-
-            // Article Routes
-            Route::get('article', 'ArticleController@index')
-                ->name('admin.blog.article.index');
-
-            Route::get('article/create', 'ArticleController@showCreateForm')
-                ->name('admin.blog.article.create');
-            Route::post('article/create', 'ArticleController@create')
-                ->name('admin.blog.article.create');
-
-            Route::get('article/update/{slug}.{id}', 'ArticleController@showUpdateForm')
-                ->name('admin.blog.article.edit');
-            Route::put('article/update/{id}', 'ArticleController@update')
-                ->name('admin.blog.article.update');
-
-            Route::delete('article/delete/{id}', 'ArticleController@delete')
-                ->name('admin.blog.article.delete');
-
-            // Category Routes
-            Route::get('category', 'CategoryController@index')
-                ->name('admin.blog.category.index');
-
-            Route::get('category/create', 'CategoryController@showCreateForm')
-                ->name('admin.blog.category.create');
-            Route::post('category/create', 'CategoryController@create')
-                ->name('admin.blog.category.create');
-
-            Route::get('category/update/{slug}.{id}', 'CategoryController@showUpdateForm')
-                ->name('admin.blog.category.edit');
-            Route::put('category/update/{id}', 'CategoryController@update')
-                ->name('admin.blog.category.update');
-
-            Route::delete('category/delete/{id}', 'CategoryController@delete')
-                ->name('admin.blog.category.delete');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
         | Discuss Routes
         |--------------------------------------------------------------------------
         */

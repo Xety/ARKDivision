@@ -47,7 +47,7 @@
                             <li class="list-inline-item">
                                 {!! Html::link(
                                     url('http://facebook.com/' . e($user->facebook)),
-                                    '<i class="fa fa-facebook fa-2x"></i>',
+                                    '<i class="fab fa-facebook-square fa-2x"></i>',
                                     [
                                         'class' => 'text-primary',
                                         'target' => '_blank',
@@ -64,7 +64,7 @@
                             <li class="list-inline-item">
                                 {!! Html::link(
                                     url('http://twitter.com/' . e($user->twitter)),
-                                    '<i class="fa fa-twitter fa-2x"></i>',
+                                    '<i class="fab fa-twitter-square fa-2x"></i>',
                                     [
                                         'class' => 'text-primary',
                                         'target' => '_blank',
@@ -121,7 +121,7 @@
                         <li class="list-inline-item">
                             {!! Html::link(
                                 url('http://facebook.com/' . e($user->facebook)),
-                                '<i class="fa fa-facebook fa-2x"></i>',
+                                '<i class="fab fa-facebook-square fa-2x"></i>',
                                 [
                                     'class' => 'text-primary',
                                     'target' => '_blank',
@@ -138,7 +138,7 @@
                         <li class="list-inline-item">
                             {!! Html::link(
                                 url('http://twitter.com/' . e($user->twitter)),
-                                '<i class="fa fa-twitter fa-2x"></i>',
+                                '<i class="fab fa-twitter-square fa-2x"></i>',
                                 [
                                     'class' => 'text-primary',
                                     'target' => '_blank',
@@ -203,62 +203,6 @@
                         @endif
                     @endif
                 </div>
-
-                @if ($user->articles->isNotEmpty())
-                    <div class="hr-divider">
-                        <h4 class="font-xeta text-xs-center">
-                            @if (Auth::user() && $user->id == Auth::id())
-                                Your latest Articles in the Blog
-                            @else
-                                His latest Articles in the Blog
-                            @endif
-                        </h4>
-                    </div>
-                    <table class="table table-profile">
-                        @foreach ($articles as $article)
-                            <tr>
-                                <td>
-                                    {!! Html::image($user->avatar_small, 'Avatar', ['class' => 'img-thumbnail avatar']) !!}
-                                    {!! Html::link($article->article_url, $article->title, ['class' => 'title text-primary']) !!}
-                                    <div>
-                                        {!! Markdown::convertToHtml(str_limit($article->content, 275)) !!}
-                                    </div>
-                                    <time>
-                                        Created at {{ $article->created_at->format('H:i:s Y-m-d') }}
-                                    </time>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
-                @endif
-
-                @if ($user->comments->isNotEmpty())
-                    <div class="hr-divider">
-                        <h4 class="font-xeta text-xs-center">
-                            @if (Auth::user() && $user->id == Auth::id())
-                                Your latest Comments in the Blog
-                            @else
-                                His latest Comments in the Blog
-                            @endif
-                        </h4>
-                    </div>
-                    <table class="table table-profile">
-                        @foreach ($comments as $comment)
-                            <tr>
-                                <td>
-                                    {!! Html::image($user->avatar_small, 'Avatar', ['class' => 'img-thumbnail avatar']) !!}
-                                    {!! Html::link($comment->comment_url, $comment->article->title, ['class' => 'title text-primary']) !!}
-                                    <div>
-                                        {!! Markdown::convertToHtml(str_limit($comment->content, 275)) !!}
-                                    </div>
-                                    <time>
-                                        Created at {{ $comment->created_at->format('H:i:s Y-m-d') }}
-                                    </time>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
-                @endif
             </section>
         </div>
     </div>

@@ -26,13 +26,6 @@
     </p>
     {!! Menu::{'admin.administration'}() !!}
 
-    @permission('manage.blog')
-        <p class="p-1 m-0 text-white font-xeta">
-            Blog
-        </p>
-        {!! Menu::{'admin.blog'}() !!}
-    @endpermission
-
     @permission('manage.discuss.categories')
         <p class="p-1 m-0 text-white font-xeta">
             Discuss

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => 'Start a discussion']) !!}
+{!! config(['app.title' => __('Start a discussion')]) !!}
 
 @push('style')
     {!! editor_css() !!}
@@ -39,17 +39,17 @@
         </div>
         <div class="col-md-9">
             <h3 class="text-xs-center">
-                Start a discussion
+                @lang('Start a discussion')
             </h3>
             {!! Form::open(['route' => 'discuss.conversation.create', 'method' => 'post']) !!}
 
                 {!! Form::bsText(
                     'title',
-                    'Title',
+                    __('Title'),
                     null,
                     [
                         'class' => 'form-control col-md-6',
-                        'placeholder' => 'Discussion title...',
+                        'placeholder' => __('Discussion title...'),
                         'required' => 'required',
                         'autofocus'
                     ]
@@ -58,14 +58,14 @@
                 {!! Form::bsSelect(
                     'category_id',
                     $categories,
-                    'Category',
+                    __('Category'),
                     1,
                     ['class' => 'form-control col-md-3', 'required' => 'required']
                 ) !!}
 
                 {!! Form::bsTextarea(
                     'content',
-                    'Content',
+                    __('Content'),
                     old('content'),
                     [
                         'class' => 'form-control',
@@ -78,7 +78,7 @@
                 @permission ('manage.discuss.conversations')
                     <div class="form-group">
                         <h5 class="text-muted">
-                            Moderation
+                            @lang('Moderation')
                         </h5>
                     </div>
 
@@ -86,7 +86,7 @@
                         'is_locked',
                         null,
                         0,
-                        'Check to lock this discussion',
+                        __('Check to lock this discussion'),
                         [
                             'label' => 'Is Locked ?',
                             'labelClass' => 'custom-control custom-checkbox d-block'
@@ -97,7 +97,7 @@
                         'is_pinned',
                         null,
                         0,
-                        'Check to pin this discussion',
+                        __('Check to pin this discussion'),
                         [
                             'label' => 'Is Pinned ?',
                             'labelClass' => 'custom-control custom-checkbox d-block'
@@ -107,7 +107,7 @@
 
                 <div class="form-group text-xs-center">
                     {!! Form::button(
-                        '<i class="fa fa-pencil" aria-hidden="true"></i> Start the Discussion',
+                        '<i class="fa fa-pencil" aria-hidden="true"></i> ' . __('Start the Discussion'),
                         ['type' => 'submit', 'class' => 'btn btn-outline-primary']
                     ) !!}
                 </div>

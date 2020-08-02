@@ -5,8 +5,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Xetaravel\Http\Components\AnalyticsComponent;
-use Xetaravel\Models\Article;
-use Xetaravel\Models\Comment;
 use Xetaravel\Models\User;
 
 class PageController extends Controller
@@ -75,16 +73,6 @@ class PageController extends Controller
             return User::count();
         });
         array_push($viewDatas, 'usersCount');
-
-        $articlesCount = Cache::remember('Analytics.articles.count', $secondes, function () {
-            return Article::count();
-        });
-        array_push($viewDatas, 'articlesCount');
-
-        $commentsCount = Cache::remember('Analytics.comments.count', $secondes, function () {
-            return Comment::count();
-        });
-        array_push($viewDatas, 'commentsCount');
 
         $breadcrumbs = $this->breadcrumbs;
         array_push($viewDatas, 'breadcrumbs');

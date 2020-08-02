@@ -23,14 +23,6 @@ class PermissionsTableSeed extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'Manage Blog',
-                'slug' => 'manage.blog',
-                'description' => 'The user can manage the blog.',
-                'is_deletable' => false,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'name' => 'Manage Roles',
                 'slug' => 'manage.roles',
                 'description' => 'The user can manage the roles.',

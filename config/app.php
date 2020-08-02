@@ -11,7 +11,7 @@ return [
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
     */
-    'name' => env('APP_NAME', 'Xetaravel'),
+    'name' => env('APP_NAME', 'ARK Division'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +91,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +174,8 @@ return [
         Xetaio\Editor\EditorServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Xetaio\Mentions\Providers\MentionServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
+        //Laravel\Socialite\SocialiteServiceProvider::class,
+        \SocialiteProviders\Manager\ServiceProvider::class,
 
         /*
          * Application Service Providers
@@ -186,7 +187,6 @@ return [
         Xetaravel\Providers\RouteServiceProvider::class,
         Xetaravel\Providers\FormServiceProvider::class,
         Xetaravel\Providers\MenuServiceProvider::class,
-        Xetaravel\Http\ViewComposers\BlogSidebarServiceProvider::class,
         Xetaravel\Http\ViewComposers\DiscussSidebarServiceProvider::class,
         Xetaravel\Http\ViewComposers\NotificationsServiceProvider::class,
     ],

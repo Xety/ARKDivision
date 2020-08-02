@@ -50,8 +50,9 @@ $gray-light:                #818a91 !default;
 $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
-//$brand-primary:             #9A54B1 !default;
-$brand-primary:             #f4645f !default;
+$brand-primary:             #0d9691 !default;
+$brand-secondary:             #1dfce9 !default;
+//$brand-primary:             #f4645f !default;
 $brand-success:             #5ccc5c !default;
 $brand-info:                #00c5ff !default;
 $brand-warning:             #ffa422 !default;
@@ -106,8 +107,8 @@ $scrollbar-width:           13px !default;
 // Selection
 //
 // Settings for the selection element
-$selection-background:      #f7a5a2 !default;
-$selection-color:           #506A85 !default;
+$selection-background:      #0b7b77 !default;
+$selection-color:           #fff !default;
 
 
 // Body
@@ -140,6 +141,7 @@ $section-border-color: #e1e8ed !default;
 $link-color:            $brand-primary !default;
 $link-decoration:       none !default;
 $link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color-secondary:      darken($brand-secondary, 15%) !default;
 $link-hover-decoration: none !default;
 
 
@@ -188,12 +190,11 @@ $grid-gutter-widths: (
 // Typography
 //
 // Font, line-height, and color for body text, headings, and more.
-
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-$font-family-serif:      Georgia, "Times New Roman", Times, serif !default;
-$font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-xeta:       'Poppins-Regular', sans-serif !default;
+$font-family-sans-serif: $font-family-xeta !default;
+$font-family-serif:      $font-family-xeta !default;
+$font-family-monospace:  $font-family-xeta !default;
 $font-family-base:       $font-family-sans-serif !default;
-$font-family-xeta:       'Miriam Libre', sans-serif !default;
 
 // Pixel value used to responsively scale all typography. Applied to the `<html>` element.
 $font-size-root: 16px !default;
@@ -337,9 +338,10 @@ $btn-block-spacing-y:            .5rem !default;
 $btn-toolbar-margin:             .5rem !default;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius:              $border-radius !default;
-$btn-border-radius-lg:           $border-radius-lg !default;
-$btn-border-radius-sm:           $border-radius-sm !default;
+$btn-border-radius-base:    90px !default;
+$btn-border-radius:             $btn-border-radius-base !default;
+$btn-border-radius-lg:        $btn-border-radius-base !default;
+$btn-border-radius-sm:      $btn-border-radius-base !default;
 
 
 // Forms
@@ -904,7 +906,7 @@ $close-text-shadow:           0 1px 0 #fff !default;
 $code-font-size:              80% !default;
 $code-padding-x:              .4rem !default;
 $code-padding-y:              .2rem !default;
-$code-color:                  #FF5D38 !default;
+$code-color:                  $brand-primary !default;
 $code-bg:                     #f0f0f0 !default;
 
 $kbd-color:                   #fff !default;

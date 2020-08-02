@@ -53,31 +53,19 @@ class UserController extends Controller
      */
     public function show(Request $request, string $slug)
     {
-        $user = User::with('articles', 'comments')
-            ->where('slug', Str::lower($slug))
-            ->first();
+        $user = User::where('slug', Str::lower($slug))->first();
 
         if (is_null($user)) {
             return redirect()
                 ->route('page.index')
                 ->with('danger', 'This user doesn\'t exist or has been deleted !');
         }
-        $articles = $user->articles()
-            ->latest()
-            ->take(config('xetaravel.pagination.user.articles_profile_page'))
-            ->get();
-
-        $comments = $user->comments()
-            ->latest()
-            ->take(config('xetaravel.pagination.user.comments_profile_page'))
-            ->get();
-
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             e($user->username),
             $user->profile_url
         );
 
-        return view('user.show', compact('user', 'articles', 'comments', 'breadcrumbs'));
+        return view('user.show', compact('user', 'breadcrumbs'));
     }
 
     /**

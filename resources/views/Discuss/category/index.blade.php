@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => 'All Categories']) !!}
+{!! config(['app.title' => __('All Categories')]) !!}
 
 @section('content')
 <div class="container pt-6 pb-0">
@@ -12,7 +12,7 @@
             <div class="discuss-new-discussion-btn text-xs-center text-md-left">
                 {{ link_to(
                     route('discuss.conversation.create'),
-                    '<i class="fa fa-pencil"></i> Start a Discussion',
+                    '<i class="fa fa-pencil"></i> ' . __('Start a Discussion'),
                     ['class' => 'btn btn-primary'],
                     true,
                     false
@@ -47,7 +47,7 @@
                                     </time>
                                 </a>
                             @else
-                                There's no conversation yet.
+                                @lang('There\'s no conversation yet.')
                             @endif
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                     <div class="col-md-12">
                         <div class="alert alert-primary" role="alert">
                             <i class="fa fa-exclamation" aria-hidden="true"></i>
-                            There's no categories yet.
+                            @lang('There\'s no categories yet.')
                         </div>
                     </div>
                 @endforelse

@@ -26,38 +26,38 @@
 
     {{-- Category Changed --}}
     @if ($log->type == 'category')
-        added the
+        @lang('added the')
         <a href="{{ route('discuss.category.show', ['slug' => $log->newCategory->slug, 'id' => $log->newCategory->id]) }}" class="tag tag-default text-white" style="background-color: {{ $log->newCategory->color }};">
             {{ $log->newCategory->title }}
         </a>
-        and removed
+        @lang('and removed')
         <a href="{{ route('discuss.category.show', ['slug' => $log->oldCategory->slug, 'id' => $log->oldCategory->id]) }}" class="tag tag-default text-white" style="background-color: {{ $log->oldCategory->color }};">
             {{ $log->oldCategory->title }}
         </a>
-        categories
+        @lang('categories')
         {!! $time !!}
 
     {{-- Title Changed --}}
     @elseif ($log->type == 'title')
-        changed the title from
+        @lang('changed the title from')
         <strong>{{ $log->data['old'] }}</strong>
-        to
+        @lang('to')
         <strong>{{ $log->data['new'] }}</strong>
         {!! $time !!}
 
     {{-- Conversation Locked --}}
     @elseif ($log->type == 'locked')
-        locked the discussion
+        @lang('locked the discussion')
         {!! $time !!}
 
     {{-- Conversation Pinned --}}
     @elseif ($log->type == 'pinned')
-        pinned the discussion
+        @lang('pinned the discussion')
         {!! $time !!}
 
     {{-- Post Deleted --}}
     @elseif ($log->type == 'deleted')
-        deleted a comment from
+        @lang('deleted a comment from')
         <discuss-user
             :user="{{ json_encode($log->postUser) }}"
             :created-at="{{ var_export($log->postUser->created_at->diffForHumans()) }}"

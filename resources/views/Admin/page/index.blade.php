@@ -5,7 +5,7 @@
 <main class="col-sm-12 col-md-10 offset-md-2 p-2">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12 mb-2">
-            <div class="widget widget-stats bg-primary">
+            <div class="widget widget-stats bg-info">
 	            <div class="stats-icon">
                     <i class="fa fa-users fa-fw"></i>
                 </div>
@@ -29,10 +29,10 @@
                     <i class="fa fa-newspaper-o fa-fw"></i>
                 </div>
 	            <div class="stats-title">
-                    ARTICLES
+                    CONVERSATIONS
                 </div>
 	            <div class="stats-number">
-                    {{ $articlesCount }}
+                    10
                 </div>
                 <div class="stats-progress">
                 </div>
@@ -48,10 +48,10 @@
                     <i class="fa fa-comments-o fa-fw"></i>
                 </div>
 	            <div class="stats-title">
-                    COMMENTS
+                    POSTS
                 </div>
 	            <div class="stats-number">
-                    {{ $commentsCount }}
+                   50
                 </div>
                 <div class="stats-progress">
                 </div>

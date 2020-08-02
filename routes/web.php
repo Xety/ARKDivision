@@ -23,10 +23,10 @@ Route::group([
     'namespace' => 'Auth',
     'middleware' => 'permission:access.site,allowGuest'
 ], function () {
-    Route::get('{driver}/{type}', 'SocialiteController@redirectToProvider')
-        ->name('auth.driver.type');
-    Route::get('{driver}/{type}/callback', 'SocialiteController@handleProviderCallback')
-        ->name('auth.driver.type.callback');
+    Route::get('{driver}', 'SocialiteController@redirectToProvider')
+        ->name('auth.driver');
+    Route::get('{driver}/callback', 'SocialiteController@handleProviderCallback')
+        ->name('auth.driver.callback');
     Route::get('{driver}/register/form', 'SocialiteController@showRegistrationForm')
         ->name('auth.driver.register');
     Route::post('{driver}/register/validate', 'SocialiteController@register')
@@ -85,37 +85,5 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
             ->name('users.notification.markallasread');
         Route::delete('notification/delete/{slug}', 'NotificationController@delete')
             ->name('users.notification.delete');
-    });
-});
-
-/*
-|--------------------------------------------------------------------------
-| Blog Routes
-|--------------------------------------------------------------------------
-*/
-Route::group([
-    'namespace' => 'Blog',
-    'prefix' => 'blog',
-    'middleware' => ['permission:access.site,allowGuest']
-], function () {
-
-    // Article Routes
-    Route::get('/', 'ArticleController@index')
-        ->name('blog.article.index');
-    Route::get('article/{slug}.{id}', 'ArticleController@show')
-        ->name('blog.article.show');
-
-    // Category Routes
-    Route::get('category/{slug}.{id}', 'CategoryController@show')
-        ->name('blog.category.show');
-
-    // Comment Routes
-    Route::get('comment/show/{id}', 'CommentController@show')
-        ->name('blog.comment.show');
-
-    Route::group(['middleware' => ['auth']], function () {
-        // Comment Routes
-        Route::post('comment/create', 'CommentController@create')
-        ->name('blog.comment.create');
     });
 });

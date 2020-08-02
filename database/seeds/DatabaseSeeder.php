@@ -15,11 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeed::class);
         $this->call(AccountsTableSeed::class);
 
-        // Blog
-        $this->call(CategoriesTableSeed::class);
-        $this->call(ArticlesTableSeed::class);
-        $this->call(CommentsTableSeed::class);
-
         // Permissions
         $this->call(RolesTableSeed::class);
         $this->call(PermissionsTableSeed::class);

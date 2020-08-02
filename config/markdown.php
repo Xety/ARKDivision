@@ -41,7 +41,7 @@ return [
     'extensions' => [
         League\CommonMark\Ext\TaskList\TaskListExtension::class,
         Xetaravel\Markdown\Emoji\EmojiExtension::class,
-        Xetaravel\Markdown\Reply\ReplyExtension::class,
+        //Xetaravel\Markdown\Reply\ReplyExtension::class,
         Xetaravel\Markdown\Table\TableExtension::class
     ],
 

@@ -3,14 +3,10 @@
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
 @font-face {
-	font-family: "Miriam Libre";
+	font-family: "Poppins-Regular";
     font-weight: normal;
     font-style: normal;
-	src: url("../../fonts/MiriamLibre-Regular.eot") format("eot"),
-		 url("../../fonts/MiriamLibre-Regular.woff2") format("woff2"),
-		 url("../../fonts/MiriamLibre-Regular.woff") format("woff"),
-		 url("../../fonts/MiriamLibre-Regular.ttf") format("truetype"),
-		 url("../../fonts/MiriamLibre-Regular.svg") format("svg");
+	src: url("../../fonts/Poppins-Regular.ttf") format("truetype");
 }
 
 .fixed-top {

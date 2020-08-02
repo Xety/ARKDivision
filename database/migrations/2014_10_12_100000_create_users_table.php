@@ -19,9 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 50)->unique()->index();
             $table->string('password')->nullable();
             $table->string('slug', 20)->unique();
-            $table->string('github_id')->nullable()->unique();
-            $table->integer('comment_count')->unsigned()->default(0);
-            $table->integer('article_count')->unsigned()->default(0);
+            $table->string('discord_id')->nullable()->unique();
             $table->integer('discuss_conversation_count')->default(0);
             $table->integer('discuss_post_count')->default(0);
             $table->integer('experiences_total')->default(0);

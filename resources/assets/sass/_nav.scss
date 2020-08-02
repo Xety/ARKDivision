@@ -1,3 +1,44 @@
+.navbar {
+    background-image: url("http://ark-division.fr/wp-content/uploads/background-entete-home-ark-division-france.jpg");
+    background-position: center center;
+
+    .nav-item {
+        padding: 20px 0;
+    }
+
+    .navbar-text {
+        padding: 30px 0;
+        color: $white;
+
+        a {
+            color: $brand-secondary;
+
+            @include hover-focus {
+                color: $link-hover-color-secondary;
+                text-decoration: $link-hover-decoration;
+            }
+        }
+    }
+
+    .navbar-header {
+        a {
+            color: $white;
+
+            @include hover-focus {
+                color: $brand-secondary;
+            }
+        }
+    }
+}
+
+.navbar-nav {
+    .nav-link-menu {
+        color: $white;
+        text-transform: none;
+        font-size: 18px;
+    }
+}
+
 .nav-menu {
   @include clearfix();
 
@@ -49,91 +90,96 @@
 }
 
 .navbar-notifications {
-  .dropdown-toggle {
-    font-size: 19px;
-    padding-top: .325rem;
-    padding-bottom: .325rem;
-    display: inline-block;
+    padding: 23px 0;
+        a {
+            color: $white;
+        }
 
-    &:before {
-      content: attr(data-number);
-      font-size: 8px;
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      font-weight: bold;
-      color: $brand-primary;
-      z-index: 2;
+    .dropdown-toggle {
+        font-size: 19px;
+        padding-top: .325rem;
+        padding-bottom: .325rem;
+        display: inline-block;
+
+        &:before {
+        content: attr(data-number);
+        font-size: 8px;
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        font-weight: bold;
+        color: $brand-primary;
+        z-index: 2;
+        }
+
+        &:after {
+        content: none;
+        }
+
+        i {
+        font-weight: bold;
+        }
     }
 
-    &:after {
-      content: none;
+    .dropdown-menu {
+        max-width: 400px;
+
+        button {
+        font-size: 0.8em;
+        cursor: pointer;
+        }
     }
 
-    i {
-      font-weight: bold;
+    .dropdown-item {
+        position: relative;
+        min-width: 390px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: $body-color;
+        border-top: 1px dashed rgba(0, 0, 0, 0.1);
+
+        &:hover .markasread {
+        opacity: 1;
+        right: -98px;
+        top: 25px;
+        visibility: visible;
+        }
+
+        &:first-child,
+        &:last-child,
+        &:nth-child(3) {
+        border-top: none;
+        }
+
+        .message {
+        white-space: initial;
+        font-size: .9em;
+        }
+
+        img {
+        width: 45px;
+        height: 45px;
+        }
+
+        i {
+        vertical-align: middle;
+        }
+
+        .markasread {
+        position: absolute;
+        display: inline-block;
+        right: 0;
+        visibility: hidden;
+        opacity: 0;
+        padding: 5px 10px;
+        background-color: #fff;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-color: #fff;
+        border-radius: $border-radius;
+        color: $brand-primary;
+        transition: opacity .3s ease-in, visibility 0s linear;
+        }
     }
-  }
-
-  .dropdown-menu {
-    max-width: 400px;
-
-    button {
-      font-size: 0.8em;
-      cursor: pointer;
-    }
-  }
-
-  .dropdown-item {
-    position: relative;
-    min-width: 390px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: $body-color;
-    border-top: 1px dashed rgba(0, 0, 0, 0.1);
-
-    &:hover .markasread {
-      opacity: 1;
-      right: -98px;
-      top: 25px;
-      visibility: visible;
-    }
-
-    &:first-child,
-    &:last-child,
-    &:nth-child(3) {
-      border-top: none;
-    }
-
-    .message {
-      white-space: initial;
-      font-size: .9em;
-    }
-
-    img {
-      width: 45px;
-      height: 45px;
-    }
-
-    i {
-      vertical-align: middle;
-    }
-
-    .markasread {
-      position: absolute;
-      display: inline-block;
-      right: 0;
-      visibility: hidden;
-      opacity: 0;
-      padding: 5px 10px;
-      background-color: #fff;
-      border: 2px solid rgba(0, 0, 0, 0.15);
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-left-color: #fff;
-      border-radius: $border-radius;
-      color: $brand-primary;
-      transition: opacity .3s ease-in, visibility 0s linear;
-    }
-  }
 }

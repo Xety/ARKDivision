@@ -14,7 +14,7 @@ return [
         'github_url' => 'https://github.com/XetaIO/Xetaravel',
         'contact_email' => 'contact@xeta.io',
         'analytics_tracker_code' => 'UA-40328289-2',
-        'full_url' => 'https://xetaravel.xeta.io',
+        'full_url' => 'https://discuss.ark-division.fr',
     ],
 
     /*
@@ -25,10 +25,6 @@ return [
     | All pagination settings used to paginate the queries.
     */
     'pagination' => [
-        'blog' => [
-            'article_per_page' => 10,
-            'comment_per_page' => 10
-        ],
         'notification' => [
             'notification_per_page' => 10
         ],
@@ -52,24 +48,9 @@ return [
     */
     'flood' => [
        'general' => 30,
-       'blog' => [
-           'comment' => 30
-        ],
         'discuss' => [
             'conversation' => 60
         ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Blog
-    |--------------------------------------------------------------------------
-    |
-    | All blog settings.
-     */
-    'blog' => [
-        'categories_sidebar' => 25,
-        'articles_sidebar' => 5
     ],
 
     /*

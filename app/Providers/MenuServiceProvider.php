@@ -46,23 +46,6 @@ class MenuServiceProvider extends ServiceProvider
                 ->setActiveFromRequest('/admin');
         });
 
-        Menu::macro('admin.blog', function () {
-            return Menu::new()
-                ->addClass('nav nav-pills flex-column mb-0')
-                ->setAttribute('role', 'navigation')
-                ->add(
-                    Link::toRoute('admin.blog.article.index', '<i class="fa fa-newspaper-o"></i> Manage Articles')
-                        ->addClass('nav-link')
-                        ->addParentClass('nav-item')
-                )
-                ->add(
-                    Link::toRoute('admin.blog.category.index', '<i class="fa fa-tags"></i> Manage Categories')
-                        ->addClass('nav-link')
-                        ->addParentClass('nav-item')
-                )
-                ->setActiveFromRequest();
-        });
-
         Menu::macro('admin.discuss', function () {
             return Menu::new()
                 ->addClass('nav nav-pills flex-column mb-0')

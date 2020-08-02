@@ -17,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // View
         View::addNamespace('Admin', base_path() . '/resources/views/Admin');
-        View::addNamespace('Blog', base_path() . '/resources/views/Blog');
         View::addNamespace('Auth', base_path() . '/resources/views/Auth');
         View::addNamespace('Discuss', base_path() . '/resources/views/Discuss');
 

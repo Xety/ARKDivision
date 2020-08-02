@@ -1,12 +1,11 @@
 {
-    "/js/xetaravel.admin.min.js": "/js/xetaravel.admin.min.js?id=82594948b0f8cfa6a58f",
-    "/css/xetaravel.min.css": "/css/xetaravel.min.css?id=7d767903b050a872d814",
-    "/css/xetaravel.admin.min.css": "/css/xetaravel.admin.min.css?id=e240d48509fb9df773cf",
-    "/css/bootstrap.min.css": "/css/bootstrap.min.css?id=f319e9b0b89f8a76e156",
-    "/css/bootstrap.plugins.min.css": "/css/bootstrap.plugins.min.css?id=3833fd411e8e769b82a1",
-    "/css/font-awesome.min.css": "/css/font-awesome.min.css?id=be72b7dbf6af64169252",
-    "/css/editor-md.custom.min.css": "/css/editor-md.custom.min.css?id=21cfdfaf1ade6ba3d4e0",
-    "/js/xetaravel.min.js": "/js/xetaravel.min.js?id=27e032fe879fb258610b",
-    "/js/lib.min.js": "/js/lib.min.js?id=d7c980ab8196d867d72c",
+    "/js/xetaravel.admin.min.js": "/js/xetaravel.admin.min.js?id=7a5f25abdf4955f16649",
+    "/css/xetaravel.min.css": "/css/xetaravel.min.css?id=670f34146408dfd64b17",
+    "/css/xetaravel.admin.min.css": "/css/xetaravel.admin.min.css?id=3506af020ccacd4a2dbe",
+    "/css/bootstrap.min.css": "/css/bootstrap.min.css?id=587c79043f71cb7a440e",
+    "/css/bootstrap.plugins.min.css": "/css/bootstrap.plugins.min.css?id=7e5ff599490f00310ac6",
+    "/css/editor-md.custom.min.css": "/css/editor-md.custom.min.css?id=2cffdb36fd05fd360775",
+    "/js/xetaravel.min.js": "/js/xetaravel.min.js?id=439a9899db9e24c6f305",
+    "/js/lib.min.js": "/js/lib.min.js?id=0c9937360db3de36155c",
     "/js/highlight.min.js": "/js/highlight.min.js?id=50228c80fa9a82afb8b4"
 }

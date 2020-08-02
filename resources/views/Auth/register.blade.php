@@ -39,15 +39,6 @@
                         {!! Form::button('<i class="fa fa-user-plus" aria-hidden="true"></i> Register', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
                     </div>
                     <div class="col-md-12">
-                        {!! link_to(
-                            route('auth.driver.type', ['driver' => 'github', 'type' => 'register']),
-                            'Register with Github <i class="fa fa-github"></i>',
-                            ['class' => 'btn btn-outline-secondary'],
-                            true,
-                            false
-                        )!!}
-                    </div>
-                    <div class="col-md-12">
                         <a class="btn btn-link" href="{{ route('users.auth.login') }}">
                             Already an account?
                         </a>

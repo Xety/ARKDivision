@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Comments from './components/Comments.vue'
 import Notifications from './components/Notifications.vue'
 import UsersNotifications from './components/UsersNotifications.vue'
 
@@ -13,7 +12,6 @@ const app = new Vue({
     el: '#app-vue',
 
     components: {
-        Comments,
         Notifications,
         UsersNotifications,
 
@@ -98,11 +96,11 @@ const app = new Vue({
             if (this.hasUnreadNotifs) {
                 this.$refs.toggle_notifications.setAttribute("data-number", '(' + this.unreadNotificationsCount + ')');
                 this.$refs.toggle_icon_notifications.classList.add('animated', 'infinite', 'ringing');
-                this.$refs.toggle_icon_notifications.classList.remove('text-body');
+                //this.$refs.toggle_icon_notifications.classList.remove('text-body');
             } else {
                 this.$refs.toggle_notifications.removeAttribute('data-number');
                 this.$refs.toggle_icon_notifications.classList.remove('animated', 'infinite', 'ringing');
-                this.$refs.toggle_icon_notifications.classList.add('text-body');
+                //this.$refs.toggle_icon_notifications.classList.add('text-body');
             }
         },
 

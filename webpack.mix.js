@@ -30,7 +30,6 @@ mix.scripts([
         'resources/assets/js/libs/tether.min.js',
         'resources/assets/js/libs/bootstrap.min.js',
         'resources/assets/js/libs/jasny-bootstrap.min.js',
-        'resources/assets/js/libs/particles.min.js',
         'resources/assets/js/libs/prism.min.js',
         'resources/assets/js/libs/scrollup.min.js',
         'resources/assets/js/libs/raphael.min.js',

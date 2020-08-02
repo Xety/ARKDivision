@@ -45,7 +45,7 @@ class User extends Model implements
         'email',
         'password',
         'slug',
-        'github_id',
+        'discord_id',
         'register_ip',
         'last_login_ip',
         'last_login'
