@@ -33,5 +33,10 @@ class DatabaseSeeder extends Seeder
 
         // Experiences & Rubies
         $this->call(ExperiencesTableSeed::class);
+
+        // Servers & Statutes
+        $this->call(ServersTableSeed::class);
+        $this->call(StatutesTableSeed::class);
+        $this->call(ServerStatusTableSeed::class);
     }
 }
