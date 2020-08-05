@@ -14,7 +14,6 @@
         <!-- Styles -->
         <link href="{{ mix('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ mix('css/bootstrap.plugins.min.css') }}" rel="stylesheet">
-        <link href="{{ mix('css/font-awesome.min.css') }}" rel="stylesheet">
         <link href="{{ mix('css/xetaravel.min.css') }}" rel="stylesheet">
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -38,5 +37,7 @@
 
         <!-- Footer -->
         @include('elements.footer')
+
+        <script src="https://kit.fontawesome.com/61f38896f8.js" crossorigin="anonymous"></script>
     </body>
 </html>

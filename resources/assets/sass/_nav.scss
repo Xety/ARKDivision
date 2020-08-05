@@ -103,12 +103,13 @@
 
         &:before {
         content: attr(data-number);
+        font-family: Segoe UI;
         font-size: 8px;
         position: absolute;
-        top: -3px;
+        top: 18px;
         left: -3px;
         font-weight: bold;
-        color: $brand-primary;
+        color: $brand-danger;
         z-index: 2;
         }
 
@@ -117,7 +118,11 @@
         }
 
         i {
-        font-weight: bold;
+        font-weight: normal;
+
+        &.ringing {
+          color: $brand-danger;
+        }
         }
     }
 

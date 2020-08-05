@@ -23,8 +23,8 @@ Route::group([
     'namespace' => 'Auth',
     'middleware' => 'permission:access.site,allowGuest'
 ], function () {
-    Route::get('{driver}', 'SocialiteController@redirectToProvider')
-        ->name('auth.driver');
+    Route::get('{driver}/redirect', 'SocialiteController@redirectToProvider')
+        ->name('auth.driver.redirect');
     Route::get('{driver}/callback', 'SocialiteController@handleProviderCallback')
         ->name('auth.driver.callback');
     Route::get('{driver}/register/form', 'SocialiteController@showRegistrationForm')

@@ -6,6 +6,7 @@
 .env
 .env.testing
 .directory
+.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 composer.lock
@@ -28,5 +29,5 @@ vagrant-ssh.bat
 /public/tests
 /public/mix.*.js
 /storage/*.key
-/storage/medialibrary
+/storage/media-library
 /vendor

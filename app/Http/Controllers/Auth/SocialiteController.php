@@ -43,11 +43,16 @@ class SocialiteController extends Controller
      * @param \Illuminate\Http\Request $request The request object.
      * @param string $driver The driver used.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function showRegistrationForm(Request $request, string $driver): View
+    public function showRegistrationForm(Request $request, string $driver)
     {
-        return view('Auth.socialite');
+        if (is_null($request->session()->get('socialite.driver'))) {
+            return redirect()
+                ->route('users.auth.login')
+                ->with('danger', "You are not authorized to view this page !");
+        }
+        return view('Auth.socialite', compact('driver'));
     }
 
     /**
@@ -122,11 +127,11 @@ class SocialiteController extends Controller
         }
 
         // Check if the user is already registered
-        if (!$user = User::where($driver . '_id', $user->id)->first()) {
-            $user = $this->handleRegister($request, $user);
+        if (!$member = User::where($driver . '_id', $user->id)->first()) {
+            $member = $this->handleRegister($request, $user);
         }
 
-        return $this->login($request, $user);
+        return $this->login($request, $member);
     }
 
     /**

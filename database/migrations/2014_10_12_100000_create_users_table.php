@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('discord_id')->nullable()->unique();
             $table->integer('discuss_conversation_count')->default(0);
             $table->integer('discuss_post_count')->default(0);
-            $table->integer('experiences_total')->default(0);
-            $table->integer('rubies_total')->default(0);
+            $table->unsignedInteger('experiences_total')->default(0);
+            $table->unsignedInteger('rubies_total')->default(0);
+            $table->unsignedInteger('rewards_count')->default(0);
             $table->rememberToken();
             $table->ipAddress('register_ip');
             $table->ipAddress('last_login_ip')->nullable();

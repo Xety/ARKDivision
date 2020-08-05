@@ -10,11 +10,11 @@
                 @lang('There are some errors while registering your account. Please fix these errors before to continue.')
             </div>
             <h2 class="text-xs-center font-xeta mt-2">
-                @lang('Register with :discord', ['discord' => title_case(session('socialite.driver'))])
+                @lang('Register with :driver', ['driver' => Str::title($driver)])
             </h2>
         </div>
         <div class="col-md-4 offset-md-4">
-            {!! Form::open(['route' => ['auth.driver.register.validate', 'driver' => session('socialite.driver')]]) !!}
+            {!! Form::open(['route' => ['auth.driver.register.validate', 'driver' => $driver]]) !!}
                 {!! Form::bsText('username', __('Username'), old('username'), [
                     'placeholder' => __('Your Username...'),
                     'required' => 'required',

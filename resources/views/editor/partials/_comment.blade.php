@@ -1,31 +1,31 @@
 <script type="text/javascript">
-var _{{ array_get($config, 'id', 'myeditor') }};
+var _{{ Arr::get($comment, 'id', 'myeditor') }};
 $(function() {
     editormd.emoji = {
-        path : "{{ config('app.url') . array_get($config, 'emojiPath', config('editor.emojiPath')) }}",
+        path : "{{ config('app.url') . Arr::get($comment, 'emojiPath', config('editor.emojiPath')) }}",
         ext : ".png"
     };
     editormd.urls = {
-        atLinkBase : "{{ route('users.user.show', ['slug' => ''], false) }}"
+        atLinkBase : "{{ URL::route('users.user.show', false) }}"
     };
-    _{{ array_get($config, 'id', 'myeditor') }} = editormd({
-        id : "{{ array_get($config, 'id', 'myeditor') }}",
-        width : "{{ array_get($config, 'width', config('editor.width')) }}",
-        height : "{{ array_get($config, 'height', config('editor.height')) }}",
-        saveHTMLToTextarea : {{ array_get($config, 'saveHTMLToTextarea', config('editor.saveHTMLToTextarea')) }},
-        emoji : {{ array_get($config, 'emoji', config('editor.emoji')) }},
-        taskList : {{ array_get($config, 'taskList', config('editor.taskList')) }},
-        tex : {{ array_get($config, 'tex', config('editor.tex')) }},
-        toc : {{ array_get($config, 'toc', config('editor.toc')) }},
-        tocm : {{ array_get($config, 'tocm', config('editor.tocm')) }},
-        codeFold : {{ array_get($config, 'codeFold', config('editor.codeFold')) }},
-        flowChart: {{ array_get($config, 'flowChart', config('editor.flowChart')) }},
-        sequenceDiagram: {{ array_get($config, 'sequenceDiagram', config('editor.sequenceDiagram')) }},
-        path : "{{ array_get($config, 'path', config('editor.path')) }}",
-        imageUpload : {{ array_get($config, 'imageUpload', config('editor.imageUpload')) }},
-        imageFormats : {!! array_get($config, 'imageFormats', json_encode(config('editor.imageFormats'))) !!},
-        imageUploadURL : "{{ array_get($config, 'imageUploadURL', config('editor.imageUploadURL')) }}?_token={{ csrf_token() }}&from=xetaravel-editor-md",
-        pluginPath : "{{ asset(array_get($config, 'pluginPath', config('editor.pluginPath'))) }}/",
+    _{{ Arr::get($comment, 'id', 'myeditor') }} = editormd({
+        id : "{{ Arr::get($comment, 'id', 'myeditor') }}",
+        width : "{{ Arr::get($comment, 'width', config('editor.width')) }}",
+        height : "{{ Arr::get($comment, 'height', config('editor.height')) }}",
+        saveHTMLToTextarea : {{ Arr::get($comment, 'saveHTMLToTextarea', config('editor.saveHTMLToTextarea')) }},
+        emoji : {{ Arr::get($comment, 'emoji', config('editor.emoji')) }},
+        taskList : {{ Arr::get($comment, 'taskList', config('editor.taskList')) }},
+        tex : {{ Arr::get($comment, 'tex', config('editor.tex')) }},
+        toc : {{ Arr::get($comment, 'toc', config('editor.toc')) }},
+        tocm : {{ Arr::get($comment, 'tocm', config('editor.tocm')) }},
+        codeFold : {{ Arr::get($comment, 'codeFold', config('editor.codeFold')) }},
+        flowChart: {{ Arr::get($comment, 'flowChart', config('editor.flowChart')) }},
+        sequenceDiagram: {{ Arr::get($comment, 'sequenceDiagram', config('editor.sequenceDiagram')) }},
+        path : "{{ Arr::get($comment, 'path', config('editor.path')) }}",
+        imageUpload : {{ Arr::get($comment, 'imageUpload', config('editor.imageUpload')) }},
+        imageFormats : {!! Arr::get($comment, 'imageFormats', json_encode(config('editor.imageFormats'))) !!},
+        imageUploadURL : "{{ Arr::get($comment, 'imageUploadURL', config('editor.imageUploadURL')) }}?_token={{ csrf_token() }}&from=xetaravel-editor-md",
+        pluginPath : "{{ asset(Arr::get($comment, 'pluginPath', config('editor.pluginPath'))) }}/",
         watch : false,
         editorTheme : 'mdn-like',
         placeholder : 'Type your comment here...',
