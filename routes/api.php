@@ -23,7 +23,7 @@ use Illuminate\Http\Request;
 | API Routes
 |--------------------------------------------------------------------------
 */
-Route::domain('api.arkdivision.io')->group(function () {
+Route::domain(env('APP_API_URL'))->group(function () {
     //Route::get('/', 'PageController@index')->name('api.v1.page.index');
     /*Route::fallback(function () {
         return response()->json([
