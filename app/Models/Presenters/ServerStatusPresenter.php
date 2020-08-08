@@ -7,20 +7,18 @@ trait ServerStatusPresenter
 {
 
     /**
-     * Get whatever the statut is expired or not.
+     * Get whatever the status is expired or not.
      *
      * @return boolean
      */
-    public function getIsExpired(): bool
+    public function getIsExpiredAttribute(): bool
     {
-        if ($this->event_type != 'discord') {
-            return false;
+        // Only 'discord' type can be expirable.
+        if ($this->event_type == 'cron') {
+            return true;
         }
 
-        if (is_null($this->finished_at)) {
-            return false;
-        }
-
+        // Check if the 'created_date' is at least 20 minutes old.
         if ($this->created_at > Carbon::now()->subMinutes(20)) {
             return false;
         }

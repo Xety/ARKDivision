@@ -1,16 +1,26 @@
 <?php
 namespace Xetaravel\Models;
 
-use Eloquence\Behaviours\Sluggable;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Xetaravel\Models\Presenters\ServerPresenter;
+use Xetaravel\Models\Scopes\DisplayScope;
+use Xetaravel\Models\Relations\HasManySyncable;
 
 class Server extends Model implements HasMedia
 {
-    use InteractsWithMedia,
-        Sluggable;
+    use ServerPresenter,
+        InteractsWithMedia;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -18,7 +28,10 @@ class Server extends Model implements HasMedia
      * @var array
      */
     protected $hidden = [
-        'password'
+        'ip',
+        'rcon_port',
+        'password',
+        'media'
     ];
 
     /**
@@ -27,10 +40,11 @@ class Server extends Model implements HasMedia
      * @var array
      */
     protected $appends = [
+        'status',
         // Media Model
-        'server_small',
-        'server_medium',
-        'server_big'
+        'image_small',
+        'image_medium',
+        'image_big'
     ];
 
     /**
@@ -49,13 +63,13 @@ class Server extends Model implements HasMedia
     }
 
     /**
-     * Return the field to slug.
+     * The "booted" method of the model.
      *
-     * @return string
+     * @return void
      */
-    public function slugStrategy(): string
+    protected static function booted()
     {
-        return 'name';
+        static::addGlobalScope(new DisplayScope);
     }
 
     /**
@@ -86,9 +100,62 @@ class Server extends Model implements HasMedia
 
     /**
      * The statutes that belong to the server.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function statutes()
     {
-        return $this->belongsToMany(Status::class)->using(ServerStatus::class)->withTimestamps();
+        return $this
+            ->belongsToMany(Status::class)
+            ->using(ServerStatus::class)
+            ->withPivot([
+                'id',
+                'event_type',
+                'was_forced',
+                'finished_at'
+            ])
+            ->withTimestamps();
+    }
+
+    /**
+     * Get the users for the server.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    /*public function users()
+    {
+        return $this->hasMany(User::class, 'user_id', 'id');
+    }*/
+
+    /**
+     * Get the players for the server.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function players()
+    {
+        return $this->hasMany(ServerUser::class);
+    }
+
+    /**
+     * Overrides the default Eloquent hasMany relationship to return a HasManySyncable.
+     *
+     * {@inheritDoc}
+     * @return \Xetaravel\Models\Relations\HasManySyncable
+     */
+    public function hasMany($related, $foreignKey = null, $localKey = null)
+    {
+        $instance = $this->newRelatedInstance($related);
+
+        $foreignKey = $foreignKey ?: $this->getForeignKey();
+
+        $localKey = $localKey ?: $this->getKeyName();
+
+        return new HasManySyncable(
+            $instance->newQuery(),
+            $this,
+            $instance->getTable() . '.' . $foreignKey,
+            $localKey
+        );
     }
 }

@@ -18,7 +18,7 @@ class ServerStatusTableSeed extends Seeder
         $seversStatutes = [
             [
                 'server_id' => 1,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -27,7 +27,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 2,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -36,7 +36,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 3,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -45,7 +45,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 4,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -54,7 +54,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 5,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -63,7 +63,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 6,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -72,7 +72,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 7,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -81,7 +81,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 8,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -90,7 +90,7 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 9,
-                'status_id' => 2,
+                'status_id' => 3,
                 'event_type' => 'discord',
                 'was_forced' => false,
                 'finished_at' => null,
@@ -99,18 +99,18 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 10,
-                'status_id' => 3,
+                'status_id' => 4,
                 'event_type' => 'discord',
-                'was_forced' => false,
+                'was_forced' => true,
                 'finished_at' => Carbon::now(),
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
             [
                 'server_id' => 10,
-                'status_id' => 3,
+                'status_id' => 5,
                 'event_type' => 'cron',
-                'was_forced' => true,
+                'was_forced' => false,
                 'finished_at' => null,
                 'created_at' => Carbon::now()->subMinutes(45),
                 'updated_at' => Carbon::now()->subMinutes(45),

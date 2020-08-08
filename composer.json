@@ -18,9 +18,6 @@
     "require": {
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
-        "graham-campbell/markdown": "^13.0",
-        "kirkbushell/eloquence": "^4.0",
-        "kkomelin/laravel-translatable-string-exporter": "^1.10",
         "laravel/framework": "^7.0",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^2.0",
@@ -32,12 +29,16 @@
         "spatie/laravel-analytics": "^3.0",
         "spatie/laravel-medialibrary": "^8.0",
         "spatie/laravel-menu": "^3.0",
-        "xetaio/recaptcha": "^4.0",
         "xetaio/roles": "^7.0",
         "xetaio/xetaravel-editor-md": "^2.0",
         "xetaio/xetaravel-iptraceable": "^2.0",
         "xetaio/xetaravel-mentions": "^3.0",
-        "xety/breadcrumbs": "^1.0"
+        "xety/breadcrumbs": "^1.0",
+        "anhskohbo/no-captcha": "^3.0",
+        "graham-campbell/markdown": "^13.0",
+        "kirkbushell/eloquence": "^4.0",
+        "kkomelin/laravel-translatable-string-exporter": "^1.10",
+        "restcord/restcord": "^0.4"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

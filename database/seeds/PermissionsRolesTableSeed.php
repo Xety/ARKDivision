@@ -13,8 +13,8 @@ class PermissionsRolesTableSeed extends Seeder
      */
     public function run()
     {
-        // Admin Role
-        $role = Role::where('slug', 'administrator')->first();
+        // Développeur Role
+        $role = Role::where('slug', 'developpeur')->first();
         $role->attachPermission(Permission::where('slug', 'access.administration')->first());
         $role->attachPermission(Permission::where('slug', 'manage.users')->first());
         $role->attachPermission(Permission::where('slug', 'manage.roles')->first());
@@ -24,18 +24,25 @@ class PermissionsRolesTableSeed extends Seeder
         $role->attachPermission(Permission::where('slug', 'manage.discuss.posts')->first());
         $role->attachPermission(Permission::where('slug', 'access.site')->first());
 
-        // Editor Role
-        $role = Role::where('slug', 'editor')->first();
+        // Administrateur Role
+        $role = Role::where('slug', 'administrateur')->first();
         $role->attachPermission(Permission::where('slug', 'access.administration')->first());
+        $role->attachPermission(Permission::where('slug', 'manage.discuss')->first());
+        $role->attachPermission(Permission::where('slug', 'manage.discuss.conversations')->first());
+        $role->attachPermission(Permission::where('slug', 'manage.discuss.categories')->first());
         $role->attachPermission(Permission::where('slug', 'manage.discuss.posts')->first());
         $role->attachPermission(Permission::where('slug', 'access.site')->first());
 
-        // User Role
-        $role = Role::where('slug', 'user')->first();
+        // Membre Role
+        $role = Role::where('slug', 'membre')->first();
         $role->attachPermission(Permission::where('slug', 'access.site')->first());
 
-        // Banished Role
-        $role = Role::where('slug', 'banished')->first();
+        // Utilisateur Role
+        $role = Role::where('slug', 'utilisateur')->first();
+        $role->attachPermission(Permission::where('slug', 'access.site')->first());
+
+        // Banni Role
+        $role = Role::where('slug', 'banni')->first();
         $role->attachPermission(Permission::where('slug', 'show.banished')->first());
     }
 }

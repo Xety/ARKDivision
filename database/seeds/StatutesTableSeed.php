@@ -15,7 +15,6 @@ class StatutesTableSeed extends Seeder
     {
         $statutes = [
             [
-                'code' => 0,
                 'type' => 'starting',
                 'description' => 'Le serveur démarre',
                 'emoji' => '🔵',
@@ -23,7 +22,6 @@ class StatutesTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'code' => 1,
                 'type' => 'initializing',
                 'description' => 'Le serveur s\'initialise',
                 'emoji' => '🟡',
@@ -31,7 +29,6 @@ class StatutesTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'code' => 2,
                 'type' => 'started',
                 'description' => 'Le serveur est démarré',
                 'emoji' => '🟢',
@@ -39,7 +36,6 @@ class StatutesTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'code' => 3,
                 'type' => 'stopping',
                 'description' => 'Le serveur s\'arrête',
                 'emoji' => '🟠',
@@ -47,7 +43,6 @@ class StatutesTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'code' => 4,
                 'type' => 'stopped',
                 'description' => 'Le serveur est arrêté',
                 'emoji' => '🔴',

@@ -14,8 +14,7 @@ class CreateStatutesTable extends Migration
     public function up()
     {
         Schema::create('statutes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->smallInteger('code');
+            $table->increments('id')->unsigned();
             $table->string('type', 20);
             $table->text('description');
             $table->string('emoji', 50)->nullable();

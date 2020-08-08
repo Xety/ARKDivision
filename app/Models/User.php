@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Ultraware\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use Ultraware\Roles\Traits\HasRoleAndPermission;
 use Xetaravel\Models\Presenters\UserPresenter;
@@ -280,6 +281,16 @@ class User extends Model implements
     public function experiences()
     {
         return $this->hasMany(Experience::class);
+    }
+
+    /**
+     * Get the server for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function server()
+    {
+        return $this->hasOne(Server::class);
     }
 
     /**

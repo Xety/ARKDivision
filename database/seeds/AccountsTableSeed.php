@@ -16,16 +16,16 @@ class AccountsTableSeed extends Seeder
         $accounts = [
             [
                 'user_id' => 1,
-                'first_name' => 'Admin',
-                'last_name' => 'Istrator',
+                'first_name' => 'Emeric',
+                'last_name' => '',
                 'facebook' => 'AdminFB',
-                'twitter' => 'AdminTW',
+                'twitter' => 'FMT_ZoRo',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'user_id' => 2,
-                'first_name' => 'Editor',
+                'first_name' => 'Admin',
                 'last_name' => 'Name',
                 'facebook' => 'EditorFB',
                 'twitter' => 'EditorTW',

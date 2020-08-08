@@ -123,13 +123,13 @@ class ServersTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name' => 'ZMap Event',
-                'slug' => 'zmap-event',
+                'name' => 'ZMap Ragnarok',
+                'slug' => 'zmap-ragnarok',
                 'ip' => '149.202.89.195',
-                'rcon_port' => 32350,
-                'password' => 'bigeventserver',
+                'rcon_port' => 32348,
+                'password' => 'MbSzeAbvMUUVs6iF',
                 'color' => 'fffffe',
-                'emoji' => '<:the_island:737714241532067913>',
+                'emoji' => '<:ragnarok:737714090075750492>',
                 'is_display' => 0,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -140,7 +140,7 @@ class ServersTableSeed extends Seeder
 
         // Update servers image
         foreach ($servers as $server) {
-            $model = \Xetaravel\Models\Server::where('slug', $server['slug'])->first();
+            $model = \Xetaravel\Models\Server::withoutGlobalScopes()->where('slug', $server['slug'])->first();
             $model->addMedia(resource_path('assets/images/servers/' . $server['slug'] . '.png'))
                 ->preservingOriginal()
                 ->setName($server['name'])

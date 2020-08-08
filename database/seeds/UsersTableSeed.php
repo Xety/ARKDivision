@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UsersTableSeed extends Seeder
 {
@@ -15,10 +16,11 @@ class UsersTableSeed extends Seeder
     {
         $users = [
             [
-                'username' => 'Admin',
-                'email' => 'admin@xeta.io',
-                'password' => bcrypt('admin'),
-                'slug' => 'admin',
+                'username' => 'ZoRo',
+                'email' => 'zoro.fmt@gmail.com',
+                'password' => bcrypt('zoro'),
+                'slug' => 'zoro',
+                'api_token' => Str::random(80),
                 'discuss_conversation_count' => 1,
                 'discuss_post_count' => 1,
                 'experiences_total' => 90,
@@ -30,10 +32,11 @@ class UsersTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'username' => 'Editor',
-                'email' => 'editor@xeta.io',
-                'password' => bcrypt('editor'),
-                'slug' => 'editor',
+                'username' => 'Admin',
+                'email' => 'admin@division.io',
+                'password' => bcrypt('admin'),
+                'slug' => 'admin',
+                'api_token' => null,
                 'discuss_conversation_count' => 0,
                 'discuss_post_count' => 1,
                 'experiences_total' => 75,
@@ -45,10 +48,11 @@ class UsersTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'username' => 'Member',
-                'email' => 'member@xeta.io',
-                'password' => bcrypt('member'),
-                'slug' => 'member',
+                'username' => 'Membre',
+                'email' => 'membre@division.io',
+                'password' => bcrypt('membre'),
+                'slug' => 'membre',
+                'api_token' => null,
                 'discuss_conversation_count' => 0,
                 'discuss_post_count' => 0,
                 'experiences_total' => 0,
@@ -60,10 +64,27 @@ class UsersTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'username' => 'Banished',
-                'email' => 'banished@xeta.io',
-                'password' => bcrypt('banished'),
-                'slug' => 'banished',
+                'username' => 'Utilisateur',
+                'email' => 'utilisateur@division.io',
+                'password' => bcrypt('utilisateur'),
+                'slug' => 'utilisateur',
+                'api_token' => null,
+                'discuss_conversation_count' => 0,
+                'discuss_post_count' => 0,
+                'experiences_total' => 0,
+                'rubies_total' => 0,
+                'register_ip' => '127.0.0.1',
+                'last_login_ip' => '127.0.0.1',
+                'last_login' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'username' => 'Banni',
+                'email' => 'banni@division.io',
+                'password' => bcrypt('banni'),
+                'slug' => 'banni',
+                'api_token' => null,
                 'discuss_conversation_count' => 0,
                 'discuss_post_count' => 0,
                 'experiences_total' => 0,

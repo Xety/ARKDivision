@@ -14,7 +14,7 @@ class CreateServersTable extends Migration
     public function up()
     {
         Schema::create('servers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('name');
             $table->string('slug')->unique()->index();
             $table->ipAddress('ip');
@@ -22,6 +22,7 @@ class CreateServersTable extends Migration
             $table->string('password', 50)->nullable();
             $table->string('color', 7)->nullable();
             $table->string('emoji', 50)->nullable();
+            $table->unsignedInteger('user_count')->default(0);
             $table->boolean('is_display')->default(true);
             $table->timestamps();
         });

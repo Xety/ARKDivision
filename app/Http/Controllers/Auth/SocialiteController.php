@@ -128,10 +128,14 @@ class SocialiteController extends Controller
 
         // Check if the user is already registered
         if (!$member = User::where($driver . '_id', $user->id)->first()) {
-            $member = $this->handleRegister($request, $user);
+            $register = $this->handleRegister($request, $user);
         }
 
-        return $this->login($request, $member);
+        if ($register instanceof RedirectResponse) {
+            return $register;
+        }
+
+        return $this->login($request, $register);
     }
 
     /**
@@ -168,12 +172,12 @@ class SocialiteController extends Controller
 
         if ($validator->fails()) {
             $request->session()->put('socialite', [
-                'driver' => $driver,
+                'driver' => $this->driver,
                 'token' => $user->token
             ]);
 
             return redirect()
-                ->route('auth.driver.register', ['driver' => $driver])
+                ->route('auth.driver.register', ['driver' => $this->driver])
                 ->withErrors($validator)
                 ->withInput([
                     'username' => $user->user['username'],
