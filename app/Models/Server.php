@@ -19,7 +19,10 @@ class Server extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'slug',
+        'ip',
+        'rcon_port'
     ];
 
     /**

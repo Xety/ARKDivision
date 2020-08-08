@@ -3,7 +3,7 @@
 namespace Xetaravel\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use Xetaravel\Http\Resources\Server as ServerResource;
+use Xetaravel\Http\Resources\Json;
 use Xetaravel\Models\Server;
 
 class ServerController extends Controller
@@ -26,7 +26,7 @@ class ServerController extends Controller
      */
     public function show(Server $server)
     {
-        return new ServerResource($server);
+        return new Json($server);
     }
 
     /**

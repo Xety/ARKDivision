@@ -103,30 +103,12 @@ class RefreshServersStatutes extends Command
                 $tribe = $this->sendCommand($server, "GetTribeName " . trim($user[1]));
                 $ingame = $this->sendCommand($server, "GetPlayerName " . trim($user[1]));
 
-                /*$players = [
-                    'steam_id' => (int)trim($user[1]),
-                    //'server' => $server->id,
-                    'steam_name' => explode(". ", $user[0])[1],
-                    'ingame_name' => substr(trim(str_replace("Server received, But no response!!", "", $ingame)), 13),
-                    'tribe' => substr(trim(str_replace("Server received, But no response!!", "", $tribe)), 11),
-                ];*/
                 array_push($players, [
-                    //'id' => null,
-                    //'server_id' => $server->id,
-                    //'user_id' => null,
                     'steam_id' => (int)trim($user[1]),
                     'steam_name' => explode(". ", $user[0])[1],
                     'ingame_name' => substr(trim(str_replace("Server received, But no response!!", "", $ingame)), 13),
                     'tribe' => substr(trim(str_replace("Server received, But no response!!", "", $tribe)), 11),
                 ]);
-
-                /*$value = [
-                    'id' => (int)trim($user[1]),
-                    'server' => $server->id,
-                    'name' => explode(". ", $user[0])[1],
-                    'ingame' => substr(trim(str_replace("Server received, But no response!!", "", $ingame)), 13),
-                    'tribe' => substr(trim(str_replace("Server received, But no response!!", "", $tribe)), 11),
-                ];*/
             });
 
             $playersCount += count($users);
