@@ -25,7 +25,9 @@ class ServerStatusController extends Controller
     {
         $server = Server::where('slug', Str::slug($slug))->first();
 
-        if ($server->status->type == $request->input('type')) {
+        if (is_null($server) ||
+            $server->status->type == $request->input('type') ||
+            $request->input('type') == 'unknown') {
             return new Json([]);
         }
 

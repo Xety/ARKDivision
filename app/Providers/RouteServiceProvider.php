@@ -50,6 +50,13 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'web',
+            'namespace' => 'Xetaravel\Http\Controllers\Statut',
+        ], function ($router) {
+            require base_path('routes/statut.php');
+        });
+
+        Route::group([
+            'middleware' => 'web',
             'namespace' => $this->namespace ,
         ], function ($router) {
             require base_path('routes/web.php');

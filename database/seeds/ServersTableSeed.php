@@ -123,8 +123,8 @@ class ServersTableSeed extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name' => 'ZMap Ragnarok',
-                'slug' => 'zmap-ragnarok',
+                'name' => 'ZTest Ragnarok',
+                'slug' => 'ztest-ragnarok',
                 'ip' => '149.202.89.195',
                 'rcon_port' => 32348,
                 'password' => 'MbSzeAbvMUUVs6iF',

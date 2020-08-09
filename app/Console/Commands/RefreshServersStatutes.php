@@ -117,7 +117,6 @@ class RefreshServersStatutes extends Command
                 'id' => $server->id,
                 'name' => $server->name,
                 'players' => $players,
-                //'playersIds' => $usersIds,
                 'playersCount' => count($users)
             ]);
         }
@@ -130,9 +129,7 @@ class RefreshServersStatutes extends Command
         foreach ($data['servers'] as $serverStats) {
             $server = Server::where('id', $serverStats['id'])->first();
 
-            if (!empty($serverStats['players'])) {
-                $server->players()->sync($serverStats['players']);
-            }
+            $server->players()->sync($serverStats['players']);
         }
 
         $end = microtime(true);
