@@ -168,6 +168,15 @@
                 border-color: #0a6763;
             }
 
+            .dot {
+                height: 20px;
+                width: 20px;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                vertical-align: sub;
+                }
+
         </style>
 
     </head>

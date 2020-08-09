@@ -53,7 +53,7 @@ class ServerUser extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class, 'steam_id', 'steam_id');
     }
 
     /**

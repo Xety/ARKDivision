@@ -657,8 +657,8 @@ $mark-bg:                        $state-warning-text !default;
 $state-warning-border:           $state-warning-bg !default;
 
 $state-danger-text:              #fff !default;
-$state-danger-bg:                $state-primary-bg !default;
-$state-danger-border:            $state-primary-bg !default;
+$state-danger-bg:                $brand-danger !default;
+$state-danger-border:            $state-danger-bg !default;
 
 
 // Cards
