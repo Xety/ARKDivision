@@ -19,13 +19,13 @@
         <div class="alert alert-{{ $alert }} text-xs-center" role="alert">
             @if($alert == "danger")
                 <i class="fa fa-exclamation-triangle fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
-                Certain de nos serveurs sont actuellement <b>hors ligne</b>, l'equipe travail actuellement dessus !
+                Certains de nos serveurs sont actuellement <b>hors ligne</b>, l'equipe travaille actuellement dessus !
             @elseif ($alert == "warning")
                 <i class="fa fa-exclamation fa-2x " style="vertical-align: middle;"  aria-hidden="true"></i>
-                Certain serveurs rencontrent actuellement des difficultés, l'équipe travail actuellement sur le problème !
+                Certains serveurs rencontrent actuellement des difficultés, l'équipe travaille actuellement sur le problème !
             @elseif ($alert == "success")
                 <i class="fa fa-check fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
-                Tout nos serveurs sont actuellement en ligne !
+                Tous nos serveurs sont actuellement en ligne !
             @endif
         </div>
     </div>
@@ -60,7 +60,7 @@
                                     <ul class="list-unstyled">
                                         <li>Steam ID : <code>{{ $player->steam_id }}</code></li>
                                         <li>Nom Steam : <code>{{ $player->steam_name }}</code></li>
-                                        <li>Tribu : <code>{{ $player->tribe == false ? "Aucune tribu" : $player->tribe  }}</code></li>
+                                        <li>Tribu : <code style="{{ $player->tribe != false ?: "color: red;" }}">{{ $player->tribe == false ? "Aucune tribu" : $player->tribe  }}</code></li>
                                     </ul>
                                     @if (!is_null($player->user))
                                         <small class="text-muted">

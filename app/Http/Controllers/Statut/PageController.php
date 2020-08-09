@@ -42,6 +42,6 @@ class PageController extends Controller
             $alert = "danger";
         }
 
-        return view('statut.page.index', compact('servers', 'alert'));
+        return view('Statut.page.index', compact('servers', 'alert'));
     }
 }
