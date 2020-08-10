@@ -147,8 +147,11 @@ class RefreshServersStatutes extends Command
             $server->players()->sync($serverStats['players']);
         }
 
-        // Fire the event that will update the discord message.
-        event(new ServerStatusHasFinishedEvent($data));
+        if (env('APP_STATUT_URL') != 'statut.arkdivision.io') {
+            // Fire the event that will update the discord message.
+            event(new ServerStatusHasFinishedEvent($data));
+        }
+
 
         $end = microtime(true);
         $this->info("The code took " . round(($end - $start)) . " seconds to complete.");

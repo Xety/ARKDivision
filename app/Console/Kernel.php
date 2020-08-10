@@ -28,8 +28,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('servers:refresh')
             ->everyMinute()
             ->withoutOverlapping()
-            ->runInBackground()
-            ->appendOutputTo('/srv/users/serverpilot/apps/0website/storage/logs/scheduler.log');
+            ->runInBackground();
+            //->appendOutputTo('/srv/users/serverpilot/apps/0website/storage/logs/scheduler.log');
     }
 
     /**
