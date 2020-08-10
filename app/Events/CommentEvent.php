@@ -5,6 +5,11 @@ use Xetaravel\Models\User;
 
 class CommentEvent
 {
+    /**
+     * The user instance.
+     *
+     * @var \Xetaravel\Models\User
+     */
     public $user;
 
     /**

@@ -3,6 +3,7 @@ namespace Xetaravel\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Xetaravel\Events\Servers\ServerStatusHasFinishedEvent;
 use Xetaravel\Http\Helpers\Rcon;
 use Xetaravel\Models\Repositories\ServerRepository;
 use Xetaravel\Models\Server;
@@ -60,8 +61,16 @@ class RefreshServersStatutes extends Command
 
             // Verify that the server status is different from the RCON status and
             // the server status is expired to update it.
+            $updated = false;
+
             if ($server->status->type != $rconStatus && $server->status->pivot->isExpired) {
-                $this->updateServerStatus($server, $rconStatus);
+                $updated = $this->updateServerStatus($server, $rconStatus);
+            }
+
+            $serverStatus = $server->status->type;
+
+            if ($updated) {
+                $serverStatus = $rconStatus;
             }
 
             // If we can't etablished a connection, that means the server is 'stopped'.
@@ -69,6 +78,8 @@ class RefreshServersStatutes extends Command
                 array_push($data['servers'], [
                     'id' => $server->id,
                     'name' => $server->name,
+                    'emoji' => $server->emoji,
+                    'status' => $serverStatus,
                     'players' => [],
                     'playersCount' => 0
                 ]);
@@ -86,6 +97,8 @@ class RefreshServersStatutes extends Command
                 array_push($data['servers'], [
                     'id' => $server->id,
                     'name' => $server->name,
+                    'emoji' => $server->emoji,
+                    'status' => $serverStatus,
                     'players' => [],
                     'playersCount' => 0
                 ]);
@@ -116,6 +129,8 @@ class RefreshServersStatutes extends Command
             array_push($data['servers'], [
                 'id' => $server->id,
                 'name' => $server->name,
+                'emoji' => $server->emoji,
+                'status' => $serverStatus,
                 'players' => $players,
                 'playersCount' => count($users)
             ]);
@@ -131,6 +146,9 @@ class RefreshServersStatutes extends Command
 
             $server->players()->sync($serverStats['players']);
         }
+
+        // Fire the event that will update the discord message.
+        event(new ServerStatusHasFinishedEvent($data));
 
         $end = microtime(true);
         $this->info("The code took " . round(($end - $start)) . " seconds to complete.");
@@ -178,9 +196,9 @@ class RefreshServersStatutes extends Command
      * @param Xetaravel\Models\Server $server The server to update the status.
      * @param string $rconStatus The new status type.
      *
-     * @return void
+     * @return bool
      */
-    protected function updateServerStatus(Server $server, $rconStatus)
+    protected function updateServerStatus(Server $server, $rconStatus): bool
     {
         // Update the pivot table record and force it to be closed.
         $data = [
@@ -198,5 +216,7 @@ class RefreshServersStatutes extends Command
         $server->statutes()->attach($status->id, [
             'event_type' => 'rcon'
         ]);
+
+        return true;
     }
 }

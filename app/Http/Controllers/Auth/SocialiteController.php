@@ -131,8 +131,10 @@ class SocialiteController extends Controller
             $register = $this->handleRegister($request, $user);
         }
 
-        if ($register instanceof RedirectResponse) {
+        if (isset($register) && $register instanceof RedirectResponse) {
             return $register;
+        } else {
+            $register = $member;
         }
 
         return $this->login($request, $register);

@@ -5,6 +5,11 @@ use Xetaravel\Models\User;
 
 class RegisterEvent
 {
+    /**
+     * The user instance.
+     *
+     * @var \Xetaravel\Models\User
+     */
     public $user;
 
     /**

@@ -64,5 +64,16 @@ return [
         'categories_sidebar' => 2, //15,
         // The number in days.
         'info_message_old_conversation' => 92
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Discord
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'bot' => [
+        'token' => 'NjM1MzkxMTg3MzAxNDMzMzgw.XawZSg.9To9qyVYR_BIUlEGMFTA1DHXrqQ'
     ]
 ];

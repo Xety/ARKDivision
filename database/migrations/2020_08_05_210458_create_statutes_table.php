@@ -18,7 +18,7 @@ class CreateStatutesTable extends Migration
             $table->string('type', 20);
             $table->string('type_formatted', 50)->nullable();
             $table->text('description');
-            $table->string('color', 7)->nullable();
+            $table->string('color', 6)->nullable();
             $table->string('emoji', 50)->nullable();
             $table->timestamps();
         });

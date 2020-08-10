@@ -20,7 +20,7 @@ class CreateServersTable extends Migration
             $table->ipAddress('ip');
             $table->integer('rcon_port');
             $table->string('password', 50)->nullable();
-            $table->string('color', 7)->nullable();
+            $table->string('color', 6)->nullable();
             $table->string('emoji', 50)->nullable();
             $table->unsignedInteger('user_count')->default(0);
             $table->boolean('is_display')->default(true);

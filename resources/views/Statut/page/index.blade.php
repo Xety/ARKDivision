@@ -19,10 +19,10 @@
         <div class="alert alert-{{ $alert }} text-xs-center" role="alert">
             @if($alert == "danger")
                 <i class="fa fa-exclamation-triangle fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
-                Certains de nos serveurs sont actuellement <b>hors ligne</b>, l'equipe travaille actuellement dessus !
+                Certains de nos serveurs sont actuellement <b>hors ligne</b>, l'équipe travaille dessus !
             @elseif ($alert == "warning")
                 <i class="fa fa-exclamation fa-2x " style="vertical-align: middle;"  aria-hidden="true"></i>
-                Certains serveurs rencontrent actuellement des difficultés, l'équipe travaille actuellement sur le problème !
+                Des opérations sont actuellement en cours sur certains de nos serveurs.
             @elseif ($alert == "success")
                 <i class="fa fa-check fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
                 Tous nos serveurs sont actuellement en ligne !
@@ -57,17 +57,35 @@
                                         <h5 class="mb-1">{{ $player->ingame_name }}</h5>
                                         <small class="text-muted">Connecté depuis {{ $player->created_at->format('H:i:s d-m-Y') }}</small>
                                     </div>
-                                    <ul class="list-unstyled">
-                                        <li>Steam ID : <code>{{ $player->steam_id }}</code></li>
-                                        <li>Nom Steam : <code>{{ $player->steam_name }}</code></li>
-                                        <li>Tribu : <code style="{{ $player->tribe != false ?: "color: red;" }}">{{ $player->tribe == false ? "Aucune tribu" : $player->tribe  }}</code></li>
-                                    </ul>
+                                    <small class="text-muted">
+                                        <dl class="row">
+                                            <dt class="col-sm-4">Steam ID :</dt>
+                                            <dd class="col-sm-8"><code>{{ $player->steam_id }}</code></dd>
+                                            <dt class="col-sm-4">Nom Steam :</dt>
+                                            <dd class="col-sm-8"><code>{{ $player->steam_name }}</code></dd>
+                                            <dt class="col-sm-4">Tribu :</dt>
+                                            <dd class="col-sm-8"><code style="{{ $player->tribe != false ?: "color: red;" }}">{{ $player->tribe == false ? "Aucune tribu" : $player->tribe  }}</code></dd>
+                                        </dl>
+                                    </small>
                                     @if (!is_null($player->user))
                                         <small class="text-muted">
-                                            <ul class="list-unstyled">
-                                                <li>Pseudo Discord : <code>{{ $player->user->username }}</code></li>
-                                                <li>Discord ID: <code>{{ $player->user->discord_id }}</code></li>
-                                            </ul>
+                                            <dl class="row">
+                                                <dt class="col-sm-4">Pseudo Discord :</dt>
+                                                <dd class="col-sm-8"><code>{{ $player->user->username }}</code></dd>
+                                                <dt class="col-sm-4">Discord ID :</dt>
+                                                <dd class="col-sm-8"><code>{{ $player->user->discord_id }}</code></dd>
+                                                <dt class="col-sm-4">Profil Discuss :</dt>
+                                                <dd class="col-sm-8 font-weight-bold">{!! Html::link(
+                                                        url('http://discuss.ark-division.fr/users/profile/@' . e($player->user->username)),
+                                                        "@" . $player->user->username,
+                                                        [
+                                                            'class' => 'text-primary',
+                                                            'targ
+                                                        null,
+                                                        falseet' => '_blank'
+                                                        ],
+                                                    ) !!}</dd>
+                                            </dl>
                                         </small>
                                     @endif
                                 </div>
