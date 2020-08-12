@@ -3,6 +3,7 @@ namespace Xetaravel\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Xetaravel\Events\RCON\ServerChatToPlayerEvent;
 use Xetaravel\Events\Servers\ServerStatusHasFinishedEvent;
 use Xetaravel\Http\Helpers\Rcon;
 use Xetaravel\Models\Repositories\ServerRepository;
@@ -47,11 +48,12 @@ class RefreshServersStatutes extends Command
         $servers = Server::all();
 
         if (!$servers) {
-            return;
+            return true;
         }
 
         $data = ['servers' => []];
         $playersCount = 0;
+        $serversOnline = 0;
 
         foreach ($servers as $server) {
             $rcon = new Rcon($server->ip, $server->rcon_port, $server->password, 3);
@@ -103,6 +105,9 @@ class RefreshServersStatutes extends Command
                     'playersCount' => 0
                 ]);
 
+                // Update the number of servers online.
+                $serversOnline++;
+
                 continue;
             }
 
@@ -116,12 +121,20 @@ class RefreshServersStatutes extends Command
                 $tribe = $this->sendCommand($server, "GetTribeName " . trim($user[1]));
                 $ingame = $this->sendCommand($server, "GetPlayerName " . trim($user[1]));
 
-                array_push($players, [
+                $tribe = substr(trim(str_replace("Server received, But no response!!", "", $tribe)), 11);
+
+                $player = [
                     'steam_id' => (int)trim($user[1]),
                     'steam_name' => explode(". ", $user[0])[1],
                     'ingame_name' => substr(trim(str_replace("Server received, But no response!!", "", $ingame)), 13),
-                    'tribe' => substr(trim(str_replace("Server received, But no response!!", "", $tribe)), 11),
-                ]);
+                    'tribe' => $tribe,
+                ];
+                array_push($players, $player);
+
+                // Fire the event that will log the player because he does not have a tribe.
+                if ($tribe == false) {
+                    event(new ServerChatToPlayerEvent($server, $player));
+                }
             });
 
             $playersCount += count($users);
@@ -134,10 +147,14 @@ class RefreshServersStatutes extends Command
                 'players' => $players,
                 'playersCount' => count($users)
             ]);
+
+            // Update the number of servers online.
+            $serversOnline++;
         }
 
         $data += [
             'serversCount' => count($servers),
+            'serversOnlineCount' => $serversOnline,
             'playersCount' => $playersCount
         ];
 

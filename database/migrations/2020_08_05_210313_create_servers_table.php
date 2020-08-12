@@ -23,6 +23,7 @@ class CreateServersTable extends Migration
             $table->string('color', 6)->nullable();
             $table->string('emoji', 50)->nullable();
             $table->unsignedInteger('user_count')->default(0);
+            $table->bigInteger('discord_message_id')->unsigned();
             $table->boolean('is_display')->default(true);
             $table->timestamps();
         });

@@ -44,14 +44,31 @@ class ServerStatusSubscriber
 
         $fields = [];
 
+        $statusCritical = 0;
+        $statusWarning = 0;
+
         // Build the fields array.
         foreach ($event->data['servers'] as $server) {
+            // Get the critical and warning status for each server to display the right alert.
+            switch ($server['status']) {
+                case 'stopped':
+                    $statusCritical = $statusCritical + 1;
+                    break;
+
+                case 'starting':
+                case 'initializing':
+                case 'stopping':
+                    $statusWarning = $statusWarning + 1;
+                    break;
+            }
+
             $serverStatus = Status::where('type', $server['status']) ->first();
             $status = $serverStatus->emoji . " " . $serverStatus->type_formatted;
             $players = $server['playersCount'] > 1 ?
             "**" . $server['playersCount'] . "** joueurs" :
             "**" . $server['playersCount'] . "** joueur";
 
+            // Build the field for each server.
             array_push($fields, [
                 'name' => sprintf("%s  **` %s `**", $server['emoji'], $server['name']),
                 'value' => sprintf("** **\n**%s**\nJoueur(s) : %s \n**\n\n\n **", $status, $players),
@@ -59,16 +76,27 @@ class ServerStatusSubscriber
             ]);
         }
 
+        // Get the message related to status of all servers.
+        $alert = "\n```yaml\n= 🟢 Tous nos serveurs sont actuellement en ligne !\n```";
+        if ($statusWarning > 0) {
+            $alert = "\n```fix\n 🟡 Des opérations sont actuellement en cours sur certains de nos serveurs.\n```";
+        }
+        if ($statusCritical > 0) {
+            $alert = "\n```diff\n- 🔴 Certains de nos serveurs sont actuellement hors ligne, " .
+            "l'équipe travaille dessus !\n```";
+        }
+
+        // Build the new message and edit it.
         $discord->channel->editMessage([
             'channel.id' => 739126558106845224,
             'message.id' => 739280060971876402,
-            'content'    => "** **",
-            'embed'      => [
+            'content' => "** **",
+            'embed' => [
                 "title" => "***:small_blue_diamond:  ━━━  Statuts des serveurs ARK Division France  ━━━ ".
                 " :small_blue_diamond:***",
                 "description" => "**\n **<:division:693196707592274030> **` ARK Division `**\n :small_blue_diamond: **".
                 $event->data['playersCount'] ."** joueurs connectés\n :small_blue_diamond: **" .
-                $event->data['serversCount'] . "** serveurs en ligne **\n\n\n **",
+                $event->data['serversOnlineCount'] . "** serveurs en ligne **\n\n** $alert **\n **",
                 "color" => hexdec("1DFCEA"),
                 "footer" => [
                     "text" => "Dernière mise à jour • " . date('d-m-Y à H:i:s') . " (v2)"
@@ -76,29 +104,7 @@ class ServerStatusSubscriber
                 "fields" => $fields
             ]
         ]);
-        //$event->servers
-    }
 
-    /**
-     * Create the ruby.
-     *
-     * @param array $data The data used to create the ruby.
-     *
-     * @return bool
-     */
-    protected function create(array $data) : bool
-    {
-        if (!isset($data['data'])) {
-            $data['data'] = [];
-        }
-        $ruby = Ruby::create($data);
-
-        switch ($ruby->event_type) {
-            case PostWasSolvedEvent::class:
-                    $ruby->user->increment('rubies_total', $this->rubies[PostWasSolvedEvent::class]);
-                break;
-        }
-
-        return !(is_null($ruby));
+        return true;
     }
 }

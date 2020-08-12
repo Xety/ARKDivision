@@ -148,6 +148,10 @@ class Rcon
         $this->writePacket(Rcon::PACKET_AUTHORIZE, Rcon::SERVERDATA_AUTH, $this->password);
         $response_packet = $this->readPacket();
 
+        if (is_bool($response_packet)) {
+            $response_packet['type'] = 0;
+        }
+
         if ($response_packet['type'] == Rcon::SERVERDATA_AUTH_RESPONSE) {
             if ($response_packet['id'] == Rcon::PACKET_AUTHORIZE) {
                 $this->authorized = true;
@@ -191,6 +195,11 @@ class Rcon
         //get packet size.
         $size_data = @fread($this->socket, 4);
         $size_pack = @unpack("V1size", $size_data);
+
+        if (is_bool($size_pack)) {
+            dump($size_pack);
+            $size_pack['size'] = 0;
+        }
         $size = $size_pack['size'];
 
         // if size is > 4096, the response will be in multiple packets.

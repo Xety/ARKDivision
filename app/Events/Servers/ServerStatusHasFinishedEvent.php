@@ -1,8 +1,6 @@
 <?php
 namespace Xetaravel\Events\Servers;
 
-use Xetaravel\Models\Server;
-
 class ServerStatusHasFinishedEvent
 {
     public $data;
