@@ -43,7 +43,7 @@ class RefreshServersPlayers extends Command
         if (!$servers) {
             return;
         }
-        $discord = new DiscordClient(['token' => config('xetaravel.bot.token')]);
+        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
         $playersTotal = 0;
 

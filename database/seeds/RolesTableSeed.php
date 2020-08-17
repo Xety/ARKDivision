@@ -19,7 +19,7 @@ class RolesTableSeed extends Seeder
                 'slug' => 'developpeur',
                 'description' => '',
                 'css' => 'font-weight: bold; color: #ef3c3c;',
-                'level' => 4,
+                'level' => 5,
                 'is_deletable' => false,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
@@ -29,6 +29,16 @@ class RolesTableSeed extends Seeder
                 'slug' => 'administrateur',
                 'description' => '',
                 'css' => 'font-weight: bold; color: #14e8e1;',
+                'level' => 4,
+                'is_deletable' => false,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Ambassadeur',
+                'slug' => 'ambassadeur',
+                'description' => '',
+                'css' => 'font-weight: bold; color: #f1c40f;',
                 'level' => 3,
                 'is_deletable' => false,
                 'created_at' => Carbon::now(),

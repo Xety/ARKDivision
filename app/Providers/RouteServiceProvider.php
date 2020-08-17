@@ -48,6 +48,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
+        // Statut subdomain
         Route::group([
             'middleware' => 'web',
             'namespace' => 'Xetaravel\Http\Controllers\Statut',
@@ -55,6 +56,15 @@ class RouteServiceProvider extends ServiceProvider
             require base_path('routes/statut.php');
         });
 
+        // Donation subdomain
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => 'Xetaravel\Http\Controllers\Donation',
+        ], function ($router) {
+            require base_path('routes/donation.php');
+        });
+
+        // Discuss subdomain
         Route::group([
             'middleware' => 'web',
             'namespace' => $this->namespace ,

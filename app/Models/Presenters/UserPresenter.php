@@ -67,6 +67,19 @@ trait UserPresenter
     }
 
     /**
+     * Get the Discord nickname.
+     *
+     * @return string
+     */
+    public function getDiscordNicknameAttribute(): string
+    {
+        $nickname = $this->parse($this->account, 'discord_username') . '#' .
+                                $this->parse($this->account, 'discord_discriminator');
+
+        return $nickname;
+    }
+
+    /**
      * Get the experiences total formated.
      *
      * @return integer

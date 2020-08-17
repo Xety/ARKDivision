@@ -14,6 +14,8 @@ class Account extends Model
         'last_name',
         'biography',
         'signature',
+        'discord_username',
+        'discord_discriminator',
         'facebook',
         'twitter'
     ];

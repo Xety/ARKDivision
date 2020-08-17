@@ -40,7 +40,7 @@ class ServerStatusSubscriber
      */
     public function serverStatusHasFinished(ServerStatusHasFinishedEvent $event)
     {
-        $discord = new DiscordClient(['token' => config('xetaravel.bot.token')]);
+        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
         $fields = [];
 
@@ -99,7 +99,7 @@ class ServerStatusSubscriber
                 $event->data['serversOnlineCount'] . "** serveurs en ligne **\n\n** $alert **\n **",
                 "color" => hexdec("1DFCEA"),
                 "footer" => [
-                    "text" => "Dernière mise à jour • " . date('d-m-Y à H:i:s') . " (v2)"
+                    "text" => "Dernière mise à jour • " . date('d-m-Y à H:i:s')
                 ],
                 "fields" => $fields
             ]

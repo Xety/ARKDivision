@@ -81,6 +81,7 @@ class User extends Model implements
         'first_name',
         'last_name',
         'full_name',
+        'discord_nickname',
         'biography',
         'signature',
         'facebook',

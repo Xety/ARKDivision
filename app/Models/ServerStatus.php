@@ -22,6 +22,7 @@ class ServerStatus extends Pivot
      */
     protected $fillable = [
         'was_forced',
+        'event_type',
         'finished_at'
     ];
 

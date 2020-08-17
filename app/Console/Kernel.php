@@ -27,16 +27,20 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('servers:refresh')
             ->everyMinute()
+            ->withoutOverlapping(30)
             ->runInBackground();
             //->appendOutputTo('/srv/users/serverpilot/apps/0website/storage/logs/scheduler.log');
 
-        $schedule->command('message:player')
-            ->everyMinute()
-            ->runInBackground();
+        // Dont run the schedule command on dev mode.
+        if (env('APP_ENV') != 'local') {
+            $schedule->command('message:player')
+                ->everyMinute()
+                ->runInBackground();
 
-        $schedule->command('players:refresh')
+            $schedule->command('players:refresh')
             ->everyMinute()
             ->runInBackground();
+        }
     }
 
     /**

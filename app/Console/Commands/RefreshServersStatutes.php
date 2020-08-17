@@ -164,7 +164,7 @@ class RefreshServersStatutes extends Command
             $server->players()->sync($serverStats['players']);
         }
 
-        if (env('APP_STATUT_URL') != 'statut.arkdivision.io') {
+        if (env('APP_ENV') != 'local') {
             // Fire the event that will update the discord message.
             event(new ServerStatusHasFinishedEvent($data));
         }
@@ -234,7 +234,7 @@ class RefreshServersStatutes extends Command
 
         // Create a new status for this server.
         $server->statutes()->attach($status->id, [
-            'event_type' => 'rcon'
+            'event_type' => 'cron'
         ]);
 
         return true;

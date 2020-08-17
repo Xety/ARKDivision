@@ -25,10 +25,16 @@ class ServerStatusController extends Controller
     {
         $server = Server::where('slug', Str::slug($slug))->first();
 
-        if (is_null($server) ||
-            $server->status->type == $request->input('type') ||
+        if (is_null($server)) {
+            return new Json([
+                'message' => 'Server not found.',
+                'error' => 404
+                ]);
+        }
+
+        if ($server->status->type == $request->input('type') ||
             $request->input('type') == 'unknown') {
-            return new Json([]);
+            return new Json(['message' => 'Type unknown']);
         }
 
         ServerStatusValidator::create($request->all())->validate();

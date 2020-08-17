@@ -21,6 +21,8 @@ class CreateAccountsTable extends Migration
             $table->string('last_name', 100)->nullable();
             $table->text('biography')->nullable();
             $table->text('signature')->nullable();
+            $table->string('discord_username', 50)->nullable();
+            $table->string('discord_discriminator', 5)->nullable();
             $table->string('facebook', 50)->nullable();
             $table->string('twitter', 50)->nullable();
             $table->timestamps();

@@ -33,6 +33,14 @@ class PermissionsRolesTableSeed extends Seeder
         $role->attachPermission(Permission::where('slug', 'manage.discuss.posts')->first());
         $role->attachPermission(Permission::where('slug', 'access.site')->first());
 
+        // Ambassadeur Role
+        $role = Role::where('slug', 'ambassadeur')->first();
+        $role->attachPermission(Permission::where('slug', 'access.administration')->first());
+        $role->attachPermission(Permission::where('slug', 'manage.discuss')->first());
+        $role->attachPermission(Permission::where('slug', 'manage.discuss.conversations')->first());
+        $role->attachPermission(Permission::where('slug', 'manage.discuss.posts')->first());
+        $role->attachPermission(Permission::where('slug', 'access.site')->first());
+
         // Membre Role
         $role = Role::where('slug', 'membre')->first();
         $role->attachPermission(Permission::where('slug', 'access.site')->first());

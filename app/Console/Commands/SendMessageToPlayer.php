@@ -49,7 +49,7 @@ class SendMessageToPlayer extends Command
         if (!$logs) {
             return true;
         }
-        $discord = new DiscordClient(['token' => config('xetaravel.bot.token')]);
+        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
         foreach ($logs as $log) {
             $server = Server::where('id', $log->data['server_id'])->first();
