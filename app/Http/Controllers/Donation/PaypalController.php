@@ -93,7 +93,7 @@ class PaypalController extends Controller
         }
 
         // Live
-        $apiContext = new ApiContext(
+        /*$apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AQKS69kpyM_1NuMP3WPFqmfNTPBNJIVKilpY-eMV4Rvk0qYjDjf8BHqYUeUs1pWkTWci1qrbJ23UNWek',     // ClientID
                 'EExTSko5nKF-o7n_yJ58ndyMUS-F-tZFO6SwsNMo3KFuDYkt2lkSC2SjHXYac18YgHMtx7JQM5lj6bMy'      // ClientSecret
@@ -101,15 +101,15 @@ class PaypalController extends Controller
         );
         $apiContext->setConfig([
             'mode' => 'live'
-        ]);
+        ]);*/
 
         // Sandbox
-        /*$apiContext = new ApiContext(
+        $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AcIUDaNhHuI9c2TPHdJfknSVhNGhtkXTMwBLOiRMzQVlajP9zJ-xkFuQEuW5KicPGvAYfJpSgkV42nkl',     // ClientID
                 'ENs3pI02g-g8t8ZOstpQIKh-3rETScck4ruS596cdCUm7JzcumWve-7Nvl6fFCJX33_DzJShr1SH-hXg'      // ClientSecret
             )
-        );*/
+        );
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -165,7 +165,7 @@ class PaypalController extends Controller
     public function redirect(Request $request)
     {
         // Live
-        $apiContext = new ApiContext(
+        /*$apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AQKS69kpyM_1NuMP3WPFqmfNTPBNJIVKilpY-eMV4Rvk0qYjDjf8BHqYUeUs1pWkTWci1qrbJ23UNWek', // ClientID
                 'EExTSko5nKF-o7n_yJ58ndyMUS-F-tZFO6SwsNMo3KFuDYkt2lkSC2SjHXYac18YgHMtx7JQM5lj6bMy' // ClientSecret
@@ -174,15 +174,15 @@ class PaypalController extends Controller
 
         $apiContext->setConfig([
             'mode' => 'live'
-        ]);
+        ]);*/
 
         // Sandbox
-        /*$apiContext = new ApiContext(
+        $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AcIUDaNhHuI9c2TPHdJfknSVhNGhtkXTMwBLOiRMzQVlajP9zJ-xkFuQEuW5KicPGvAYfJpSgkV42nkl', // ClientID
                 'ENs3pI02g-g8t8ZOstpQIKh-3rETScck4ruS596cdCUm7JzcumWve-7Nvl6fFCJX33_DzJShr1SH-hXg' // ClientSecret
             )
-        );*/
+        );
 
         $paymentId = $request->paymentId;
         $payment = Payment::get($paymentId, $apiContext);

@@ -48,6 +48,7 @@ class User extends Model implements
         'slug',
         'discord_id',
         'register_ip',
+        'transaction_count',
         'last_login_ip',
         'last_login'
     ];
@@ -292,6 +293,26 @@ class User extends Model implements
     public function server()
     {
         return $this->hasOne(Server::class);
+    }
+
+    /**
+     * Get the paypal for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function paypal()
+    {
+        return $this->hasOne(PaypalUser::class);
+    }
+
+    /**
+     * Get the transactions for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(TransactionUser::class, 'user_id', 'id');
     }
 
     /**
