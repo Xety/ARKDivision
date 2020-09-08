@@ -3,7 +3,6 @@
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class UsersTableSeed extends Seeder
 {
@@ -20,7 +19,8 @@ class UsersTableSeed extends Seeder
                 'email' => 'zoro.fmt@gmail.com',
                 'password' => bcrypt('zoro'),
                 'slug' => 'zoro',
-                'api_token' => Str::random(80),
+                'discord_id' => 92596320333742080,
+                'api_token' => 'mGJxtv2xEkkzVh5Hax2t85J6j6CTlOPg8klkePfrKC3O5D4PuPe0wEMyndOp2lSSdg2va9AOEQzHMkBP',
                 'discuss_conversation_count' => 1,
                 'discuss_post_count' => 1,
                 'experiences_total' => 90,
@@ -36,6 +36,7 @@ class UsersTableSeed extends Seeder
                 'email' => 'admin@division.io',
                 'password' => bcrypt('admin'),
                 'slug' => 'admin',
+                'discord_id' => null,
                 'api_token' => null,
                 'discuss_conversation_count' => 0,
                 'discuss_post_count' => 1,
@@ -52,6 +53,7 @@ class UsersTableSeed extends Seeder
                 'email' => 'membre@division.io',
                 'password' => bcrypt('membre'),
                 'slug' => 'membre',
+                'discord_id' => null,
                 'api_token' => null,
                 'discuss_conversation_count' => 0,
                 'discuss_post_count' => 0,
@@ -68,6 +70,7 @@ class UsersTableSeed extends Seeder
                 'email' => 'utilisateur@division.io',
                 'password' => bcrypt('utilisateur'),
                 'slug' => 'utilisateur',
+                'discord_id' => null,
                 'api_token' => null,
                 'discuss_conversation_count' => 0,
                 'discuss_post_count' => 0,
@@ -84,6 +87,7 @@ class UsersTableSeed extends Seeder
                 'email' => 'banni@division.io',
                 'password' => bcrypt('banni'),
                 'slug' => 'banni',
+                'discord_id' => null,
                 'api_token' => null,
                 'discuss_conversation_count' => 0,
                 'discuss_post_count' => 0,

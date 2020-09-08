@@ -4,8 +4,6 @@ namespace Xetaravel\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
-use Xetaravel\Models\Article;
-use Xetaravel\Models\Comment;
 use Xetaravel\Models\DiscussPost;
 
 class MentionNotification extends Notification implements ShouldQueue
@@ -68,18 +66,6 @@ class MentionNotification extends Notification implements ShouldQueue
             case $model instanceof DiscussPost:
                 $data['message'] = '<strong>@%s</strong> has mentionned your name in his post !';
                 $data['link'] = $model->post_url;
-
-                break;
-
-            case $model instanceof Comment:
-                $data['message'] = '<strong>@%s</strong> has mentionned your name in his comment !';
-                $data['link'] = $model->comment_url;
-
-                break;
-
-            case $model instanceof Article:
-                $data['message'] = '<strong>@%s</strong> has mentionned your name in his article !';
-                $data['link'] = $model->article_url;
 
                 break;
 

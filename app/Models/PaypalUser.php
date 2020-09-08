@@ -1,11 +1,18 @@
 <?php
 namespace Xetaravel\Models;
 
-use Xetaravel\Models\Presenters\PaypalPresenter;
+use Xetaravel\Models\Presenters\PaypalUserPresenter;
 
-class Paypal extends Model
+class PaypalUser extends Model
 {
-    use PaypalPresenter;
+    use PaypalUserPresenter;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'paypal_user';
 
     /**
      * The attributes that are mass assignable.

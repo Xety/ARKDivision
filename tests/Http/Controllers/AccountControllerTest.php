@@ -39,10 +39,10 @@ class AccountControllerTest extends TestCase
     {
         $user = User::find(1);
 
-        $this->assertSame('Admin', $user->first_name);
-        $this->assertSame('Istrator', $user->last_name);
+        $this->assertSame('Emeric', $user->first_name);
+        $this->assertSame('', $user->last_name);
         $this->assertSame('AdminFB', $user->facebook);
-        $this->assertSame('AdminTW', $user->twitter);
+        $this->assertSame('FMT_ZoRo', $user->twitter);
 
         $oldAvatarUrl = $user->avatar_small;
 

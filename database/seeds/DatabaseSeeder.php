@@ -38,5 +38,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ServersTableSeed::class);
         $this->call(StatutesTableSeed::class);
         $this->call(ServerStatusTableSeed::class);
+
+        // Rewards
+        $this->call(RewardsTableSeed::class);
     }
 }

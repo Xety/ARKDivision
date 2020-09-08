@@ -76,8 +76,9 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
         Route::get('account', 'AccountController@index')->name('users.account.index');
         Route::put('account', 'AccountController@update')->name('users.account.update');
 
-        // Discord Routes
-        Route::get('discord', 'DiscordController@index')->name('users.discord.index');
+        // Social Routes
+        Route::get('social', 'SocialController@index')->name('users.social.index');
+        Route::get('discord', 'SocialController@discord')->name('users.social.discord');
 
         // Notification Routes
         Route::get('notification', 'NotificationController@index')

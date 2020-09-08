@@ -27,7 +27,8 @@ class EventServiceProvider extends ServiceProvider
         \Xetaravel\Listeners\Subscribers\ExperienceSubscriber::class,
         \Xetaravel\Listeners\Subscribers\RubySubscriber::class,
         \Xetaravel\Listeners\Subscribers\Server\ServerStatusSubscriber::class,
-        \Xetaravel\Listeners\Subscribers\RCON\RCONSubscriber::class
+        \Xetaravel\Listeners\Subscribers\RCON\RCONSubscriber::class,
+        \Xetaravel\Listeners\Subscribers\Donation\DonationSubscriber::class
     ];
 
     /**

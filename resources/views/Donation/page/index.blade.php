@@ -113,15 +113,18 @@
                         <div class="alert alert-danger">
                             Le Discord ID associé à votre compte (<b>{{ Auth::user()->discord_nickname }}</b>) n'a pas rejoint le discord de ARK Division France, vous ne pourrez par conséquent pas obtenir vos rewards. Vous pouvez rejoindre notre Discord <b><a href="https://discord.gg/tcud7UG" target="_blank">ici</a></b>.
                         </div>
+                        {{ Form::hidden('discord', 'anonymous', ['class' => 'form-control']) }}
 
                     {{-- The user has not linked his Discord to his Division account --}}
                     @else
                         <div class="alert alert-danger">
                             Vous n'avez pas lié votre Discord à votre compte Division. Vous ne pourrez pas obtenir vos rewards si vous ne lier pas vos comptes.
                             <div class="row justify-content-center">
-                                <a class="btn btn-discord" href="{{ route('users.discord.index') }}" target="_blank"><i class="fab fa-discord"></i> Lier mon Compte</a>
+                                <a class="btn btn-discord" href="{{ route('users.social.index') }}" target="_blank"><i class="fab fa-discord"></i> Lier mon Compte</a>
                             </div>
                         </div>
+
+                        {{ Form::hidden('discord', 'anonymous', ['class' => 'form-control']) }}
                     @endif
                 @endauth
 
@@ -138,6 +141,8 @@
                                 </a>
                             </div>
                         </div>
+
+                        {{ Form::hidden('discord', 'anonymous', ['class' => 'form-control']) }}
                 @endguest
                     @error('donation')
                         <div class="alert alert-danger">{{ $message }}</div>

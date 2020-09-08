@@ -121,16 +121,6 @@ class Server extends Model implements HasMedia
     }
 
     /**
-     * Get the users for the server.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    /*public function users()
-    {
-        return $this->hasMany(User::class, 'user_id', 'id');
-    }*/
-
-    /**
      * Get the players for the server.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -22,7 +22,7 @@ class PageController extends Controller
      */
     public function banished()
     {
-        if (!Auth::user()->hasRole('banished')) {
+        if (!Auth::user()->hasRole('banni')) {
             return redirect()
                 ->route('page.index');
         }

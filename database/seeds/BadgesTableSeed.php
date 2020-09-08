@@ -13,30 +13,40 @@ class BadgesTableSeed extends Seeder
      */
     public function run()
     {
+        $now = Carbon::now();
+
         $badges = [
             [
-                'name' => 'First Comment',
-                'image' => 'images/badges/comments-1.png',
-                'type' => 'onNewComment',
-                'rule' => '1',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'name' => 'Première donation',
+                'image' => 'images/badges/donation-1.png',
+                'type' => 'onNewDonation',
+                'rule' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
-                'name' => '10 Comments',
-                'image' => 'images/badges/comments-10.png',
-                'type' => 'onNewComment',
-                'rule' => '10',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'name' => '5 donations déjà !',
+                'image' => 'images/badges/donation-5.png',
+                'type' => 'onNewDonation',
+                'rule' => 5,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Donateur hors pair !',
+                'image' => 'images/badges/donation-10.png',
+                'type' => 'onNewDonation',
+                'rule' => 10,
+                'created_at' => $now,
+                'updated_at' => $now
             ],
             [
                 'name' => 'Inscrit depuis 1 an',
                 'image' => 'images/badges/registration-1.png',
                 'type' => 'onNewRegister',
-                'rule' => '1',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'rule' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
             ]
         ];
 

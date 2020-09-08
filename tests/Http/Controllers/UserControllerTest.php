@@ -84,16 +84,16 @@ class UserControllerTest extends TestCase
      */
     public function testUpdateEmailSuccess()
     {
-        $user = User::find(1);
+        $user = User::find(2);
         $this->be($user);
-        $this->assertSame('admin@xeta.io', $user->email);
+        $this->assertSame('admin@division.io', $user->email);
 
         $response = $this->put('/users/settings', ['type' => 'email', 'email' => 'newadmin@xeta.io']);
         $response->assertSessionHas('success');
         $response->assertStatus(302);
         $response->assertRedirect('/users/settings');
 
-        $user = User::find(1);
+        $user = User::find(2);
         $this->assertSame('newadmin@xeta.io', $user->email);
     }
 
@@ -104,10 +104,10 @@ class UserControllerTest extends TestCase
      */
     public function testUpdateEmailAlreadyTakenFailed()
     {
-        $user = User::find(1);
+        $user = User::find(2);
         $this->be($user);
 
-        $response = $this->put('/users/settings', ['type' => 'email', 'email' => 'admin@xeta.io']);
+        $response = $this->put('/users/settings', ['type' => 'email', 'email' => 'membre@division.io']);
         $response->assertSessionHasErrors(['email']);
         $response->assertStatus(302);
     }
@@ -119,7 +119,7 @@ class UserControllerTest extends TestCase
      */
     public function testUpdatePasswordSuccess()
     {
-        $user = User::find(1);
+        $user = User::find(2);
         $this->be($user);
         $this->assertTrue(Hash::check('admin', $user->password));
 
@@ -133,7 +133,7 @@ class UserControllerTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/users/settings');
 
-        $user = User::find(1);
+        $user = User::find(2);
         $this->assertTrue(Hash::check('adminmodified', $user->password));
     }
 
@@ -165,7 +165,7 @@ class UserControllerTest extends TestCase
      */
     public function testUpdatePasswordNotMatchFailed()
     {
-        $user = User::find(1);
+        $user = User::find(2);
         $this->be($user);
 
         $response = $this->put('/users/settings', [
@@ -185,7 +185,7 @@ class UserControllerTest extends TestCase
      */
     public function testDeleteSuccess()
     {
-        $user = User::find(1);
+        $user = User::find(2);
         $this->be($user);
 
         $response = $this->delete('/users/delete', ['password' => 'admin']);

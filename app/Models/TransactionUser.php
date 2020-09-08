@@ -10,6 +10,13 @@ class TransactionUser extends Model
     Summable;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'transaction_user';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

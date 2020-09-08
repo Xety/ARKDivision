@@ -164,26 +164,6 @@ class User extends Model implements
     }
 
     /**
-     * Get the comments for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
-     * Get the articles for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function articles()
-    {
-        return $this->hasMany(Article::class);
-    }
-
-    /**
      * Get the account for the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -313,6 +293,22 @@ class User extends Model implements
     public function transactions()
     {
         return $this->hasMany(TransactionUser::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get the rewards for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function rewards()
+    {
+        return $this->belongsToMany(Reward::class)
+            ->using(RewardUser::class)
+            ->withPivot([
+                'id',
+                'was_used'
+            ])
+            ->withTimestamps();
     }
 
     /**

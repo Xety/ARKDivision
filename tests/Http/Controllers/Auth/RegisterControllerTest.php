@@ -24,7 +24,7 @@ class RegisterControllerTest extends TestCase
      */
     public function testRegisterSuccess()
     {
-        $this->assertNull(User::find(5));
+        $this->assertNull(User::find(6));
 
         $data = [
             'username' => 'Jhon',
@@ -38,6 +38,6 @@ class RegisterControllerTest extends TestCase
         $response->assertSessionHas('success');
         $response->assertStatus(302);
         $response->assertRedirect('/');
-        $this->assertInstanceOf(User::class, User::find(5), 'Must be an instance of User.');
+        $this->assertInstanceOf(User::class, User::find(6), 'Must be an instance of User.');
     }
 }

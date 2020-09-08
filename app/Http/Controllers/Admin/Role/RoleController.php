@@ -133,11 +133,11 @@ class RoleController extends Controller
                 ->with('danger', 'You can not delete this role !');
         }
 
-        // Sync the `user` role on all users for this group.
+        // Sync the `utilisateur` role on all users for this group.
         foreach ($role->users as $user) {
             // Only do that if the user does not have another role.
             if ($user->roles->count() == 1) {
-                $user->roles()->sync(Role::find(3), false);
+                $user->roles()->sync(Role::find(5), false);
             }
         }
 

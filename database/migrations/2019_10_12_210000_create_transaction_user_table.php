@@ -14,9 +14,9 @@ class CreateTransactionUserTable extends Migration
     public function up()
     {
         Schema::create('transaction_user', function (Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('user_id')->index();
-            $table->bigInteger('paypal_id')->index();
+            $table->increments('id')->unsigned();
+            $table->integer('user_id')->unsigned()->index();
+            $table->integer('paypal_id')->unsigned()->index();
             $table->string('payment_id', 100)->unique()->index();
             $table->mediumInteger('amount')->default(0);
             $table->string('currency', 5)->default('EUR');

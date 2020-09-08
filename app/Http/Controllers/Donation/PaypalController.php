@@ -1,12 +1,11 @@
 <?php
 
-namespace Division\Http\Controllers;
+namespace Xetaravel\Http\Controllers\Donation;
 
-use Division\Models\Repositories\PaypalRepository;
-use Division\Models\Repositories\TransactionRepository;
-use Division\Models\Repositories\UserRepository;
 use GuzzleHttp\Client;
+use GuzzleHttp\Command\Exception\CommandClientException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
@@ -19,6 +18,15 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
+use RestCord\DiscordClient;
+use Xetaravel\Events\Badges\DonationEvent;
+use Xetaravel\Events\Donation\NewDonationEvent;
+use Xetaravel\Http\Controllers\Controller;
+use Xetaravel\Models\Repositories\AccountRepository;
+use Xetaravel\Models\Repositories\PaypalUserRepository;
+use Xetaravel\Models\Repositories\TransactionUserRepository;
+use Xetaravel\Models\Repositories\UserRepository;
+use Xetaravel\Models\User;
 
 class PaypalController extends Controller
 {
@@ -37,9 +45,11 @@ class PaypalController extends Controller
     ];
 
     /**
-     * Create a new controller instance.
+     * Handle a checkout request before redirecting to Paypal.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function checkout(Request $request)
     {
@@ -47,10 +57,11 @@ class PaypalController extends Controller
         $donation = $request->input('donation');
         $message = $request->input('message');
 
+        // Validate the data.
         $data = $request->validate([
             'discord' => [
                 'required',
-                'regex:/^\d+$|^[nope]+$/i'
+                'regex:/^\d+$|^[anonymous]+$/i'
             ],
             'donation' => [
                 'required',
@@ -69,25 +80,42 @@ class PaypalController extends Controller
             ],
         ], $this->customMessages);
 
-        // Check Discord ID.
-        if ($discord != "nope") {
-            $client = new Client();
-            $res = $client->request(
-                'GET',
-                'https://discordapp.com/api/v6/guilds/386615163165605889/members/' . $discord,
-                [
-                    'headers' => [
-                        'Authorization' => 'Bot NjM2NTYzNTM0NzE2NjAwMzMx.XeOK9Q.rLR_7aoW1sm4tIQ6Fg58hGbSy5s',
-                    ]
-                ]
-            );
-            $user = json_decode($res->getBody());
-
-            if (!$user) {
+        // Check if the user has not modified the input "discord".
+        if ($discord != "anonymous") {
+            // If the user is not authenticated.
+            if (!Auth::check()) {
                 return redirect()->back()->with(
                     'danger',
-                    'Cet utilisateur n\'est plus présent sur le discord de ARK Division ou une erreur est survenu' .
-                    'lors de la récupération du compte via discord, veuillez contacter un administrateur sur discord.'
+                    'Vous n\'êtes pas connecté avec votre compte Division.'
+                );
+            }
+
+            // If the user has not linked his Discord and Division accounts.
+            if (is_null(Auth::user()->discord_id)) {
+                return redirect()->back()->with(
+                    'danger',
+                    ' Vous n\'avez pas lié votre Discord à votre compte Division.'
+                );
+            }
+
+            $user = Auth::user();
+            $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+
+            try {
+                $member = $discord->guild->getGuildMember([
+                    'guild.id' => config('discord.guild.id'),
+                    'user.id' => $user->discord_id
+                ]);
+            } catch (CommandClientException $e) {
+                $member = null;
+            }
+
+            // The user is not on our Discord anymore or has not a valid Discord ID.
+            if (is_null($member)) {
+                return redirect()->back()->with(
+                    'danger',
+                    'Vous n\'êtes plus présent sur le discord de ARK Division ou une erreur est survenu' .
+                    'lors de la récupération du compte via Discord, veuillez contacter un administrateur sur discord.'
                 );
             }
         }
@@ -131,15 +159,15 @@ class PaypalController extends Controller
         $transaction->setAmount($amount)
             ->setItemList($itemList);
 
-        if ($discord != "nope") {
-            $transaction->setCustom(json_encode(['user_id' => $user->user->id, 'message' => $message]));
+        if ($discord != "anonymous") {
+            $transaction->setCustom(json_encode(['user_id' => $member->user->id, 'message' => $message]));
         } else {
-            $transaction->setCustom(json_encode(['user_id' => "nope", 'message' => $message]));
+            $transaction->setCustom(json_encode(['user_id' => "anonymous", 'message' => $message]));
         }
 
         $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl(route('paypal.redirect'))
-            ->setCancelUrl(route('page.index'));
+        $redirectUrls->setReturnUrl(route('donation.paypal.redirect'))
+            ->setCancelUrl(route('donation.page.index'));
 
         $payment = new Payment();
         $payment->setIntent('sale')
@@ -147,20 +175,26 @@ class PaypalController extends Controller
             ->setTransactions([$transaction])
             ->setRedirectUrls($redirectUrls);
 
-        if ($discord != "nope") {
-            $payment->setNoteToPayer('Récompense pour ' . $user->user->username . '#' . $user->user->discriminator);
+        if ($discord != "anonymous") {
+            $payment->setNoteToPayer('Récompense pour ' . $member->user->username . '#' . $member->user->discriminator);
         }
 
         try {
             $payment->create($apiContext);
-        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            echo $ex->getData();
+        } catch (PayPalConnectionException $e) {
+            throw new PayPalConnectionException(
+                'An error occured while creating the Paypal payment : ' . $e->getData()
+            );
         }
         return redirect($payment->getApprovalLink());
     }
 
     /**
+     * Handle the response from Paypal after a payment.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function redirect(Request $request)
     {
@@ -192,122 +226,166 @@ class PaypalController extends Controller
 
         try {
             $result = $payment->execute($execution, $apiContext);
-        } catch (Exception $ex) {
-            Log::error($ex);
-            exit(1);
+        } catch (Exception $e) {
+            Log::error($e);
+            throw new Exception('The Paypal payment execution has failed : ' . $e->getMessage());
         }
 
-        if ($result->state == 'approved') {
-            $custom = json_decode($result->transactions[0]->custom);
-
-            // Check if the user is not "nope"
-            if ($custom->user_id != "nope") {
-                //Get or create the user
-                $user = UserRepository::create([
-                    'discord_user_id' => $custom->user_id
-                ]);
-
-                // Get or create the paypal
-                $paypal = PaypalRepository::create([
-                    'user_id' => $user->id,
-                    'email' => $result->payer->payer_info->email,
-                    'first_name' => $result->payer->payer_info->first_name,
-                    'last_name' => $result->payer->payer_info->last_name,
-                    'payer_id' => $result->payer->payer_info->payer_id,
-                    'country_code' => $result->payer->payer_info->country_code
-                ]);
-
-                // Create the transaction
-                $transaction = TransactionRepository::create([
-                    'user_id' => $user->id,
-                    'paypal_id' => $paypal->id,
-                    'payment_id' => $result->id,
-                    'amount' => $result->transactions[0]->amount->total,
-                    'currency' => $result->transactions[0]->amount->currency,
-                    'custom' => json_encode([
-                        'description' => $result->transactions[0]->description,
-                        'discord_user_id' => $custom->user_id
-                    ])
-                ]);
-
-                $description = "**\n" . $paypal->fullName . "** (<@" . $user->discord_user_id .
-                ">) vient de faire une donation de **" . $transaction->amount . $transaction->currency .
-                "** !\n\n**Son message** : " . $custom->message;
-            } else {
-                $description = "**\nUn anonyme**  vient de faire une donation de **" .
-                $result->transactions[0]->amount->total . $result->transactions[0]->amount->currency .
-                "** !\n\n**Son message** : " . $custom->message . "\n";
-            }
-
-
-            // Webhook discord bot
-            $webhookObject = json_encode([
-                "username" => "ARK Division",
-                "avatar_url" => "https://cdn.discordapp.com/app-icons/635391187301433380/" .
-                "1816aec0f6a4418f7ed19773e97dfb98.png",
-                "tts" => false,
-                "embeds" => [
-                    [
-                        "description" => $description,
-                        "type" => "rich",
-                        "color" => hexdec("1DFCEA"),
-                        "thumbnail" => [
-                            "url" => "https://cdn.discordapp.com/app-icons/635391187301433380/" .
-                            "1816aec0f6a4418f7ed19773e97dfb98.png"
-                        ]
-                    ]
-                ]
-            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-
-            $client = new Client();
-            $res = $client->request(
-                'POST',
-                'https://discordapp.com/api/webhooks/635914645240152074/' .
-                'YVbI-rdbKr3IpJW3jjEYKm5xfnFy7Tysd9QL9N0F9q7IpLgekQ5PzHmuMB9pTQwz2LMn',
-                [
-                    'body' => $webhookObject,
-                    'headers' => [
-                        'Length' => strlen($webhookObject),
-                        'Content-Type' => 'application/json',
-                        'Authorization' => 'Bot NjM2NTYzNTM0NzE2NjAwMzMx.XeOK9Q.rLR_7aoW1sm4tIQ6Fg58hGbSy5s',
-                    ]
-                ]
+        // Check if the payment is approved.
+        if ($result->state != 'approved') {
+            return redirect()->route('donation.paypal.success')->with(
+                'danger',
+                'Votre paiement n\'a pas été accepté, veuillez contacter un administrateur pour plus d\'information.'
             );
+        }
 
-            // Fix for a bug where the bot send message int he wrong channel.
-            sleep(2);
+        $custom = json_decode($result->transactions[0]->custom);
 
-            // Check if the user is not "nope" before to send to the -don command.
-            if ($custom->user_id != "nope") {
-                $text = "-don <@" . $user->discord_user_id . "> " . (int) $transaction->amount;
+        // Check if the user is not "anonymous"
+        if ($custom->user_id != "anonymous") {
+            $user = User::where('discord_id', $custom->user_id)->first();
 
-                $webhookObject = json_encode([
-                    "username" => "ARK Division",
-                    "avatar_url" => "https://cdn.discordapp.com/app-icons/635391187301433380/" .
-                    "1816aec0f6a4418f7ed19773e97dfb98.png",
-                    "tts" => false,
-                    "content" => $text
-                ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            // Get the Discord nformations for this user.
+            $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
-                $res = $client->request(
-                    'POST',
-                    'https://discordapp.com/api/webhooks/722190658529656892/' .
-                    '55b3-jaeOxj2BCachzF_uLMi5cwJQSNWn_sjoT0Gd7Ymm08yVQy4ugMqkVJiPI_-btVK',
-                    [
-                        'body' => $webhookObject,
-                        'headers' => [
-                            'Length' => strlen($webhookObject),
-                            'Content-Type' => 'application/json',
-                            'Authorization' => 'Bot NjM2NTYzNTM0NzE2NjAwMzMx.XeOK9Q.rLR_7aoW1sm4tIQ6Fg58hGbSy5s',
-                        ]
-                    ]
+            try {
+                $member = $discord->guild->getGuildMember([
+                    'guild.id' => config('discord.guild.id'),
+                    'user.id' => $user->discord_id
+                ]);
+            } catch (CommandClientException $e) {
+                // The user is not on our Discord anymore or has not a valid Discord ID.
+                Log::error($e);
+                throw new CommandClientException(
+                    'The user is not on our Discord anymore or has not a valid Discord ID'
                 );
             }
 
-            return redirect()->route('paypal.success');
+            // Get or create the paypal
+            $paypal = PaypalUserRepository::getOrCreate([
+                'user_id' => $user->id,
+                'email' => $result->payer->payer_info->email,
+                'first_name' => $result->payer->payer_info->first_name,
+                'last_name' => $result->payer->payer_info->last_name,
+                'payer_id' => $result->payer->payer_info->payer_id,
+                'country_code' => $result->payer->payer_info->country_code
+            ]);
+
+            // Create the transaction
+            $transaction = TransactionUserRepository::create([
+                'user_id' => $user->id,
+                'paypal_id' => $paypal->id,
+                'payment_id' => $result->id,
+                'amount' => $result->transactions[0]->amount->total,
+                'currency' => $result->transactions[0]->amount->currency,
+                'custom' => json_encode([
+                    'description' => $result->transactions[0]->description,
+                    'discord_id' => $custom->user_id
+                ])
+            ]);
+
+            // We must get the user again due to the count fields being updated.
+            $user = User::where('discord_id', $custom->user_id)->with('Paypal')->first();
+
+            // Update the Skins and Colors
+            $amount = $result->transactions[0]->amount->total;
+
+            // We need to remove the current amount from the amount total due to the update of the paypal before.
+            $amountTotal = $user->paypal->amount_total - $amount;
+
+            $skins = $this->getCount($amount, $user->skin_count, $amountTotal, 'skin');
+            $colors = $this->getCount($amount, $user->color_count, $amountTotal, 'color');
+
+            UserRepository::updateDonation([
+                'color_remain' => $user->color_remain + $colors,
+                'skin_remain' => $user->skin_remain + $skins,
+                'color_count' => $user->color_count + $colors,
+                'skin_count' => $user->skin_count + $skins
+            ], $user);
+
+            // Update or create the account with related discord fields.
+            AccountRepository::updateDiscord([
+                'discord_username' => $member->user->username,
+                'discord_discriminator' => $member->user->discriminator
+            ], $user->id);
+
+            // Create the rewards for the user.
+            $rewards = $this->getCount($amount, $user->reward_count, $amountTotal, 'reward');
+            if ($rewards >= 1) {
+                event(new NewDonationEvent($user, $rewards));
+            }
+
+            // Handle donation badges event.
+            event(new DonationEvent($user));
+
+            // Generate the message to send to Discord.
+            $description = "**" . $paypal->fullName . "** (<@" . $user->discord_id .
+            ">) vient de faire une donation de **" . $transaction->amount . $transaction->currency .
+            "** !\n\n**Son message** : " . $custom->message;
         } else {
-            // Payment is not appoved
+            // Generate the message to send to Discord.
+            $description = "**Un anonyme**  vient de faire une donation de **" .
+            $result->transactions[0]->amount->total . $result->transactions[0]->amount->currency .
+            "** !\n\n**Son message** : " . $custom->message . "\n";
         }
+
+        // Send the message to the #logs-bot channel.
+        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+
+        $discord->channel->createMessage([
+            'channel.id' => config('discord.channels.logs-bot'),
+            'embed' => [
+                'description' => $description,
+                'color' => hexdec("1DFCEA"),
+                'thumbnail' => [
+                    'url' => 'https://cdn.discordapp.com/app-icons/635391187301433380/'.
+                    '1816aec0f6a4418f7ed19773e97dfb98.png'
+                ],
+                'author' => [
+                    'name' => 'Donation Paypal',
+                    'icon_url' => 'https://cdn.discordapp.com/attachments/631999661112033280/'.
+                    '744946610169053364/pp258.png'
+                ]
+            ]
+        ]);
+
+        // Check if the user is not "anonymous" before to send the command.
+        if ($custom->user_id != "anonymous") {
+            $name = "<@" . $user->discord_id . "> ";
+
+            $text =  <<<EOT
+*Un grand merci à* **✦ $name ✦** *pour son généreux don au serveur*   **ARK DIVISION FRANCE**
+
+***  ✦        Ce don donne accès        ✦***
+```yaml
+= Au statut  - Membre -  en vert sur Discord, qui permet de participer aux votes concernant les
+grandes décisions de nos serveurs
+= Au statut  -   DJ   -  donnant des droits prioritaires sur les bots musique
+= Statut valable 6 mois, renouvelable à la demande si actif sur nos serveurs```
+```asciidoc
+= A une couleur personnalisée sur le dino de ton choix tous les 10€ de dons```
+```fix
+A un skin ou émote du jeu offert pour toutes les tranches de 20€
+```
+```css
+[ De modifier et personnaliser son nom de tribu sur Discord ]
+```
+```diff
+- A l'outil ARKLog de Division qui vous permet d'accéder à vos informations de tribu en tout temps et de n'importe où !
+```
+
+*Pour faire une demande de couleur et/ou de skin, il vous suffit de taper `-demande couleur` et/ou `-demande skin` dans
+le chat <#386615163165605891> du discord. Vous pouvez également utiliser la commande `-inventaire` pour voir combien de
+couleurs/skins il vous reste.  Pour plus d'information sur l'outil ARKLog : <#693371861307752468>*
+EOT;
+
+            $discord->channel->createMessage([
+                'channel.id' => config('discord.channels.logs-bot'),
+                'content' => $text
+            ]);
+        }
+
+        return redirect()->route('donation.paypal.success');
     }
 
     /**
@@ -317,6 +395,37 @@ class PaypalController extends Controller
      */
     public function success(Request $request)
     {
-        return view('paypal.success');
+        return view('donation.paypal.success');
+    }
+
+    /**
+     *  Get the number of the type relative to the donation amount.
+     *
+     * @param int $amount The donation amount.
+     * @param int $countTotal The total colors/skins/rewards of the member.
+     * @param int $amountTotal The total amount since the beginning.
+     * @param string $type The type of rewards to count. `skin` , `color` or `reward`
+     *
+     *  @return int The number of the type that the user is allowed to use.
+     */
+    protected function getCount(int $amount, int $countTotal, int $amountTotal, string $type = null) : int
+    {
+        // We count the donation related to the type count total.
+        $donationForTotal = config('xetaravel.donation.' . $type . '_interval') * $countTotal;
+
+        // We soustrac the amount total from the total type amount.
+        $remain = $amountTotal - $donationForTotal;
+
+        // We addition the remain and the new donation.
+        $amount = $remain + $amount;
+
+        $count = 0;
+
+        while ($amount >= config('xetaravel.donation.' . $type . '_interval')) {
+            $count++;
+            $amount = $amount - config('xetaravel.donation.' . $type . '_interval');
+        }
+
+        return $count;
     }
 }

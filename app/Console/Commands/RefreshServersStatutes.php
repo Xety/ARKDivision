@@ -171,7 +171,7 @@ class RefreshServersStatutes extends Command
 
 
         $end = microtime(true);
-        $this->info("The code took " . round(($end - $start)) . " seconds to complete.");
+        $this->info("The command `servers:refresh` took " . round(($end - $start)) . " seconds to complete.");
     }
 
     /**
@@ -218,7 +218,7 @@ class RefreshServersStatutes extends Command
      *
      * @return bool
      */
-    protected function updateServerStatus(Server $server, $rconStatus): bool
+    protected function updateServerStatus(Server $server, string $rconStatus): bool
     {
         // Update the pivot table record and force it to be closed.
         $data = [

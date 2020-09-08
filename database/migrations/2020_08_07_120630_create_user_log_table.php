@@ -42,6 +42,6 @@ class CreateUserLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('server_user');
+        Schema::dropIfExists('user_log');
     }
 }

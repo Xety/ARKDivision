@@ -91,34 +91,4 @@ class SendMessageToPlayer extends Command
 
         return $response;
     }
-
-    /**
-     * Update the Server status with a new one and update the last one.
-     *
-     * @param Xetaravel\Models\Server $server The server to update the status.
-     * @param string $rconStatus The new status type.
-     *
-     * @return bool
-     */
-    protected function updateServerStatus(Server $server, $rconStatus): bool
-    {
-        // Update the pivot table record and force it to be closed.
-        $data = [
-            'status_id' => $server->status->id,
-            'pivot_id' => $server->status->pivot->id,
-            'was_forced' => true,
-            'finished_at' => Carbon::now()
-        ];
-        $pivot = ServerRepository::updatePivot($data, $server);
-
-        // Get the status related to the rcon status
-        $status = Status::where(['type' => $rconStatus])->first();
-
-        // Create a new status for this server.
-        $server->statutes()->attach($status->id, [
-            'event_type' => 'rcon'
-        ]);
-
-        return true;
-    }
 }

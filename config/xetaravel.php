@@ -29,9 +29,7 @@ return [
             'notification_per_page' => 10
         ],
         'user' => [
-            'user_per_page' => 15,
-            'comments_profile_page' => 20,
-            'articles_profile_page' => 15
+            'user_per_page' => 15
         ],
         'discuss' => [
             'conversation_per_page' => 15,
@@ -64,5 +62,27 @@ return [
         'categories_sidebar' => 2, //15,
         // The number in days.
         'info_message_old_conversation' => 92
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Donations
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'donation' => [
+        // Set the expiration delay used for members.
+        'expire' => '+6 months',
+         // The interval of donations amount to get a color.
+        'color_interval' => 10,
+        // The interval of donations amount to get a skin.
+        'skin_interval' => 15,
+        // The interval of donations amount to get a reward.
+        'reward_interval' => 20,
+        // The interval between two asked colors to avoid spam.
+        'interval_between_asking_color' => '48',
+        // The interval between two asked skins to avoid spam.
+        'interval_between_asking_skin' => '48'
     ]
 ];

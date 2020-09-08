@@ -3,14 +3,24 @@ namespace Xetaravel\Listeners\Subscribers;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Xetaravel\Events\RegisterEvent;
-use Xetaravel\Events\CommentEvent;
+use Xetaravel\Events\Badges\DonationEvent;
+use Xetaravel\Events\Badges\RegisterEvent;
 use Xetaravel\Models\Badge;
 use Xetaravel\Models\User;
 use Xetaravel\Notifications\BadgeNotification;
 
 class BadgeSubscriber
 {
+    /**
+     * The events mapping to the listener function.
+     *
+     * @var array
+     */
+    protected $events = [
+        RegisterEvent::class => 'onNewRegister',
+        DonationEvent::class => 'onNewDonation'
+    ];
+
     /**
      * Register the listeners for the subscriber.
      *
@@ -20,42 +30,15 @@ class BadgeSubscriber
      */
     public function subscribe($events)
     {
-        $events->listen(
-            'Xetaravel\Events\RegisterEvent',
-            'Xetaravel\Listeners\Subscribers\BadgeSubscriber@onNewRegister'
-        );
-
-        $events->listen(
-            'Xetaravel\Events\CommentEvent',
-            'Xetaravel\Listeners\Subscribers\BadgeSubscriber@onNewComment'
-        );
-    }
-
-    /**
-     * Listener related to the comment badge.
-     *
-     * @param \Xetaravel\Events\CommentEvent $event The event that was fired.
-     *
-     * @return bool
-     */
-    public function onNewComment(CommentEvent $event): bool
-    {
-        $user = $event->user;
-        $badges = Badge::where('type', 'onNewComment')->get();
-
-        $collection = $badges->filter(function ($badge) use ($user) {
-            return $badge->rule <= $user->comment_count;
-        });
-
-        $result = $user->badges()->syncWithoutDetaching($collection);
-
-        return $this->sendNotifications($result, $badges, $user);
+        foreach ($this->events as $event => $action) {
+            $events->listen($event, BadgeSubscriber::class . '@' . $action);
+        }
     }
 
     /**
      * Listener related to the register badge.
      *
-     * @param \Xetaravel\Events\RegisterEvent $event The event that was fired.
+     * @param \Xetaravel\Events\Badges\RegisterEvent $event The event that was fired.
      *
      * @return bool
      */
@@ -69,6 +52,27 @@ class BadgeSubscriber
 
         $collection = $badges->filter(function ($badge) use ($diff) {
             return $badge->rule <= $diff;
+        });
+
+        $result = $user->badges()->syncWithoutDetaching($collection);
+
+        return $this->sendNotifications($result, $badges, $user);
+    }
+
+    /**
+     * Listener related to the donation badge.
+     *
+     * @param \Xetaravel\Events\DonationEvent $event The event that was fired.
+     *
+     * @return bool
+     */
+    public function onNewDonation(DonationEvent $event): bool
+    {
+        $user = $event->user;
+        $badges = Badge::where('type', 'onNewDonation')->get();
+
+        $collection = $badges->filter(function ($badge) use ($user) {
+            return $badge->rule <= $user->transaction_count;
         });
 
         $result = $user->badges()->syncWithoutDetaching($collection);

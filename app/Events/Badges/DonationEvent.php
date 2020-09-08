@@ -1,9 +1,9 @@
 <?php
-namespace Xetaravel\Events;
+namespace Xetaravel\Events\Badges;
 
 use Xetaravel\Models\User;
 
-class CommentEvent
+class DonationEvent
 {
     /**
      * The user instance.

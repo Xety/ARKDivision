@@ -65,7 +65,7 @@ class Handler extends ExceptionHandler
             $exception instanceof \Ultraware\Roles\Exceptions\PermissionDeniedException ||
             $exception instanceof \Ultraware\Roles\Exceptions\LevelDeniedException) {
             //If the user is banished, redirect him to the banished page.
-            if (Auth::check() && Auth::user()->hasRole('banished')) {
+            if (Auth::check() && Auth::user()->hasRole('banni')) {
                 return redirect()
                     ->route('page.banished');
             }

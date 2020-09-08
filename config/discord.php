@@ -13,5 +13,9 @@ return [
     ],
     'guild' => [
         'id' => 386615163165605889 // ARK Division
+    ],
+    'channels' => [
+        'logs-bot' => 607226558645796864,
+        'general' => 386615163165605891
     ]
 ];

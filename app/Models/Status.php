@@ -15,11 +15,14 @@ class Status extends Model
      */
     public function servers()
     {
-        return $this->belongsToMany(Server::class)->using(ServerStatus::class)->withPivot([
-            'id',
-            'event_type',
-            'was_forced',
-            'finished_at'
-        ])->withTimestamps();
+        return $this->belongsToMany(Server::class)
+            ->using(ServerStatus::class)
+            ->withPivot([
+                'id',
+                'event_type',
+                'was_forced',
+                'finished_at'
+            ])
+            ->withTimestamps();
     }
 }

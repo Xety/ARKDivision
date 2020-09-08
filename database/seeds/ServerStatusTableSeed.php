@@ -108,6 +108,15 @@ class ServerStatusTableSeed extends Seeder
             ],
             [
                 'server_id' => 11,
+                'status_id' => 3,
+                'event_type' => 'discord',
+                'was_forced' => false,
+                'finished_at' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'server_id' => 12,
                 'status_id' => 5,
                 'event_type' => 'discord',
                 'was_forced' => false,

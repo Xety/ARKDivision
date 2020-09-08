@@ -1,6 +1,7 @@
 <?php
 namespace Xetaravel\Models\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request as FacadeRequest;
 use Xetaravel\Models\User;
@@ -81,6 +82,25 @@ class UserRepository
     public static function updatePassword(array $data, User $user): bool
     {
         $user->password = Hash::make($data['password']);
+
+        return $user->save();
+    }
+
+    /**
+     * Update the user skins and colors fields after a valid donation.
+     *
+     * @param array $data The data used to update the user.
+     * @param \Xetaravel\Models\User $user The user to update.
+     *
+     * @return bool
+     */
+    public static function updateDonation(array $data, User $user): bool
+    {
+        $user->skin_count = $data['skin_count'];
+        $user->skin_remain = $data['skin_remain'];
+        $user->color_count = $data['color_count'];
+        $user->color_remain = $data['color_remain'];
+        $user->member_expire_at = Carbon::now()->modify(config('xetaravel.donation.expire'));
 
         return $user->save();
     }

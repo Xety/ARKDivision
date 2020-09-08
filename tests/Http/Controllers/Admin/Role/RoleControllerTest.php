@@ -121,7 +121,7 @@ class RoleControllerTest extends TestCase
     public function testDeleteSuccess()
     {
         $role = Role::create([
-            'name' => 'test',
+            'name' => 'testdelete',
             'level' => 0,
             'permissions' => [
                 1,
@@ -131,18 +131,18 @@ class RoleControllerTest extends TestCase
         $editor = User::find(2);
         $editor->roles()->sync($role);
 
-        $banished = User::find(4);
-        $banished->roles()->sync($role, false);
+        $banni = User::find(5);
+        $banni->roles()->sync($role, false);
 
         $response = $this->delete("/admin/role/role/delete/{$role->id}");
         $response->assertSessionHas('success');
         $response->assertStatus(302);
 
-        $this->assertTrue($banished->roles->contains('name', 'Banished'));
-        $this->assertFalse($banished->roles->contains('name', 'User'));
+        $this->assertTrue($banni->roles->contains('name', 'Banni'));
+        $this->assertFalse($banni->roles->contains('name', 'Utilisateur'));
 
-        $this->assertTrue($editor->roles->contains('name', 'User'));
-        $this->assertFalse($editor->roles->contains('name', 'Editor'));
+        $this->assertTrue($editor->roles->contains('name', 'Utilisateur'));
+        $this->assertFalse($editor->roles->contains('name', 'Admin'));
     }
 
     /**

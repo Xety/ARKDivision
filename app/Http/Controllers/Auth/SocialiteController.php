@@ -12,7 +12,7 @@ use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as ProviderUser;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponseSF;
-use Xetaravel\Events\RegisterEvent;
+use Xetaravel\Events\Badges\RegisterEvent;
 use Xetaravel\Http\Controllers\Controller;
 use Xetaravel\Models\User;
 use Xetaravel\Models\Repositories\AccountRepository;

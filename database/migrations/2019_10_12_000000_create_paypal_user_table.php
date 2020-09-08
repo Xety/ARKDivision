@@ -14,8 +14,8 @@ class CreatePaypalUserTable extends Migration
     public function up()
     {
         Schema::create('paypal_user', function (Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('user_id')->unique()->index();
+            $table->increments('id')->unsigned();
+            $table->integer('user_id')->unsigned()->index();
             $table->string('email', 120)->nullable();
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
