@@ -4,6 +4,7 @@ namespace Xetaravel\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Xetaravel\Console\Commands\RefreshServersStatutes;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +25,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('servers:refresh')
+            ->everyMinute()
+            ->withoutOverlapping(30)
+            ->runInBackground();
+            //->appendOutputTo('/srv/users/serverpilot/apps/0website/storage/logs/scheduler.log');
+
+        // Dont run the schedule command on dev mode.
+        if (env('APP_ENV') != 'local') {
+            $schedule->command('message:player')
+                ->everyMinute()
+                ->runInBackground();
+
+            $schedule->command('players:refresh')
+            ->everyMinute()
+            ->runInBackground();
+        }
     }
 
     /**

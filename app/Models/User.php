@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Ultraware\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use Ultraware\Roles\Traits\HasRoleAndPermission;
 use Xetaravel\Models\Presenters\UserPresenter;
@@ -47,6 +48,7 @@ class User extends Model implements
         'slug',
         'discord_id',
         'register_ip',
+        'transaction_count',
         'last_login_ip',
         'last_login'
     ];
@@ -80,6 +82,8 @@ class User extends Model implements
         'first_name',
         'last_name',
         'full_name',
+        'discord_nickname',
+        'steam_nickname',
         'biography',
         'signature',
         'facebook',
@@ -158,26 +162,6 @@ class User extends Model implements
 
         $this->addMediaConversion('original')
                 ->keepOriginalImageFormat();
-    }
-
-    /**
-     * Get the comments for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
-     * Get the articles for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function articles()
-    {
-        return $this->hasMany(Article::class);
     }
 
     /**
@@ -280,6 +264,52 @@ class User extends Model implements
     public function experiences()
     {
         return $this->hasMany(Experience::class);
+    }
+
+    /**
+     * Get the server for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function server()
+    {
+        return $this->hasOne(Server::class);
+    }
+
+    /**
+     * Get the paypal for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function paypal()
+    {
+        return $this->hasOne(PaypalUser::class);
+    }
+
+    /**
+     * Get the transactions for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(TransactionUser::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get the rewards for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function rewards()
+    {
+        return $this->belongsToMany(Reward::class)
+            ->using(RewardUser::class)
+            ->withPivot([
+                'id',
+                'was_used'
+            ])
+            ->withTimestamps();
     }
 
     /**

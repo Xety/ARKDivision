@@ -51,7 +51,7 @@ class ConversationControllerTest extends TestCase
      */
     public function testCreateIsFloodingFailed()
     {
-        $user = User::find(2);
+        $user = User::find(3);
         $this->be($user);
 
         config(['xetaravel.flood.discuss.conversation' => (60 * 10)]);

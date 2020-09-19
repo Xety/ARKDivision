@@ -24,7 +24,7 @@ class PageControllerTest extends TestCase
      */
     public function testIndexBanishedSuccess()
     {
-        $user = User::find(4);
+        $user = User::find(5);
         $this->be($user);
 
         $response = $this->get('/');
@@ -38,7 +38,7 @@ class PageControllerTest extends TestCase
      */
     public function testBanishedSuccess()
     {
-        $user = User::find(4);
+        $user = User::find(5);
         $this->be($user);
 
         $response = $this->get('/banished');

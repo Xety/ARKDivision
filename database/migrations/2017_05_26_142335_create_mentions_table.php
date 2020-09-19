@@ -14,7 +14,7 @@ class CreateMentionsTable extends Migration
     public function up()
     {
         Schema::create('mentions', function(Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('model_type');
             $table->integer('model_id')->unsigned();
             $table->string('recipient_type');

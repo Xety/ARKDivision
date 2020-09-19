@@ -21,7 +21,7 @@ trait CreatesApplication
 
         Hash::driver('bcrypt')->setRounds(4);
 
-        config(['medialibrary.defaultFilesystem' => 'tests']);
+        config(['media-library.disk_name' => 'tests']);
 
         return $app;
     }

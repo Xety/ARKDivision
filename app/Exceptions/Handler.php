@@ -2,9 +2,11 @@
 namespace Xetaravel\Exceptions;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -49,11 +51,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if (($exception instanceof ModelNotFoundException ||
+            $exception instanceof NotFoundHttpException) && $request->wantsJson()) {
+            return response()->json([
+                'data' => [],
+                'error' => 'Resource not found!',
+                'error_code' => 404,
+                'version' => env('APP_API_VERSION')
+            ], 404);
+        }
+
         if ($exception instanceof \Ultraware\Roles\Exceptions\RoleDeniedException ||
             $exception instanceof \Ultraware\Roles\Exceptions\PermissionDeniedException ||
             $exception instanceof \Ultraware\Roles\Exceptions\LevelDeniedException) {
             //If the user is banished, redirect him to the banished page.
-            if (Auth::check() && Auth::user()->hasRole('banished')) {
+            if (Auth::check() && Auth::user()->hasRole('banni')) {
                 return redirect()
                     ->route('page.banished');
             }

@@ -19,3 +19,7 @@
 @include bg-variant('.bg-inverse', $brand-inverse);
 
 @include bg-variant('.bg-white', $brand-white);
+
+@include bg-variant('.bg-discord', $brand-discord);
+
+@include bg-variant('.bg-steam', $brand-steam);

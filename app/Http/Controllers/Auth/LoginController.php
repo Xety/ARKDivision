@@ -6,7 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
-use Xetaravel\Events\RegisterEvent;
+use Xetaravel\Events\Badges\RegisterEvent;
 use Xetaravel\Http\Controllers\Controller;
 
 class LoginController extends Controller

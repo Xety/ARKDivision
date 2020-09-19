@@ -61,6 +61,8 @@ $brand-inverse:             $gray-dark !default;
 $brand-white:               #ffffff !default;
 $brand-experiences:         #f39c12 !default;
 $brand-rubies:              $brand-primary !default;
+$brand-discord: #7289da !default;
+$brand-steam: #15346a !default;
 
 // Options
 //
@@ -325,6 +327,16 @@ $btn-warning-border:             $btn-warning-bg !default;
 $btn-danger-color:               #fff !default;
 $btn-danger-bg:                  $brand-danger !default;
 $btn-danger-border:              $btn-danger-bg !default;
+
+$btn-discord-color:               #fff !default;
+$btn-discord-bg:                  $brand-discord !default;
+$btn-discord-border:              $btn-discord-bg !default;
+$btn-discord-inverse:            $btn-discord-color !default;
+
+$btn-steam-color:  #fff !default;
+$btn-steam-bg: $brand-steam !default;
+$btn-steam-border: $btn-steam-bg !default;
+$btn-steam-inverse: $btn-steam-color !default;
 
 $btn-link-disabled-color:        $gray-light !default;
 
@@ -657,8 +669,8 @@ $mark-bg:                        $state-warning-text !default;
 $state-warning-border:           $state-warning-bg !default;
 
 $state-danger-text:              #fff !default;
-$state-danger-bg:                $state-primary-bg !default;
-$state-danger-border:            $state-primary-bg !default;
+$state-danger-bg:                $brand-danger !default;
+$state-danger-border:            $state-danger-bg !default;
 
 
 // Cards

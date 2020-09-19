@@ -12,9 +12,10 @@ use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as ProviderUser;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponseSF;
-use Xetaravel\Events\RegisterEvent;
+use Xetaravel\Events\Badges\RegisterEvent;
 use Xetaravel\Http\Controllers\Controller;
 use Xetaravel\Models\User;
+use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\Repositories\UserRepository;
 use Xetaravel\Models\Role;
 use Xetaravel\Models\Validators\UserValidator;
@@ -77,7 +78,7 @@ class SocialiteController extends Controller
         }
         $user = Socialite::driver($driver)->userFromToken($request->session()->get('socialite.token'));
 
-        $user->nickname = $request->input('username');
+        $user->name = $request->input('username');
         $user->email = $request->input('email');
 
         $user = $this->registered($user);
@@ -128,10 +129,16 @@ class SocialiteController extends Controller
 
         // Check if the user is already registered
         if (!$member = User::where($driver . '_id', $user->id)->first()) {
-            $member = $this->handleRegister($request, $user);
+            $register = $this->handleRegister($request, $user);
         }
 
-        return $this->login($request, $member);
+        if (isset($register) && $register instanceof RedirectResponse) {
+            return $register;
+        } else {
+            $register = $member;
+        }
+
+        return $this->login($request, $register);
     }
 
     /**
@@ -162,21 +169,21 @@ class SocialiteController extends Controller
     protected function handleRegister(Request $request, ProviderUser $user)
     {
         $validator = UserValidator::createWithProvider([
-            'username' => $user->user['username'],
+            'username' => $user->name,
             'email' => $user->email
         ]);
 
         if ($validator->fails()) {
             $request->session()->put('socialite', [
-                'driver' => $driver,
+                'driver' => $this->driver,
                 'token' => $user->token
             ]);
 
             return redirect()
-                ->route('auth.driver.register', ['driver' => $driver])
+                ->route('auth.driver.register', ['driver' => $this->driver])
                 ->withErrors($validator)
                 ->withInput([
-                    'username' => $user->user['username'],
+                    'username' => $user->name,
                     'email' => $user->email
                 ]);
         }
@@ -197,7 +204,7 @@ class SocialiteController extends Controller
     {
         return UserRepository::create(
             [
-                'username' => $user->user['username'],
+                'username' => $user->name,
                 'email' => $user->email
             ],
             [
@@ -228,19 +235,24 @@ class SocialiteController extends Controller
     /**
      * The user has been registered.
      *
-     * @param \Laravel\Socialite\Two\User $user The user that has been registered.
+     * @param \Laravel\Socialite\Two\User $providerUser The user that has been registered.
      *
      * @return \Xetaravel\Models\User
      */
-    protected function registered(ProviderUser $user): User
+    protected function registered(ProviderUser $providerUser): User
     {
-        event(new Registered($user = $this->createUser($user)));
+        event(new Registered($user = $this->createUser($providerUser)));
 
-        $role = Role::where('slug', 'user')->first();
+        AccountRepository::updateDiscord([
+            'discord_username' => $providerUser->user['username'],
+            'discord_discriminator' => $providerUser->user['discriminator']
+        ], $user->id);
+
+        $role = Role::where('slug', 'utilisateur')->first();
         $user->attachRole($role);
 
         $user->clearMediaCollection('avatar');
-        $user->addMedia(resource_path('assets/images/avatar.png'))
+        $user->addMediaFromUrl($providerUser->avatar)
             ->preservingOriginal()
             ->setName(substr(md5($user->username), 0, 10))
             ->setFileName(substr(md5($user->username), 0, 10) . '.png')

@@ -15,28 +15,48 @@ class RolesTableSeed extends Seeder
     {
         $roles = [
             [
-                'name' => 'Administrator',
-                'slug' => 'administrator',
+                'name' => 'Développeur',
+                'slug' => 'developpeur',
                 'description' => '',
                 'css' => 'font-weight: bold; color: #ef3c3c;',
+                'level' => 5,
+                'is_deletable' => false,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Administrateur',
+                'slug' => 'administrateur',
+                'description' => '',
+                'css' => 'font-weight: bold; color: #14e8e1;',
+                'level' => 4,
+                'is_deletable' => false,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Ambassadeur',
+                'slug' => 'ambassadeur',
+                'description' => '',
+                'css' => 'font-weight: bold; color: #f1c40f;',
                 'level' => 3,
                 'is_deletable' => false,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'Editor',
-                'slug' => 'editor',
+                'name' => 'Membre',
+                'slug' => 'membre',
                 'description' => '',
-                'css' => 'font-weight: bold; color: #5ccc5c;',
+                'css' => 'font-weight: bold; color: #00af94;',
                 'level' => 2,
                 'is_deletable' => false,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'User',
-                'slug' => 'user',
+                'name' => 'Utilisateur',
+                'slug' => 'utilisateur',
                 'description' => '',
                 'css' => 'font-weight: bold;',
                 'level' => 1,
@@ -45,8 +65,8 @@ class RolesTableSeed extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'Banished',
-                'slug' => 'banished',
+                'name' => 'Banni',
+                'slug' => 'banni',
                 'description' => '',
                 'css' => 'font-weight: bold; color: #843729;',
                 'level' => 0,

@@ -40,23 +40,23 @@ class UserControllerTest extends TestCase
     {
         $response = $this->get('/admin/user/search?search=admin&type=username');
         $response->assertSuccessful();
-        $response->assertSee('admin@xeta.io');
+        $response->assertSee('admin@division.io');
 
         $response = $this->get('/admin/user/search?search=admin&type=email');
         $response->assertSuccessful();
-        $response->assertSee('admin@xeta.io');
+        $response->assertSee('admin@division.io');
 
         $response = $this->get('/admin/user/search?search=127&type=register_ip');
         $response->assertSuccessful();
-        $response->assertSee('admin@xeta.io');
+        $response->assertSee('admin@division.io');
 
         $response = $this->get('/admin/user/search?search=127&type=last_login_ip');
         $response->assertSuccessful();
-        $response->assertSee('admin@xeta.io');
+        $response->assertSee('admin@division.io');
 
         $response = $this->get('/admin/user/search?search=admin&type=unknown');
         $response->assertSuccessful();
-        $response->assertSee('admin@xeta.io');
+        $response->assertSee('admin@division.io');
     }
 
     /**
@@ -119,7 +119,7 @@ class UserControllerTest extends TestCase
     {
         $this->assertNotNull(User::find(2));
 
-        $response = $this->delete('/admin/user/delete/2', ['password' => 'admin']);
+        $response = $this->delete('/admin/user/delete/2', ['password' => 'zoro']);
         $response->assertSessionHas('success');
         $response->assertStatus(302);
 
