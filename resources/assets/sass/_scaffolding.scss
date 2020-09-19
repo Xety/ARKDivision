@@ -6,7 +6,7 @@ html {
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 60px !important;
     margin-top: 154px;
 
     & > .container {
@@ -27,7 +27,7 @@ section {
 
 @media (max-width: 768px) {
     body {
-        margin-bottom: 120px;
+        margin-bottom: 120px !important;
         margin-top: 0px;
 
         &  > .container {

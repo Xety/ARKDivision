@@ -81,8 +81,21 @@ return [
         // The interval of donations amount to get a reward.
         'reward_interval' => 20,
         // The interval between two asked colors to avoid spam.
-        'interval_between_asking_color' => '48',
+        'interval_between_asking_color' => 48,
         // The interval between two asked skins to avoid spam.
-        'interval_between_asking_skin' => '48'
+        'interval_between_asking_skin' => 48
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Steam
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'steam' => [
+        'api_key' => 'EADF3D7361EA97FE3FC1D0DE86364537',
+        'api_url' => 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s',
+        'profile_url' => 'https://steamcommunity.com/profiles/%s/'
     ]
 ];

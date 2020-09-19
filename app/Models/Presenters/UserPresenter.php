@@ -80,6 +80,18 @@ trait UserPresenter
     }
 
     /**
+     * Get the Steam nickname.
+     *
+     * @return string
+     */
+    public function getSteamNicknameAttribute(): string
+    {
+        $nickname = $this->parse($this->account, 'steam_username');
+
+        return $nickname;
+    }
+
+    /**
      * Get the experiences total formated.
      *
      * @return integer

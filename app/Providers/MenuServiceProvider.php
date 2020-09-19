@@ -16,22 +16,22 @@ class MenuServiceProvider extends ServiceProvider
     {
         Menu::macro('user.profile', function () {
             return Menu::new()
-                ->addClass('nav nav-menu flex-column')
+                ->addClass('mb-2 nav nav-menu flex-column')
                 ->setAttribute('role', 'navigation')
                 ->add(
-                    Link::toRoute('users.account.index', '<i class="fa fa-user"></i> Compte')
+                    Link::toRoute('users.account.index', '<i class="fas fa-user-edit"></i> Compte')
                         ->addClass('nav-link')
                 )
                 ->add(
-                    Link::toRoute('users.notification.index', '<i class="fa fa-bell-o"></i> Notifications')
+                    Link::toRoute('users.notification.index', '<i class="fas fa-user-tag"></i> Notifications')
                         ->addClass('nav-link')
                 )
                 ->add(
-                    Link::toRoute('users.social.index', '<i class="fa fa-users"></i> Social')
+                    Link::toRoute('users.social.index', '<i class="fas fa-user-plus"></i> Social')
                         ->addClass('nav-link')
                 )
                 ->add(
-                    Link::toRoute('users.user.settings', '<i class="fa fa-cogs"></i> Paramètres')
+                    Link::toRoute('users.user.settings', '<i class="fas fa-user-cog"></i> Paramètres')
                         ->addClass('nav-link')
                 )
                 ->setActiveFromRequest();

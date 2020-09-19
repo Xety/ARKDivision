@@ -106,6 +106,36 @@ class UserRepository
     }
 
     /**
+     * Update the user steam id.
+     *
+     * @param array $data The data used to update the user.
+     * @param \Xetaravel\Models\User $user The user to update.
+     *
+     * @return bool
+     */
+    public static function updateSteam(array $data, User $user): bool
+    {
+        $user->steam_id = $data['steam_id'];
+
+        return $user->save();
+    }
+
+    /**
+     * Update the user discord id.
+     *
+     * @param array $data The data used to update the user.
+     * @param \Xetaravel\Models\User $user The user to update.
+     *
+     * @return bool
+     */
+    public static function updateDiscord(array $data, User $user): bool
+    {
+        $user->discord_id = $data['discord_id'];
+
+        return $user->save();
+    }
+
+    /**
      * Find the notifications data for the notification sidebar.
      *
      * @param int $userId The id of the user.

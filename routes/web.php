@@ -78,7 +78,14 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
 
         // Social Routes
         Route::get('social', 'SocialController@index')->name('users.social.index');
-        Route::get('discord', 'SocialController@discord')->name('users.social.discord');
+
+        Route::get('social/discord', 'SocialController@discord')->name('users.social.discord');
+        Route::get('social/discordcallback', 'SocialController@discordCallback')->name('users.social.discordcallback');
+
+        Route::get('social/steam', 'SocialController@steam')->name('users.social.steam');
+        Route::get('social/steamcallback/{id}', 'SocialController@steamCallback')->name('users.social.steamcallback');
+
+        Route::delete('social/delete/{type}', 'SocialController@delete')->name('users.social.delete');
 
         // Notification Routes
         Route::get('notification', 'NotificationController@index')
@@ -87,7 +94,7 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
             ->name('users.notification.markasread');
         Route::post('notification/markAllAsRead', 'NotificationController@markAllAsRead')
             ->name('users.notification.markallasread');
-        Route::delete('notification/delete/{slug}', 'NotificationController@delete')
+        Route::delete('notification/delete/{slug?}', 'NotificationController@delete')
             ->name('users.notification.delete');
     });
 });

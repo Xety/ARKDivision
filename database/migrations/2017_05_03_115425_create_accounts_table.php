@@ -23,6 +23,7 @@ class CreateAccountsTable extends Migration
             $table->text('signature')->nullable();
             $table->string('discord_username', 50)->nullable();
             $table->string('discord_discriminator', 5)->nullable();
+            $table->string('steam_username', 50)->nullable();
             $table->string('facebook', 50)->nullable();
             $table->string('twitter', 50)->nullable();
             $table->timestamps();

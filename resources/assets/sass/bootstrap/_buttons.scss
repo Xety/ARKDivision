@@ -77,6 +77,9 @@ fieldset[disabled] a.btn {
 .btn-danger {
   @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
+.btn-discord {
+  @include button-variant($btn-discord-color, $btn-discord-bg, $btn-discord-border);
+}
 
 // Remove all backgrounds
 .btn-outline-primary {
@@ -98,7 +101,19 @@ fieldset[disabled] a.btn {
   @include button-outline-variant($btn-danger-bg);
 }
 .btn-outline-primary-inverse {
-  @include button-outline-variant($btn-primary-inverse, $btn-primary-bg);
+  @include button-outline-variant($btn-primary-inverse, $brand-primary);
+}
+.btn-outline-discord {
+  @include button-outline-variant($btn-discord-bg);
+}
+.btn-outline-discord-inverse {
+  @include button-outline-variant($btn-discord-inverse, $brand-discord);
+}
+.btn-outline-steam {
+  @include button-outline-variant($btn-steam-bg);
+}
+.btn-outline-steam-inverse {
+  @include button-outline-variant($btn-steam-inverse, $brand-steam);
 }
 
 //
