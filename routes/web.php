@@ -87,10 +87,15 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
 
         Route::delete('social/delete/{type}', 'SocialController@delete')->name('users.social.delete');
 
+        // Rewards
+        Route::get('reward', 'RewardController@index')->name('users.reward.index');
+        Route::post('reward/claim', 'RewardController@claim')->name('users.reward.claim');
+        Route::post('reward/markasread', 'RewardController@markAsRead')->name('users.reward.markasread');
+
         // Notification Routes
         Route::get('notification', 'NotificationController@index')
             ->name('users.notification.index');
-        Route::post('notification/markAsRead', 'NotificationController@markAsRead')
+        Route::post('notification/markasread', 'NotificationController@markAsRead')
             ->name('users.notification.markasread');
         Route::post('notification/markAllAsRead', 'NotificationController@markAllAsRead')
             ->name('users.notification.markallasread');

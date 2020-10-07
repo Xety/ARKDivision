@@ -27,6 +27,10 @@ class MenuServiceProvider extends ServiceProvider
                         ->addClass('nav-link')
                 )
                 ->add(
+                    Link::toRoute('users.reward.index', '<i class="fas fa-award"></i> Récompenses')
+                        ->addClass('nav-link')
+                )
+                ->add(
                     Link::toRoute('users.social.index', '<i class="fas fa-user-plus"></i> Social')
                         ->addClass('nav-link')
                 )

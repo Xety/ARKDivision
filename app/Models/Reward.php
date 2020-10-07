@@ -12,9 +12,19 @@ class Reward extends Model
     protected $fillable = [
         'name',
         'description',
+        'image',
         'type',
         'data',
         'rule'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'data' => 'array'
     ];
 
     /**
@@ -28,7 +38,9 @@ class Reward extends Model
             ->using(RewardUser::class)
             ->withPivot([
                 'id',
-                'was_used'
+                'read_at',
+                'was_used',
+                'used_at'
             ])
             ->withTimestamps();
     }

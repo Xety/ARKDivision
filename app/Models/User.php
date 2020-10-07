@@ -307,7 +307,9 @@ class User extends Model implements
             ->using(RewardUser::class)
             ->withPivot([
                 'id',
-                'was_used'
+                'read_at',
+                'was_used',
+                'used_at'
             ])
             ->withTimestamps();
     }
