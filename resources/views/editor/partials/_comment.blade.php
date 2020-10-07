@@ -28,7 +28,7 @@ $(function() {
         pluginPath : "{{ asset(Arr::get($comment, 'pluginPath', config('editor.pluginPath'))) }}/",
         watch : false,
         editorTheme : 'mdn-like',
-        placeholder : 'Type your comment here...',
+        placeholder : 'Tapez votre réponse ici...',
         toolbarIcons : function () {
             return [
                 "undo", "redo", "|",

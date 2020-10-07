@@ -28,7 +28,7 @@ $(function() {
         pluginPath : "{{ asset(Arr::get($biography, 'pluginPath', config('editor.pluginPath'))) }}/",
         watch : false,
         editorTheme : 'mdn-like',
-        placeholder : 'Type your biography here...',
+        placeholder : 'Tapez votre biographie ici...',
         toolbarIcons : function () {
             return [
                 "undo", "redo", "|",

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => __('My account')]) !!}
+{!! config(['app.title' => __('Mon compte')]) !!}
 
 @push('style')
     {!! editor_css() !!}
