@@ -14,7 +14,9 @@ class RewardUser extends Pivot
      * @var array
      */
     protected $fillable = [
-        'was_used'
+        'read_at',
+        'was_used',
+        'used_at'
     ];
 
     /**
@@ -23,8 +25,19 @@ class RewardUser extends Pivot
      * @var array
      */
     protected $casts = [
-        'was_used' => 'boolean'
+        'was_used' => 'boolean',
+        'read_at' => 'datetime',
+        'used_at' => 'datetime'
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    /*protected $dates = [
+        'read_at'
+    ];*/
 
     /**
      * Return the count cache configuration.

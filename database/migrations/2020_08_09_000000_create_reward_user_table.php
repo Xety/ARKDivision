@@ -17,7 +17,9 @@ class CreateRewardUserTable extends Migration
             $table->increments('id')->unsigned();
             $table->integer('reward_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
+            $table->timestamp('read_at')->nullable();
             $table->boolean('was_used')->default(false);
+            $table->timestamp('used_at')->nullable();
             $table->timestamps();
         });
 

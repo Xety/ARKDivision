@@ -17,6 +17,7 @@ class CreateRewardsTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->string('type');
             $table->text('data')->nullable();
             $table->integer('rule')->unsigned();

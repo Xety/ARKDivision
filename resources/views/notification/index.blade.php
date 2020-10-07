@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => 'My notifications']) !!}
+{!! config(['app.title' => 'Mes notifications']) !!}
 
 @section('content')
 <div class="container pt-6 pb-0">
@@ -24,7 +24,7 @@
                         {{ $notifications->render() }}
                     </div>
                 @else
-                    You don't have any notifications.
+                    Vous n'avez aucune notifications.
                 @endif
 
             </section>
