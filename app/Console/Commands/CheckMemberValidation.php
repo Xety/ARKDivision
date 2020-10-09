@@ -78,7 +78,7 @@ class CheckMemberValidation extends Command
                 $name = "(Inconnu#1234)";
             }
 
-            // The user is not on our Discord anymore or has not a valid Discord ID.
+            // Check if the user is still on our Discord and has a valid Discord ID.
             if (!is_null($member)) {
                 $name = "(" . $user->discordNickname . ")";
             }
