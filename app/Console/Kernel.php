@@ -40,6 +40,10 @@ class Kernel extends ConsoleKernel
             $schedule->command('players:refresh')
             ->everyMinute()
             ->runInBackground();
+
+            $schedule->command('member:validation')
+            ->everyMinute()
+            ->runInBackground();
         }
     }
 

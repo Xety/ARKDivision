@@ -36,7 +36,8 @@ class RewardUser extends Pivot
      * @var array
      */
     /*protected $dates = [
-        'read_at'
+        'read_at',
+        'used_at'
     ];*/
 
     /**

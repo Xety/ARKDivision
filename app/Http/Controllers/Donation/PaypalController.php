@@ -26,6 +26,7 @@ use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\Repositories\PaypalUserRepository;
 use Xetaravel\Models\Repositories\TransactionUserRepository;
 use Xetaravel\Models\Repositories\UserRepository;
+use Xetaravel\Models\Role;
 use Xetaravel\Models\User;
 
 class PaypalController extends Controller
@@ -285,7 +286,7 @@ class PaypalController extends Controller
             ]);
 
             // We must get the user again due to the count fields being updated.
-            $user = User::where('discord_id', $custom->user_id)->with('Paypal')->first();
+            $user = User::where('discord_id', $custom->user_id)->with('Paypal', 'Roles')->first();
 
             // Update the Skins and Colors
             $amount = $result->transactions[0]->amount->total;
@@ -302,6 +303,13 @@ class PaypalController extends Controller
                 'color_count' => $user->color_count + $colors,
                 'skin_count' => $user->skin_count + $skins
             ], $user);
+
+            // Update the user role.
+            $role = Role::where('slug', 'membre')->first();
+            // Update the role only if the user has a lower level of his role related to the `membre` role (level 2)
+            if ($user->level() < 2) {
+                $user->syncRoles([$role->id]);
+            }
 
             // Update or create the account with related discord fields.
             AccountRepository::updateDiscord([
@@ -380,7 +388,8 @@ couleurs/skins il vous reste.  Pour plus d'information sur l'outil ARKLog : <#69
 EOT;
 
             $discord->channel->createMessage([
-                'channel.id' => config('discord.channels.logs-bot'),
+                'channel.id' =>
+                (env('APP_ENV') == 'local') ? config('discord.channels.logs-bot') : config('discord.channels.general'),
                 'content' => $text
             ]);
         }

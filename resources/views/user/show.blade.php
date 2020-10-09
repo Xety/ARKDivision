@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => $user->username . ' profile']) !!}
+{!! config(['app.title' =>  'Profil de ' . $user->username]) !!}
 
 @section('content')
 <div class="profile-container">
@@ -29,60 +29,19 @@
                 <div class="col-md-12">
                     <ul class="statistics list-inline pull-left">
                         <li class="list-inline-item">
-                            <span class="text">Comments</span>
+                            <span class="text">Commentaires</span>
                             <span class="number">
-                                {{ $user->comment_count }}
+                                {{ $user->discuss_post_count }}
                             </span>
                         </li>
                         <li class="list-inline-item">
-                            <span class="text">Articles</span>
+                            <span class="text">Conversations</span>
                             <span class="number">
-                                {{ $user->article_count }}
+                                {{ $user->discuss_conversation_count }}
                             </span>
                         </li>
                     </ul>
 
-                    <ul class="socials list-inline pull-right">
-                        @if ($user->facebook)
-                            <li class="list-inline-item">
-                                {!! Html::link(
-                                    url('http://facebook.com/' . e($user->facebook)),
-                                    '<i class="fab fa-facebook-square fa-2x"></i>',
-                                    [
-                                        'class' => 'text-primary',
-                                        'target' => '_blank',
-                                        'data-toggle' => 'tooltip',
-                                        'data-placement' => 'top',
-                                        'title' => 'http://facebook.com/' . e($user->facebook)
-                                    ],
-                                    null,
-                                    false
-                                ) !!}
-                            </li>
-                        @endif
-                        @if ($user->twitter)
-                            <li class="list-inline-item">
-                                {!! Html::link(
-                                    url('http://twitter.com/' . e($user->twitter)),
-                                    '<i class="fab fa-twitter-square fa-2x"></i>',
-                                    [
-                                        'class' => 'text-primary',
-                                        'target' => '_blank',
-                                        'data-toggle' => 'tooltip',
-                                        'data-placement' => 'top',
-                                        'title' => 'http://twitter.com/' . e($user->twitter)
-                                    ],
-                                    null,
-                                    false
-                                ) !!}
-                            </li>
-                        @endif
-                        @if (Auth::user() && $user->id == Auth::id())
-                            <li class="list-inline-item" style="padding: 10px;">
-                                {!! Html::link(route('users.account.index'), 'Edit my profile', ['class' => 'btn btn-outline-primary']) !!}
-                            </li>
-                        @endif
-                    </ul>
                 </div>
             </div>
         </div>
@@ -112,7 +71,7 @@
                 </div>
 
                 <span class="joinedDate">
-                    Joined<br>
+                    Rejoint le <br>
                     {{ $user->created_at->format('d-m-Y') }}
                 </span>
 
@@ -160,9 +119,9 @@
                 <div class="hr-divider">
                     <h4 class="font-xeta text-xs-center">
                         @if (Auth::user() && $user->id == Auth::id())
-                            Your Biography
+                            Votre Biographie
                         @else
-                            His Biography
+                            Sa Biographie
                         @endif
                     </h4>
                 </div>
@@ -171,10 +130,10 @@
                         {!! Markdown::convertToHtml($user->biography) !!}
                     @else
                         @if (Auth::user() && $user->id == Auth::id())
-                            You don't have set a biography.
-                            {!! Html::link(route('users.account.index'), '<i class="fa fa-plus"></i> Add now', ['class' => 'btn btn-outline-primary'], null, false) !!}
+                            Vous n'avez pas encore renseigné votre biographie.
+                            {!! Html::link(route('users.account.index'), '<i class="fa fa-plus"></i> Ajouter maintenant', ['class' => 'btn btn-outline-primary'], null, false) !!}
                         @else
-                            This user hasn't set a biography yet.
+                            Cet utilisateur n'a pas encore renseigné de biographie.
                         @endif
                     @endif
                 </div>
@@ -182,9 +141,9 @@
                 <div class="hr-divider">
                     <h4 class="font-xeta text-xs-center">
                         @if (Auth::user() && $user->id == Auth::id())
-                            Your Badges
+                            Vos Badges
                         @else
-                            His Badges
+                            Ces Badges
                         @endif
                     </h4>
                 </div>
@@ -197,9 +156,9 @@
                         @endforeach
                     @else
                         @if (Auth::user() && $user->id == Auth::id())
-                            You don't have unlocked a badge yet.
+                            Vous n'avez pas encore débloqué de badges.
                         @else
-                            This user hasn't unlocked a badge yet.
+                            Cet utilisateur n'a pas encore débloqué de badges.
                         @endif
                     @endif
                 </div>
