@@ -10,17 +10,17 @@
     <div class="row">
         <div class="col-md-12">
             <h4 class="font-xeta">
-                All users from {{ config('app.name') }} :
+                Tout les utilisateurs de {{ config('app.name') }} :
             </h4>
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Username</th>
-                        <th>Full name</th>
-                        <th>Roles</th>
-                        <th>Comments</th>
-                        <th>Last login</th>
-                        <th>Created</th>
+                        <th>Nom complet</th>
+                        <th>Rôles</th>
+                        <th>Commentaires</th>
+                        <th>Dernière connexion</th>
+                        <th>Rejoint le</th>
                         @permission('manage.users')
                             <th>Action</th>
                         @endpermission
@@ -46,13 +46,13 @@
                                 @endforelse
                             </td>
                             <td>
-                                {{ $user->comment_count }}
+                                {{ $user->discuss_post_count }}
                             </td>
                             <td>
-                                {{ $user->last_login->formatLocalized('%d %B %Y - %T') }}
+                                {{ $user->last_login->formatLocalized('%d %B %Y') }}
                             </td>
                             <td>
-                                {{ $user->created_at->formatLocalized('%d %B %Y - %T') }}
+                                {{ $user->created_at->formatLocalized('%d %B %Y') }}
                             </td>
                             @permission('manage.users')
                                 <td>
@@ -62,7 +62,7 @@
                                         [
                                             'class' => 'btn btn-sm btn-outline-info',
                                             'data-toggle' => 'tooltip',
-                                            'title' => 'Edit this user'
+                                            'title' => 'Editer cet utilisateur'
                                         ],
                                         null,
                                         false

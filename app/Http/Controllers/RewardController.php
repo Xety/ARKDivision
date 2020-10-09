@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Xetaravel\Http\Helpers\Rcon;
+use Xetaravel\Models\RewardUser;
 use Xetaravel\Models\Server;
 use Xetaravel\Models\ServerUser;
 use Xetaravel\Models\User;
@@ -33,6 +34,7 @@ class RewardController extends Controller
         $user = User::find(Auth::id());
 
         $rewards = $user->rewards()
+            ->orderBy('reward_user.created_at', 'desc')
             ->paginate(config('xetaravel.pagination.reward.reward_per_page'));
 
         $breadcrumbs = $this->breadcrumbs;
@@ -149,13 +151,18 @@ class RewardController extends Controller
             ->first();
 
         if ($reward) {
-            $user->rewards()->updateExistingPivot($request->input('id'), [
-                'read_at' => Carbon::now()
+            $rewardUser = RewardUser::find($request->input('id'));
+
+            $rewardUser->read_at = Carbon::now();
+            $rewardUser->save();
+
+            return response()->json([
+                'error' => false
             ]);
         }
 
         return response()->json([
-            'error' => false
+            'error' => true
         ]);
     }
 

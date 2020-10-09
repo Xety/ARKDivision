@@ -24,7 +24,7 @@ class UserController extends Controller
         $action = Route::getFacadeRoot()->current()->getActionMethod();
 
         if (in_array($action, ['index', 'show'])) {
-            $this->breadcrumbs->addCrumb('Users', route('users.user.index'));
+            $this->breadcrumbs->addCrumb('Utilisateurs', route('users.user.index'));
         }
     }
 

@@ -175,16 +175,6 @@ class User extends Model implements
     }
 
     /**
-     * Get the roles for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class)->withTimestamps();
-    }
-
-    /**
      * Get the badges for the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

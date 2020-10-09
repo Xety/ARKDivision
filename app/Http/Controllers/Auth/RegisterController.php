@@ -80,8 +80,8 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        // Set the user role.
-        $role = Role::where('slug', 'user')->first();
+        // Set the utilisateur role.
+        $role = Role::where('slug', 'utilisateur')->first();
         $user->attachRole($role);
 
         // Set the default avatar.

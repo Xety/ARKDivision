@@ -9,7 +9,7 @@
 
             <tr v-for="reward in rewards"
                 v-on:mouseover.prevent="markRewardAsRead(reward)"
-                :class="'reward-' + reward.id + ' alert reward-item'">
+                :class="'reward-' + reward.pivot.id + ' alert reward-item'">
 
                 <td style="position: relative;">
 
@@ -22,7 +22,7 @@
                     <span v-html="reward.name" class="name"></span>
 
                     <!-- Claim -->
-                    <button v-if="reward.pivot.was_used == false" v-on:click.prevent="claimReward(reward)" type="button" :class="'reward-'  + reward.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="tooltip" title="Obtenir la récompense">
+                    <button v-if="reward.pivot.was_used == false" v-on:click.prevent="claimReward(reward)" type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="tooltip" title="Obtenir la récompense">
                         <i class="fas fa-download" aria-hidden="true"></i>
                     </button>
 
@@ -35,7 +35,7 @@
                     </p>
 
                     <!-- Badge new -->
-                    <strong v-if="reward.pivot.read_at === null" :class="'reward-' + reward.id + '-new'" class="new">
+                    <strong v-if="reward.pivot.read_at === null" :class="'reward-' + reward.pivot.id + '-new'" class="new">
                         <span></span>
                         New
                     </strong>
@@ -78,7 +78,7 @@
 
                 axios
                     .post(this.routeClaimReward, {
-                        id: reward.id
+                        id: reward.pivot.id
                     })
                     .then(function(response) {
                         if (response.data.error == false) {
@@ -101,7 +101,7 @@
          * @return {void}
          */
         removeClaimButton: function (reward) {
-            let buttons = document.getElementsByClassName('reward-' + reward.id + '-button');
+            let buttons = document.getElementsByClassName('reward-' + reward.pivot.id + '-button');
 
             Array.from(buttons).forEach((button) => {
                 button.parentNode.removeChild(button);
@@ -125,10 +125,10 @@
 
                 axios
                     .post(this.routeRewardMarkAsRead, {
-                        id: reward.id
+                        id: reward.pivot.id
                     })
                     .then(function(response) {
-                        if (!response.error) {
+                        if (response.data.error == false) {
                             _this.removeNewBadge(reward);
                         }
                     })
@@ -145,13 +145,13 @@
              * @return {void}
              */
             removeNewBadge: function (reward) {
-                let badges = document.getElementsByClassName('reward-' + reward.id + '-new');
+                let badges = document.getElementsByClassName('reward-' + reward.pivot.id + '-new');
 
                 Array.from(badges).forEach((badge) => {
                     badge.parentNode.removeChild(badge);
                 });
 
-                notification.read_at = new Date();
+                reward.pivot.read_at = new Date();
             },
         }
     }
