@@ -44,6 +44,10 @@ class Kernel extends ConsoleKernel
             $schedule->command('member:validation')
             ->everyMinute()
             ->runInBackground();
+
+            $schedule->command('steamban:checker')
+            ->hourly()
+            ->runInBackground();
         }
     }
 

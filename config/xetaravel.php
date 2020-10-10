@@ -100,5 +100,16 @@ return [
         'api_key' => 'EADF3D7361EA97FE3FC1D0DE86364537',
         'api_url' => 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s',
         'profile_url' => 'https://steamcommunity.com/profiles/%s/'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pastebin
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'pastebin' => [
+        'banlist_url' => 'https://pastebin.com/raw/LPCDZxDs'
     ]
 ];
