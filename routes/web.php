@@ -5,9 +5,9 @@
 | Regular Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['permission:access.site,allowGuest']], function () {
+/*Route::group(['middleware' => ['permission:access.site,allowGuest']], function () {
     Route::get('/', 'PageController@index')->name('page.index');
-});
+});*/
 
 Route::group(['middleware' => ['auth', 'permission:show.banished']], function () {
     Route::get('banished', 'PageController@banished')->name('page.banished');

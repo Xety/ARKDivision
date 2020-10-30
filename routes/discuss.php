@@ -7,7 +7,7 @@
 */
 Route::group([
         'namespace' => 'Discuss',
-        'prefix' => 'discuss',
+        //'prefix' => 'discuss',
         'middleware' => ['permission:access.site,allowGuest']
 ], function () {
     // Discuss Routes

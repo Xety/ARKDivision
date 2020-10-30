@@ -18,6 +18,16 @@
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111467542-3"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-111467542-3');
+        </script>
+
         <!-- Embed Styles -->
         @stack('style')
 

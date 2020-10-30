@@ -5,14 +5,14 @@
             <div class="col-md-6" style="">
                 <a href="https://www.facebook.com/arkdivision/"  style="font-size: 12px;">
                     <i class="fab fa-facebook-square"></i>
-                    @lang('Follow us on Facebook !')
+                    Suivez-nous sur Facebook !
                 </a>
 
             </div>
             <div class="col-md-2 offset-md-4">
                 <a href="https://discord.gg/tcud7UG">
                     <i class="fab fa-discord"></i>
-                    @lang('Discord')
+                    Discord
                 </a>
             </div>
             </div>
@@ -22,17 +22,23 @@
     <nav id="navbar" class="navbar">
         <div class="container">
             <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-expanded="false" aria-controls="exCollapsingNavbar2" aria-label="Toggle navigation"></button>
-            <a class="navbar-brand" href="{{ route('page.index') }}">
+            <a class="navbar-brand" href="{{ route('discuss.index') }}">
                 <img src="{{ asset('images/logo.png') }}" height="80" class="d-inline-block align-middle" alt="Logo">
             </a>
             <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link-menu" href="{{ route('page.index') }}">
-                        <span data-hover="@lang('Home')">@lang('Home')</span>
+                    <a class="nav-link-menu" href="{{ config('xetaravel.site.main') }}">
+                        <span data-hover="Accueil">Accueil</span>
                     </a>
                     <a class="nav-link-menu" href="{{ route('discuss.index') }}">
-                        <span data-hover="@lang('Discuss')">@lang('Discuss')</span>
+                        <span data-hover="Discuss">Discuss</span>
+                    </a>
+                    <a class="nav-link-menu" href="{{ route('statut.page.index') }}">
+                        <span data-hover="Statut">Statut</span>
+                    </a>
+                    <a class="nav-link-menu" href="{{ route('donation.page.index') }}">
+                        <span data-hover="Donation">Donation</span>
                     </a>
                 </li>
             </ul>
@@ -40,10 +46,10 @@
             @if (Auth::guest())
                 <div class="float-sm-right">
                     <a class="btn btn-outline-primary-inverse" href="{{ route('users.auth.register') }}">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i> @lang('Register')
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
                     </a>
                     <a class="btn btn-outline-primary-inverse" href="{{ route('users.auth.login') }}">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> @lang('Login')
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
                     </a>
                 </div>
             @else
@@ -53,7 +59,7 @@
                     </a>
                 </div>
                 <span class="navbar-text navbar-hello-text float-xs-left float-sm-right font-weight-bold">
-                    @lang('Hello,&nbsp;')
+                    Bonjour,&nbsp;
                 </span>
 
                 <!-- Notifications -->

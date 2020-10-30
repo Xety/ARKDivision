@@ -15,6 +15,7 @@ return [
         'contact_email' => 'contact@xeta.io',
         'analytics_tracker_code' => 'UA-40328289-2',
         'full_url' => 'https://discuss.ark-division.fr',
+        'main' => 'https://ark-division.fr'
     ],
 
     /*

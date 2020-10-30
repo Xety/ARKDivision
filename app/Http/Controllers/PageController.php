@@ -10,10 +10,10 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
         return view('page.index');
-    }
+    }*/
 
     /**
      * Display the banished page.
@@ -24,7 +24,7 @@ class PageController extends Controller
     {
         if (!Auth::user()->hasRole('banni')) {
             return redirect()
-                ->route('page.index');
+                ->route('discuss.index');
         }
 
         return view('page.banished');

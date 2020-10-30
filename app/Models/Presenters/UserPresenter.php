@@ -60,7 +60,11 @@ trait UserPresenter
         $fullName = $this->parse($this->account, 'first_name') . ' ' . $this->parse($this->account, 'last_name');
 
         if (empty(trim($fullName))) {
-            return $this->username;
+            if (isset($this->username)) {
+                return $this->username;
+            }
+
+            return '';
         }
 
         return $fullName;

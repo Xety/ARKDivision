@@ -57,7 +57,7 @@ class UserController extends Controller
 
         if (is_null($user)) {
             return redirect()
-                ->route('page.index')
+                ->route('discuss.index')
                 ->with('danger', 'This user doesn\'t exist or has been deleted !');
         }
         $breadcrumbs = $this->breadcrumbs->addCrumb(
@@ -125,12 +125,12 @@ class UserController extends Controller
 
         if ($user->delete()) {
             return redirect()
-                ->route('page.index')
+                ->route('discuss.index')
                 ->with('success', 'Your Account has been deleted successfully !');
         }
 
         return redirect()
-            ->route('page.index')
+            ->route('discuss.index')
             ->with('danger', 'An error occurred while deleting your account !');
     }
 

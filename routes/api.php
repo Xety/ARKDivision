@@ -18,5 +18,12 @@ Route::domain(env('APP_API_URL'))->group(function () {
 
         Route::put('server/{slug}/status/', 'ServerStatusController@update')
             ->name('server.status.update');
+
+        /*
+        |--------------------------------------------------------------------------
+        | BotUpdater Routes
+        |--------------------------------------------------------------------------
+        */
+        Route::get('botupdater/membre', 'BotUpdaterController@index')->name('botupdater.membre.index');
     });
 });

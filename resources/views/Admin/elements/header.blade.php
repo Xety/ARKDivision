@@ -1,7 +1,7 @@
 <header class="pos-f-t">
     <nav class="navbar navbar-toggleable-md navbar-dark bg-inverse">
         <button class="navbar-toggler hidden-md-up float-xs-right" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-expanded="false" aria-controls="exCollapsingNavbar2" aria-label="Toggle navigation"></button>
-        <a class="navbar-brand float-xs-none float-md-left" href="{{ route('page.index') }}">
+        <a class="navbar-brand float-xs-none float-md-left" href="{{ route('discuss.index') }}">
             <img src="{{ asset('images/logo.png') }}" height="74" class="d-inline-block align-middle" alt="Logo">
         </a>
 

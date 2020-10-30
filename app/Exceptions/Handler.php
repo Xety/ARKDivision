@@ -71,7 +71,7 @@ class Handler extends ExceptionHandler
             }
 
             return redirect()
-                ->route('page.index')
+                ->route('discuss.index')
                 ->with('danger', 'You don\'t have the permission to view this page.');
         }
 

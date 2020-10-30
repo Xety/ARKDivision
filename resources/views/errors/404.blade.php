@@ -12,7 +12,7 @@
         </div>
         <div class="link">
             {!! link_to(
-                route('page.index'),
+                route('discuss.index'),
                 '<i class="fa fa-home" aria-hidden="true"></i> Accueil',
                 ['class' => 'btn btn-outline-primary'],
                 true,
