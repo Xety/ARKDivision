@@ -1,14 +1,14 @@
 <ol class="list-unstyled discuss-categories">
     <li>
         <a href="{{ route('discuss.index') }}" class="discuss-categories-link font-xeta">
-            <i class="fa fa-newspaper-o text-primary"></i> All Discussions
+            <i class="fa fa-newspaper-o text-primary"></i> Toutes des discussions
         </a>
     </li>
-    <li>
+    <!-- <li>
         <a href="#" class="discuss-categories-link font-xeta">
             <i class="fa fa-comments-o text-primary"></i> Most Commented
         </a>
-    </li>
+    </li> -->
 </ol>
 <ol class="list-unstyled discuss-categories">
     @forelse ($categories as $category)
@@ -20,7 +20,7 @@
         </li>
     @empty
         <li>
-            There's no categories yet.
+            Il n'y a pas encore de catégories.
         </li>
     @endforelse
 
@@ -28,7 +28,7 @@
         <li>
             <a href="{{ route('discuss.category.index') }}" class="discuss-categories-link font-xeta">
                 <span class="discuss-categories-color" style="background-color: transparent"></span>
-                More...
+                Plus...
             </a>
         </li>
     @endif
