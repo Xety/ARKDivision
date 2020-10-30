@@ -16,7 +16,7 @@
 
         <script src="https://kit.fontawesome.com/61f38896f8.js" crossorigin="anonymous"></script>
 
-        <link rel="icon" href="https://ark-division.fr/wp-content/uploads/fav-ark-france-division.jpg" sizes="32x32">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         <!-- Embed Styles -->
         <style>
