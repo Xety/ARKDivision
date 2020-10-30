@@ -83,71 +83,73 @@
             <div class="discuss-conversation-edit"></div>
 
             {{-- Conversation Actions --}}
-            <div class="discuss-conversation-actions">
-                <ul class="list-inline mb-0">
+            @auth
+                <div class="discuss-conversation-actions">
+                    <ul class="list-inline mb-0">
 
-                    {{-- Others actions --}}
-                    <li class="list-inline-item float-xs-right">
-                        <div class="dropdown">
-                            <button href="#" class="btn btn-link" type="button" id="dropdownActionsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-fw fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownActionsMenu">
-                                {{-- Moderation actions --}}
-                                @can('update', $post)
-                                    <a class="dropdown-item postEditButton" data-id="{{ $post->getKey() }}" data-route="{{ route('discuss.post.editTemplate', ['id' => $post->getKey()]) }}" href="#">
-                                        <i class="fa fa-pencil"></i>
-                                        @lang('Edit')
-                                    </a>
-                                @endcan
+                        {{-- Others actions --}}
+                            <li class="list-inline-item float-xs-right">
+                                <div class="dropdown">
+                                    <button href="#" class="btn btn-link" type="button" id="dropdownActionsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-fw fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownActionsMenu">
+                                        {{-- Moderation actions --}}
+                                        @can('update', $post)
+                                            <a class="dropdown-item postEditButton" data-id="{{ $post->getKey() }}" data-route="{{ route('discuss.post.editTemplate', ['id' => $post->getKey()]) }}" href="#">
+                                                <i class="fa fa-pencil"></i>
+                                                @lang('Edit')
+                                            </a>
+                                        @endcan
 
-                                @if ($post->id !== $conversation->first_post_id)
-                                    @can('delete', $post)
-                                        <h6 class="dropdown-header">@lang('Moderation')</h6>
-                                        <a class="dropdown-item" data-toggle="modal" href="#deletePostModal" data-target="#deletePostModal" data-form-action="{{ route('discuss.post.delete', ['id' => $post->getKey()]) }}">
-                                            <i class="fa fa-trash"></i>
-                                            @lang('Delete')
-                                        </a>
-                                    @endcan
-                                @endif
-                            </div>
-                        </div>
-                    </li>
+                                        @if ($post->id !== $conversation->first_post_id)
+                                            @can('delete', $post)
+                                                <h6 class="dropdown-header">@lang('Moderation')</h6>
+                                                <a class="dropdown-item" data-toggle="modal" href="#deletePostModal" data-target="#deletePostModal" data-form-action="{{ route('discuss.post.delete', ['id' => $post->getKey()]) }}">
+                                                    <i class="fa fa-trash"></i>
+                                                    @lang('Delete')
+                                                </a>
+                                            @endcan
+                                        @endif
+                                    </div>
+                                </div>
+                            </li>
 
-                    {{-- Like action --}}
-                    <!--<li class="list-inline-item float-xs-right">
-                        <a href="#" class="btn btn-link">
-                            Like
-                        </a>
-                    </li>-->
-
-                    {{-- Reply action --}}
-                    @if (!$conversation->is_locked)
-                        <li class="list-inline-item float-xs-right">
-                            @auth
-                                <a href="#" class="btn btn-link postReplyButton" data-content="{{ '@' . $post->user->username }}#{{ $post->id }}">
-                                    <i class="fa fa-reply"></i>
-                                    @lang('Reply')
-                                </a>
-                            @else
-                                <a href="{{ route('users.auth.login') }}" class="btn btn-link">
-                                    <i class="fa fa-reply"></i>
-                                    @lang('Reply')
-                                </a>
-                            @endauth
-                        </li>
-                    @endif
-
-                    {{-- Solved action --}}
-                    @if ($post->id !== $conversation->first_post_id && is_null($conversation->solved_post_id))
-                        <li class="list-inline-item float-xs-right">
-                            <a href="{{ route('discuss.post.solved', ['id' => $post->id]) }}" class="btn btn-link text-success" data-toggle="tooltip" title="@lang('Mark this response as solved.')">
-                                <i class="fa fa-check"></i>
+                        {{-- Like action --}}
+                        <!--<li class="list-inline-item float-xs-right">
+                            <a href="#" class="btn btn-link">
+                                Like
                             </a>
-                        </li>
-                    @endif
-                </ul>
-            </div>
+                        </li>-->
+
+                        {{-- Reply action --}}
+                        @if (!$conversation->is_locked)
+                            <li class="list-inline-item float-xs-right">
+                                @auth
+                                    <a href="#" class="btn btn-link postReplyButton" data-content="{{ '@' . $post->user->username }}#{{ $post->id }}">
+                                        <i class="fa fa-reply"></i>
+                                        @lang('Reply')
+                                    </a>
+                                @else
+                                    <a href="{{ route('users.auth.login') }}" class="btn btn-link">
+                                        <i class="fa fa-reply"></i>
+                                        @lang('Reply')
+                                    </a>
+                                @endauth
+                            </li>
+                        @endif
+
+                        {{-- Solved action --}}
+                            @if ($post->id !== $conversation->first_post_id && is_null($conversation->solved_post_id))
+                                <li class="list-inline-item float-xs-right">
+                                    <a href="{{ route('discuss.post.solved', ['id' => $post->id]) }}" class="btn btn-link text-success" data-toggle="tooltip" title="@lang('Mark this response as solved.')">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                </li>
+                            @endif
+                    </ul>
+                </div>
+            @endauth
 
             {{-- User Signature --}}
             @empty (!$post->user->signature)
