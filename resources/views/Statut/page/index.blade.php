@@ -42,58 +42,66 @@
 
                     Joueurs en ligne : <b>{{ $server->user_count }}</b>
                     </p>
-                    <p>
-                    @if ($server->user_count != 0)
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{ $server->slug }}" aria-expanded="false" aria-controls="{{ $server->slug }}">Afficher les joueurs</button>
-                    @endif
-                    </p>
-                    <div class="row-fluid">
-                    <div class="col">
-                        <div class="collapse multi-collapse" id="{{ $server->slug }}">
-                        <div class="list-group">
-                            @foreach ($server->players as $player)
-                                <div class="list-group-item list-group-item-action flex-column align-items-start text-md-left" style="border-right: 0px;border-left: 0px;border-radius: 0px;">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">{{ $player->ingame_name }}</h5>
-                                        <small class="text-muted">Connecté depuis {{ $player->created_at->format('H:i:s d-m-Y') }}</small>
+
+                    {{-- The user is connected to his account --}}
+                    @auth
+                        {{-- The user has the permission (ambassadeur, administrateur, developpeur) --}}
+                        @if (Auth::user()->hasPermission('access.administration'))
+                            <p>
+                            @if ($server->user_count != 0)
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{ $server->slug }}" aria-expanded="false" aria-controls="{{ $server->slug }}">Afficher les joueurs</button>
+                            @endif
+                            </p>
+                            <div class="row-fluid">
+                                <div class="col">
+                                    <div class="collapse multi-collapse" id="{{ $server->slug }}">
+                                    <div class="list-group">
+                                        @foreach ($server->players as $player)
+                                            <div class="list-group-item list-group-item-action flex-column align-items-start text-md-left" style="border-right: 0px;border-left: 0px;border-radius: 0px;">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">{{ $player->ingame_name }}</h5>
+                                                    <small class="text-muted">Connecté depuis {{ $player->created_at->format('H:i:s d-m-Y') }}</small>
+                                                </div>
+                                                <small class="text-muted">
+                                                    <dl class="row">
+                                                        <dt class="col-sm-4">Steam ID :</dt>
+                                                        <dd class="col-sm-8"><code>{{ $player->steam_id }}</code></dd>
+                                                        <dt class="col-sm-4">Nom Steam :</dt>
+                                                        <dd class="col-sm-8"><code>{{ $player->steam_name }}</code></dd>
+                                                        <dt class="col-sm-4">Tribu :</dt>
+                                                        <dd class="col-sm-8"><code style="{{ $player->tribe != false ?: "color: red;" }}">{{ $player->tribe == false ? "Aucune tribu" : $player->tribe  }}</code></dd>
+                                                    </dl>
+                                                </small>
+                                                @if (!is_null($player->user))
+                                                    <small class="text-muted">
+                                                        <dl class="row">
+                                                            <dt class="col-sm-4">Pseudo Discord :</dt>
+                                                            <dd class="col-sm-8"><code>{{ $player->user->username }}</code></dd>
+                                                            <dt class="col-sm-4">Discord ID :</dt>
+                                                            <dd class="col-sm-8"><code>{{ $player->user->discord_id }}</code></dd>
+                                                            <dt class="col-sm-4">Profil Discuss :</dt>
+                                                            <dd class="col-sm-8 font-weight-bold">{!! Html::link(
+                                                                    url('http://discuss.ark-division.fr/users/profile/@' . e($player->user->username)),
+                                                                    "@" . $player->user->username,
+                                                                    [
+                                                                        'class' => 'text-primary',
+                                                                        'targ
+                                                                    null,
+                                                                    falseet' => '_blank'
+                                                                    ],
+                                                                ) !!}</dd>
+                                                        </dl>
+                                                    </small>
+                                                @endif
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <small class="text-muted">
-                                        <dl class="row">
-                                            <dt class="col-sm-4">Steam ID :</dt>
-                                            <dd class="col-sm-8"><code>{{ $player->steam_id }}</code></dd>
-                                            <dt class="col-sm-4">Nom Steam :</dt>
-                                            <dd class="col-sm-8"><code>{{ $player->steam_name }}</code></dd>
-                                            <dt class="col-sm-4">Tribu :</dt>
-                                            <dd class="col-sm-8"><code style="{{ $player->tribe != false ?: "color: red;" }}">{{ $player->tribe == false ? "Aucune tribu" : $player->tribe  }}</code></dd>
-                                        </dl>
-                                    </small>
-                                    @if (!is_null($player->user))
-                                        <small class="text-muted">
-                                            <dl class="row">
-                                                <dt class="col-sm-4">Pseudo Discord :</dt>
-                                                <dd class="col-sm-8"><code>{{ $player->user->username }}</code></dd>
-                                                <dt class="col-sm-4">Discord ID :</dt>
-                                                <dd class="col-sm-8"><code>{{ $player->user->discord_id }}</code></dd>
-                                                <dt class="col-sm-4">Profil Discuss :</dt>
-                                                <dd class="col-sm-8 font-weight-bold">{!! Html::link(
-                                                        url('http://discuss.ark-division.fr/users/profile/@' . e($player->user->username)),
-                                                        "@" . $player->user->username,
-                                                        [
-                                                            'class' => 'text-primary',
-                                                            'targ
-                                                        null,
-                                                        falseet' => '_blank'
-                                                        ],
-                                                    ) !!}</dd>
-                                            </dl>
-                                        </small>
-                                    @endif
+                                    </div>
                                 </div>
-                            @endforeach
-                        </div>
-                        </div>
-                    </div>
-                    </div>
+                            </div>
+                        @endif
+                    @endauth
+
                 </div>
             </div>
         @endforeach
