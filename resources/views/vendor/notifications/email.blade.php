@@ -155,7 +155,7 @@ $style = [
                                                 <tr>
                                                     <td style="{{ $fontFamily }}">
                                                         <p style="{{ $style['paragraph-sub'] }}">
-                                                            Si vous n'arrivez pas à cliquer sur le boutton "{{ $actionText }}", copier et coller l'URL ci-dessous dans votre nivagateur internet:
+                                                            Si vous n'arrivez pas à cliquer sur le boutton "{{ $actionText }}", copier et coller l'URL ci-dessous dans votre navigateur internet:
                                                         </p>
 
                                                         <p style="{{ $style['paragraph-sub'] }}">
