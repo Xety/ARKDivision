@@ -13,7 +13,7 @@ class DiscussCategoryRepository
      */
     public static function sidebar(): Collection
     {
-        return DiscussCategory::take(config('xetaravel.discuss.categories_sidebar'))->orderBy('title', 'asc')->get();
+        return DiscussCategory::take(config('xetaravel.discuss.categories_sidebar'))->orderBy('level', 'asc')->get();
     }
 
     /**
