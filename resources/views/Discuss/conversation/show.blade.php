@@ -42,7 +42,7 @@
             <ul class="discuss-conversation-header-badges d-inline-block">
                 @if ($conversation->is_pinned)
                     <li class="discuss-conversation-header-badges-item">
-                        <span class="tag tag-info" data-toggle="tooltip" title="@lang('Pinned')">
+                        <span class="tag tag-info" data-toggle="tooltip" title="Epinglé">
                             <i class="fa fa-thumb-tack"></i>
                         </span>
                     </li>
@@ -50,7 +50,7 @@
 
                 @if ($conversation->is_locked)
                     <li class="discuss-conversation-header-badges-item">
-                        <span class="tag tag-primary" data-toggle="tooltip" title="@lang('Locked')">
+                        <span class="tag tag-primary" data-toggle="tooltip" title="Verrouillé">
                             <i class="fa fa-lock"></i>
                         </span>
                     </li>
@@ -95,12 +95,12 @@
                             @if (!$conversation->is_locked)
                                 <a href="#post-reply" class="btn btn-primary">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    @lang('Reply')
+                                    Répondre
                                 </a>
                             @else
                                 {{ link_to(
                                     route('discuss.conversation.create'),
-                                    '<i class="fa fa-pencil"></i> ' . __('Start a Discussion'),
+                                    '<i class="fa fa-pencil"></i> ' . 'Nouvelle Discussion',
                                     ['class' => 'btn btn-primary'],
                                     true,
                                     false
@@ -119,7 +119,7 @@
                                     @can('update', $conversation)
                                         <a class="dropdown-item" href="#editDiscussionModal" data-toggle="modal" data-target="#editDiscussionModal">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
-                                            @lang('Edit')
+                                            Editer
                                         </a>
                                     @endcan
 
@@ -130,7 +130,7 @@
 
                                         <a class="dropdown-item" href="#deleteDiscussionModal" data-toggle="modal" data-target="#deleteDiscussionModal">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
-                                            @lang('Delete')
+                                            Supprimer
                                         </a>
                                     @endcan
                                 </div>
@@ -141,7 +141,7 @@
                     <div class="discuss-new-discussion-btn">
                         <a href="{{ route('users.auth.login') }}" class="btn btn-primary">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                            @lang('Reply')
+                            Répondre
                         </a>
                     </div>
                 @endauth
@@ -166,7 +166,7 @@
                 @if (!$conversation->is_solved && !$conversation->is_locked)
                     <div class="alert alert-primary" role="alert">
                         <i class="fa fa-exclamation" aria-hidden="true"></i>
-                        @lang('There\'re no comments yet, post the first reply !')
+                        Il n'y a pas encore de commentaires, postez la première réponse!
                     </div>
                 @endif
             @endforelse
@@ -178,7 +178,7 @@
             @if ($conversation->is_locked)
                 <div class="alert alert-primary" role="alert">
                     <i class="fa fa-exclamation" aria-hidden="true"></i>
-                    @lang('This discussion is closed, you can not reply !')
+                    Cette discussion est fermée, vous ne pouvez pas répondre!
                 </div>
             @else
                 @if (
@@ -187,7 +187,7 @@
                 )
                     <div class="alert alert-info" role="alert">
                         <i class="fa fa-info" aria-hidden="true"></i>
-                        @lang('This discussion is not active anymore since at least 3 months !')
+                        Cette discussion n\'est plus active depuis au moins 3 mois!
                     </div>
                 @endif
 
@@ -201,7 +201,7 @@
                                 {!! Form::hidden('conversation_id', $conversation->id) !!}
 
                                 {!! Form::bsTextarea('content', false, old('message'), [
-                                    'placeholder' => __('Your message here...'),
+                                    'placeholder' => 'Votre message ici...',
                                     'required' => 'required',
                                     'editor' => 'commentEditor',
                                     'style' => 'display:none;'
@@ -210,7 +210,7 @@
                                 @permission ('manage.discuss.conversations')
                                     <div class="form-group">
                                         <h5 class="text-muted">
-                                            @lang('Moderation')
+                                            Modération
                                         </h5>
                                     </div>
 
@@ -218,9 +218,9 @@
                                         'is_locked',
                                         null,
                                         $conversation->is_locked,
-                                        __('Check to lock this discussion'),
+                                        'Cochez pour verrouiller cette discussion',
                                         [
-                                            'label' => 'Is Locked ?',
+                                            'label' => 'Verouiller ?',
                                             'labelClass' => 'custom-control custom-checkbox d-block'
                                         ]
                                     ) !!}
@@ -229,22 +229,22 @@
                                         'is_pinned',
                                         null,
                                         $conversation->is_pinned,
-                                        __('Check to pin this discussion'),
+                                        'Cocher pour épingler cette discussion',
                                         [
-                                            'label' => 'Is Pinned ?',
+                                            'label' => 'Epingler ?',
                                             'labelClass' => 'custom-control custom-checkbox d-block'
                                         ]
                                     ) !!}
                                 @endpermission
 
-                                {!! Form::button('<i class="fa fa-pencil" aria-hidden="true"></i> ' . __('Reply'), ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
+                                {!! Form::button('<i class="fa fa-pencil" aria-hidden="true"></i> ' . 'Répondre', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
                             {!! Form::close() !!}
                         </div>
                     </div>
                 @else
                     <div class="alert alert-primary" role="alert">
                         <i class="fa fa-exclamation" aria-hidden="true"></i>
-                        @lang('You need to be logged in to comment to this discussion !')
+                        'Vous devez être connecté pour commenter cette discussion!'
                     </div>
                 @endauth
             @endif
@@ -259,9 +259,9 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="editDiscussionModalLabel">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                    @lang('Edit the discussion')
+                    Editer cette discussion
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('Close')">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -277,14 +277,14 @@
                         null,
                         [
                             'required' => 'required',
-                            'placeholder' => __('Discussion title...')
+                            'placeholder' => 'Titre de la Discussion...'
                         ]
                     ) !!}
 
                     {!! Form::bsSelect(
                         'category_id',
                         $categories,
-                        __('Category'),
+                        'Categorie',
                         null,
                         ['required' => 'required']
                     ) !!}
@@ -292,7 +292,7 @@
                     @permission ('manage.discuss.conversations')
                         <div class="form-group">
                             <h5 class="text-muted">
-                                @lang('Moderation')
+                                Modération
                             </h5>
                         </div>
 
@@ -300,9 +300,9 @@
                             'is_locked',
                             null,
                             null,
-                            __('Check to lock this discussion'),
+                            'Cochez pour verrouiller cette discussion',
                             [
-                                'label' => 'Is Locked ?',
+                                'label' => 'Verrouiller ?',
                                 'labelClass' => 'custom-control custom-checkbox d-block'
                             ]
                         ) !!}
@@ -311,9 +311,9 @@
                             'is_pinned',
                             null,
                             null,
-                            __('Check to pin this discussion'),
+                            'Cocher pour épingler cette discussion',
                             [
-                                'label' => 'Is Pinned ?',
+                                'label' => 'Epingler ?',
                                 'labelClass' => 'custom-control custom-checkbox d-block'
                             ]
                         ) !!}
@@ -322,10 +322,10 @@
 
 
                 <div class="modal-actions">
-                    {!! Form::button('<i class="fa fa-pencil" aria-hidden="true"></i> ' . __('Edit'), ['type' => 'submit', 'class' => 'ma ma-btn ma-btn-primary']) !!}
+                    {!! Form::button('<i class="fa fa-pencil" aria-hidden="true"></i> ' . 'Editer', ['type' => 'submit', 'class' => 'ma ma-btn ma-btn-primary']) !!}
                     <button type="button" class="ma ma-btn ma-btn-success" data-dismiss="modal">
                         <i class="fa fa-times" aria-hidden="true"></i>
-                        @lang('Close')
+                        Fermer
                     </button>
                 </div>
 
@@ -341,9 +341,9 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteDiscussionModalLabel">
                     <i class="fa fa-trash" aria-hidden="true"></i>
-                    @lang('Delete the discussion')
+                    Supprimer cette discussion
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -355,17 +355,17 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <p>
-                            @lang('Are you sure you want delete this discussion ? <strong>This operation is not reversible.</strong>')
+                            Voulez-vous vraiment supprimer cette discussion? <strong>Cette opération n'est pas réversible.</strong>
                         </p>
                     </div>
                 </div>
 
 
                 <div class="modal-actions">
-                    {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i> ' . __('Yes, I confirm !'), ['type' => 'submit', 'class' => 'ma ma-btn ma-btn-danger']) !!}
+                    {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i> ' . 'Oui, je confirme !', ['type' => 'submit', 'class' => 'ma ma-btn ma-btn-danger']) !!}
                     <button type="button" class="ma ma-btn ma-btn-success" data-dismiss="modal">
                         <i class="fa fa-times" aria-hidden="true"></i>
-                        @lang('Close')
+                        Fermer
                     </button>
                 </div>
 
@@ -381,9 +381,9 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="deletePostModalLabel">
                     <i class="fa fa-trash" aria-hidden="true"></i>
-                    @lang('Delete the post')
+                    Supprimer le message
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('Close')">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -397,16 +397,16 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <p>
-                            @lang('Are you sure you want delete this post ? <strong>This operation is not reversible.</strong>')
+                            Voulez-vous vraiment supprimer ce message? <strong>Cette opération n'est pas réversible.</strong>
                         </p>
                     </div>
                 </div>
 
                 <div class="modal-actions">
-                    {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i> ' . __('Yes, I confirm !'), ['type' => 'submit', 'class' => 'ma ma-btn ma-btn-danger']) !!}
+                    {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i> ' . 'Oui, je confirme !', ['type' => 'submit', 'class' => 'ma ma-btn ma-btn-danger']) !!}
                     <button type="button" class="ma ma-btn ma-btn-success" data-dismiss="modal">
                         <i class="fa fa-times" aria-hidden="true"></i>
-                        @lang('Close')
+                        Fermer
                     </button>
                 </div>
 

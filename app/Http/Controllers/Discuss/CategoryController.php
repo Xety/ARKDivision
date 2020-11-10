@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = DiscussCategory::orderBy('level', 'asc')->get();
 
-        $breadcrumbs = $this->breadcrumbs->addCrumb('All Categories', route('discuss.category.index'));
+        $breadcrumbs = $this->breadcrumbs->addCrumb('Toutes les Categories', route('discuss.category.index'));
 
         return view('Discuss::category.index', compact('categories', 'breadcrumbs'));
     }

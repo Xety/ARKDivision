@@ -5,7 +5,7 @@
 <div class="profile-container">
     <div class="profile-header">
         <div class="background-container">
-            {!! Html::image($user->profile_background, 'Profile background', ['class' => 'background']) !!}
+            {!! Html::image($user->profile_background, 'Profil background', ['class' => 'background']) !!}
         </div>
         <div class="row">
             <div class="col-md-12">

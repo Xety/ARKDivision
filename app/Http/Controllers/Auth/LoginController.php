@@ -81,7 +81,7 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         return redirect('/')
-            ->with('success', 'Thanks for your visit. See you soon !');
+            ->with('success', 'Merci pour votre visite. À bientôt !');
     }
 
     /**
@@ -98,7 +98,7 @@ class LoginController extends Controller
 
         $request->session()->flash(
             'success',
-            'Welcome back <strong>' . e($user->username) . '</strong>! You\'re successfully connected !'
+            'Bon retour parmis nous <strong>' . e($user->username) . '</strong>! Vous êtes connecté avec succès!'
         );
     }
 }

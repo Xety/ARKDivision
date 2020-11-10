@@ -72,7 +72,7 @@ class Handler extends ExceptionHandler
 
             return redirect()
                 ->route('discuss.index')
-                ->with('danger', 'You don\'t have the permission to view this page.');
+                ->with('danger', 'Vous n\'êtes pas autorisé à voir cette page.');
         }
 
         return parent::render($request, $exception);
@@ -94,6 +94,6 @@ class Handler extends ExceptionHandler
 
         return redirect()
             ->guest(route('users.auth.login'))
-            ->with('danger', 'You don\'t have the permission to view this page.');
+            ->with('danger', 'Vous n\'êtes pas autorisé à voir cette page.');
     }
 }

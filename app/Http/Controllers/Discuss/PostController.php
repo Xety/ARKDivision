@@ -33,7 +33,7 @@ class PostController extends Controller
         if (DiscussPost::isFlooding('xetaravel.flood.discuss.post') && !Auth::user()->hasPermission('manage.discuss')) {
             return back()
                 ->withInput()
-                ->with('danger', 'Wow, keep calm bro, and try to not flood !');
+                ->with('danger', 'Wow, restez calme et essayez de ne pas flooder!');
         }
 
         DiscussPostValidator::create($request->all())->validate();
@@ -50,7 +50,7 @@ class PostController extends Controller
 
         return redirect()
             ->route('discuss.post.show', ['id' => $post->getKey()])
-            ->with('success', 'Your reply has been posted successfully !');
+            ->with('success', 'Votre réponse a été publiée avec succès!');
     }
 
     /**
@@ -106,7 +106,7 @@ class PostController extends Controller
         if ($post->conversation->first_post_id == $post->getKey()) {
             return redirect()
                 ->route('discuss.post.show', ['id' => $post->getKey()])
-                ->with('danger', 'You can not delete the first post of a discussion !');
+                ->with('danger', 'Vous ne pouvez pas supprimer le premier message d\'une discussion!');
         }
 
         if ($post->delete()) {
@@ -115,12 +115,12 @@ class PostController extends Controller
                     'discuss.conversation.show',
                     ['id' => $post->conversation->getKey(), 'slug' => $post->conversation->slug]
                 )
-                ->with('success', 'This post has been deleted successfully !');
+                ->with('success', 'Ce message a été supprimé avec succès!');
         }
 
         return redirect()
             ->route('discuss.post.show', ['id' => $post->getKey()])
-            ->with('danger', 'An error occurred while deleting this post !');
+            ->with('danger', 'Une erreur s\'est produite lors de la suppression de ce message!');
     }
 
     /**
@@ -138,12 +138,12 @@ class PostController extends Controller
 
         if ($post->getKey() == $post->conversation->solved_post_id) {
             return back()
-                ->with('danger', 'This post is already the solved post !');
+                ->with('danger', 'Ce message est déjà le message marqué comme résolu!');
         }
 
         if (!is_null($post->conversation->solved_post_id)) {
             return back()
-                ->with('danger', 'This conversation has already a solved post !');
+                ->with('danger', 'Cette conversation a déjà un message marqué comme résolu!');
         }
         $conversation = DiscussConversation::findOrFail($post->conversation_id);
 
@@ -160,7 +160,7 @@ class PostController extends Controller
 
         return redirect()
             ->route('discuss.conversation.show', ['slug' => $conversation->slug, 'id' => $conversation->getKey()])
-            ->with('success', 'This reply as been marked as solved !');
+            ->with('success', 'Cette réponse a été marquée comme résolue!');
     }
 
     /**
@@ -177,7 +177,7 @@ class PostController extends Controller
 
         if (!Auth::user()->can('update', $post)) {
             return back()
-                ->with('danger', 'You\'re not authorized to edit this message.');
+                ->with('danger', 'Vous n\'êtes pas autorisé à modifier ce message.');
         }
 
         DiscussPostValidator::edit($request->all())->validate();
@@ -194,7 +194,7 @@ class PostController extends Controller
 
         return redirect()
             ->route('discuss.post.show', ['id' => $id])
-            ->with('success', 'Your post has been edited successfully !');
+            ->with('success', 'Votre message a été modifié avec succès!');
     }
 
     /**
@@ -211,7 +211,7 @@ class PostController extends Controller
         if (!Auth::user()->can('update', $post) || !$post) {
             return response()->json([
                 'error' => true,
-                'message' => 'You\'re not authorized to edit this message or this message has been deleted.'
+                'message' => 'Vous n\'êtes pas autorisé à modifier ce message ou ce message a été supprimé.'
             ]);
         }
 

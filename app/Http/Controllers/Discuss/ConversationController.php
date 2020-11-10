@@ -53,7 +53,7 @@ class ConversationController extends Controller
     {
         $categories = DiscussCategory::pluckLocked('title', 'id');
 
-        $breadcrumbs = $this->breadcrumbs->addCrumb('Start a discussion', route('discuss.conversation.create'));
+        $breadcrumbs = $this->breadcrumbs->addCrumb('Nouvelle discussion', route('discuss.conversation.create'));
 
         return view('Discuss::conversation.create', compact('breadcrumbs', 'categories'));
     }
@@ -75,7 +75,7 @@ class ConversationController extends Controller
         ) {
             return back()
                 ->withInput()
-                ->with('danger', 'Wow, keep calm bro, and try to not flood !');
+                ->with('danger', 'Wow, restez calme et essayez de ne pas flooder!');
         }
         $conversation = DiscussConversationRepository::create($request->all());
         $post = $conversation->firstPost;
@@ -90,7 +90,7 @@ class ConversationController extends Controller
 
         return redirect()
             ->route('discuss.conversation.show', ['slug' => $conversation->slug, 'id' => $conversation->getKey()])
-            ->with('success', 'Your discussion has been created successfully !');
+            ->with('success', 'Votre discussion a été créée avec succès!');
     }
 
     /**
@@ -113,7 +113,7 @@ class ConversationController extends Controller
 
         return redirect()
             ->route('discuss.conversation.show', ['slug' => $conversation->slug, 'id' => $conversation->getKey()])
-            ->with('success', 'Your discussion has been updated successfully !');
+            ->with('success', 'Votre discussion a été mise à jour avec succès!');
     }
 
     /**
@@ -133,11 +133,11 @@ class ConversationController extends Controller
         if ($conversation->delete()) {
             return redirect()
                 ->route('discuss.index')
-                ->with('success', 'This discussion has been deleted successfully !');
+                ->with('success', 'Cette discussion a été supprimée avec succès!');
         }
 
         return back()
-            ->with('danger', 'An error occurred while deleting this discussion !');
+            ->with('danger', 'Une erreur s\'est produite lors de la suppression de cette discussion!');
     }
 
     /**

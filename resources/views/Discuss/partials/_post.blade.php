@@ -3,18 +3,18 @@
     <div id="post-{{ $post->id }}" class="discuss-conversation {{ $isSolvedPost ? 'discuss-conversation-solved bg-success' : ''}}">
         <div class="discuss-conversation-user float-xs-left text-xs-center">
             @if ($isSolvedPost)
-                <span class="discuss-conversation-user-solved rounded-circle" data-toggle="tooltip" title="@lang('This response helped the author.')">
+                <span class="discuss-conversation-user-solved rounded-circle" data-toggle="tooltip" title="Cette réponse a aidé l'auteur.">
                     <i class="fa fa-3x fa-check text-success discuss-conversation-user-solved-icon"></i>
 
                     @if ($post->user->hasRubies)
-                        <i aria-hidden="true" class="fa fa-diamond text-primary discuss-conversation-user-rubies"  data-toggle="tooltip" title="@lang('This user has earn Rubies.')"></i>
+                        <i aria-hidden="true" class="fa fa-diamond text-primary discuss-conversation-user-rubies"  data-toggle="tooltip" title="Cet utilisateur a gagné des Rubis."></i>
                     @endif
 
                     <img src="{{ $post->user->avatar_small }}" alt="{{ $post->user->username }}" class="rounded-circle img-thumbnail" />
                 </span>
             @else
                 @if ($post->user->hasRubies)
-                    <i aria-hidden="true" class="fa fa-diamond text-primary discuss-conversation-user-rubies"  data-toggle="tooltip" title="@lang('This user has earn Rubies.')"></i>
+                    <i aria-hidden="true" class="fa fa-diamond text-primary discuss-conversation-user-rubies"  data-toggle="tooltip" title="Cet utilisateur a gagné des Rubis."></i>
                 @endif
 
                 <img src="{{ $post->user->avatar_small }}" alt="{{ $post->user->username }}" class="rounded-circle img-thumbnail" />
@@ -29,7 +29,7 @@
             <div class="discuss-conversation-meta">
                 <ul class="list-inline mb-0">
 
-                    <li class="list-inline-item discuss-conversation-post-meta-experiences" data-toggle="tooltip" title="@lang('This user has :amount XP', ['amount' => $post->user->experiences_total])">
+                    <li class="list-inline-item discuss-conversation-post-meta-experiences" data-toggle="tooltip" title="Cet utilisateur a {{ $post->user->experiences_total }} d'XP">
                         <i aria-hidden="true" class="fa fa-star"></i>
                         {{ $post->user->experiences_total }}
                     </li>
@@ -56,9 +56,9 @@
                     {{-- Edited --}}
                     @if ($post->is_edited)
                         <li class="list-inline-item">
-                            <span data-toggle="tooltip" title="@lang('<strong>:Name</strong> edited :date', ['name' => $post->editedUser->username, 'date' => $post->edited_at->diffForHumans()])" data-html="true">
+                            <span data-toggle="tooltip" title="<strong>{{ $post->editedUser->username }}</strong> a edité {{ $post->edited_at->diffForHumans() }}" data-html="true">
                                 <i aria-hidden="true" class="fa fa-pencil"></i>
-                                @lang('Edited')
+                                Edité
                             </span>
                         </li>
                     @endif
@@ -98,7 +98,7 @@
                                         @can('update', $post)
                                             <a class="dropdown-item postEditButton" data-id="{{ $post->getKey() }}" data-route="{{ route('discuss.post.editTemplate', ['id' => $post->getKey()]) }}" href="#">
                                                 <i class="fa fa-pencil"></i>
-                                                @lang('Edit')
+                                                Editer
                                             </a>
                                         @endcan
 
@@ -107,7 +107,7 @@
                                                 <h6 class="dropdown-header">@lang('Moderation')</h6>
                                                 <a class="dropdown-item" data-toggle="modal" href="#deletePostModal" data-target="#deletePostModal" data-form-action="{{ route('discuss.post.delete', ['id' => $post->getKey()]) }}">
                                                     <i class="fa fa-trash"></i>
-                                                    @lang('Delete')
+                                                    Supprimer
                                                 </a>
                                             @endcan
                                         @endif
@@ -128,12 +128,12 @@
                                 @auth
                                     <a href="#" class="btn btn-link postReplyButton" data-content="{{ '@' . $post->user->username }}#{{ $post->id }}">
                                         <i class="fa fa-reply"></i>
-                                        @lang('Reply')
+                                        Répondre
                                     </a>
                                 @else
                                     <a href="{{ route('users.auth.login') }}" class="btn btn-link">
                                         <i class="fa fa-reply"></i>
-                                        @lang('Reply')
+                                        Répondre
                                     </a>
                                 @endauth
                             </li>
@@ -142,7 +142,7 @@
                         {{-- Solved action --}}
                             @if ($post->id !== $conversation->first_post_id && is_null($conversation->solved_post_id))
                                 <li class="list-inline-item float-xs-right">
-                                    <a href="{{ route('discuss.post.solved', ['id' => $post->id]) }}" class="btn btn-link text-success" data-toggle="tooltip" title="@lang('Mark this response as solved.')">
+                                    <a href="{{ route('discuss.post.solved', ['id' => $post->id]) }}" class="btn btn-link text-success" data-toggle="tooltip" title="Marquez cette réponse comme résolue.">
                                         <i class="fa fa-check"></i>
                                     </a>
                                 </li>

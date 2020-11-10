@@ -1,11 +1,11 @@
 @extends('layouts.app')
-{!! config(['app.title' => 'You\'re banished']) !!}
+{!! config(['app.title' => 'Vous êtes banni']) !!}
 
 @section('content')
 <div class="container pt-6">
     <div class="text-xs-center">
         <h1 class="font-xeta text-primary animated flash">
-            You're banished !
+            Vous êtes banni !
         </h1>
     </div>
     <div class="text-xs-center pt-5">

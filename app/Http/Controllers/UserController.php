@@ -58,7 +58,7 @@ class UserController extends Controller
         if (is_null($user)) {
             return redirect()
                 ->route('discuss.index')
-                ->with('danger', 'This user doesn\'t exist or has been deleted !');
+                ->with('danger', 'Cet utilisateur n\'existe pas ou a été supprimé!');
         }
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             e($user->username),

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => 'Join us !']) !!}
+{!! config(['app.title' => 'Rejoignez-nous !']) !!}
 
 @push('scriptsTop')
     {!! NoCaptcha::renderJs() !!}
@@ -10,27 +10,27 @@
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <h2 class="text-xs-center font-xeta mt-2">
-                Register
+                Inscription
             </h2>
             {!! Form::open(['route' => 'users.auth.register']) !!}
-                {!! Form::bsText('username', 'Username', old('username'), [
-                    'placeholder' => 'Your Username...',
+                {!! Form::bsText('username', 'Pseudo', old('username'), [
+                    'placeholder' => 'Votre Pseudo...',
                     'required' => 'required',
                     'autofocus'
                 ]) !!}
 
                 {!! Form::bsEmail('email', 'E-Mail', old('email'), [
-                    'placeholder' => 'Your E-Mail...',
+                    'placeholder' => 'Votre E-Mail...',
                     'required' => 'required'
                 ]) !!}
 
-                {!! Form::bsPassword('password', 'Password', [
-                    'placeholder' => 'Your Password...',
+                {!! Form::bsPassword('password', 'Mot de Passe', [
+                    'placeholder' => 'Votre Mot de Passe...',
                     'required' => 'required'
                 ]) !!}
 
-                {!! Form::bsPassword('password_confirmation', 'Confirm Password', [
-                    'placeholder' => 'Confirm your Password...',
+                {!! Form::bsPassword('password_confirmation', 'Confirmation', [
+                    'placeholder' => 'Confirmation de votre Mot de Passe...',
                     'required' => 'required'
                 ]) !!}
 
@@ -43,15 +43,15 @@
                     @endif
                 </div>
 
-                {!! Form::bsCheckbox("terms", null, false, "By clicking on \"Register\", you accept that you have read and understand the Terms.") !!}
+                {!! Form::bsCheckbox("terms", null, false, "En cliquant sur \"S'inscrire\", vous acceptez d'avoir lu et compris les <a href=\"#\">Conditions d'Utilisation.</a>") !!}
 
                 <div class="form-group text-xs-center">
                     <div class="col-md-12 mb-1">
-                        {!! Form::button('<i class="fa fa-user-plus" aria-hidden="true"></i> Register', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
+                        {!! Form::button('<i class="fa fa-user-plus" aria-hidden="true"></i> S\'inscrire', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
                     </div>
                     <div class="col-md-12">
                         <a class="btn btn-link" href="{{ route('users.auth.login') }}">
-                            Already an account?
+                            Déjà un compte?
                         </a>
                     </div>
                 </div>

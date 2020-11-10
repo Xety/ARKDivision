@@ -7,7 +7,7 @@
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
             <h6 class="dropdown-header text-xs-center">
-                News Notifications
+                Nouvelles Notifications
             </h6>
 
             <div class="dropdown-divider mb-0"></div>
@@ -36,18 +36,18 @@
 
             <!-- Mark all as read -->
             <button v-if="hasUnreadNotifs" v-on:click.prevent="markAllNotificationsAsRead" class="dropdown-item text-xs-center">
-                    Mark all notifications as read
+                    Marquer toutes les notifs comme lues
             </button>
 
             <p v-if="!Array.isArray(notifications) || !notifications.length" class="dropdown-item mb-0 text-xs-center">
-                You don't have any notifications.
+                Vous n'avez pas de notifications.
             </p>
 
             <div class="dropdown-divider"></div>
 
             <!-- All notifications. -->
             <a :href="routeUserNotifications" class="dropdown-item text-xs-center">
-                All Notifications
+                Toutes les Notifications
             </a>
         </div>
     </div>

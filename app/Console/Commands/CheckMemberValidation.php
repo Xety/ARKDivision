@@ -125,6 +125,8 @@ class CheckMemberValidation extends Command
                     ]
                 ]
             ]);
+
+            sleep(2);
         }
     }
 }

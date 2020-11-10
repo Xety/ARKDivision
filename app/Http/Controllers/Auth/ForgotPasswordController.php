@@ -75,6 +75,6 @@ class ForgotPasswordController extends Controller
     {
         return redirect()
             ->route('discuss.index')
-            ->with('success', 'We have e-mailed your password reset link!');
+            ->with('success', 'Nous vous avons envoyé votre lien de réinitialisation de mot de passe par e-mail!');
     }
 }

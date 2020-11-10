@@ -8,7 +8,7 @@
             500
         </div>
         <div class="description mb-1">
-            Whoops, looks like something went wrong.
+            Oups, il semblerait qu'il y ait un problème ...
         </div>
         <div class="link">
             {!! link_to(

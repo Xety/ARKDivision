@@ -8,7 +8,7 @@
             503
         </div>
         <div class="description mb-1">
-            The website is in maintenance, try again later.
+            Le site est en maintenance, réessayez plus tard.
         </div>
         <div class="link">
             {!! link_to(

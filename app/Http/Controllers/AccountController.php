@@ -78,6 +78,6 @@ class AccountController extends Controller
 
         return redirect()
             ->route('users.account.index')
-            ->with('success', 'Your account has been updated successfully !');
+            ->with('success', 'Votre compte a été mis à jour avec succès!');
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => __('Reset your password')]) !!}
+{!! config(['app.title' => 'Réinitialiser votre mot de passe']) !!}
 
 @push('scriptsTop')
     {!! NoCaptcha::renderJs() !!}
@@ -10,12 +10,12 @@
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <h2 class="text-xs-center font-xeta mt-2">
-                @lang('Reset Password')
+                Réinitialiser votre Mot de Passe
             </h2>
 
             {!! Form::open(['route' => 'users.auth.password.email']) !!}
-                {!! Form::bsEmail('email', __('E-Mail Address'), old('email'), [
-                    'placeholder' => __('Your E-Mail...'),
+                {!! Form::bsEmail('email', 'E-Mail', old('email'), [
+                    'placeholder' => 'Votre E-Mail...',
                     'required' => 'required'
                 ]) !!}
 
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="form-group text-xs-center">
-                    {!! Form::button('<i class="fa fa-paper-plane-o" aria-hidden="true"></i> ' . __('Send Password Reset Link'), ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
+                    {!! Form::button('<i class="fa fa-paper-plane-o" aria-hidden="true"></i> ' . 'Envoyer le lien', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
                 </div>
             {!! Form::close() !!}
         </div>

@@ -21,7 +21,7 @@ class RewardController extends Controller
     {
         parent::__construct();
 
-        $this->breadcrumbs->addCrumb('Rewards', route('users.reward.index'));
+        $this->breadcrumbs->addCrumb('Récompenses', route('users.reward.index'));
     }
 
     /**

@@ -28,7 +28,7 @@ $(function() {
         pluginPath : "{{ asset(Arr::get($signature, 'pluginPath', config('editor.pluginPath'))) }}/",
         watch : false,
         editorTheme : 'mdn-like',
-        placeholder : 'Tapez votre signature ici...',
+        placeholder : 'Ecrivez votre signature ici...',
         toolbarIcons : function () {
             return [
                 "undo", "redo", "|",
