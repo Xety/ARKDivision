@@ -41,6 +41,7 @@ class CreateUsersTable extends Migration
             $table->dateTime('color_asked_at')->nullable();
             $table->dateTime('ticket_asked_at')->nullable();
             $table->dateTime('member_expire_at')->nullable();
+            $table->boolean('arklog_free')->default(false);
             $table->dateTime('last_login')->nullable();
             $table->timestamps();
         });

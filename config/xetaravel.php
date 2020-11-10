@@ -112,5 +112,17 @@ return [
     */
     'pastebin' => [
         'banlist_url' => 'https://pastebin.com/raw/LPCDZxDs'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | ARKLog
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'arklog' => [
+        // Set the expiration delay used for ARKLog free access.
+        'expire' => '+48 hours',
     ]
 ];
