@@ -53,8 +53,8 @@ class DiscussCategoriesTableSeed extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'title' => 'Serveur Dédiés',
-                'slug' => 'serveurdedies',
+                'title' => 'Serveurs Dédiés',
+                'slug' => 'serveursdedies',
                 'description' => 'Une question sur la configuration d\'un serveur dédié ? C\'est ici !',
                 'color' => '#b93d6a',
                 'conversation_count' => 0,

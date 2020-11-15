@@ -37,7 +37,7 @@ class NotificationControllerTest extends TestCase
      */
     public function testMarkAsRead()
     {
-        $response = $this->json('POST', '/users/notification/markAsRead', ['id' => '123456789']);
+        $response = $this->json('POST', '/users/notification/markasread', ['id' => '123456789']);
 
         $response
             ->assertStatus(200)

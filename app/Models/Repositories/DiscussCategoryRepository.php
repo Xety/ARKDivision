@@ -29,6 +29,7 @@ class DiscussCategoryRepository
             'title' => $data['title'],
             'color' => $data['color'],
             'is_locked' => isset($data['is_locked']) ? true : false,
+            'level' => $data['level'],
             'description' => $data['description']
         ]);
     }

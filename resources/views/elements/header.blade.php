@@ -34,10 +34,10 @@
                     <a class="nav-link-menu" href="{{ route('discuss.index') }}">
                         <span data-hover="Discuss">Discuss</span>
                     </a>
-                    <a class="nav-link-menu" href="{{ route('statut.page.index') }}">
+                    <a class="nav-link-menu" href="http://{{ env('APP_STATUT_URL') }}">
                         <span data-hover="Statut">Statut</span>
                     </a>
-                    <a class="nav-link-menu" href="{{ route('donation.page.index') }}">
+                    <a class="nav-link-menu" href="http://{{ env('APP_DONATION_URL') }}">
                         <span data-hover="Donation">Donation</span>
                     </a>
                 </li>

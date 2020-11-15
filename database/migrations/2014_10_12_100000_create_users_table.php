@@ -32,14 +32,11 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('skin_remain')->default(0);
             $table->unsignedInteger('color_count')->default(0);
             $table->unsignedInteger('color_remain')->default(0);
-            $table->boolean('ticket_opened')->default(false);
-            $table->bigInteger('ticket_message_id')->nullable();
             $table->rememberToken();
             $table->ipAddress('register_ip');
             $table->ipAddress('last_login_ip')->nullable();
             $table->dateTime('skin_asked_at')->nullable();
             $table->dateTime('color_asked_at')->nullable();
-            $table->dateTime('ticket_asked_at')->nullable();
             $table->dateTime('member_expire_at')->nullable();
             $table->boolean('arklog_free')->default(false);
             $table->dateTime('last_login')->nullable();

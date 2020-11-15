@@ -67,7 +67,7 @@
                     <li class="discuss-conversation-post-meta-share list-inline-item float-xs-right">
                         <discuss-share
                             :post-id="{{ var_export($post->getKey()) }}"
-                            :post-type="{{ var_export('Post') }}"
+                            :post-type="{{ var_export('Message') }}"
                             :route-input="{{ var_export(route('discuss.post.show', ['id' => $post->getKey()])) }}">
                         </discuss-share>
                     </li>

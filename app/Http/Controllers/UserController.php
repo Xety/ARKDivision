@@ -47,6 +47,7 @@ class UserController extends Controller
     /**
      * Show the user profile page.
      *
+     * @param \Illuminate\Http\Request $request
      * @param string $slug The slug of the user.
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View

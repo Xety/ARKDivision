@@ -42,7 +42,8 @@ class PaypalController extends Controller
         'between' => 'La :attribute doit être comprise entre 5€ et 300€.',
         'numeric' => 'La valeur du champs :attribute doit être numéric.',
         'regex' => 'Le format du champs :attribute est invalide.',
-        'min' => 'Votre message doit comporter au moins 5 caractères.'
+        'min' => 'Votre message doit comporter au moins 5 caractères.',
+        'max' => 'Votre message doit comporter moins de 200 caractères.'
     ];
 
     /**
@@ -77,7 +78,8 @@ class PaypalController extends Controller
             ],
             'message' => [
                 'required',
-                'min:5'
+                'min:5',
+                'max:200'
             ],
         ], $this->customMessages);
 
