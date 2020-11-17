@@ -63,7 +63,7 @@
                         {{ $conversation->category->title }}
                     </a>
                     <span class="tag tag-success text-white">
-                        Solved
+                        Résolue
                     </span>
                 </div>
             @else
@@ -139,10 +139,13 @@
                     </div>
                 @else
                     <div class="discuss-new-discussion-btn">
-                        <a href="{{ route('users.auth.login') }}" class="btn btn-primary">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                            Répondre
-                        </a>
+                        {{ link_to(
+                            route('users.auth.login'),
+                            '<i class="fa fa-pencil"></i> ' . 'Nouvelle Discussion',
+                            ['class' => 'btn btn-primary'],
+                            true,
+                            false
+                        ) }}
                     </div>
                 @endauth
 

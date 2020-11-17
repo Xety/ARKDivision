@@ -141,11 +141,13 @@
 
                         {{-- Solved action --}}
                             @if ($post->id !== $conversation->first_post_id && is_null($conversation->solved_post_id))
+                            @can('solved', $conversation)
                                 <li class="list-inline-item float-xs-right">
                                     <a href="{{ route('discuss.post.solved', ['id' => $post->id]) }}" class="btn btn-link text-success" data-toggle="tooltip" title="Marquez cette réponse comme résolue.">
                                         <i class="fa fa-check"></i>
                                     </a>
                                 </li>
+                            @endcan
                             @endif
                     </ul>
                 </div>

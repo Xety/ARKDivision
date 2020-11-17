@@ -3,6 +3,7 @@ namespace Xetaravel\Policies;
 
 use Xetaravel\Models\User;
 use Xetaravel\Models\DiscussPost;
+use Xetaravel\Models\DiscussConversation;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DiscussPostPolicy
@@ -52,14 +53,16 @@ class DiscussPostPolicy
 
     /**
      * Determine whether the user can make a discuss post as solved.
+     * User must be the creator of the conversation to be able to make a
+     * post as solved.
      *
      * @param \Xetaravel\Models\User $user
-     * @param \Xetaravel\Models\DiscussPost $discussPost
+     * @param \Xetaravel\Models\DiscussConversation $discussConversation
      *
      * @return bool
      */
-    public function solved(User $user, DiscussPost $discussPost)
+    public function solved(User $user, DiscussConversation $discussConversation)
     {
-        return $user->id === $discussPost->user_id;
+        return $user->id === $discussConversation->user_id;
     }
 }

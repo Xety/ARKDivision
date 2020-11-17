@@ -182,7 +182,9 @@ class PostController extends Controller
 
         DiscussPostValidator::edit($request->all())->validate();
 
-        $parser = new MentionParser($post);
+        $parser = new MentionParser($post, [
+            'regex' => '/\s({character}{pattern}{rules})/'
+        ]);
         $content = $parser->parse($request->input('content'));
 
         $post->content = $content;
