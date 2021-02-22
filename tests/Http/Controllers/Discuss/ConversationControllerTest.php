@@ -29,7 +29,7 @@ class ConversationControllerTest extends TestCase
      */
     public function testShow()
     {
-        $response = $this->get('/discuss/conversation/this-is-an-announcement.1');
+        $response = $this->get('/conversation/this-is-an-announcement.1');
         $response->assertSuccessful();
     }
 
@@ -40,7 +40,7 @@ class ConversationControllerTest extends TestCase
      */
     public function testShowCreateForm()
     {
-        $response = $this->get('/discuss/conversation/create');
+        $response = $this->get('/conversation/create');
         $response->assertSuccessful();
     }
 
@@ -61,9 +61,9 @@ class ConversationControllerTest extends TestCase
             'category_id' => 2,
             'content' => '**This** is an awesome text.'
         ];
-        $this->post('/discuss/conversation/create', $data);
+        $this->post('/conversation/create', $data);
 
-        $response = $this->post('/discuss/conversation/create', $data);
+        $response = $this->post('/conversation/create', $data);
         $response->assertSessionHas('danger');
         $response->assertStatus(302);
     }
@@ -84,7 +84,7 @@ class ConversationControllerTest extends TestCase
             'content' => '**This** is an awesome text.'
         ];
 
-        $response = $this->post('/discuss/conversation/create', $data);
+        $response = $this->post('/conversation/create', $data);
         $response->assertSessionHas('success');
         $response->assertStatus(302);
     }
@@ -101,7 +101,7 @@ class ConversationControllerTest extends TestCase
             'category_id' => 2
         ];
 
-        $response = $this->put('/discuss/conversation/update/this-is-an-announcement.1', $data);
+        $response = $this->put('/conversation/update/this-is-an-announcement.1', $data);
         $response->assertSessionHas('success');
         $response->assertStatus(302);
 
@@ -121,7 +121,7 @@ class ConversationControllerTest extends TestCase
      */
     public function testDeleteSuccess()
     {
-        $response = $this->delete('/discuss/conversation/delete/this-is-an-announcement.1');
+        $response = $this->delete('/conversation/delete/this-is-an-announcement.1');
         $response->assertSessionHas('success');
         $response->assertStatus(302);
 

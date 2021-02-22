@@ -93,6 +93,6 @@ class RegisterController extends Controller
             ->withCustomProperties(['primaryColor' => '#B4AEA4'])
             ->toMediaCollection('avatar');
 
-        $request->session()->flash('success', 'Your account has been created successfully !');
+        $request->session()->flash('success', 'Votre compte a été créé avec succès!');
     }
 }

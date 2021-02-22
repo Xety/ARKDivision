@@ -19,6 +19,7 @@ class ServerStatusController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string $slug The slug used to identify the server to update.
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, string $slug)

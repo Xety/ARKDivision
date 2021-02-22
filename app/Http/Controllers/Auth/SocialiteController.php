@@ -51,7 +51,7 @@ class SocialiteController extends Controller
         if (is_null($request->session()->get('socialite.driver'))) {
             return redirect()
                 ->route('users.auth.login')
-                ->with('danger', "You are not authorized to view this page !");
+                ->with('danger', 'Vous n\'êtes pas autorisé à afficher cette page !');
         }
         return view('Auth.socialite', compact('driver'));
     }
@@ -124,7 +124,7 @@ class SocialiteController extends Controller
 
             return redirect()
                 ->route('users.auth.login')
-                ->with('danger', "An error occurred while getting your information from {$driver} !");
+                ->with('danger', "Une erreur s'est produite lors de l'obtention de vos informations de {$driver} !");
         }
 
         // Check if the user is already registered
@@ -228,7 +228,7 @@ class SocialiteController extends Controller
 
         $request->session()->flash(
             'success',
-            'Welcome back <strong>' . e($user->username) . '</strong>! You\'re successfully connected !'
+            'Bon retour parmis nous <strong>' . e($user->username) . '</strong>! Vous êtes connecté avec succès!'
         );
     }
 

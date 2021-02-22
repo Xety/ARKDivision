@@ -3,7 +3,7 @@
 
         <!-- Mark all as read -->
         <button v-if="hasUnreadNotifs" v-on:click.prevent="markAllNotificationsAsRead" class="btn btn-sm btn-outline-primary mark-all-notifications-as-read text-xs-center">
-                <i class="fa fa-check" aria-hidden="true"></i> Mark all notifications as read
+                <i class="fa fa-check" aria-hidden="true"></i> Marquer toutes les notifs comme lues
         </button>
 
         <table class="table table-hover table-notifications">
@@ -31,7 +31,7 @@
                     </strong>
 
                     <!-- Delete -->
-                    <button v-on:click.prevent="deleteNotification(notification)" type="button" class="close text-danger" data-toggle="tooltip" title="Delete this notification" data-dismiss="alert" aria-label="Close">
+                    <button v-on:click.prevent="deleteNotification(notification)" type="button" class="close text-danger" data-toggle="tooltip" title="Supprimer cette notification" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </td>

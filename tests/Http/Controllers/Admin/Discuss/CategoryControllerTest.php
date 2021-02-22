@@ -53,6 +53,7 @@ class CategoryControllerTest extends TestCase
             'title' => 'My category',
             'color' => '#dddddd',
             'is_locked' => false,
+             'level' => 20,
             'description' => 'My awesome description.'
         ];
 

@@ -5,7 +5,7 @@
                 <ul class="discuss-conversations-list-badges">
                     @if ($conversation->is_pinned)
                         <li class="discuss-conversations-list-badges-item">
-                            <span class="tag tag-info" data-toggle="tooltip" title="@lang('Pinned')">
+                            <span class="tag tag-info" data-toggle="tooltip" title="Epinglé">
                                 <i class="fa fa-thumb-tack"></i>
                             </span>
                         </li>
@@ -13,7 +13,7 @@
 
                     @if ($conversation->is_locked)
                         <li class="discuss-conversations-list-badges-item">
-                            <span class="tag tag-primary" data-toggle="tooltip" title="@lang('Locked')">
+                            <span class="tag tag-primary" data-toggle="tooltip" title="Verrouilé">
                                 <i class="fa fa-lock"></i>
                             </span>
                         </li>
@@ -22,7 +22,7 @@
 
                 @if ($conversation->is_solved)
                     <span class="discuss-conversations-list-user-solved rounded-circle">
-                        <i class="fa fa-2x fa-check text-success" data-toggle="tooltip" title="@lang('This discussion is solved.')"></i>
+                        <i class="fa fa-2x fa-check text-success" data-toggle="tooltip" title="Cette discussion est résolue."></i>
                         <img src="{{ $conversation->user->avatar_small }}" alt="{{ $conversation->user->username }}" class="rounded-circle img-thumbnail" />
                     </span>
                 @else
@@ -47,7 +47,7 @@
                                 {{ $conversation->category->title }}
                             </a>
                             <span class="tag tag-success">
-                                @lang('Solved')
+                                Résolue
                             </span>
                         </div>
                     @else
@@ -65,7 +65,7 @@
                             :last-login="{{ var_export($conversation->lastPost->user->last_login->diffForHumans()) }}"
                             :background-color="{{ var_export($conversation->lastPost->user->avatar_primary_color) }}">
                         </discuss-user>
-                        @lang('replied')
+                        a répondu
                         <time datetime="{{ $conversation->lastPost->created_at->format('c') }}" title="{{ $conversation->lastPost->created_at->format('c') }}" data-toggle="tooltip">
                             {{ $conversation->lastPost->created_at->diffForHumans() }}
                         </time>
@@ -77,7 +77,7 @@
                             :last-login="{{ var_export($conversation->user->last_login->diffForHumans()) }}"
                             :background-color="{{ var_export($conversation->user->avatar_primary_color) }}">
                         </discuss-user>
-                        @lang('started')
+                        a créée
                         <time datetime="{{ $conversation->created_at->format('c') }}" title="{{ $conversation->created_at->format('c') }}" data-toggle="tooltip">
                             {{ $conversation->created_at->diffForHumans() }}
                         </time>
@@ -88,7 +88,7 @@
     @empty
         <div class="alert alert-primary" role="alert">
             <i class="fa fa-exclamation" aria-hidden="true"></i>
-            @lang('There\'re no conversations yet.')
+            Il n'y a pas encore de discussions.
         </div>
     @endforelse
 </ul>

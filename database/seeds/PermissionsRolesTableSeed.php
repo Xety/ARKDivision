@@ -43,6 +43,7 @@ class PermissionsRolesTableSeed extends Seeder
 
         // Membre Role
         $role = Role::where('slug', 'membre')->first();
+        $role->attachPermission(Permission::where('slug', 'access.member')->first());
         $role->attachPermission(Permission::where('slug', 'access.site')->first());
 
         // Utilisateur Role

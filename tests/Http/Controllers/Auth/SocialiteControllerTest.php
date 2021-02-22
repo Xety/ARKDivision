@@ -24,7 +24,6 @@ class SocialiteControllerTest extends TestCase
      */
     public function testShowRegistrationFormSuccess()
     {
-
         $response = $this->withSession(['socialite.driver' => 'discord'])->get('/auth/discord/register/form');
         $response->assertSuccessful();
     }

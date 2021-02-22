@@ -13,7 +13,7 @@ class CategoryControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $response = $this->get('/discuss/categories');
+        $response = $this->get('/categories');
         $response->assertSuccessful();
     }
 
@@ -24,7 +24,7 @@ class CategoryControllerTest extends TestCase
      */
     public function testShow()
     {
-        $response = $this->get('/discuss/category/xetaravel.1');
+        $response = $this->get('/category/annonces.1');
         $response->assertSuccessful();
     }
 }

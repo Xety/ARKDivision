@@ -6,15 +6,16 @@ return [
     | Xetaravel Site
     |--------------------------------------------------------------------------
     |
-    | Here are each configuration related to Xetaravel itself. Those value are
+    | Here are each configuration related to Division itself. Those value are
     | used everywhere around the application.
     */
     'site' => [
         'description' => 'You will find content related to web development like tutorials, my personal tests on new technologies etc',
-        'github_url' => 'https://github.com/XetaIO/Xetaravel',
-        'contact_email' => 'contact@xeta.io',
+        'github_url' => 'https://github.com/Xety',
+        'contact_email' => 'contact@ark-division.fr',
         'analytics_tracker_code' => 'UA-40328289-2',
         'full_url' => 'https://discuss.ark-division.fr',
+        'main' => 'https://ark-division.fr'
     ],
 
     /*
@@ -62,7 +63,7 @@ return [
     |
     */
     'discuss' => [
-        'categories_sidebar' => 2, //15,
+        'categories_sidebar' => 15,
         // The number in days.
         'info_message_old_conversation' => 92
     ],
@@ -111,5 +112,17 @@ return [
     */
     'pastebin' => [
         'banlist_url' => 'https://pastebin.com/raw/LPCDZxDs'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | ARKLog
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'arklog' => [
+        // Set the expiration delay used for ARKLog free access.
+        'expire' => '+48 hours',
     ]
 ];

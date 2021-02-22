@@ -72,7 +72,7 @@ class Handler extends ExceptionHandler
 
             return redirect()
                 ->route('page.index')
-                ->with('danger', 'You don\'t have the permission to view this page.');
+                ->with('danger', 'Vous n\'êtes pas autorisé à voir cette page.');
         }
 
         return parent::render($request, $exception);
@@ -88,12 +88,10 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
-        }
-
-        return redirect()
-            ->guest(route('users.auth.login'))
-            ->with('danger', 'You don\'t have the permission to view this page.');
+        return $request->expectsJson()
+                    ? response()->json(['error' => 'Unauthenticated.'], 401)
+                    : redirect()
+                        ->guest($exception->redirectTo() ?? route('users.auth.login'))
+                        ->with('danger', 'Vous n\'êtes pas autorisé à voir cette page.');
     }
 }

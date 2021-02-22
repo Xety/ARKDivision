@@ -48,7 +48,7 @@ class BadgeNotification extends Notification implements ShouldQueue
     public function toDatabase($notifiable): array
     {
         return [
-            'message' => 'You have unlock the badge <strong>%s</strong> !',
+            'message' => 'Vous avez déverrouillé le badge <strong>%s</strong> !',
             'message_key' => [$this->badge->name],
             'image' => $this->badge->image,
             'type' => 'badge'

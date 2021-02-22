@@ -27,7 +27,7 @@ class Xetaravel
     {
         var information = new Console({
             title: 'color:#a3f5a3;background:#2f4052;font-weight:bold;',
-            message: "\n %c  %c HELLO ! %c  %c  Don't forget that this website is open-source ! https://github.com/XetaIO/Xetaravel  %c  \n\n",
+            message: "\n %c  %c Bonjour ! %c  %c  Si vous rencontrez un bug n'hésitez pas à contacter @ZoRo sur Discord.  %c  \n\n",
             width: 'padding:5px 0;',
             color: 'color:#fff;',
             primaryBackground: 'background:#5ccc5c;',
@@ -37,7 +37,7 @@ class Xetaravel
 
         var warning = new Console({
             title: 'color:#e44;background:#2f4052;font-weight:bold;',
-            message: "\n %c  %c ATTENTION %c  %c  DONT RUN ANY SCRIPT HERE ! IT WILL HAVE FULL ACCESS TO YOUR BROWSER AND YOUR ACCOUNT ! https://en.wikipedia.org/wiki/Self-XSS  %c  \n\n",
+            message: "\n %c  %c ATTENTION %c  %c  N'EXÉCUTER PAS DE SCRIPT ICI! IL AURA UN ACCÈS COMPLET À VOTRE NAVIGATEUR ET À VOTRE COMPTE ! https://en.wikipedia.org/wiki/Self-XSS  %c  \n\n",
             width: 'padding:5px 0;',
             color: 'color:#fff;',
             primaryBackground: 'background:#c22;',

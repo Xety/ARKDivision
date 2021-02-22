@@ -42,6 +42,29 @@ class LoginControllerTest extends TestCase
      *
      * @return void
      */
+    public function testLoginNotValidated()
+    {
+        $this->assertGuest();
+        $data = [
+            'email' => 'membre@division.io',
+            'password' => 'membre',
+            'remember' => 1,
+        ];
+        $response = $this->post('/users/login', $data);
+
+        $this->assertGuest();
+        $response->assertStatus(302);
+        $this->assertStringContainsString(
+            '/users/email/verify',
+            $response->headers->get('Location')
+        );
+    }
+
+    /**
+     * testLoginFailed method
+     *
+     * @return void
+     */
     public function testLoginFailed()
     {
         $this->assertGuest();

@@ -83,7 +83,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
+    'unique'               => 'L\':attribute a déjà été utilisé.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
@@ -103,8 +103,8 @@ return [
             'rule-name' => 'custom-message',
         ],
         'g-recaptcha-response' => [
-            'required' => 'Please verify that you are not a robot.',
-            'captcha' => 'Captcha error! try again later or contact site admin.',
+            'required' => 'Veuillez vérifier que vous n\'êtes pas un robot.',
+            'captcha' => 'Erreur de Captcha! Réessayez plus tard ou contactez un administrateur.',
         ],
     ],
 

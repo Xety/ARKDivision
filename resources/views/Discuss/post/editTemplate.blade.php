@@ -5,16 +5,16 @@ $form = '<div id="disccuss-post-edit-' . $post->getKey() . '">
                 <input name="_token" type="hidden" value="' . csrf_token() . '">
                 <div class="form-group">
                     <div id="editPostEditor-' . $post->getKey() . '">
-                        <textarea class="form-control" rows="5" placeholder="Your message here..." required="required" editor="editPostEditor-' . $post->getKey() . '" style="display:none;" name="content" cols="50"></textarea>
+                        <textarea class="form-control" rows="5" placeholder="Ecrivez votre message ici..." required="required" editor="editPostEditor-' . $post->getKey() . '" style="display:none;" name="content" cols="50"></textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-outline-primary">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                    Edit
+                    Editer
                 </button>
                 <button type="button" data-id="' . $post->getKey() . '" class="btn btn-outline-secondary cancelEditButton">
                     <i class="fa fa-remove" aria-hidden="true"></i>
-                    Cancel
+                    Annuler
                 </button>
             </form>
             <script type="text/javascript">

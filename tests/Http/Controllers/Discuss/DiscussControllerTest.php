@@ -12,7 +12,7 @@ class DiscussControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $response = $this->get('/discuss');
+        $response = $this->get('/');
         $response->assertSuccessful();
     }
 }

@@ -87,6 +87,21 @@ class UserRepository
     }
 
     /**
+     * Create the user's password after a valid password create. (For Discord Users)
+     *
+     * @param array $data The data used to update the user.
+     * @param \Xetaravel\Models\User $user The user to update.
+     *
+     * @return bool
+     */
+    public static function createPassword(array $data, User $user): bool
+    {
+        $user->password = Hash::make($data['password']);
+
+        return $user->save();
+    }
+
+    /**
      * Update the user skins and colors fields after a valid donation.
      *
      * @param array $data The data used to update the user.
@@ -115,6 +130,12 @@ class UserRepository
      */
     public static function updateSteam(array $data, User $user): bool
     {
+        // Access ARKLog 48H
+        if ($user->arklog_free == false) {
+            $user->arklog_free = true;
+            $user->member_expire_at = Carbon::now()->modify(config('xetaravel.arklog.expire'));
+        }
+
         $user->steam_id = $data['steam_id'];
 
         return $user->save();

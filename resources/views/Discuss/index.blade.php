@@ -13,7 +13,7 @@
                 <div class="discuss-new-discussion-btn text-truncate">
                     {{ link_to(
                         route('discuss.conversation.create'),
-                        '<i class="fa fa-pencil"></i> Start a Discussion',
+                        '<i class="fa fa-pencil"></i> Nouvelle Discussion',
                         ['class' => 'btn btn-primary'],
                         true,
                         false

@@ -128,7 +128,10 @@ class UserController extends Controller
         UserRepository::update($request->all(), $user);
         $account = AccountRepository::update($request->get('account'), $user->id);
 
-        $parser = new MentionParser($account, ['mention' => false]);
+        $parser = new MentionParser($account, [
+            'regex' => '/\s({character}{pattern}{rules})\s/',
+            'mention' => false
+        ]);
         $signature = $parser->parse($account->signature);
         $biography = $parser->parse($account->biography);
 

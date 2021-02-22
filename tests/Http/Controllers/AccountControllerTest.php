@@ -41,7 +41,7 @@ class AccountControllerTest extends TestCase
 
         $this->assertSame('Emeric', $user->first_name);
         $this->assertSame('', $user->last_name);
-        $this->assertSame('AdminFB', $user->facebook);
+        $this->assertSame('', $user->facebook);
         $this->assertSame('FMT_ZoRo', $user->twitter);
 
         $oldAvatarUrl = $user->avatar_small;

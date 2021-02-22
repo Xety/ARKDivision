@@ -13,7 +13,7 @@ class ReplyRenderer implements BlockRendererInterface
         return new HtmlElement(
             'a',
             ['class' => 'discuss-conversation-user-reply', 'href' => $block->getRoute()],
-            '<i class="fa fa-reply"></i> ' . $block->getUser()
+            '<i class="fa fa-reply"></i> ' . ucfirst($block->getUser())
         );
     }
 }

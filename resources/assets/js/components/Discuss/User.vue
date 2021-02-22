@@ -28,10 +28,10 @@
                             '</div>' +
                             '<div class="discuss-popover-user-info">' +
                                 '<ul class="list-inline">' +
-                                    '<li class="list-inline-item mr-1" data-toggle="tooltip" title="Last seen">' +
+                                    '<li class="list-inline-item mr-1" data-toggle="tooltip" title="Vue pour la dernière fois">' +
                                         '<i class="fa fa-clock-o"></i> ' + this.lastLogin +
                                     '</li>' +
-                                    '<li class="list-inline-item mr-1" data-toggle="tooltip" title="Registered">' +
+                                    '<li class="list-inline-item mr-1" data-toggle="tooltip" title="A rejoint">' +
                                         '<i class="fa fa-calendar"></i> ' + this.createdAt +
                                     '</li>' +
                                 '</ul>' +

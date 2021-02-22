@@ -44,5 +44,8 @@ class DatabaseSeeder extends Seeder
 
         // Steam Bans
         $this->call(SteamBansTableSeed::class);
+
+        // Settings
+        $this->call(SettingsTableSeed::class);
     }
 }

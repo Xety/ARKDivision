@@ -8,7 +8,7 @@
             404
         </div>
         <div class="description mb-1">
-            The page you're looking for doesn't exist.
+            La page que vous recherchez n'existe pas.
         </div>
         <div class="link">
             {!! link_to(

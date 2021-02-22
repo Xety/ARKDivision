@@ -63,16 +63,20 @@ class DiscussPost extends Model
         static::deleting(function ($model) {
             $conversation = $model->conversation;
 
+            // If it is the first_post, then delete the whole conversation.
             if ($conversation->first_post_id == $model->getKey()) {
                 $conversation->delete();
             }
 
+            // If the post is the last_post of the conversation,
+            // find the new last_post and update the conversation.
             if ($conversation->last_post_id == $model->getKey()) {
                 $previousPost = DiscussPostRepository::findPreviousPost($model, true);
 
                 $conversation->last_post_id = !is_null($previousPost) ? $previousPost->getKey() : null;
             }
 
+            // If it is the solved_post, then update the conversation to reset the solved post.
             if ($conversation->solved_post_id == $model->getKey()) {
                 $conversation->solved_post_id = null;
                 $conversation->is_solved = false;

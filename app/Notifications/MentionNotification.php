@@ -64,13 +64,13 @@ class MentionNotification extends Notification implements ShouldQueue
 
         switch (true) {
             case $model instanceof DiscussPost:
-                $data['message'] = '<strong>@%s</strong> has mentionned your name in his post !';
+                $data['message'] = '<strong>@%s</strong> a mentionné votre nom dans son message!';
                 $data['link'] = $model->post_url;
 
                 break;
 
             default:
-                $data['message'] = 'Unknown mention.';
+                $data['message'] = 'Mention inconnue.';
                 $data['link'] = route('users.notification.index');
 
                 break;

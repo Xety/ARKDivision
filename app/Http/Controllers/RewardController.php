@@ -21,7 +21,7 @@ class RewardController extends Controller
     {
         parent::__construct();
 
-        $this->breadcrumbs->addCrumb('Rewards', route('users.reward.index'));
+        $this->breadcrumbs->addCrumb('Récompenses', route('users.reward.index'));
     }
 
     /**
@@ -60,7 +60,9 @@ class RewardController extends Controller
         if (is_null($user->steam_id)) {
             return response()->json([
                 'error' => true,
-                'message' => 'Vous n\'avez lié votre compte Division à votre compte Steam.'
+                'display' => true,
+                'message' => 'Vous n\'avez pas lié votre compte Division à votre compte Steam. Vous pouvez' .
+                ' lier votre compte Steam via le menu Social.'
             ]);
         }
 

@@ -37,7 +37,6 @@
         "anhskohbo/no-captcha": "^3.0",
         "graham-campbell/markdown": "^13.0",
         "kirkbushell/eloquence": "^4.0",
-        "kkomelin/laravel-translatable-string-exporter": "^1.10",
         "restcord/restcord": "^0.4",
         "paypal/rest-api-sdk-php": "^1.0"
     },

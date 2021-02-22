@@ -13,6 +13,9 @@ return [
 
     /*
      * The view id of which you want to display data.
+     *
+     * 30945888 // View discuss.ark-division.fr
+     * 166645612 // View ark-division.fr
      */
     'view_id' => env('ANALYTICS_VIEW_ID'),
 
@@ -26,7 +29,8 @@ return [
      * The amount of seconds the Google API responses will be cached.
      * If you set this to zero, the responses won't be cached at all.
      */
-    'cache_lifetime_in_secondes' => 7200,  // 2 hours
+    //'cache_lifetime_in_secondes' => 7200,  // 2 hours
+    'cache_lifetime_in_secondes' => 1,
 
     /*
      * Here you may configure the "store" that the underlying Google_Client will

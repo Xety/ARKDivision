@@ -2,11 +2,20 @@
 namespace Xetaravel\Http\Controllers\Statut;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Xetaravel\Http\Controllers\Controller;
 use Xetaravel\Models\Server;
 
 class PageController extends Controller
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        URL::forceRootUrl(config('app.url'));
+    }
+
     /**
      * Show the statut page.
      *

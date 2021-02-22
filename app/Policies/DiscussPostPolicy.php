@@ -3,6 +3,7 @@ namespace Xetaravel\Policies;
 
 use Xetaravel\Models\User;
 use Xetaravel\Models\DiscussPost;
+use Xetaravel\Models\DiscussConversation;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DiscussPostPolicy
@@ -46,19 +47,6 @@ class DiscussPostPolicy
      * @return bool
      */
     public function delete(User $user, DiscussPost $discussPost)
-    {
-        return $user->id === $discussPost->user_id;
-    }
-
-    /**
-     * Determine whether the user can make a discuss post as solved.
-     *
-     * @param \Xetaravel\Models\User $user
-     * @param \Xetaravel\Models\DiscussPost $discussPost
-     *
-     * @return bool
-     */
-    public function solved(User $user, DiscussPost $discussPost)
     {
         return $user->id === $discussPost->user_id;
     }
