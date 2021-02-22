@@ -5,9 +5,11 @@
 | Regular Routes
 |--------------------------------------------------------------------------
 */
-/*Route::group(['middleware' => ['permission:access.site,allowGuest']], function () {
+Route::group(['middleware' => ['permission:access.site,allowGuest']], function () {
     Route::get('/', 'PageController@index')->name('page.index');
-});*/
+
+    Route::get('terms', 'PageController@terms')->name('page.terms');
+});
 
 Route::group(['middleware' => ['auth', 'permission:show.banished']], function () {
     Route::get('banished', 'PageController@banished')->name('page.banished');
@@ -63,6 +65,14 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
             ->name('users.auth.password.reset');
         Route::post('password/reset', 'ResetPasswordController@reset')
             ->name('users.auth.password.handlereset');
+
+        // Email Verification Routes
+        Route::get('email/verify/{hash}', 'VerificationController@show')
+            ->name('users.auth.verification.notice');
+        Route::get('email/verify/{id}/{hash}', 'VerificationController@verify')
+            ->name('users.auth.verification.verify');
+        Route::post('email/resend', 'VerificationController@resend')
+            ->name('users.auth.verification.resend');
     });
 
     // Auth Middleware
@@ -78,19 +88,18 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
 
         // Social Routes
         Route::get('social', 'SocialController@index')->name('users.social.index');
-
         Route::get('social/discord', 'SocialController@discord')->name('users.social.discord');
         Route::get('social/discordcallback', 'SocialController@discordCallback')->name('users.social.discordcallback');
-
         Route::get('social/steam', 'SocialController@steam')->name('users.social.steam');
         Route::get('social/steamcallback/{id}', 'SocialController@steamCallback')->name('users.social.steamcallback');
-
         Route::delete('social/delete/{type}', 'SocialController@delete')->name('users.social.delete');
 
         // Rewards
-        Route::get('reward', 'RewardController@index')->name('users.reward.index');
-        Route::post('reward/claim', 'RewardController@claim')->name('users.reward.claim');
-        Route::post('reward/markasread', 'RewardController@markAsRead')->name('users.reward.markasread');
+        Route::middleware('rewards.maintenance')->group(function () {
+            Route::get('reward', 'RewardController@index')->name('users.reward.index');
+            Route::post('reward/claim', 'RewardController@claim')->name('users.reward.claim');
+            Route::post('reward/markasread', 'RewardController@markAsRead')->name('users.reward.markasread');
+        });
 
         // Notification Routes
         Route::get('notification', 'NotificationController@index')

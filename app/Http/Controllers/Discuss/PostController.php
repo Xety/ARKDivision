@@ -136,7 +136,7 @@ class PostController extends Controller
     {
         $post = DiscussPost::findOrFail($id);
 
-        $this->authorize('solved', $post);
+        $this->authorize('solved', $post->conversation);
 
         if ($post->getKey() == $post->conversation->solved_post_id) {
             return back()

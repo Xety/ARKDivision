@@ -4,9 +4,11 @@ namespace Xetaravel\Models;
 use Eloquence\Behaviours\Sluggable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\DatabaseNotification;
@@ -14,18 +16,19 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Ultraware\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use Ultraware\Roles\Traits\HasRoleAndPermission;
 use Xetaravel\Models\Presenters\UserPresenter;
-use Xetaravel\Notifications\ResetPasswordNotification;
+use Xetaravel\Notifications\Auth\VerifyEmail;
+use Xetaravel\Notifications\Auth\ResetPassword;
 
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract,
     HasRoleAndPermissionContract,
-    HasMedia
+    HasMedia,
+    MustVerifyEmailContract
 {
     use Authenticatable,
         Authorizable,
@@ -34,7 +37,8 @@ class User extends Model implements
         Sluggable,
         HasRoleAndPermission,
         InteractsWithMedia,
-        UserPresenter;
+        UserPresenter,
+        MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -50,7 +54,8 @@ class User extends Model implements
         'register_ip',
         'transaction_count',
         'last_login_ip',
-        'last_login'
+        'last_login',
+        'email_verified_at'
     ];
 
     /**
@@ -314,7 +319,17 @@ class User extends Model implements
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+        $this->notify(new ResetPassword($token));
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
     }
 
     /**

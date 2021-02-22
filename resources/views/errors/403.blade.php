@@ -5,10 +5,10 @@
 <div class="container mt-4">
     <div class="error">
         <div class="title font-xeta">
-            404
+            403
         </div>
         <div class="description mb-1">
-            La page que vous recherchez n'existe pas.
+            Vous n'êtes pas autorisé a effectuer cette action.
         </div>
         <div class="link">
             {!! link_to(

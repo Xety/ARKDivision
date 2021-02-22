@@ -88,6 +88,14 @@ class CheckMemberValidation extends Command
             " des rôles <@&386617500516876289> et <@&431910257367973898>.**\nL'expiration est arrivée à terme le *" .
             $date->translatedFormat('l jS F Y à H:m'). "*";
 
+            if (!is_null($user->transactions()->orderBy('created_at', 'desc')->first())) {
+                $lastDonation = 'Le' . $user->transactions()
+                    ->orderBy('created_at', 'desc')
+                    ->first()->created_at->translatedFormat('l jS F Y à H:m');
+            } else {
+                $lastDonation = 'Jamais';
+            }
+
             // Send the notification on Discord.
             $discord->channel->createMessage([
                 'channel.id' => config('discord.channels.logs-bot'),
@@ -111,15 +119,12 @@ class CheckMemberValidation extends Command
                         ],
                         [
                             'name' => "Montant total des donations",
-                            'value' => $user->paypal->amount_total,
+                            'value' => isset($user->paypal->amount_total) ? $user->paypal->amount_total : 0,
                             'inline' => true
                         ],
                         [
                             'name' => "Dernière donation",
-                            'value' => 'Le ' .$user->transactions()
-                                                                    ->orderBy('created_at', 'desc')
-                                                                    ->first()
-                                                                    ->created_at->translatedFormat('l jS F Y à H:m'),
+                            'value' => $lastDonation,
                             'inline' => true
                         ]
                     ]

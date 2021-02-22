@@ -4,7 +4,7 @@
 @section('content')
 <div class="background">
     <div class="logo-container">
-        <a href="{{ route('discuss.index') }}"><img src="https://ark-division.fr/wp-content/uploads/logo-ark-division-france.png" class="logo" alt="logo-ark-division-france" width="300"></a>
+        <a href="{{ route('page.index') }}"><img src="https://ark-division.fr/wp-content/uploads/logo-ark-division-france.png" class="logo" alt="logo-ark-division-france" width="300"></a>
     </div>
     <div class="elementor-shape elementor-shape-bottom">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">

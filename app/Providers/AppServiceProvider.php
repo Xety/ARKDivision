@@ -1,6 +1,7 @@
 <?php
 namespace Xetaravel\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -39,25 +40,27 @@ class AppServiceProvider extends ServiceProvider
             return "<?php endif; ?>";
         });
 
-        // Set the all Settings in the config array.
-        $settings = Setting::all([
-            'name',
-            'value_int',
-            'value_str',
-            'value_bool',
-        ])
-        ->keyBy('name') // key every setting by its name
-        ->transform(function ($setting) {
-             return $setting->value; // return only the value
-        })
-        ->toArray();
+        if (App::environment() !== 'testing') {
+            // Set the all Settings in the config array.
+            $settings = Setting::all([
+                'name',
+                'value_int',
+                'value_str',
+                'value_bool',
+            ])
+            ->keyBy('name') // key every setting by its name
+            ->transform(function ($setting) {
+                return $setting->value; // return only the value
+            })
+            ->toArray();
 
-        $array = [];
-        // Convert the `dot` syntax to array.
-        foreach ($settings as $setting => $value) {
-            data_set($array, $setting, $value);
+            $array = [];
+            // Convert the `dot` syntax to array.
+            foreach ($settings as $setting => $value) {
+                data_set($array, $setting, $value);
+            }
+            config(['settings' => $array]);
         }
-        config(['settings' => $array]);
     }
 
     /**

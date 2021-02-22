@@ -4,13 +4,13 @@
 @section('content')
 <div class="container mt-6">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3 mt-3">
             <div class="alert alert-primary text-xs-center" role="alert">
                 <i class="fa fa-exclamation" aria-hidden="true"></i>
                 Il y a des erreurs lors de l'enregistrement de votre compte. Veuillez corriger ces erreurs avant de continuer.
             </div>
             <h2 class="text-xs-center font-xeta mt-2">
-                @lang('Register with :driver', ['driver' => Str::title($driver)])
+                Inscription  via {{ Str::title($driver) }}
             </h2>
         </div>
         <div class="col-md-4 offset-md-4">

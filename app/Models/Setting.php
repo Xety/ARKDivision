@@ -18,6 +18,7 @@ class Setting extends Model
         'value_str',
         'value_bool',
         'value',
+        'description',
         'last_updated_user_id'
     ];
 
@@ -40,7 +41,7 @@ class Setting extends Model
     {
         parent::boot();
 
-        // Generated the slug before updating.
+        // Get the type of the value before to save.
         static::updating(function ($model) {
             $model = self::castValue($model->new_value, $model);
 

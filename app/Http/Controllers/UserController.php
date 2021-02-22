@@ -58,7 +58,7 @@ class UserController extends Controller
 
         if (is_null($user)) {
             return redirect()
-                ->route('discuss.index')
+                ->route('page.index')
                 ->with('danger', 'Cet utilisateur n\'existe pas ou a été supprimé!');
         }
         $breadcrumbs = $this->breadcrumbs->addCrumb(
@@ -76,7 +76,7 @@ class UserController extends Controller
      */
     public function showSettingsForm(): View
     {
-        $this->breadcrumbs->addCrumb('Settings', route('users.user.settings'));
+        $this->breadcrumbs->addCrumb('Paramètres', route('users.user.settings'));
 
         return view('user.settings', ['breadcrumbs' => $this->breadcrumbs]);
     }
@@ -99,10 +99,13 @@ class UserController extends Controller
             case 'password':
                 return $this->updatePassword($request);
 
+            case 'newpassword':
+                return $this->createPassword($request);
+
             default:
                 return back()
                     ->withInput()
-                    ->with('danger', 'Invalid type.');
+                    ->with('danger', 'Type invalide.');
         }
     }
 
@@ -120,19 +123,19 @@ class UserController extends Controller
         if (!Hash::check($request->input('password'), $user->password)) {
             return redirect()
                 ->route('users.user.settings')
-                ->with('danger', 'Your Password does not match !');
+                ->with('danger', 'Vos mots de passe ne correspondent pas !');
         }
         Auth::logout();
 
         if ($user->delete()) {
             return redirect()
-                ->route('discuss.index')
-                ->with('success', 'Your Account has been deleted successfully !');
+                ->route('page.index')
+                ->with('success', 'Votre compte a été supprimé avec succès !');
         }
 
         return redirect()
-            ->route('discuss.index')
-            ->with('danger', 'An error occurred while deleting your account !');
+            ->route('page.index')
+            ->with('danger', 'Une erreur s\'est produite lors de la suppression de votre compte !');
     }
 
     /**
@@ -149,7 +152,7 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.user.settings')
-            ->with('success', 'Your E-mail has been updated successfully !');
+            ->with('success', 'Votre e-mail a été mis à jour avec succès !');
     }
 
     /**
@@ -166,7 +169,7 @@ class UserController extends Controller
         if (!Hash::check($request->input('oldpassword'), $user->password)) {
             return redirect()
                 ->route('users.user.settings')
-                ->with('danger', 'Your current Password does not match !');
+                ->with('danger', 'Vos mots de passe ne correspondent pas !');
         }
 
         UserValidator::updatePassword($request->all())->validate();
@@ -174,6 +177,31 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.user.settings')
-            ->with('success', 'Your Password has been updated successfully !');
+            ->with('success', 'Votre mot de passe a été mis à jour avec succès !');
+    }
+
+    /**
+     * Handle a Password create request for the user.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function createPassword(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        if (!is_null($user->password)) {
+            return redirect()
+                ->route('users.user.settings')
+                ->with('danger', 'Vous avez déjà défini un mot de passe.');
+        }
+
+        UserValidator::createPassword($request->all())->validate();
+        UserRepository::createPassword($request->all(), $user);
+
+        return redirect()
+            ->route('users.user.settings')
+            ->with('success', 'Votre mot de passe a été créé avec succès !');
     }
 }

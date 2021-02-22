@@ -29,7 +29,7 @@
                 <div class="col-md-12">
                     <ul class="statistics list-inline pull-left">
                         <li class="list-inline-item">
-                            <span class="text">Commentaires</span>
+                            <span class="text">Posts</span>
                             <span class="number">
                                 {{ $user->discuss_post_count }}
                             </span>
@@ -54,7 +54,7 @@
             {!! $breadcrumbs->render() !!}
         </div>
     </div>
-    <div class="row profile">
+    <div class="row profile pb-3">
         <div class="col-lg-3">
             <section id="sidebar-profile" class="sidebar-profile section">
                 <div class="avatar">

@@ -96,4 +96,57 @@ class SocialControllerTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/users/social');
     }
+
+    /**
+     * testDeleteSocialInvalidType method
+     *
+     * @return void
+     */
+    public function testDeleteSocialInvalidType()
+    {
+        $response = $this->delete('/users/social/delete/test');
+        $response->assertSessionHas('danger');
+        $response->assertStatus(302);
+        $response->assertRedirect('/');
+    }
+
+    /**
+     * testDeleteSocialDiscord method
+     *
+     * @return void
+     */
+    public function testDeleteSocialDiscord()
+    {
+        $user = User::find(1)->with('Account')->first();
+        $this->assertNotNull($user->account->discord_username);
+        $this->assertNotNull($user->account->discord_discriminator);
+
+        $response = $this->delete('/users/social/delete/discord');
+        $response->assertSessionHas('success');
+        $response->assertStatus(302);
+        $response->assertRedirect('/');
+
+        $user = User::find(1)->with('Account')->first();
+        $this->assertNull($user->account->discord_username);
+        $this->assertNull($user->account->discord_discriminator);
+    }
+
+    /**
+     * testDeleteSocialDiscord method
+     *
+     * @return void
+     */
+    public function testDeleteSocialSteam()
+    {
+        $user = User::find(1)->with('Account')->first();
+        $this->assertNotNull($user->account->steam_username);
+
+        $response = $this->delete('/users/social/delete/steam');
+        $response->assertSessionHas('success');
+        $response->assertStatus(302);
+        $response->assertRedirect('/');
+
+        $user = User::find(1)->with('Account')->first();
+        $this->assertNull($user->account->steam_username);
+    }
 }

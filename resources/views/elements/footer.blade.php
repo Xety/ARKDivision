@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                &copy; {{ date('Y', time()) }} {{ config('app.name') }}
+                &copy; {{ date('Y', time()) }} {{ config('app.name') }} | {!! link_to(route('page.terms'), 'Conditions d\'Utilisation') !!}
             </div>
 
             <div class="col-md-6 text-md-right">

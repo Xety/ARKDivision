@@ -40,6 +40,7 @@ class CreateUsersTable extends Migration
             $table->dateTime('member_expire_at')->nullable();
             $table->boolean('arklog_free')->default(false);
             $table->dateTime('last_login')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

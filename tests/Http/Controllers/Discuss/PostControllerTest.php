@@ -82,9 +82,6 @@ class PostControllerTest extends TestCase
      */
     public function testSolvedSuccess()
     {
-        $user = User::find(2);
-        $this->be($user);
-
         $response = $this->get('/post/solved/2');
         $response->assertStatus(302);
         $response->assertSessionHas('success');

@@ -22,18 +22,20 @@
     <nav id="navbar" class="navbar">
         <div class="container">
             <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-expanded="false" aria-controls="exCollapsingNavbar2" aria-label="Toggle navigation"></button>
-            <a class="navbar-brand" href="{{ route('discuss.index') }}">
+            <a class="navbar-brand" href="{{ route('page.index') }}">
                 <img src="{{ asset('images/logo.png') }}" height="80" class="d-inline-block align-middle" alt="Logo">
             </a>
             <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link-menu" href="{{ config('xetaravel.site.main') }}">
+                    <a class="nav-link-menu" href="{{ route('page.index') }}">
                         <span data-hover="Accueil">Accueil</span>
                     </a>
-                    <a class="nav-link-menu" href="{{ route('discuss.index') }}">
-                        <span data-hover="Discuss">Discuss</span>
-                    </a>
+                    @if (config('settings.discuss.enabled') || (!config('settings.discuss.enabled') && !is_null(Auth::user()) && Auth::user()->level() >= 4))
+                        <a class="nav-link-menu" href="{{ route('discuss.index') }}">
+                            <span data-hover="Discuss">Discuss</span>
+                        </a>
+                    @endif
                     <a class="nav-link-menu" href="http://{{ env('APP_STATUT_URL') }}">
                         <span data-hover="Statut">Statut</span>
                     </a>

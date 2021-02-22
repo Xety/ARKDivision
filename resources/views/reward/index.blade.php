@@ -13,23 +13,36 @@
         </div>
         <div class="col-md-9">
             <section>
+                @if (config('settings.user.register.enabled'))
+                    @if ($rewards->isNotEmpty())
+                        <div role="alert" class="alert alert-danger">
+                            <i aria-hidden="true" class="fa fa-exclamation"></i> Pour réclamer vos récompenses, vous devez être <b>obligatoirement</b> connecté sur l'un des serveurs du cluster depuis au moins 1 minute. Veuillez ne <b>pas</b> changer de map lors d'une réclamation de récompense sinon vous n'aurez pas la récompense en question et elle sera mise comme validée !
+                        </div>
 
-                @if ($rewards->isNotEmpty())
-                    <div role="alert" class="alert alert-danger">
-                        <i aria-hidden="true" class="fa fa-exclamation"></i> Pour réclamer vos récompenses, vous devez être <b>obligatoirement</b> connecté sur l'un des serveurs du cluster depuis au moins 1 minute. Veuillez ne <b>pas</b> changer de map lors d'une réclamation de récompense sinon vous n'aurez pas la récompense en question et elle sera mise comme validée !
-                    </div>
+                        <users-rewards
+                            :rewards="{{ json_encode($rewards->items()) }}"
+                            :route-claim-reward="{{ var_export(route('users.reward.claim')) }}"
+                            :route-reward-mark-as-read="{{ var_export(route('users.reward.markasread')) }}">
+                        </users-rewards>
 
-                    <users-rewards
-                        :rewards="{{ json_encode($rewards->items()) }}"
-                        :route-claim-reward="{{ var_export(route('users.reward.claim')) }}"
-                        :route-reward-mark-as-read="{{ var_export(route('users.reward.markasread')) }}">
-                    </users-rewards>
-
-                    <div class="col-md 12 text-xs-center">
-                        {{ $rewards->render() }}
-                    </div>
+                        <div class="col-md 12 text-xs-center">
+                            {{ $rewards->render() }}
+                        </div>
+                    @else
+                        Vous n'avez aucune récompense.
+                    @endif
                 @else
-                    Vous n'avez aucune récompense.
+                    <div class="col-md-4 offset-md-4">
+                        <h2 class="text-xs-center mt-2">
+                            Whoops
+                        </h2>
+                    </div>
+                    <div class="col-md-8  offset-md-2 text-xs-center mt-6">
+                        <div role="alert" class="alert alert-danger">
+                            <i aria-hidden="true" class="fa fa-exclamation fa-2x pb-1"></i><br>
+                            Le système de récompense est désactivé pour le moment, veuillez réessayer plus tard.
+                        </div>
+                    </div>
                 @endif
 
             </section>

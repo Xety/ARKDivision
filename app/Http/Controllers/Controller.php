@@ -24,6 +24,6 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->breadcrumbs = new Breadcrumbs;
-        $this->breadcrumbs->addCrumb('Accueil', route('discuss.index'));
+        $this->breadcrumbs->addCrumb('Accueil', route('page.index'));
     }
 }

@@ -21,12 +21,12 @@ $style = [
     /* Layout ------------------------------ */
 
     'body' => 'margin: 0; padding: 0; width: 100%; background-color: #F2F4F6;',
-    'email-wrapper' => 'width: 100%; margin: 0; padding: 0; background-color: #F2F4F6;',
+    'email-wrapper' => 'width: 100%; margin: 0; padding: 0; background-color: #0d969f;',
 
     /* Masthead ----------------------- */
 
     'email-masthead' => 'padding: 25px 0; text-align: center;',
-    'email-masthead_name' => 'font-size: 22px; font-weight: bold; color: #0d9691; text-decoration: none; text-shadow: 0 1px 0 white;',
+    'email-masthead_name' => 'font-size: 22px; font-weight: bold; color: #ffffff; text-decoration: none; text-shadow: 0 1px 0 #969696;',
 
     'email-body' => 'width: 100%; margin: 0; padding: 0; border-top: 1px solid #EDEFF2; border-bottom: 1px solid #EDEFF2; background-color: #FFF;',
     'email-body_inner' => 'width: auto; max-width: 570px; margin: 0 auto; padding: 0;',
@@ -43,14 +43,16 @@ $style = [
     /* Type ------------------------------ */
 
     'anchor' => 'color: #0d9691;',
+    'anchor-footer' => 'color: #ffffff;',
     'header-1' => 'margin-top: 0; color: #506a85; font-size: 19px; font-weight: bold; text-align: left;',
     'paragraph' => 'margin-top: 0; color: #74787E; font-size: 16px; line-height: 1.5em;',
     'paragraph-sub' => 'margin-top: 0; color: #74787E; font-size: 12px; line-height: 1.5em;',
     'paragraph-center' => 'text-align: center;',
+    'paragraph-footer' => 'margin-top: 0; color: #ffffff; font-size: 12px; line-height: 1.5em;',
 
     /* Buttons ------------------------------ */
 
-    'button' => 'display: block; display: inline-block; width: 200px; min-height: 20px; padding: 10px;
+    'button' => 'display: block; display: inline-block; width: 250px; min-height: 20px; padding: 10px;
                  background-color: #0d9691; border-radius: 3px; color: #ffffff; font-size: 15px; line-height: 25px;
                  text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
 
@@ -72,9 +74,9 @@ $style = [
                     <tr>
                         <td style="{{ $style['email-masthead'] }}">
                             <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                                <img style="margin: 0 auto;" src="{{ secure_asset('images/logo.png') }}" width="45" height="45" alt="ARK Division logo"/>
+                                <img style="margin: 0 auto;" src="{{ secure_asset('images/logo.png') }}" width="332" height="118" alt="{{ config('app.name') }}"/>
                                 <br />
-                                {{ config('app.name') }}
+
                             </a>
                         </td>
                     </tr>
@@ -91,9 +93,9 @@ $style = [
                                                 {{ $greeting }}
                                             @else
                                                 @if ($level == 'error')
-                                                    Whoops!
+                                                    Whoops !
                                                 @else
-                                                    Bonjour!
+                                                    Bonjour !
                                                 @endif
                                             @endif
                                         </h1>
@@ -146,7 +148,7 @@ $style = [
 
                                         <!-- Salutation -->
                                         <p style="{{ $style['paragraph'] }}">
-                                            Cordialement,<br>{{ config('app.name') }}
+                                            Cordialement,<br> Le Staff {{ config('app.name') }}
                                         </p>
 
                                         <!-- Sub Copy -->
@@ -179,9 +181,9 @@ $style = [
                             <table style="{{ $style['email-footer'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
-                                        <p style="{{ $style['paragraph-sub'] }}">
+                                        <p style="{{ $style['paragraph-footer'] }}">
                                             &copy; {{ date('Y') }}
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
+                                            <a style="{{ $style['anchor-footer'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
                                             Tous droits réservés
                                         </p>
                                     </td>

@@ -19,6 +19,7 @@ class CreateSettingsTable extends Migration
             $table->unsignedInteger('value_int')->nullable();
             $table->text('value_str')->nullable();
             $table->boolean('value_bool')->nullable();
+            $table->string('description')->nullable();
             $table->integer('last_updated_user_id')->unsigned()->nullable()->index();
             $table->timestamps();
         });
@@ -40,6 +41,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('settings');
     }
 }

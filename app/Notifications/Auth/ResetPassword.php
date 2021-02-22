@@ -1,12 +1,12 @@
 <?php
-namespace Xetaravel\Notifications;
+namespace Xetaravel\Notifications\Auth;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ResetPasswordNotification extends Notification implements ShouldQueue
+class ResetPassword extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -49,15 +49,16 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation' .
+            ->line('Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation ' .
                         'de mot de passe pour votre compte.')
-            ->line('Si vous n\'avez pas demandé de réinitialisation de mot de passe, aucune autre' .
+            ->line('Si vous n\'avez pas demandé de réinitialisation de mot de passe, aucune autre ' .
                         'action n\'est requise et vous pouvez ignorer cet e-mail.')
             ->action(
-                'Réinitialiser le Mot de Passe',
+                'Réinitialiser mon Mot de Passe',
                 url(config('app.url') . route('users.auth.password.reset', $this->token, false))
             )
             ->level('primary')
-            ->subject('Réinitialisation de Mot de Passe - ' . config('app.name'));
+            ->subject('Réinitialisation de Mot de Passe - ' . config('app.name'))
+            ->from(config('xetaravel.site.contact_email'), config('app.name'));
     }
 }
