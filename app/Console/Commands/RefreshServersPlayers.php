@@ -81,7 +81,7 @@ class RefreshServersPlayers extends Command
 
         $discord->channel->editMessage([
             'channel.id' => 742877577575923762,
-            'message.id' => 743028292306731159,
+            'message.id' => 769136048700784650,
             'content' => "** **",
             'embed' => [
                 'description' => '**' . $playersTotal . '** joueur(s) connecté(s) au total.',
