@@ -24,10 +24,10 @@
                 Merci pour votre donation survivant !
             </span>
             <br>
-            <a href="{{ env('APP_MAIN_URL') }}" class="btn btn-primary" style="margin-top: 20px;">
+            <a href="https://ark-division.fr" class="btn btn-primary" style="margin-top: 20px;">
                 <i class="fas fa-home"></i> Accueil
             </a>
-            <a href="{{ env('APP_URL') }}" class="btn btn-primary" style="margin-top: 20px;">
+            <a href="https://discuss.ark-division.fr" class="btn btn-primary" style="margin-top: 20px;">
                 <i class="fab fa-discourse"></i> Discuss
             </a>
         </div>

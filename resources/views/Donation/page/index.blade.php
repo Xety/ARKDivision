@@ -101,7 +101,7 @@
                             <div class="col-md-3 discord">
                                 <i class="fab fa-discord fa-2x"></i>
                                 <span class="discord-text" data-toggle="tooltip" data-placement="top" title="Votre nom d'utilisateur Discord">
-                                    ZoRo#1337
+                                    {{ $member->user->username }}#{{ $member->user->discriminator }}
                                 </sapn>
                             </div>
 

@@ -11,7 +11,7 @@
             Manage Categories
         </h5>
         <div class="card-block">
-            {{ link_to(route('admin.discuss.category.create'), '<i class="fa fa-plus"></i> New Category', ['class' => 'btn btn-outline-primary mb-2'], null, false) }}
+            {{ link_to(route('admin.discuss.category.new'), '<i class="fa fa-plus"></i> New Category', ['class' => 'btn btn-outline-primary mb-2'], null, false) }}
             @if ($categories->isNotEmpty())
                 <table class="table table-hover table-inverse">
                     <thead>

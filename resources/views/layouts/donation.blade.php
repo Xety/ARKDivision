@@ -88,7 +88,7 @@
             }
 
             .background {
-                background-image: url(images/background/background-header-sub-domain.jpg);
+                background-image: url(/images/background/background-header-sub-domain.jpg);
                 background-position: 50%;
                 background-size: cover;
                 height: 350px;
@@ -112,7 +112,7 @@
 
             .footer-background {
                 position: relative;
-                background-image: url(images/background/background-footer-sub-domain.jpg);
+                background-image: url(/images/background/background-footer-sub-domain.jpg);
                 background-position: 50%;
                 background-size: cover;
                 height: 350px;

@@ -48,7 +48,7 @@ class CategoryController extends Controller
     {
         $breadcrumbs = $this->breadcrumbs
             ->addCrumb('Manage Categories', route('admin.discuss.category.index'))
-            ->addCrumb("Create", route('admin.discuss.category.create'));
+            ->addCrumb("Create", route('admin.discuss.category.new'));
 
         return view('Admin::Discuss.category.create', ['breadcrumbs' => $this->breadcrumbs]);
     }

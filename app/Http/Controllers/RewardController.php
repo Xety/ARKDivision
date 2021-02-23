@@ -61,7 +61,7 @@ class RewardController extends Controller
             return response()->json([
                 'error' => true,
                 'display' => true,
-                'message' => 'Vous n\'avez pas lié votre compte Division à votre compte Steam. Vous pouvez' .
+                'message' => 'Vous n\'avez pas encore lié votre compte Division à votre compte Steam. Vous pouvez' .
                 ' lier votre compte Steam via le menu Social.'
             ]);
         }
@@ -125,16 +125,16 @@ class RewardController extends Controller
         }
 
         // Update the Reward pivot table
-        $user->rewards()->updateExistingPivot($request->input('id'), [
-            'was_used' => true,
-            'used_at' => Carbon::now()
-        ]);
+        $rewardUser = RewardUser::find($request->input('id'));
+        $rewardUser->used_at = Carbon::now();
+        $rewardUser->was_used = true;
+        $rewardUser->save();
 
 
         return response()->json([
             'error' => false,
             'display' => true,
-            'message' => "La {$reward->name} viens de vous être donnée dans le jeu sur le serveur {$server->name}."
+            'message' => "La {$reward->name} vient de vous être donnée dans le jeu sur le serveur {$server->name}."
         ]);
     }
 

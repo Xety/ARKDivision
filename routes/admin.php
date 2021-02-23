@@ -32,7 +32,7 @@ Route::group([
                 ->name('admin.discuss.category.index');
 
             Route::get('category/create', 'CategoryController@showCreateForm')
-                ->name('admin.discuss.category.create');
+                ->name('admin.discuss.category.new');
             Route::post('category/create', 'CategoryController@create')
                 ->name('admin.discuss.category.create');
 
