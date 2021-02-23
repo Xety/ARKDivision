@@ -89,8 +89,9 @@
             }
 
             .background {
-                background-image: url("https://ark-division.fr/wp-content/uploads/background-entete-home-ark-division-france.jpg");
-                background-position: center center;
+                background-image: url(images/background/background-header-sub-domain.jpg);
+                background-position: 50%;
+                background-size: cover;
                 height: 350px;
             }
             .logo {
@@ -112,8 +113,9 @@
 
             .footer-background {
                 position: relative;
-                background-image: url(https://ark-division.fr/wp-content/uploads/ARK-Division-France-Genesis-official.jpg);
-                background-position: center center;
+                background-image: url(images/background/background-footer-sub-domain.jpg);
+                background-position: 50%;
+                background-size: cover;
                 height: 350px;
             }
             .footer-background-overlay {
