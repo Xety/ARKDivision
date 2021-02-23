@@ -134,7 +134,7 @@ class SocialiteController extends Controller
 
         if (isset($register) && $register instanceof RedirectResponse) {
             return $register;
-        } else {
+        } elseif (!isset($register) || !$register instanceof User) {
             $register = $member;
         }
 

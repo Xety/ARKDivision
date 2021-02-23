@@ -38,16 +38,16 @@ class Kernel extends ConsoleKernel
                 ->runInBackground();
 
             $schedule->command('players:refresh')
-            ->everyMinute()
-            ->runInBackground();
+                ->everyMinute()
+                ->runInBackground();
 
             $schedule->command('member:validation')
-            ->everyMinute()
-            ->runInBackground();
+                ->everyMinute()
+                ->runInBackground();
 
             $schedule->command('steamban:checker')
-            ->hourly()
-            ->runInBackground();
+                ->hourly()
+                ->runInBackground();
         }
     }
 
