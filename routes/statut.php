@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 | Statut Routes
 |--------------------------------------------------------------------------
 */
-Route::domain(env('APP_STATUT_URL'))->group(function () {
+Route::domain('statut.ark-division.fr')->group(function () {
 
     /*
     |--------------------------------------------------------------------------

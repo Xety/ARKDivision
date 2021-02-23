@@ -80,7 +80,7 @@ class VerificationController extends Controller
         }
 
         if ($user->markEmailAsVerified()) {
-            event(new Verified($user()));
+            event(new Verified($user));
         }
 
         if ($response = $this->verified($request)) {

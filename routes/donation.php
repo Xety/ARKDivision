@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 | Donation Routes
 |--------------------------------------------------------------------------
 */
-Route::domain(env('APP_DONATION_URL'))->group(function () {
+Route::domain('donation.ark-division.fr')->group(function () {
 
     /*
     |--------------------------------------------------------------------------
