@@ -394,6 +394,15 @@ EOT;
                 (env('APP_ENV') == 'local') ? config('discord.channels.logs-bot') : config('discord.channels.general'),
                 'content' => $text
             ]);
+
+            // Add @Membres & @DJ roles to the user.
+            foreach (config('discord.member.roles') as $role) {
+                $discord->guild->addGuildMemberRole([
+                    'guild.id' => config('discord.guild.id'),
+                    'user.id' => $user->discord_id,
+                    'role.id' => $role
+                ]);
+            }
         }
 
         return redirect()->route('donation.paypal.success');
