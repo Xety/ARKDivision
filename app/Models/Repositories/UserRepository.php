@@ -52,6 +52,8 @@ class UserRepository
     {
         $user->username = $data['username'];
         $user->email = $data['email'];
+        $user->discord_id = $data['discord_id'];
+        $user->steam_id = $data['steam_id'];
 
         return $user->save();
     }

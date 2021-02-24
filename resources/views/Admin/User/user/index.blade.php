@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-{!! config(['app.title' => 'Manage Users']) !!}
+{!! config(['app.title' => 'Gérer les Utilisateurs']) !!}
 
 @section('content')
 <div class="col-sm-12 col-md-10 offset-md-2 p-2">
@@ -8,7 +8,7 @@
 <div class="col-sm-12 col-md-10 offset-md-2 pl-2 pr-2 pb-2">
     <div class="card card-inverse bg-inverse">
         <h5 class="card-header">
-            Search an User
+            Rechercher un Utilisateur
         </h5>
 
         <div class="card-block">
@@ -16,11 +16,12 @@
 
                 {!! Form::bsText(
                     'search',
-                    'Search',
+                    'Rechercher',
                     null,
                     [
                         'class' => 'form-control form-control-inverse col-md-5',
                         'required' => 'required',
+                        'placeholder' => 'Tapez votre recherche ici...',
                         'autofocus'
                     ],
                     'form-control-label form-control-label-inverse'
@@ -39,6 +40,20 @@
                 ) !!}
                 {!! Form::bsRadio(
                     'type',
+                    'discord_id',
+                    false,
+                    'Discord ID',
+                    ['labelClass' => 'custom-control custom-radio form-control-inverse d-block']
+                ) !!}
+                {!! Form::bsRadio(
+                    'type',
+                    'steam_id',
+                    false,
+                    'Steam ID',
+                    ['labelClass' => 'custom-control custom-radio form-control-inverse d-block']
+                ) !!}
+                {!! Form::bsRadio(
+                    'type',
                     'email',
                     false,
                     'E-mail',
@@ -48,20 +63,20 @@
                     'type',
                     'register_ip',
                     false,
-                    'Registered IP',
+                    'IP d\'Inscription',
                     ['labelClass' => 'custom-control custom-radio form-control-inverse d-block']
                 ) !!}
                 {!! Form::bsRadio(
                     'type',
                     'last_login_ip',
                     false,
-                    'Last login IP',
+                    'IP dernière connexion',
                     ['labelClass' => 'custom-control custom-radio form-control-inverse d-block']
                 ) !!}
 
                 <div class="form-group">
                     <div class="col-md-12">
-                        {!! Form::button('<i class="fa fa-search" aria-hidden="true"></i> Search', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
+                        {!! Form::button('<i class="fa fa-search" aria-hidden="true"></i> Rechercher', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
                     </div>
                 </div>
 
@@ -71,7 +86,7 @@
         @if ($latestUsers->isNotEmpty())
             <div class="card-footer">
                 <h5 class="mb-1">
-                    Latest registered users
+                    Derniers utilisateurs enregistrés
                 </h5>
 
                 <table class="table table-hover table-inverse">
@@ -81,10 +96,12 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Roles</th>
-                            <th>Registered IP</th>
-                            <th>Last login IP</th>
-                            <th>Comments</th>
-                            <th>Created</th>
+                            <th>IP d'Inscription</th>
+                            <th>IP dernière connexion</th>
+                            <th>Discord</th>
+                            <th>Steam</th>
+                            <th>Membre</th>
+                            <th>Créée</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -107,7 +124,7 @@
                                         </span>
                                         <br />
                                     @empty
-                                        This user does not have a role.
+                                        Cet utilisateur n'a pas de rôle.
                                     @endforelse
                                 </td>
                                 <td>
@@ -117,7 +134,25 @@
                                     {{ $user->last_login_ip }}
                                 </td>
                                 <td>
-                                    {{ $user->comment_count }}
+                                    <span data-toggle="tooltip" title="{{ $user->discord_id }}">
+                                        {{ $user->discordNickname }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span data-toggle="tooltip" title="{{ $user->steam_id }}">
+                                        {{ $user->steamNickname }}
+                                    </span>
+                                </td>
+                                <td>
+                                @if ($user->member_expire_at <= \Carbon\Carbon::now())
+                                    <span style="font-weight: bold; color: #ef3c3c;">
+                                        Non
+                                    </span>
+                                @else
+                                    <span style="font-weight: bold; color: #00af94;">
+                                        Oui
+                                    </span>
+                                @endif
                                 </td>
                                 <td>
                                     {{ $user->created_at->formatLocalized('%d %B %Y - %T') }}
@@ -129,7 +164,7 @@
                                         [
                                             'class' => 'btn btn-sm btn-outline-info',
                                             'data-toggle' => 'tooltip',
-                                            'title' => 'Edit this user'
+                                            'title' => 'Editer cet utilisateur'
                                         ],
                                         null,
                                         false

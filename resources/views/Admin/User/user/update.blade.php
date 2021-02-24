@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-{!! config(['app.title' => 'Edit ' . e($user->username)]) !!}
+{!! config(['app.title' => 'Editer ' . e($user->username)]) !!}
 
 @push('style')
     {!! editor_css() !!}
@@ -54,27 +54,27 @@
                                     <div class="col-md-6">
                                         <div class="d-inline-block mr-2">
                                             <h5 class="base-header">
-                                                Comments
+                                                Posts
                                             </h5>
                                             <h6 class="base-header major">
-                                                {{ $user->comment_count }}
+                                                {{ $user->discuss_post_count }}
                                             </h6>
                                         </div>
                                         <div class="d-inline-block mr-2">
                                             <h5 class="base-header">
-                                                Articles
+                                                Conversations
                                             </h5>
                                             <h6 class="base-header major">
-                                                {{ $user->article_count }}
+                                                {{ $user->discuss_conversation_count }}
                                             </h6>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" style="padding-top: 10px;">
                                         @if ($user->facebook)
                                             <div class="d-inline-block mr-2">
                                                 {!! Html::link(
                                                     url('http://facebook.com/' . e($user->facebook)),
-                                                    '<i class="fa fa-facebook fa-2x"></i>',
+                                                    '<i class="fa fa-facebook fa-2x" style="color:#2d88ff;"></i>',
                                                     [
                                                         'class' => 'text-primary',
                                                         'target' => '_blank',
@@ -91,13 +91,47 @@
                                             <div class="d-inline-block mr-2">
                                                 {!! Html::link(
                                                     url('http://twitter.com/' . e($user->twitter)),
-                                                    '<i class="fa fa-twitter fa-2x"></i>',
+                                                    '<i class="fa fa-twitter fa-2x" style="color:#1da1f2;"></i>',
                                                     [
                                                         'class' => 'text-primary',
                                                         'target' => '_blank',
                                                         'data-toggle' => 'tooltip',
                                                         'data-placement' => 'top',
                                                         'title' => 'http://twitter.com/' . e($user->twitter)
+                                                    ],
+                                                    null,
+                                                    false
+                                                ) !!}
+                                            </div>
+                                        @endif
+                                        @if ($user->discordNickname != '#')
+                                            <div class="d-inline-block mr-2">
+                                                {!! Html::link(
+                                                    e($user->discordNickname),
+                                                    '<i class="fab fa-discord fa-2x" style="color:#7289da;"></i>',
+                                                    [
+                                                        'class' => 'text-primary',
+                                                        'target' => '_blank',
+                                                        'data-toggle' => 'tooltip',
+                                                        'data-placement' => 'top',
+                                                        'title' => e($user->discordNickname)
+                                                    ],
+                                                    null,
+                                                    false
+                                                ) !!}
+                                            </div>
+                                        @endif
+                                        @if ($user->steamNickname)
+                                            <div class="d-inline-block mr-2">
+                                                {!! Html::link(
+                                                    e($user->steamNickname),
+                                                    '<i class="fab fa-steam fa-2x" style="color:#0c5ec5;"></i>',
+                                                    [
+                                                        'class' => 'text-primary',
+                                                        'target' => '_blank',
+                                                        'data-toggle' => 'tooltip',
+                                                        'data-placement' => 'top',
+                                                        'title' => e($user->steamNickname)
                                                     ],
                                                     null,
                                                     false
@@ -124,7 +158,7 @@
 <div class="col-sm-12 col-md-10 offset-md-2 pl-2 pr-2 pb-2">
     <div class="card card-inverse bg-inverse">
         <h5 class="card-header text-xs-center">
-            Edit {{ $user->username }}
+            Editer {{ $user->username }}
         </h5>
 
         <div class="card-block">
@@ -139,7 +173,7 @@
 
                     {{ link_to(
                         route('admin.user.user.deleteavatar', $user->id),
-                        '<i class="fa fa-remove"></i> Delete avatar',
+                        '<i class="fa fa-remove"></i> Supprimer l\'avatar',
                         [
                             'class' => 'btn btn-outline-primary mb-1',
                             'onclick' => 'event.preventDefault();document.getElementById(\'delete-avatar-form\').submit();'],
@@ -155,12 +189,70 @@
                     ]) !!}
                     {!! Form::close() !!}
 
-                    <p class="mb-1">
-                        Member since {{ $user->created_at->formatLocalized('%d %B %Y - %T') }}
-                    </p>
+                    <h4>
+                        Membre Information
+                    </h4>
+                    <div class="form-group">
+                        <label class="form-control-label">
+                            <span style="font-weight: bold; color: #00af94;">@Membres</span> :
+                        </label>
+                        <span class="text-muted">
+                            @if ($user->member_expire_at <= \Carbon\Carbon::now())
+                                <span style="font-weight: bold; color: #ef3c3c;">
+                                    Non
+                                </span>
+                            @else
+                                <span style="font-weight: bold; color: #00af56;">
+                                    Oui
+                                </span>
+                            @endif
+                        </span>
+                    </div>
+                    @if ($user->member_expire_at >= \Carbon\Carbon::now())
+                        <div class="form-group">
+                            <label class="form-control-label">
+                                <span style="font-weight: bold; color: #00af94;">@Membres</span> expire le :
+                            </label>
+                            <span class="text-muted">
+                                {{ $user->member_expire_at }}
+                            </span>
+                        </div>
+                    @endif
+                    <div class="form-group">
+                        <label class="form-control-label">
+                            Couleurs Totales :
+                        </label>
+                        <span class="text-muted">
+                            {{ $user->color_count }}
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">
+                            Couleurs Restantes :
+                        </label>
+                        <span class="text-muted">
+                            {{ $user->color_remain }}
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">
+                            Skins Totaux :
+                        </label>
+                        <span class="text-muted">
+                            {{ $user->skin_count }}
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">
+                            Skins Restants :
+                        </label>
+                        <span class="text-muted">
+                            {{ $user->skin_remain }}
+                        </span>
+                    </div>
 
                     <button type="button" class="btn btn-outline-danger mb-1" data-toggle="modal" data-target="#deleteAccountModal">
-                        <i class="fa fa-remove" aria-hidden="true"></i> Delete account
+                        <i class="fa fa-remove" aria-hidden="true"></i> Supprimer le compte
                     </button>
 
                     <div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModal" aria-hidden="true">
@@ -227,6 +319,20 @@
                             ['class' => 'form-control form-control-inverse']
                         ) !!}
 
+                        {!! Form::bsText(
+                            'discord_id',
+                            'Discord ID',
+                            null,
+                            ['class' => 'form-control form-control-inverse']
+                        ) !!}
+
+                        {!! Form::bsText(
+                            'steam_id',
+                            'Steam ID',
+                            null,
+                            ['class' => 'form-control form-control-inverse']
+                        ) !!}
+
                         {!! Form::bsSelect(
                             'roles[]',
                             $roles,
@@ -238,14 +344,14 @@
 
                         {!! Form::bsText(
                             'account[first_name]',
-                            'First Name',
+                            'Prénom',
                             null,
                             ['class' => 'form-control form-control-inverse']
                         ) !!}
 
                         {!! Form::bsText(
                             'account[last_name]',
-                            'Last Name',
+                            'Nom',
                             null,
                             ['class' => 'form-control form-control-inverse']
                         ) !!}
@@ -276,7 +382,7 @@
 
                         {!! Form::bsTextarea(
                             'account[biography]',
-                            'Biography',
+                            'Biographie',
                             null,
                             ['editor' => 'biographyEditor', 'style' => 'display:none;']
                         ) !!}
@@ -290,7 +396,7 @@
 
                         <div class="form-group">
                             <div class="col-md-12">
-                                {!! Form::button('<i class="fa fa-edit" aria-hidden="true"></i> Update', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
+                                {!! Form::button('<i class="fa fa-edit" aria-hidden="true"></i> Sauvegarder', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
                             </div>
                         </div>
                     {!! Form::close() !!}
@@ -298,11 +404,11 @@
 
                 <div class="col-md-3">
                     <h4>
-                        Others Informations
+                        Autres Informations
                     </h4>
                     <div class="form-group">
                         <label class="form-control-label">
-                            Last Login IP
+                            IP Dernière Connexion
                         </label>
                         <p class="form-control-static text-muted">
                             {{ $user->last_login_ip }}
@@ -311,7 +417,7 @@
 
                     <div class="form-group">
                         <label class="form-control-label">
-                            Registered IP
+                            IP d'Inscription
                         </label>
                         <p class="form-control-static text-muted">
                             {{ $user->register_ip }}
@@ -320,16 +426,16 @@
 
                     <div class="form-group">
                         <label class="form-control-label ">
-                            Registered
+                            Inscrit le
                         </label>
                         <p class="form-control-static text-muted">
-                            {{ $user->created_at->formatLocalized('%d %B %Y - %T') }}
+                            {{ $user->created_at->formatLocalized('%d %B %Y à %T') }}
                         </p>
                     </div>
 
                     <div class="form-group">
                         <label class="form-control-label">
-                            Last Updated
+                            Dernière mise à jour
                         </label>
                         <p class="form-control-static text-muted">
                             {{ $user->updated_at->formatLocalized('%d %B %Y - %T') }}

@@ -23,12 +23,12 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $latestUsers = User::with(['roles'])
-            ->limit(5)
+        $latestUsers = User::with(['roles', 'account'])
+            ->limit(10)
             ->latest()
             ->get();
 
-        $breadcrumbs = $this->breadcrumbs->addCrumb('Manage Users', route('admin.user.user.index'));
+        $breadcrumbs = $this->breadcrumbs->addCrumb('Gérer les Utilisateurs', route('admin.user.user.index'));
 
         return view('Admin::User.user.index', compact('latestUsers', 'breadcrumbs'));
     }
@@ -48,6 +48,14 @@ class UserController extends Controller
         switch ($type) {
             case 'username':
                 $query->where('username', 'like', '%' . $search . '%');
+                break;
+
+            case 'discord_id':
+                $query->where('discord_id', 'like', '%' . $search . '%');
+                break;
+
+            case 'steam_id':
+                $query->where('steam_id', 'like', '%' . $search . '%');
                 break;
 
             case 'email':
@@ -72,8 +80,8 @@ class UserController extends Controller
             ->appends($request->except('page'));
 
         $breadcrumbs = $this->breadcrumbs
-            ->addCrumb('Manage Users', route('admin.user.user.index'))
-            ->addCrumb('Search an user', route('admin.user.user.search'));
+            ->addCrumb('Gérer les Utilisateurs', route('admin.user.user.index'))
+            ->addCrumb('Rechercher un Utilisateur', route('admin.user.user.search'));
 
         return view('Admin::User.user.search', compact('users', 'breadcrumbs', 'type', 'search'));
     }
@@ -103,9 +111,9 @@ class UserController extends Controller
 
         $breadcrumbs = $this->breadcrumbs
             ->setListElementClasses('breadcrumb breadcrumb-inverse bg-inverse mb-0')
-            ->addCrumb('Manage Users', route('admin.user.user.index'))
+            ->addCrumb('Gérer les Utilisateurs', route('admin.user.user.index'))
             ->addCrumb(
-                'Edit ' . e($user->username),
+                'Editer ' . e($user->username),
                 route('admin.user.user.update', $user->slug, $user->id)
             );
 
@@ -143,7 +151,7 @@ class UserController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', 'This user has been updated successfully !');
+            ->with('success', 'Cet utilisateur a été mis à jour avec succès !');
     }
 
     /**
@@ -161,18 +169,18 @@ class UserController extends Controller
         if (!Hash::check($request->input('password'), Auth::user()->password)) {
             return redirect()
                 ->back()
-                ->with('danger', 'Your Password does not match !');
+                ->with('danger', 'Votre mot de passe ne correspond pas !');
         }
 
         if ($user->delete()) {
             return redirect()
                 ->route('admin.user.user.index')
-                ->with('success', 'This user has been deleted successfully !');
+                ->with('success', 'Cet utilisateur a été supprimé avec succès !');
         }
 
         return redirect()
             ->route('admin.user.user.index')
-            ->with('danger', 'An error occurred while deleting this user !');
+            ->with('danger', 'Une erreur s\'est produite lors de la suppression de cet utilisateur !');
     }
 
     /**
@@ -195,6 +203,6 @@ class UserController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', 'The avatar has been deleted successfully !');
+            ->with('success', 'L\'avatar a été supprimé avec succès !');
     }
 }

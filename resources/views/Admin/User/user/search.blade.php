@@ -23,10 +23,12 @@
                             <th>#</th>
                             <th class="{{ $type == 'username' ? 'table-primary' : '' }}">Username</th>
                             <th class="{{ $type == 'email' ? 'table-primary' : '' }}">Email</th>
-                            <th>Roles</th>
-                            <th class="{{ $type == 'registered_ip' ? 'table-primary' : '' }}">Registered IP</th>
-                            <th class="{{ $type == 'last_login_ip' ? 'table-primary' : '' }}">Last login IP</th>
-                            <th>Comments</th>
+                            <th>Rôles</th>
+                            <th class="{{ $type == 'registered_ip' ? 'table-primary' : '' }}">IP d'Inscription</th>
+                            <th class="{{ $type == 'last_login_ip' ? 'table-primary' : '' }}">IP dernière connexion</th>
+                            <th class="{{ $type == 'discord_id' ? 'table-primary' : '' }}">Discord</th>
+                            <th class="{{ $type == 'steam_id' ? 'table-primary' : '' }}">Steam</th>
+                            <th>Membre</th>
                             <th>Created</th>
                             <th>Action</th>
                         </tr>
@@ -50,7 +52,7 @@
                                         </span>
                                         <br />
                                     @empty
-                                        This user does not have a role.
+                                        Cet utilisateur n'a pas de rôle.
                                     @endforelse
                                 </td>
                                 <td class="{{ $type == 'registered_ip' ? 'table-primary' : '' }}">
@@ -60,7 +62,25 @@
                                     {{ $user->last_login_ip }}
                                 </td>
                                 <td>
-                                    {{ $user->comment_count }}
+                                    <span data-toggle="tooltip" title="{{ $user->discord_id }}">
+                                        {{ $user->discordNickname }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span data-toggle="tooltip" title="{{ $user->steam_id }}">
+                                        {{ $user->steamNickname }}
+                                    </span>
+                                </td>
+                                <td>
+                                    @if ($user->member_expire_at <= \Carbon\Carbon::now())
+                                        <span style="font-weight: bold; color: #ef3c3c;">
+                                            Non
+                                        </span>
+                                    @else
+                                        <span style="font-weight: bold; color: #00af94;">
+                                            Oui
+                                        </span>
+                                    @endif
                                 </td>
                                 <td>
                                     {{ $user->created_at->formatLocalized('%d %B %Y - %T') }}
@@ -72,7 +92,7 @@
                                         [
                                             'class' => 'btn btn-sm btn-outline-info',
                                             'data-toggle' => 'tooltip',
-                                            'title' => 'Edit this user'
+                                            'title' => 'Editer cet utilisateur'
                                         ],
                                         null,
                                         false
@@ -90,13 +110,13 @@
                 <div class="col-md-12">
                     <div class="alert alert-primary" role="alert">
                         <i class="fa fa-exclamation" aria-hidden="true"></i>
-                        There's no result for your search !
+                        Il n'y a pas de résultat pour votre recherche !
                     </div>
                 </div>
             @endif
         </div>
         <div class="card-footer text-muted">
-            There're {{ $users->count() }} users matching for your search.
+            Il y a {{ $users->count() }} utilisateurs correspondant à votre recherche.
         </div>
     </div>
 </div>

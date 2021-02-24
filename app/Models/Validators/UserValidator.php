@@ -73,6 +73,16 @@ class UserValidator
                 'max:50',
                 Rule::unique('users')->ignore($id)
             ],
+            'discord_id' => [
+                'nullable',
+                'numeric',
+                Rule::unique('users')->ignore($id)
+            ],
+            'steam_id' => [
+                'nullable',
+                'numeric',
+                Rule::unique('users')->ignore($id)
+            ],
             'account.first_name' => 'max:100',
             'account.last_name' => 'max:100',
             'account.facebook' => 'max:50',
