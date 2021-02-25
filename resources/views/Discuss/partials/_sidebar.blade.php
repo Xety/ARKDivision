@@ -44,6 +44,9 @@
         <li>
             <a href="{{ $category->category_url }}" class="discuss-categories-link font-xeta" data-toggle="tooltip" title="{{ $category->description }}">
                 <span class="discuss-categories-color" style="background-color: {{ $category->color }};"></span>
+                @if (!is_null($category->icon))
+                    <i class="{{ $category->icon }}"></i>
+                @endif
                 {{ $category->title }}
             </a>
         </li>

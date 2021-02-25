@@ -12,12 +12,31 @@
 
                     <img src="{{ $post->user->avatar_small }}" alt="{{ $post->user->username }}" class="rounded-circle img-thumbnail" />
                 </span>
+
+
             @else
                 @if ($post->user->hasRubies)
                     <i aria-hidden="true" class="fa fa-diamond text-primary discuss-conversation-user-rubies"  data-toggle="tooltip" title="Cet utilisateur a gagné des Rubis."></i>
                 @endif
 
                 <img src="{{ $post->user->avatar_small }}" alt="{{ $post->user->username }}" class="rounded-circle img-thumbnail" />
+            @endif
+
+            <!-- Handle the user's icons -->
+            @if ($post->user->hasRole(['membre'], true))
+                <i aria-hidden="true" class="fas fa-gift discuss-conversation-user-roles discuss-conversation-user-membre"  data-toggle="tooltip" title="Membre"></i>
+            @endif
+
+            @if ($post->user->isAmbassadeur())
+                <i aria-hidden="true" class="fas fa-shield-alt discuss-conversation-user-roles discuss-conversation-user-ambassadeur"  data-toggle="tooltip" title="Ambassadeur"></i>
+            @endif
+
+            @if ($post->user->hasRole(['administrateur', 'developpeur']))
+                <i aria-hidden="true" class="fas fa-wrench discuss-conversation-user-roles discuss-conversation-user-admin"  data-toggle="tooltip" title="Admin"></i>
+            @endif
+
+            @if ($post->user->isDeveloppeur())
+                <i aria-hidden="true" class="fas fa-code discuss-conversation-user-roles discuss-conversation-user-developeur"  data-toggle="tooltip" title="Dévelopeur"></i>
             @endif
 
 
@@ -38,6 +57,7 @@
                     <li class="list-inline-item font-weight-bold">
                         <i aria-hidden="true" class="fa fa-user"></i>
                         <discuss-user
+                            :color="{{ var_export($post->user->roles()->first()->css) }}"
                             :user="{{ json_encode($post->user) }}"
                             :created-at="{{ var_export($post->user->created_at->diffForHumans()) }}"
                             :last-login="{{ var_export($post->user->last_login->diffForHumans()) }}"

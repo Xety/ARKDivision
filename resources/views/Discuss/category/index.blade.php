@@ -29,6 +29,9 @@
                             <div class="discuss-categories-header">
                                 <h5 class="text-white text-truncate text-md-center">
                                     <a class="text-white" href="{{ route('discuss.category.show', ['slug' => $category->slug, 'id' => $category->getKey()]) }}">
+                                        @if (!is_null($category->icon))
+                                            <i class="{{ $category->icon }}"></i>
+                                        @endif
                                         {{ $category->title }}
                                     </a>
                                 </h5>

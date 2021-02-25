@@ -19,6 +19,10 @@
     .discuss-conversations-list-tags {
         position: relative;
         top: -12px;
+
+        .tag  {
+            font-weight: normal;
+        }
     }
 
     .discuss-conversations-list-reply-count {
@@ -75,7 +79,8 @@
 
         .tag {
             border-radius: 50%;
-            padding: 0.30em;
+            padding: 0.4em;
+            border: 2px solid #f3f3f3;
         }
     }
 

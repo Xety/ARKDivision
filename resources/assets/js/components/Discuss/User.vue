@@ -1,5 +1,5 @@
 <template>
-    <a href="javascript:void(0);" class="font-weight-bold" data-toggle="popover" :data-template="getTemplate()" data-html="true" :data-content="getContent()" data-placement="top" data-trigger="click">
+    <a href="javascript:void(0);" class="font-weight-bold" :style="color" data-toggle="popover" :data-template="getTemplate()" data-html="true" :data-content="getContent()" data-placement="top" data-trigger="click">
         {{ user.username }}
     </a>
 </template>
@@ -7,6 +7,7 @@
 <script>
     export default {
         props: [
+            'color',
             'user',
             'createdAt',
             'lastLogin',
