@@ -56,14 +56,17 @@
                                         <i aria-hidden="true" class="fas fa-medal leaderboard-body-badge"  data-toggle="popover" data-trigger="hover" data-placement="top" title="Pilier de la Communauté" data-content="Débloqué quand vos points d'expériences sont dans le top 3 de tout les membres Division."></i>
                                     @endif
                                 </a>
+                                <h5 class="leaderboard-user">
+                                    {{ $user->username }}
+                                </h5>
                                 <div class="leaderboard-infos">
-                                    <div class="leaderboard-text mt-1 text-muted">
+                                    <div class="leaderboard-text text-muted">
                                         <h5 class="leaderboard-text-title" style="{{ $i <= 3 ? "color:#f7a925" : "" }}">
                                             {{ $user->experiences_total }}
                                         </h5>
                                         Experience
                                     </div>
-                                    <div class="leaderboard-text mt-1 text-muted">
+                                    <div class="leaderboard-text text-muted">
                                         <h5 class="leaderboard-text-title" style="{{ $i <= 3 ? "color:#f7a925" : "" }}">
                                             {{ $user->discuss_post_count }}
                                         </h5>
