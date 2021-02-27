@@ -17,7 +17,7 @@ class DiscussMaintenance
     public function handle($request, Closure $next)
     {
         // If the discuss is disabled and the user is not admin.
-        if (!config('settings.discuss.enabled') && Auth::user()->level() < 4) {
+        if (!Auth::user() || (!config('settings.discuss.enabled') && Auth::user()->level() < 4)) {
             return redirect()
                         ->route('page.index')
                         ->with('danger', 'Le système de discussion est temporairement désactivé.');

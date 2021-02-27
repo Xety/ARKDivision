@@ -17,7 +17,7 @@ class RewardsMaintenance
     public function handle($request, Closure $next)
     {
         // If the rewards system is disabled and the user is not admin.
-        if (!config('settings.user.rewards.enabled') && Auth::user()->level() < 4) {
+        if (!Auth::user() || (!config('settings.user.rewards.enabled') && Auth::user()->level() < 4)) {
             return redirect()
                         ->route('page.index')
                         ->with('danger', 'Le système de récompenses est temporairement désactivé.');

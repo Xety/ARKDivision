@@ -24,7 +24,7 @@
 
             <!-- Handle the user's icons -->
             @if ($post->user->hasRole(['membre'], true))
-                <i aria-hidden="true" class="fas fa-gift discuss-conversation-user-roles discuss-conversation-user-membre"  data-toggle="tooltip" title="Membre"></i>
+                <i aria-hidden="true" class="fas fa-user-tie discuss-conversation-user-roles discuss-conversation-user-membre"  data-toggle="tooltip" title="Membre"></i>
             @endif
 
             @if ($post->user->isAmbassadeur())

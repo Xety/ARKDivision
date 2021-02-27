@@ -14,6 +14,9 @@ Route::group([
     Route::get('/', 'DiscussController@index')
         ->name('discuss.index');
 
+    Route::get('leaderboard', 'DiscussController@leaderboard')
+        ->name('discuss.leaderboard');
+
     // Conversation Routes
     Route::get('conversation/{slug}.{id}', 'ConversationController@show')
         ->name('discuss.conversation.show');
