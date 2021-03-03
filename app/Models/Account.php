@@ -17,6 +17,7 @@ class Account extends Model
         'discord_username',
         'discord_discriminator',
         'steam_username',
+        'twitch_username',
         'facebook',
         'twitter'
     ];

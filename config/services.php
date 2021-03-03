@@ -33,5 +33,10 @@ return [
         'client_id' => env('DISCORD_ID'),
         'client_secret' => env('DISCORD_SECRET'),
         'redirect' => env('DISCORD_REDIRECT'),
-    ]
+    ],
+    'twitch' => [
+        'client_id' => env('TWITCH_CLIENT_ID'),
+        'client_secret' => env('TWITCH_CLIENT_SECRET'),
+        'redirect' => env('TWITCH_REDIRECT_URI')
+      ],
 ];

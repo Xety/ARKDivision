@@ -132,8 +132,8 @@ class Rcon
 
         // get response.
         $response_packet = $this->readPacket();
-        if ($response_packet['id'] == Rcon::PACKET_COMMAND) {
-            if ($response_packet['type'] == Rcon::SERVERDATA_RESPONSE_VALUE) {
+        if (isset($response_packet['id']) && $response_packet['id'] == Rcon::PACKET_COMMAND) {
+            if (isset($response_packet['type']) && $response_packet['type'] == Rcon::SERVERDATA_RESPONSE_VALUE) {
                 $this->last_response = $response_packet['body'];
 
                 return $response_packet['body'];

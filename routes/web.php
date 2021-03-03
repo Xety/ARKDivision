@@ -90,6 +90,8 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
         Route::get('social', 'SocialController@index')->name('users.social.index');
         Route::get('social/discord', 'SocialController@discord')->name('users.social.discord');
         Route::get('social/discordcallback', 'SocialController@discordCallback')->name('users.social.discordcallback');
+        Route::get('social/twitch', 'SocialController@twitch')->name('users.social.twitch');
+        Route::get('social/twitchcallback', 'SocialController@twitchCallback')->name('users.social.twitchcallback');
         Route::get('social/steam', 'SocialController@steam')->name('users.social.steam');
         Route::get('social/steamcallback/{id}', 'SocialController@steamCallback')->name('users.social.steamcallback');
         Route::delete('social/delete/{type}', 'SocialController@delete')->name('users.social.delete');

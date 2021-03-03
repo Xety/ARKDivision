@@ -56,6 +56,9 @@ class UserController extends Controller
     {
         $user = User::where('slug', Str::lower($slug))->first();
 
+        /*$badges = $user->badges()->get()->groupBy('type');
+        dd($badges);*/
+
         if (is_null($user)) {
             return redirect()
                 ->route('page.index')

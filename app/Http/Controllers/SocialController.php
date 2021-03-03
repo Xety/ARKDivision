@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
+use romanzipp\Twitch\Enums\EventSubType;
+use romanzipp\Twitch\Twitch;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponseSF;
 use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\Repositories\UserRepository;
@@ -198,6 +200,79 @@ class SocialController extends Controller
     }
 
     /**
+     * Redirect the user to the Twitch authentication page.
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function twitch(): RedirectResponseSF
+    {
+        return Socialite::driver('twitch')
+                //->setScopes(['identify'])
+                //->redirectUrl(route('users.social.twitchcallback'))
+                ->redirectUrl('https://arkdivision.io/users/social/twitchcallback')
+                ->redirect();
+    }
+
+    /**
+     * Obtain the user information from Twitch and save the information for the current logged in user.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function twitchCallback(): RedirectResponse
+    {
+        try {
+            $user = Socialite::driver('twitch')->user();
+        } catch (Exception $e) {
+            return redirect()
+                ->route('users.social.index')
+                ->with(
+                    'danger',
+                    "Une erreur s'est produite lors de l'obtention de vos informations auprès de Twitch !"
+                );
+        }
+
+        // Save the twitch_id field.
+        UserRepository::updateTwitch([
+            'twitch_id' => $user->id
+        ], Auth::user());
+
+        // Save the username field.
+        AccountRepository::updateTwitch([
+            'twitch_username' => $user->user['display_name'],
+        ], Auth::id());
+
+        // Subscribe to the stream.online and stream.offline EventSub
+        $twitch = new Twitch;
+        $twitch->subscribeEventSub([], [
+            'type' => EventSubType::STREAM_ONLINE,
+            'version' => '1',
+            'condition' => [
+                'broadcaster_user_id' => $user->id,
+            ],
+            'transport' => [
+                'method' => 'webhook',
+                'callback' => 'https://api.ark-division.fr/api/twitch/eventsub/webhook',
+            ]
+        ]);
+
+        $twitch->subscribeEventSub([], [
+            'type' => EventSubType::STREAM_OFFLINE,
+            'version' => '1',
+            'condition' => [
+                'broadcaster_user_id' => $user->id,
+            ],
+            'transport' => [
+                'method' => 'webhook',
+                'callback' => 'https://api.ark-division.fr/api/twitch/eventsub/webhook',
+            ]
+        ]);
+
+        return redirect()
+            ->route('users.social.index')
+            ->with('success', 'Votre compte Twitch à bien été lié à votre compte Division.');
+    }
+
+    /**
      * Handle a delete request for the specified type.
      *
      * @param string $type The type of social media to delete.
@@ -238,6 +313,22 @@ class SocialController extends Controller
                     ->with(
                         'success',
                         'La liaison de votre compte Steam avec votre compte Division à bien été supprimé.'
+                    );
+
+            // Handle a Twitch type.
+            case 'twitch':
+                UserRepository::updateTwitch([
+                    'twitch_id' => null
+                ], Auth::user());
+
+                AccountRepository::updateTwitch([
+                    'twitch_username' => null,
+                ], Auth::id());
+
+                return back()
+                    ->with(
+                        'success',
+                        'La liaison de votre compte Twitch avec votre compte Division à bien été supprimé.'
                     );
 
             default:

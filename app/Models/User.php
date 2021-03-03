@@ -90,6 +90,7 @@ class User extends Model implements
         'full_name',
         'discord_nickname',
         'steam_nickname',
+        'twitch_nickname',
         'biography',
         'signature',
         'facebook',

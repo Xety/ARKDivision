@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         // Badges
         $this->call(BadgesTableSeed::class);
+        $this->call(BadgesUsersTableSeed::class);
 
         // Discuss
         $this->call(DiscussCategoriesTableSeed::class);

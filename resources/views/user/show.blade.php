@@ -12,10 +12,25 @@
                 <div class="profile-information text-xs-center">
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            {!! Html::image($user->avatar_small, e($user->username), ['class' => 'rounded-circle']) !!}
+                            <div class="profile-information-topleaderboard">
+                             @if ($user->badges()->where('slug', 'topleaderboard')->exists())
+                                <?php $badge = $user->badges()->where('slug', 'topleaderboard')->first(); ?>
+                                <i aria-hidden="true" data-toggle="popover" class="profile-badges-item {{ $badge->icon }}" title="{{ $badge->name }}" data-content="{{ $badge->description }}" data-placement="top" data-trigger="hover" style="color:{{ $badge->color }}; {{ $badge->slug == "topleaderboard" ? "border-color: #eefc24;color:#fff;background-color:" . $badge->color : "" }}"></i>
+                             @endif
+
+                                {!! Html::image($user->avatar_small, e($user->username), ['class' => 'rounded-circle']) !!}
+                            </div>
                             <h2 class="username font-xeta">
                                 {{ $user->username }}
                             </h2>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="profile-information text-xs-center">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+
                         </li>
                     </ul>
                 </div>
@@ -24,22 +39,25 @@
     </div>
 
     <div class="profile-header-navbar">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="statistics list-inline pull-left">
-                        <li class="list-inline-item">
-                            <span class="text">Posts</span>
-                            <span class="number">
-                                {{ $user->discuss_post_count }}
-                            </span>
-                        </li>
-                        <li class="list-inline-item">
-                            <span class="text">Conversations</span>
-                            <span class="number">
-                                {{ $user->discuss_conversation_count }}
-                            </span>
-                        </li>
+                    <ul class="profile-header-navbar-badge list-inline pull-left">
+                        @if ($user->badges->isNotEmpty())
+                            @foreach ($user->badges as $badge)
+                            @if ($badge->slug !== 'topleaderboard')
+                                    <li class="list-inline-item">
+                                    <i aria-hidden="true" data-toggle="popover" class="profile-badges-item {{ $badge->icon }}" title="{{ $badge->name }}" data-content="{{ $badge->description }}" data-placement="top" data-trigger="hover" style="color:{{ $badge->color }}; {{ $badge->slug == "topleaderboard" ? "border-color: #eefc24;color:#fff;background-color:" . $badge->color : "" }}"></i>
+                                </li>
+                            @endif
+                            @endforeach
+                        @else
+                            @if (Auth::user() && $user->id == Auth::id())
+                                Vous n'avez pas encore débloqué de badges.
+                            @else
+                                Cet utilisateur n'a pas encore débloqué de badges.
+                            @endif
+                        @endif
                     </ul>
 
                 </div>
@@ -148,19 +166,7 @@
                     </h4>
                 </div>
                 <div class="badges pt-1 pb-2">
-                    @if ($user->badges->isNotEmpty())
-                        @foreach ($user->badges as $badge)
-                        <div class="d-inline-block text-xs-center pr-1">
-                            <img src="{{ asset($badge->image) }}" alt="{{ $badge->name }}" width="105" data-toggle="tooltip" title="{{ $badge->name }}">
-                        </div>
-                        @endforeach
-                    @else
-                        @if (Auth::user() && $user->id == Auth::id())
-                            Vous n'avez pas encore débloqué de badges.
-                        @else
-                            Cet utilisateur n'a pas encore débloqué de badges.
-                        @endif
-                    @endif
+
                 </div>
             </section>
         </div>

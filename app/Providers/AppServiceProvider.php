@@ -3,6 +3,7 @@ namespace Xetaravel\Providers;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -40,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php endif; ?>";
         });
 
-        if (App::environment() !== 'testing') {
+        if (App::environment() !== 'testing' && Schema::hasTable('settings')) {
             // Set the all Settings in the config array.
             $settings = Setting::all([
                 'name',

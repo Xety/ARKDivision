@@ -115,6 +115,12 @@ fieldset[disabled] a.btn {
 .btn-outline-steam-inverse {
   @include button-outline-variant($btn-steam-inverse, $brand-steam);
 }
+.btn-outline-twitch {
+  @include button-outline-variant($btn-twitch-bg);
+}
+.btn-outline-twitch-inverse {
+  @include button-outline-variant($btn-twitch-inverse, $brand-twitch);
+}
 
 //
 // Link buttons

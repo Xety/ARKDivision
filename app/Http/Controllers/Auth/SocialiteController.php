@@ -251,12 +251,25 @@ class SocialiteController extends Controller
         $role = Role::where('slug', 'utilisateur')->first();
         $user->attachRole($role);
 
-        $user->clearMediaCollection('avatar');
-        $user->addMediaFromUrl($providerUser->avatar)
-            ->preservingOriginal()
-            ->setName(substr(md5($user->username), 0, 10))
-            ->setFileName(substr(md5($user->username), 0, 10) . '.png')
-            ->toMediaCollection('avatar');
+        if (is_null($providerUser->avatar)) {
+            // Set the default avatar.
+            $user->addMedia(resource_path('assets/images/avatar.png'))
+                ->preservingOriginal()
+                ->setName(substr(md5($user->username), 0, 10))
+                ->setFileName(substr(md5($user->username), 0, 10) . '.png')
+                ->withCustomProperties(['primaryColor' => '#B4AEA4'])
+                ->toMediaCollection('avatar');
+        } else {
+            $user->clearMediaCollection('avatar');
+            $user->addMediaFromUrl($providerUser->avatar)
+                ->preservingOriginal()
+                ->setName(substr(md5($user->username), 0, 10))
+                ->setFileName(substr(md5($user->username), 0, 10) . '.png')
+                ->toMediaCollection('avatar');
+        }
+
+
+
 
         return $user;
     }

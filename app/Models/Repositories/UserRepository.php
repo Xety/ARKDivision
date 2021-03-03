@@ -135,7 +135,17 @@ class UserRepository
         // Access ARKLog 48H
         if ($user->arklog_free == false) {
             $user->arklog_free = true;
-            $user->member_expire_at = Carbon::now()->modify(config('xetaravel.arklog.expire'));
+
+            // Check if it's not an UNLINK action
+            if (!is_null($data['steam_id'])) {
+                if (is_null($user->member_expire_at)) {
+                    $user->member_expire_at = Carbon::now()->modify(config('xetaravel.arklog.expire'));
+                } else {
+                    // The user has already an member_expire_at, just add arklog.expire to it.
+                    $user->member_expire_at = Carbon::create($user->member_expire_at)
+                                                                            ->modify(config('xetaravel.arklog.expire'));
+                }
+            }
         }
 
         $user->steam_id = $data['steam_id'];
@@ -154,6 +164,21 @@ class UserRepository
     public static function updateDiscord(array $data, User $user): bool
     {
         $user->discord_id = $data['discord_id'];
+
+        return $user->save();
+    }
+
+    /**
+     * Update the user twitch id.
+     *
+     * @param array $data The data used to update the user.
+     * @param \Xetaravel\Models\User $user The user to update.
+     *
+     * @return bool
+     */
+    public static function updateTwitch(array $data, User $user): bool
+    {
+        $user->twitch_id = $data['twitch_id'];
 
         return $user->save();
     }

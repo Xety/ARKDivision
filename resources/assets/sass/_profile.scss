@@ -56,60 +56,33 @@
                 text-shadow: 0 0 4px #FFF;
             }
         }
+
+        .profile-information-topleaderboard {
+            position: relative;
+
+            i {
+                position: absolute;
+                right: 0;
+            }
+        }
     }
 
     .profile-header-navbar {
         border-bottom: 1px solid #e1e8ed;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        height: 60px;
 
-        .statistics {
-            height: 60px;
+        .profile-header-navbar-badge {
             margin: 0;
             box-sizing: border-box;
             border-bottom: 0 solid;
             display: block;
             line-height: 1;
-            padding: 14px 15px 14px;
+            padding: 14px 15px 10px;
             text-align: center;
 
-            & > li {
-                padding-right: 15px;
-                padding-left: 15px;
-
-                & > .text {
-                    font-size: 11px;
-                    letter-spacing: .02em;
-                    text-transform: uppercase;
-                    transition: color .15s ease-in-out;
-                    display: block;
-                    padding-bottom: 5px;
-                }
-
-                & > .number {
-                    font-size: 18px;
-                    padding-top: 3px;
-                    font-weight: 500;
-                    transition: color .15s ease-in-out;
-                }
-            }
-        }
-
-        .socials {
-            height: 60px;
-            padding-right: 10px;
-            padding-left: 10px;
-            margin: 0;
-
-            & > li {
-                padding: 16px 10px;
-                margin: 0;
-                vertical-align: top;
-
-                & > a {
-                    display: block;
-                }
+            .li {
+                margin-bottom: 4px;
             }
         }
     }
@@ -163,6 +136,26 @@
         border-top: 2px solid #eceeef;
     }
 }
+
+.profile-badges-item {
+    color: #fff;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    padding: 6px 4px;
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    background-color: #fff;
+
+    &.fa-diamond, &.fa-medal {
+        padding: 8px 3px;
+    }
+
+    &.fa-sign-in-alt {
+        padding: 6px 0px;
+    }
+}
+
 
 @include media-breakpoint-down(md) {
     .sidebar-profile {

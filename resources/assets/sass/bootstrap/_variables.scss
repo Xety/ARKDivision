@@ -63,6 +63,7 @@ $brand-experiences:         #f39c12 !default;
 $brand-rubies:              $brand-primary !default;
 $brand-discord: #7289da !default;
 $brand-steam: #15346a !default;
+$brand-twitch: #a970ff !default;
 
 // Options
 //
@@ -337,6 +338,11 @@ $btn-steam-color:  #fff !default;
 $btn-steam-bg: $brand-steam !default;
 $btn-steam-border: $btn-steam-bg !default;
 $btn-steam-inverse: $btn-steam-color !default;
+
+$btn-twitch-color:               #fff !default;
+$btn-twitch-bg:                  $brand-twitch !default;
+$btn-twitch-border:              $btn-twitch-bg !default;
+$btn-twitch-inverse:            $btn-twitch-color !default;
 
 $btn-link-disabled-color:        $gray-light !default;
 
@@ -711,7 +717,7 @@ $tooltip-arrow-color:         $tooltip-bg !default;
 $popover-inner-padding:               1px !default;
 $popover-bg:                          #fff !default;
 $popover-max-width:                   276px !default;
-$popover-border-width:                $border-width !default;
+$popover-border-width:                1px !default;
 $popover-border-color:                rgba(0,0,0,.2) !default;
 $popover-box-shadow:                  0 5px 10px rgba(0,0,0,.2) !default;
 

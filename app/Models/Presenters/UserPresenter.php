@@ -96,6 +96,18 @@ trait UserPresenter
     }
 
     /**
+     * Get the Twitch nickname.
+     *
+     * @return string
+     */
+    public function getTwitchNicknameAttribute(): string
+    {
+        $nickname = $this->parse($this->account, 'twitch_username');
+
+        return $nickname;
+    }
+
+    /**
      * Get the experiences total formated.
      *
      * @return integer
