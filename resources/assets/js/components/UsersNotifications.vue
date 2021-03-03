@@ -15,7 +15,7 @@
                 <td style="position: relative;">
 
                     <!-- Image -->
-                    <img v-if="notification.data.hasOwnProperty('image')" :src="'/' + notification.data.image" alt="Image" width="60">
+                    <i v-if="notification.data.type == 'badge'" :class="notification.data.icon + ' fa-2x'" :style="'color:' + notification.data.color"></i>
 
                     <i v-else-if="notification.data.type == 'mention'" class="fa fa-at fa-4x text-primary" style="vertical-align: middle;" aria-hidden="true"></i>
 
