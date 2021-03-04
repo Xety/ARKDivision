@@ -5,6 +5,7 @@ use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -206,10 +207,15 @@ class SocialController extends Controller
      */
     public function twitch(): RedirectResponseSF
     {
+        // No HTTPS in local...
+        if (App::environment() == 'production') {
+            $redirect = route('users.social.twitchcallback');
+        } else {
+            $redirect = 'https://arkdivision.io/users/social/twitchcallback';
+        }
+
         return Socialite::driver('twitch')
-                //->setScopes(['identify'])
-                //->redirectUrl(route('users.social.twitchcallback'))
-                ->redirectUrl('https://arkdivision.io/users/social/twitchcallback')
+                ->redirectUrl($redirect)
                 ->redirect();
     }
 
@@ -251,7 +257,8 @@ class SocialController extends Controller
             ],
             'transport' => [
                 'method' => 'webhook',
-                'callback' => 'https://api.ark-division.fr/v1/twitch/eventsub/webhook',
+                'callback' => 'https://api.ark-division.fr/v1/twitch/eventsub/webhook?'.
+                'api_token=mGJxtv2xEkkzVh5Hax2t85J6j6CTlOPg8klkePfrKC3O5D4PuPe0wEMyndOp2lSSdg2va9AOEQzHMkBP',
             ]
         ]);
 
@@ -263,7 +270,8 @@ class SocialController extends Controller
             ],
             'transport' => [
                 'method' => 'webhook',
-                'callback' => 'https://api.ark-division.fr/v1/twitch/eventsub/webhook',
+                'callback' => 'https://api.ark-division.fr/v1/twitch/eventsub/webhook?'.
+                'api_token=mGJxtv2xEkkzVh5Hax2t85J6j6CTlOPg8klkePfrKC3O5D4PuPe0wEMyndOp2lSSdg2va9AOEQzHMkBP',
             ]
         ]);
 

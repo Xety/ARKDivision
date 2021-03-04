@@ -18,6 +18,7 @@ return [
         'logs-bot' => 607226558645796864,
         'general' => 386615163165605891
     ],
+    'streamer' => 817133174739828787, // Streamer,
     'member' => [
         'roles' => [
             386617500516876289, // Membres

@@ -60,19 +60,25 @@ class RefreshServersPlayers extends Command
                 $text .= "> :small_orange_diamond: Aucun joueur connecté sur ce serveur.";
             }
 
-            $discord->channel->editMessage([
-                'channel.id' => 742877577575923762,
-                'message.id' => $server->discord_message_id,
-                'content' => "** **",
-                'embed' => [
-                    'title' => sprintf('**:arrow_right: %s**', $server->name),
-                    'description' => $text,
-                    'color' => hexdec($server->color),
-                    'footer' => [
-                        'text' => $server->user_count . ' joueur(s) connecté(s)'
+            // Sometimes Discord send back a 400 Bad Request, so to avoid that, just do a try.
+            try {
+                $discord->channel->editMessage([
+                    'channel.id' => 742877577575923762,
+                    'message.id' => $server->discord_message_id,
+                    'content' => "** **",
+                    'embed' => [
+                        'title' => sprintf('**:arrow_right: %s**', $server->name),
+                        'description' => $text,
+                        'color' => hexdec($server->color),
+                        'footer' => [
+                            'text' => $server->user_count . ' joueur(s) connecté(s)'
+                        ]
                     ]
-                ]
-            ]);
+                ]);
+            } catch (\GuzzleHttp\Exception\ClientException $th) {
+                continue;
+            }
+
 
             $playersTotal = $playersTotal + $server->user_count;
 
