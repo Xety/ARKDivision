@@ -251,7 +251,7 @@ class SocialController extends Controller
             ],
             'transport' => [
                 'method' => 'webhook',
-                'callback' => 'https://api.ark-division.fr/api/twitch/eventsub/webhook',
+                'callback' => 'https://api.ark-division.fr/v1/twitch/eventsub/webhook',
             ]
         ]);
 
@@ -263,7 +263,7 @@ class SocialController extends Controller
             ],
             'transport' => [
                 'method' => 'webhook',
-                'callback' => 'https://api.ark-division.fr/api/twitch/eventsub/webhook',
+                'callback' => 'https://api.ark-division.fr/v1/twitch/eventsub/webhook',
             ]
         ]);
 

@@ -1,5 +1,6 @@
 <?php
 
+use Xetaravel\Http\Controllers\API\Twitch\EventSubController;
 use Illuminate\Http\Request;
 
 /*
@@ -8,6 +9,11 @@ use Illuminate\Http\Request;
 |--------------------------------------------------------------------------
 */
 Route::domain(env('APP_API_URL'))->group(function () {
+    Route::post(
+        'twitch/eventsub/webhook',
+        [EventSubController::class, 'handleWebhook']
+    );
+
     Route::middleware('auth:api')->group(function () {
         /*
         |--------------------------------------------------------------------------

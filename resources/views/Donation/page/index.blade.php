@@ -134,10 +134,10 @@
                             Vous n'êtes pas connecté à votre compte Division. Vous ne pourrez pas obtenir vos rewards si vous n'êtes pas connecté.
                             <div class="row justify-content-center">
                                 <a class="btn btn-primary m-md-1" href="{{ route('users.auth.register') }}">
-                                    <i class="fa fa-user-plus" aria-hidden="true"></i> @lang('Register')
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
                                 </a>
                                 <a class="btn btn-primary m-md-1" href="{{ route('users.auth.login') }}">
-                                    <i class="fa fa-sign-in" aria-hidden="true"></i> @lang('Login')
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
                                 </a>
                             </div>
                         </div>
