@@ -16,50 +16,60 @@ use Xetaravel\Models\User;
 
 class EventSubController extends Controller
 {
+
+    /**
+     * Handle a Stream.Online notification from Twitch.
+     *
+     * @param array $payload The informations provided by Twitch.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     *
+     * @see https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#stream-subscriptions
+     */
     public function handleStreamOnlineNotification(array $payload): Response
     {
+        $user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();
+
+        // Check if the user exist and if he has a discord_id
+        if (!$user || is_null($user->discord_id)) {
+            return $this->missingMethod();
+        }
+
         $twitch = new Twitch;
-        $stream = $twitch->getStreams(['user_id' => $user->id]);
+        $stream = $twitch->getStreams(['user_id' => $user->twitch_id]);
 
         // Check if there's an user
         if (!isset($stream->data()[0])) {
             return $this->missingMethod();
         }
 
-        // Check if the game is ARK Survival Evolved
-        if ($stream->data()[0]->game_id != '489635') {
+        // Check if the game is ARK: Survival Evolved
+        if ($stream->data()[0]->game_id != "489635") {
             return $this->missingMethod();
         }
 
-        // Check if the user has ARK Division in this title
-        $matchs = preg_match('/^(ARK Division)$/i', $stream->data()[0]->title);
+        // Check if the user has ARKDivision in his title
+        $matchs = [];
+        preg_match('/(ARKDivision)/im', $stream->data()[0]->title, $matchs);
         if (!$matchs) {
             return $this->missingMethod();
         }
 
-        $avatar = str_replace("{width}", "200", $stream->data()[0]->thumbnail_url);
-        $avatar = str_replace("{height}", "200", $avatar);
-
-        // Send the message to the #logs-bot channel.
         $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
-        $user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();
-
-        // Check if the user exist or if he has a discord_id
-        if (!$user || is_null($user->discord_id)) {
-            return $this->missingMethod();
-        }
-
         $description = "**<@" . $user->discord_id .
-        ">**  vient de lancer son Live !\nhttps://www.twitch.tv/" . $payload['event']['broadcaster_user_name'];
+        ">**  vient de lancer son Live sur les serveurs ARK Division !\nhttps://www.twitch.tv/" .
+        $payload['event']['broadcaster_user_name'] . "\n";
 
+        // Send the message to the #taverne channel.
         $discord->channel->createMessage([
             'channel.id' => config('discord.channels.logs-bot'),
             'embed' => [
                 'description' => $description,
                 'color' => hexdec("9146ff"),
                 'thumbnail' => [
-                    'url' => $avatar
+                    'url' => 'https://cdn.discordapp.com/attachments/337045603588505610/' .
+                    '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
                 ],
                 'author' => [
                     'name' => 'Twitch Notification',
@@ -69,24 +79,42 @@ class EventSubController extends Controller
             ]
         ]);
 
+        // Add the role STreamer on Discord.
         $discord->guild->addGuildMemberRole([
             'guild.id' => config('discord.guild.id'),
             'user.id' => $user->discord_id,
             'role.id' => config('discord.streamer')
         ]);
 
-        return $this->successMethod(); // handle the channel follow notification...
+        return $this->successMethod();
     }
 
+     /**
+     * Handle a Stream.Offline notification from Twitch.
+     *
+     * @param array $payload The informations provided by Twitch.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     *
+     * @see https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#stream-subscriptions
+     */
     public function handleStreamOfflineNotification(array $payload): Response
     {
-        // Send the message to the #logs-bot channel.
-        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
-
         $user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();
 
+        /*$twitch = new Twitch;
+        $stream = $twitch->getStreams(['user_id' => $user->twitch_id]);
+
+        // Check if there's an user
+        if (!isset($stream->data()[0])) {
+            return $this->missingMethod();
+        }*/
+
+        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+
         $description = "**<@" . $user->discord_id .
-        ">**  vient de couper son Live !\nhttps://www.twitch.tv/" . $payload['event']['broadcaster_user_name'];
+        ">**  vient de couper son Live sur les serveurs ARK Division !\nhttps://www.twitch.tv/" .
+        $payload['event']['broadcaster_user_name'];
 
         $discord->channel->createMessage([
             'channel.id' => config('discord.channels.logs-bot'),
@@ -94,8 +122,8 @@ class EventSubController extends Controller
                 'description' => $description,
                 'color' => hexdec("9146ff"),
                 'thumbnail' => [
-                    'url' => 'https://cdn.discordapp.com/app-icons/635391187301433380/'.
-                    '1816aec0f6a4418f7ed19773e97dfb98.png'
+                    'url' => 'https://cdn.discordapp.com/attachments/337045603588505610/' .
+                    '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
                 ],
                 'author' => [
                     'name' => 'Twitch Notification',
@@ -112,6 +140,93 @@ class EventSubController extends Controller
         ]);
 
         return $this->successMethod(); // handle the channel follow notification...
+    }
+
+    /**
+     * Handle a Channel.Update notification from Twitch.
+     *
+     * @param array $payload The informations provided by Twitch.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     *
+     * @see https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types#channel-subscriptions
+     */
+    public function handleChannelUpdateNotification(array $payload): Response
+    {
+        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+
+        $user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();
+
+        //  The user has changed his game
+        if ($payload['event']['category_id'] != "489635") {
+            $description = "**<@" . $user->discord_id .
+            ">**  vient de couper son Live sur les serveurs ARK Division ! (Changement de jeu)\n".
+            "https://www.twitch.tv/" . $payload['event']['broadcaster_user_name'];
+
+            $discord->channel->createMessage([
+                'channel.id' => config('discord.channels.logs-bot'),
+                'embed' => [
+                    'description' => $description,
+                    'color' => hexdec("9146ff"),
+                    'thumbnail' => [
+                        'url' => 'https://cdn.discordapp.com/attachments/337045603588505610/' .
+                        '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
+                    ],
+                    'author' => [
+                        'name' => 'Twitch Notification',
+                        'icon_url' => 'https://cdn.discordapp.com/attachments/337045603588505610/' .
+                        '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
+                    ]
+                ]
+            ]);
+
+            // Delete the Streamer role on Discord
+            $discord->guild->removeGuildMemberRole([
+                'guild.id' => config('discord.guild.id'),
+                'user.id' => $user->discord_id,
+                'role.id' => config('discord.streamer')
+            ]);
+
+            return $this->successMethod();
+        }
+
+        // Check if the user has not changed ARKDivision in his title
+        $matchs = [];
+        preg_match('/(ARKDivision)/im', $payload['event']['title'], $matchs);
+        if (!$matchs) {
+            $description = "**<@" . $user->discord_id .
+            ">**  vient de couper son Live sur les serveurs ARK Division ! (Changement de titre)\n".
+            "https://www.twitch.tv/" . $payload['event']['broadcaster_user_name'];
+
+            $discord->channel->createMessage([
+                'channel.id' => config('discord.channels.logs-bot'),
+                'embed' => [
+                    'description' => $description,
+                    'color' => hexdec("9146ff"),
+                    'thumbnail' => [
+                        'url' => 'https://cdn.discordapp.com/attachments/337045603588505610/' .
+                        '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
+                    ],
+                    'author' => [
+                        'name' => 'Twitch Notification',
+                        'icon_url' => 'https://cdn.discordapp.com/attachments/337045603588505610/' .
+                        '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
+                    ]
+                ]
+            ]);
+
+            // Delete the Streamer role on Discord
+            $discord->guild->removeGuildMemberRole([
+                'guild.id' => config('discord.guild.id'),
+                'user.id' => $user->discord_id,
+                'role.id' => config('discord.streamer')
+            ]);
+
+            return $this->successMethod();
+        }
+
+        // The user has changed a non required parameter.
+        return $this->successMethod();
     }
 
     protected function handleNotification(array $payload): Response

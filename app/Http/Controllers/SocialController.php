@@ -275,6 +275,19 @@ class SocialController extends Controller
             ]
         ]);
 
+        $twitch->subscribeEventSub([], [
+            'type' => EventSubType::CHANNEL_UPDATE,
+            'version' => '1',
+            'condition' => [
+                'broadcaster_user_id' => $user->id,
+            ],
+            'transport' => [
+                'method' => 'webhook',
+                'callback' => 'https://api.ark-division.fr/v1/twitch/eventsub/webhook?'.
+                'api_token=mGJxtv2xEkkzVh5Hax2t85J6j6CTlOPg8klkePfrKC3O5D4PuPe0wEMyndOp2lSSdg2va9AOEQzHMkBP',
+            ]
+        ]);
+
         return redirect()
             ->route('users.social.index')
             ->with('success', 'Votre compte Twitch à bien été lié à votre compte Division.');

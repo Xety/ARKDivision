@@ -10,6 +10,7 @@
 Homestead.json
 Homestead.yaml
 composer.lock
+laravel.log
 package-lock.json
 studio.json
 vagrant-ssh
