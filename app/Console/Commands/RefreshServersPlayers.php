@@ -82,17 +82,20 @@ class RefreshServersPlayers extends Command
 
             $playersTotal = $playersTotal + $server->user_count;
 
-            sleep(3);
+            sleep(4);
         }
 
-        $discord->channel->editMessage([
-            'channel.id' => 742877577575923762,
-            'message.id' => 769136048700784650,
-            'content' => "** **",
-            'embed' => [
-                'description' => '**' . $playersTotal . '** joueur(s) connecté(s) au total.',
-                'color' => hexdec("1DFCEA")
-            ]
-        ]);
+        try {
+            $discord->channel->editMessage([
+                'channel.id' => 742877577575923762,
+                'message.id' => 769136048700784650,
+                'content' => "** **",
+                'embed' => [
+                    'description' => '**' . $playersTotal . '** joueur(s) connecté(s) au total.',
+                    'color' => hexdec("1DFCEA")
+                ]
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $th) {
+        }
     }
 }

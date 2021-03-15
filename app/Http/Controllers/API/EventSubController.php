@@ -63,7 +63,7 @@ class EventSubController extends Controller
 
         // Send the message to the #taverne channel.
         $discord->channel->createMessage([
-            'channel.id' => config('discord.channels.logs-bot'),
+            'channel.id' => config('discord.channels.taverne'),
             'embed' => [
                 'description' => $description,
                 'color' => hexdec("9146ff"),
@@ -117,7 +117,7 @@ class EventSubController extends Controller
         $payload['event']['broadcaster_user_name'];
 
         $discord->channel->createMessage([
-            'channel.id' => config('discord.channels.logs-bot'),
+            'channel.id' => config('discord.channels.taverne'),
             'embed' => [
                 'description' => $description,
                 'color' => hexdec("9146ff"),
@@ -164,7 +164,7 @@ class EventSubController extends Controller
             "https://www.twitch.tv/" . $payload['event']['broadcaster_user_name'];
 
             $discord->channel->createMessage([
-                'channel.id' => config('discord.channels.logs-bot'),
+                'channel.id' => config('discord.channels.taverne'),
                 'embed' => [
                     'description' => $description,
                     'color' => hexdec("9146ff"),
@@ -199,7 +199,7 @@ class EventSubController extends Controller
             "https://www.twitch.tv/" . $payload['event']['broadcaster_user_name'];
 
             $discord->channel->createMessage([
-                'channel.id' => config('discord.channels.logs-bot'),
+                'channel.id' => config('discord.channels.taverne'),
                 'embed' => [
                     'description' => $description,
                     'color' => hexdec("9146ff"),

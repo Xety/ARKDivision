@@ -26,6 +26,7 @@ use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\Repositories\PaypalUserRepository;
 use Xetaravel\Models\Repositories\TransactionUserRepository;
 use Xetaravel\Models\Repositories\UserRepository;
+use Xetaravel\Models\Reward;
 use Xetaravel\Models\Role;
 use Xetaravel\Models\User;
 
@@ -123,24 +124,26 @@ class PaypalController extends Controller
             }
         }
 
-        // Live
-        $apiContext = new ApiContext(
-            new OAuthTokenCredential(
-                'AQKS69kpyM_1NuMP3WPFqmfNTPBNJIVKilpY-eMV4Rvk0qYjDjf8BHqYUeUs1pWkTWci1qrbJ23UNWek',     // ClientID
-                'EExTSko5nKF-o7n_yJ58ndyMUS-F-tZFO6SwsNMo3KFuDYkt2lkSC2SjHXYac18YgHMtx7JQM5lj6bMy'      // ClientSecret
-            )
-        );
-        $apiContext->setConfig([
-            'mode' => 'live'
-        ]);
-
-        // Sandbox
-        /*$apiContext = new ApiContext(
-            new OAuthTokenCredential(
-                'AcIUDaNhHuI9c2TPHdJfknSVhNGhtkXTMwBLOiRMzQVlajP9zJ-xkFuQEuW5KicPGvAYfJpSgkV42nkl',     // ClientID
-                'ENs3pI02g-g8t8ZOstpQIKh-3rETScck4ruS596cdCUm7JzcumWve-7Nvl6fFCJX33_DzJShr1SH-hXg'      // ClientSecret
-            )
-        );*/
+        if (env('APP_ENV') == 'production') {
+            // Live
+            $apiContext = new ApiContext(
+                new OAuthTokenCredential(
+                    config('xetaravel.paypal.production.client_id'),
+                    config('xetaravel.paypal.production.client_secret')
+                )
+            );
+            $apiContext->setConfig([
+                'mode' => 'live'
+            ]);
+        } else {
+            // Sandbox
+            $apiContext = new ApiContext(
+                new OAuthTokenCredential(
+                    config('xetaravel.paypal.test.client_id'),
+                    config('xetaravel.paypal.test.client_secret')
+                )
+            );
+        }
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -201,25 +204,28 @@ class PaypalController extends Controller
      */
     public function redirect(Request $request)
     {
-        // Live
-        $apiContext = new ApiContext(
-            new OAuthTokenCredential(
-                'AQKS69kpyM_1NuMP3WPFqmfNTPBNJIVKilpY-eMV4Rvk0qYjDjf8BHqYUeUs1pWkTWci1qrbJ23UNWek', // ClientID
-                'EExTSko5nKF-o7n_yJ58ndyMUS-F-tZFO6SwsNMo3KFuDYkt2lkSC2SjHXYac18YgHMtx7JQM5lj6bMy' // ClientSecret
-            )
-        );
 
-        $apiContext->setConfig([
-            'mode' => 'live'
-        ]);
+        if (env('APP_ENV') == 'production') {
+            // Live
+            $apiContext = new ApiContext(
+                new OAuthTokenCredential(
+                    config('xetaravel.paypal.production.client_id'),
+                    config('xetaravel.paypal.production.client_secret')
+                )
+            );
 
-        // Sandbox
-        /*$apiContext = new ApiContext(
-            new OAuthTokenCredential(
-                'AcIUDaNhHuI9c2TPHdJfknSVhNGhtkXTMwBLOiRMzQVlajP9zJ-xkFuQEuW5KicPGvAYfJpSgkV42nkl', // ClientID
-                'ENs3pI02g-g8t8ZOstpQIKh-3rETScck4ruS596cdCUm7JzcumWve-7Nvl6fFCJX33_DzJShr1SH-hXg' // ClientSecret
-            )
-        );*/
+            $apiContext->setConfig([
+                'mode' => 'live'
+            ]);
+        } else {
+            // Sandbox
+            $apiContext = new ApiContext(
+                new OAuthTokenCredential(
+                    config('xetaravel.paypal.test.client_id'),
+                    config('xetaravel.paypal.test.client_secret')
+                )
+            );
+        }
 
         $paymentId = $request->paymentId;
         $payment = Payment::get($paymentId, $apiContext);
@@ -248,7 +254,7 @@ class PaypalController extends Controller
         if ($custom->user_id != "anonymous") {
             $user = User::where('discord_id', $custom->user_id)->first();
 
-            // Get the Discord nformations for this user.
+            // Get the Discord informations for this user.
             $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
             try {
@@ -308,8 +314,9 @@ class PaypalController extends Controller
 
             // Update the user role.
             $role = Role::where('slug', 'membre')->first();
-            // Update the role only if the user has a lower level of his role related to the `membre` role (level 2)
-            if ($user->level() < 2) {
+            // Update the role only if the user has a lower level of his role related to the
+            // `membre` role (level 2) and has not the banned role (level 0)
+            if ($user->level() < $role->level && $user->level() != 0) {
                 $user->syncRoles([$role->id]);
             }
 
@@ -319,8 +326,11 @@ class PaypalController extends Controller
                 'discord_discriminator' => $member->user->discriminator
             ], $user->id);
 
+            // Count how many rewards there's for a donation and divide it to the
+            // reward_count of the user, since it's only 1 donation for 3 rewards
+            $rewardsCount = Reward::where('type', \Xetaravel\Events\Donation\NewDonationEvent::class)->count();
             // Create the rewards for the user.
-            $rewards = $this->getCount($amount, $user->reward_count, $amountTotal, 'reward');
+            $rewards = $this->getCount($amount, ($user->reward_count / $rewardsCount), $amountTotal, 'reward');
             if ($rewards >= 1) {
                 event(new NewDonationEvent($user, $rewards));
             }
@@ -384,9 +394,9 @@ A un skin ou émote du jeu offert pour toutes les tranches de 20€
 - A l'outil ARKLog de Division qui vous permet d'accéder à vos informations de tribu en tout temps et de n'importe où !
 ```
 
-*Pour faire une demande de couleur et/ou de skin, il vous suffit de taper `-demande couleur` et/ou `-demande skin` dans
-le chat <#386615163165605891> du discord. Vous pouvez également utiliser la commande `-inventaire` pour voir combien de
-couleurs/skins il vous reste.  Pour plus d'information sur l'outil ARKLog : <#693371861307752468>*
+*Pour faire une demande de couleur et/ou de skin, il vous suffit d'ouvrir un ticket dans le channel
+<#735592989551886407> du discord. Vous pouvez également utiliser la commande `-inventaire` pour voir
+combien de couleurs/skins il vous reste.  Pour plus d'information sur l'outil ARKLog : <#693371861307752468>*
 EOT;
 
             $discord->channel->createMessage([

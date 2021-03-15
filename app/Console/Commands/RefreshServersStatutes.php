@@ -125,7 +125,7 @@ class RefreshServersStatutes extends Command
 
                 $player = [
                     'steam_id' => (int)trim($user[1]),
-                    'steam_name' => explode(". ", $user[0])[1],
+                    'steam_name' => str_replace('`', '', explode(". ", $user[0])[1]),
                     'ingame_name' => substr(trim(str_replace("Server received, But no response!!", "", $ingame)), 13),
                     'tribe' => $tribe,
                 ];

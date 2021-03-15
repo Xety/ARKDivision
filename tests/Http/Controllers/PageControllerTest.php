@@ -13,7 +13,7 @@ class PageControllerTest extends TestCase
      */
     public function testIndexSuccess()
     {
-        $response = $this->get('/');
+        $response = $this->get(route('page.index'));
         $response->assertSuccessful();
     }
 

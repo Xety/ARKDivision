@@ -21,6 +21,8 @@ class PageController extends Controller
     {
         $secondes = config('analytics.cache_lifetime_in_secondes');
 
+        $viewDatas = [];
+
         $usersCount = Cache::remember('Analytics.users.count', $secondes, function () {
             return User::count();
         });
@@ -33,9 +35,13 @@ class PageController extends Controller
             return RewardUser::count();
         });
 
-        $allTimesVisitors = Cache::remember('Analytics.alltimesvisitors', $secondes, function () {
-            return $this->buildAllTimeVisitors();
-        });
+        if (config('analytics.enabled')) {
+            $allTimesVisitors = Cache::remember('Analytics.alltimesvisitors', $secondes, function () {
+                return $this->buildAllTimeVisitors();
+            });
+        } else {
+            $allTimesVisitors = null;
+        }
 
         return view('page.index', compact('usersCount', 'postsCount', 'rewardsCount', 'allTimesVisitors'));
     }

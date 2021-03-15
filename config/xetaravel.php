@@ -92,6 +92,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Paypal
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'paypal' => [
+        'production' => [
+            'client_id' => 'AQKS69kpyM_1NuMP3WPFqmfNTPBNJIVKilpY-eMV4Rvk0qYjDjf8BHqYUeUs1pWkTWci1qrbJ23UNWek',
+            'client_secret' => 'EExTSko5nKF-o7n_yJ58ndyMUS-F-tZFO6SwsNMo3KFuDYkt2lkSC2SjHXYac18YgHMtx7JQM5lj6bMy'
+        ],
+        'test' => [
+            'client_id' => 'AcIUDaNhHuI9c2TPHdJfknSVhNGhtkXTMwBLOiRMzQVlajP9zJ-xkFuQEuW5KicPGvAYfJpSgkV42nkl',
+            'client_secret' => 'ENs3pI02g-g8t8ZOstpQIKh-3rETScck4ruS596cdCUm7JzcumWve-7Nvl6fFCJX33_DzJShr1SH-hXg'
+        ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Steam
     |--------------------------------------------------------------------------
     |

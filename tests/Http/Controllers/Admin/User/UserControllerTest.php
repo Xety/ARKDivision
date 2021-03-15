@@ -80,6 +80,8 @@ class UserControllerTest extends TestCase
         $data = [
             'username' => 'Test',
             'email' => 'test@xeta.io',
+            'discord_id' => 123456,
+            'steam_id' => 123456789,
             'account' => [
                 'first_name' => 'test first',
                 'last_name' => 'test last',
@@ -101,6 +103,8 @@ class UserControllerTest extends TestCase
         $this->assertSame($data['username'], $user->username);
         $this->assertSame('test', (string)$user->slug);
         $this->assertSame($data['email'], $user->email);
+        $this->assertSame($data['discord_id'], $user->discord_id);
+        $this->assertSame($data['steam_id'], $user->steam_id);
         $this->assertSame($data['account']['first_name'], $user->first_name);
         $this->assertSame($data['account']['last_name'], $user->last_name);
         $this->assertSame($data['account']['facebook'], $user->facebook);

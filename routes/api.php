@@ -17,9 +17,17 @@ Route::domain(env('APP_API_URL'))->group(function () {
         | Servers Routes
         |--------------------------------------------------------------------------
         */
-        Route::apiResource('server', 'ServerController');
+        Route::get('servers', 'ServerController@index')
+            ->name('servers.get');
+        Route::get('server/{slug}', 'ServerController@show')
+            ->name('server.get');
 
-        Route::put('server/{slug}/status/', 'ServerStatusController@update')
+            /*
+        |--------------------------------------------------------------------------
+        | ServerStatus Routes
+        |--------------------------------------------------------------------------
+        */
+            Route::put('server/{slug}/status/', 'ServerStatusController@update')
             ->name('server.status.update');
 
          /*

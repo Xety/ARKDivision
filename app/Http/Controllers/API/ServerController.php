@@ -15,40 +15,21 @@ class ServerController extends Controller
      */
     public function index()
     {
-        return new ServerResource(Server::all());
+        $servers = Server::all()->makeVisible(['ip', 'rcon_port', 'password']);
+
+        return new Json($servers);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Xetaravel\Server  $server
+     * @param  string $slug The slug of the server.
      * @return \Illuminate\Http\Response
      */
-    public function show(Server $server)
+    public function show(string $slug)
     {
+        $server = Server::where('slug', $slug)->first();
+
         return new Json($server);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Xetaravel\Server  $server
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Server $server)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Xetaravel\Server  $server
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Server $server)
-    {
-        //
     }
 }

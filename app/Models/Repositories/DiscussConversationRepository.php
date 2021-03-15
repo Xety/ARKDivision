@@ -71,8 +71,8 @@ class DiscussConversationRepository
     public static function update(array $data, DiscussConversation $conversation): DiscussConversation
     {
         if (Auth::user()->hasPermission('manage.discuss.conversations')) {
-            $data['is_pinned'] = isset($data['is_pinned']) ? true : false;
-            $data['is_locked'] = isset($data['is_locked']) ? true : false;
+            $data['is_pinned'] = isset($data['is_pinned']) ? (bool) $data['is_pinned'] : false;
+            $data['is_locked'] = isset($data['is_locked']) ? (bool) $data['is_locked'] : false;
 
             if ($conversation->is_pinned != $data['is_pinned'] && $data['is_pinned'] == true) {
                 event(new ConversationWasPinnedEvent($conversation, Auth::user()));

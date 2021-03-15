@@ -62,16 +62,20 @@
                 </p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="features-box">
-                <i class="fa fa-globe fa-fw text-primary" aria-hidden="true"></i>
-                <h1 class="font-xeta text-muted">{{ $allTimesVisitors }}</h1>
-                <h4 class="font-xeta">Visites</h4>
-                <p class="text-muted">
-                    Le nombre de visites totales depuis l'ouverture du site.
-                </p>
+
+        @if (config('analytics.enabled'))
+            <div class="col-md-4">
+                <div class="features-box">
+                    <i class="fa fa-globe fa-fw text-primary" aria-hidden="true"></i>
+                    <h1 class="font-xeta text-muted">{{ $allTimesVisitors }}</h1>
+                    <h4 class="font-xeta">Visites</h4>
+                    <p class="text-muted">
+                        Le nombre de visites totales depuis l'ouverture du site.
+                    </p>
+                </div>
             </div>
-        </div>
+        @endif
+
         <div class="col-md-4">
             <div class="features-box">
                 @if (config('settings.discuss.enabled'))

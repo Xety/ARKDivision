@@ -32,7 +32,7 @@ class PostControllerTest extends TestCase
             'content' => '**This** is an awesome text.'
         ];
 
-        $response = $this->post('/post/create', $data);
+        $response = $this->post(route('discuss.post.create'), $data);
         $response->assertSessionHas('success');
         $response->assertStatus(302);
     }
@@ -44,9 +44,9 @@ class PostControllerTest extends TestCase
      */
     public function testShowSuccess()
     {
-        $response = $this->get('/post/show/2');
+        $response = $this->get(route('discuss.post.show', ['id' => 2]));
         $response->assertStatus(302);
-        $response->assertRedirect('/conversation/this-is-an-announcement.1?page=1&#post-2');
+        $response->assertRedirect('/discuss/conversation/this-is-an-announcement.1?page=1&#post-2');
     }
 
     /**
@@ -56,7 +56,7 @@ class PostControllerTest extends TestCase
      */
     public function testDeleteSuccess()
     {
-        $response = $this->delete('/post/delete/2');
+        $response = $this->delete(route('discuss.post.delete', ['id' => 2]));
         $response->assertStatus(302);
         $response->assertSessionHas('success');
 
@@ -70,7 +70,7 @@ class PostControllerTest extends TestCase
      */
     public function testDeleteFirstPostFailed()
     {
-        $response = $this->delete('/post/delete/1');
+        $response = $this->delete(route('discuss.post.delete', ['id' => 1]));
         $response->assertStatus(302);
         $response->assertSessionHas('danger');
     }
@@ -82,7 +82,7 @@ class PostControllerTest extends TestCase
      */
     public function testSolvedSuccess()
     {
-        $response = $this->get('/post/solved/2');
+        $response = $this->get(route('discuss.post.solved', ['id' => 2]));
         $response->assertStatus(302);
         $response->assertSessionHas('success');
     }
@@ -94,9 +94,9 @@ class PostControllerTest extends TestCase
      */
     public function testAlreadySolvedFailed()
     {
-        $response = $this->get('/post/solved/2');
+        $response = $this->get(route('discuss.post.solved', ['id' => 2]));
 
-        $response = $this->get('/post/solved/2');
+        $response = $this->get(route('discuss.post.solved', ['id' => 2]));
         $response->assertStatus(302);
         $response->assertSessionHas('danger');
     }
@@ -111,7 +111,7 @@ class PostControllerTest extends TestCase
         $user = User::find(3);
         $this->be($user);
 
-        $response = $this->get('/post/solved/2');
+        $response = $this->get(route('discuss.post.solved', ['id' => 2]));
         $response->assertStatus(403);
     }
 
@@ -126,7 +126,7 @@ class PostControllerTest extends TestCase
             'content' => 'This is an edited post.'
         ];
 
-        $response = $this->put('/post/edit/1', $data);
+        $response = $this->put(route('discuss.post.edit', ['id' => 1]), $data);
         $response->assertStatus(302);
         $response->assertSessionHas('success');
 
@@ -149,7 +149,7 @@ class PostControllerTest extends TestCase
             'content' => 'This is an edited post.'
         ];
 
-        $response = $this->put('/post/edit/1', $data);
+        $response = $this->put(route('discuss.post.edit', ['id' => 1]), $data);
         $response->assertStatus(302);
         $response->assertSessionHas('danger');
     }

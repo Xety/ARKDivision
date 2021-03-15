@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Xetaio\Mentions\Parser\MentionParser;
+use Xetaravel\Events\Discuss\PostWasDeletedEvent;
 use Xetaravel\Events\Experiences\PostWasCreatedEvent;
 use Xetaravel\Events\Experiences\PostWasSolvedEvent;
 use Xetaravel\Events\Rubies\PostWasSolvedEvent as RubiesPostWasSolvedEvent;
@@ -112,6 +113,8 @@ class PostController extends Controller
         }
 
         if ($post->delete()) {
+            event(new PostWasDeletedEvent($post->conversation, Auth::user()));
+
             return redirect()
                 ->route(
                     'discuss.conversation.show',

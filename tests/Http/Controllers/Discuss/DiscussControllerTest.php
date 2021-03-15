@@ -12,7 +12,18 @@ class DiscussControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $response = $this->get('/');
+        $response = $this->get(route('discuss.index'));
+        $response->assertSuccessful();
+    }
+
+    /**
+     * testIndex method
+     *
+     * @return void
+     */
+    public function testLeaderboard()
+    {
+        $response = $this->get(route('discuss.leaderboard'));
         $response->assertSuccessful();
     }
 }

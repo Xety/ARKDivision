@@ -13,7 +13,7 @@ class CategoryControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $response = $this->get('/categories');
+        $response = $this->get(route('discuss.category.index'));
         $response->assertSuccessful();
     }
 
@@ -24,7 +24,7 @@ class CategoryControllerTest extends TestCase
      */
     public function testShow()
     {
-        $response = $this->get('/category/annonces.1');
+        $response = $this->get(route('discuss.category.show', ['slug' => 'annonces','id' => 1]));
         $response->assertSuccessful();
     }
 }

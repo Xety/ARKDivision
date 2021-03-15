@@ -9,16 +9,6 @@ use Xetaravel\Models\User;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return new UserController(Server::all());
-    }
-
-    /**
      *  Get a user by his discord id.
      *
      * @param int $id The discord id of the user.
