@@ -32,6 +32,9 @@ return [
         'reward' => [
             'reward_per_page' => 10
         ],
+        'transaction' => [
+            'transaction_per_page' => 10
+        ],
         'user' => [
             'user_per_page' => 15
         ],

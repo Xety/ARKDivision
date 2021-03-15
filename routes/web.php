@@ -79,6 +79,7 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
     Route::group(['middleware' => ['auth']], function () {
         // User Routes
         Route::get('settings', 'UserController@showSettingsForm')->name('users.user.settings');
+        Route::get('transactions', 'UserController@transactions')->name('users.user.transactions');
         Route::put('settings', 'UserController@update');
         //Route::delete('delete', 'UserController@delete')->name('users.user.delete');
 

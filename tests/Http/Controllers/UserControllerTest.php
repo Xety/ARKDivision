@@ -36,6 +36,20 @@ class UserControllerTest extends TestCase
     }
 
     /**
+     * testTransactionsSuccess method
+     *
+     * @return void
+     */
+    public function testTransactionsSuccess()
+    {
+        $user = User::find(1);
+        $this->be($user);
+
+        $response = $this->get('/users/transactions');
+        $response->assertSuccessful();
+    }
+
+    /**
      * testShowUserNotFound method
      *
      * @return void

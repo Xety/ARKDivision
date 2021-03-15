@@ -35,6 +35,10 @@ class MenuServiceProvider extends ServiceProvider
                         ->addClass('nav-link')
                 )
                 ->add(
+                    Link::toRoute('users.user.transactions', '<i class="fab fa-paypal"></i> Transactions')
+                        ->addClass('nav-link')
+                )
+                ->add(
                     Link::toRoute('users.user.settings', '<i class="fas fa-user-cog"></i> Paramètres')
                         ->addClass('nav-link')
                 )

@@ -73,6 +73,26 @@ class UserController extends Controller
     }
 
     /**
+     * Show the transactions.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function transactions(): View
+    {
+        $user = User::find(Auth::id());
+
+        $transactions = $user->transactions()
+            ->paginate(config('xetaravel.pagination.transaction.transaction_per_page'));
+
+        $breadcrumbs = $this->breadcrumbs;
+
+        return view(
+            'user.transactions',
+            compact('user', 'breadcrumbs', 'transactions')
+        );
+    }
+
+    /**
      * Show the settings form.
      *
      * @return \Illuminate\View\View
