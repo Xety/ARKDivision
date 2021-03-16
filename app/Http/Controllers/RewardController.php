@@ -97,11 +97,22 @@ class RewardController extends Controller
             ]);
         }
 
+        $command = sprintf($reward->data['command'], $user->steam_id);
+
+        // Check if the command has a gender, if yes check the gender type `male` or `female`
+        if ($request->input('gender') == true) {
+            $command = sprintf($reward->data['command'], $user->steam_id, $reward->gender_female);
+
+            if ($request->input('gender') == 'male') {
+                $command = sprintf($reward->data['command'], $user->steam_id, $reward->gender_male);
+            }
+        }
+
         // Get the server where is the player
         $server = Server::where('id', $player->server_id)->first();
 
         // Send the command to RCON
-        $response = $this->sendCommand($server, sprintf($reward->data['command'], $user->steam_id));
+        $response = $this->sendCommand($server, $command);
 
         $response = trim($response);
 

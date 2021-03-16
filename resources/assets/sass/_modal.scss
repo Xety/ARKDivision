@@ -56,3 +56,11 @@
 .ma-btn-danger {
      @include ma-button-variant($btn-danger-color, $btn-danger-bg);
 }
+
+.ma-btn-femme {
+    @include ma-button-variant($btn-danger-color, #ef3c7e);
+}
+
+.ma-btn-homme {
+    @include ma-button-variant($btn-danger-color, #18aaff);
+}

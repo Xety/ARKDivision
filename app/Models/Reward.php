@@ -13,6 +13,9 @@ class Reward extends Model
         'name',
         'description',
         'image',
+        'gender',
+        'gender_female',
+        'gender_male',
         'type',
         'data',
         'rule'

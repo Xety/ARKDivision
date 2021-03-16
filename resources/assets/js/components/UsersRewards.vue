@@ -22,9 +22,51 @@
                     <span v-html="reward.name" class="name"></span>
 
                     <!-- Claim -->
-                    <button v-if="reward.pivot.was_used == false" v-on:click.prevent="claimReward(reward)" type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="tooltip" title="Obtenir la récompense">
-                        <i class="fas fa-download" aria-hidden="true"></i>
-                    </button>
+                    <div v-if="reward.gender == true" style="display: initial;">
+                        <button type="button" class="btn btn btn-outline-primary float-sm-right download" data-toggle="modal" data-target="#selectGender" title="Obtenir la récompense">
+                            <i class="fas fa-download" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="modal fade" id="selectGender" tabindex="-1" role="dialog" aria-labelledby="selectGender" aria-hidden="true">
+                            <div class="modal-dialog text-body-primary" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="selectGender">
+                                            Selectionner le Genre de votre personnage
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div role="alert" class="alert alert-danger">
+                                                <i aria-hidden="true" class="fa fa-exclamation"></i> Un skin <i>Homme</i> <b>ne peut pas</b> s'équiper sur un personnage <i>Femme</i> et inversement !
+                                            </div>
+                                            <p>
+                                                Ce skin requiert que vous <b>sélectionniez le Genre de votre personnage</b> ingame.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-actions">
+                                        <button type="button" class="ma ma-btn ma-btn-femme" data-dismiss="modal" v-on:click.prevent="claimReward(reward, 'female')">
+                                            Femme
+                                        </button>
+                                        <button type="button" class="ma ma-btn ma-btn-homme" data-dismiss="modal" v-on:click.prevent="claimReward(reward, 'male')">
+                                            Homme
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else style="display: initial;">
+                        <button v-if="reward.pivot.was_used == false" v-on:click.prevent="claimReward(reward)" type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="tooltip" title="Obtenir la récompense">
+                            <i class="fas fa-download" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+
 
                     <!-- Description -->
                    <div v-html="reward.description" class="description"></div>
@@ -70,15 +112,17 @@
              * Claim a reward.
              *
              * @param {object} reward The reward to claim.
+             * @param {string|bool} gender The gender of the claim if there's one.
              *
              * @return {void}
              */
-            claimReward: function (reward) {
+            claimReward: function (reward, gender = false) {
                 let _this = this;
 
                 axios
                     .post(this.routeClaimReward, {
-                        id: reward.pivot.id
+                        id: reward.pivot.id,
+                        gender: gender
                     })
                     .then(function(response) {
                         if (response.data.error == false) {
