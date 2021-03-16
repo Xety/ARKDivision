@@ -23,7 +23,7 @@
 
                     <!-- Claim -->
                     <div v-if="reward.gender == true && reward.pivot.was_used == false" style="display: initial;">
-                        <button type="button" :class="'reward-'  + reward.pivot.id + ' btn btn btn-outline-primary float-sm-right download'" data-toggle="modal" data-target="#selectGender" title="Obtenir la récompense">
+                        <button type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="modal" data-target="#selectGender" title="Obtenir la récompense">
                             <i class="fas fa-download" aria-hidden="true"></i>
                         </button>
 
