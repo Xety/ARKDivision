@@ -97,8 +97,6 @@ class RewardController extends Controller
             ]);
         }
 
-        $command = sprintf($reward->data['command'], $user->steam_id);
-
         // Check if the command has a gender, if yes check the gender type `male` or `female`
         if ($request->input('gender') == true) {
             $command = sprintf($reward->data['command'], $user->steam_id, $reward->gender_female);
@@ -106,6 +104,8 @@ class RewardController extends Controller
             if ($request->input('gender') == 'male') {
                 $command = sprintf($reward->data['command'], $user->steam_id, $reward->gender_male);
             }
+        } else {
+            $command = sprintf($reward->data['command'], $user->steam_id);
         }
 
         // Get the server where is the player
