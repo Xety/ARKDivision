@@ -44,7 +44,7 @@
                                                 <i aria-hidden="true" class="fa fa-exclamation"></i> Un skin <i>Homme</i> <b>ne peut pas</b> s'équiper sur un personnage <i>Femme</i> et inversement !
                                             </div>
                                             <p>
-                                                Ce skin requiert que vous <b>sélectionniez le Genre de votre personnage</b> ingame.
+                                                Ce skin requiert que vous <b>sélectionniez le Genre de votre personnage</b> avec lequel vous jouez dans le jeu.
                                             </p>
                                         </div>
                                     </div>

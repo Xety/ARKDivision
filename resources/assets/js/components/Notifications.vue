@@ -21,6 +21,7 @@
                 <i v-if="notification.data.type == 'badge'" :class="notification.data.icon + ' fa-2x'" :style="'color:' + notification.data.color"></i>
                 <i v-else-if="notification.data.type == 'mention'" class="fa fa-at fa-2x text-primary"
                     aria-hidden="true"></i>
+                <img v-else-if="notification.data.type == 'reward'" :src="'/' + notification.data.image" :alt="notification.data.name">
                 <img v-else src="/images/logo.svg" alt="Image">
 
                 <!-- Message -->

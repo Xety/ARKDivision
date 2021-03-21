@@ -8,6 +8,7 @@ use Xetaravel\Events\Badges\PostEvent;
 use Xetaravel\Events\Badges\PostSolvedEvent;
 use Xetaravel\Events\Badges\DonationEvent;
 use Xetaravel\Events\Badges\RegisterEvent;
+use Xetaravel\Events\Events\EvenementEvent;
 use Xetaravel\Models\Badge;
 use Xetaravel\Models\DiscussPost;
 use Xetaravel\Models\User;
@@ -25,7 +26,8 @@ class BadgeSubscriber
         DonationEvent::class => 'onNewDonation',
         PostEvent::class => 'onNewPost',
         PostSolvedEvent::class => 'onNewPostSolved',
-        ExperiencesEvent::class => 'onNewExperiences'
+        ExperiencesEvent::class => 'onNewExperiences',
+        EvenementEvent::class => 'onEvenement'
     ];
 
     /**
@@ -40,6 +42,23 @@ class BadgeSubscriber
         foreach ($this->events as $event => $action) {
             $events->listen($event, BadgeSubscriber::class . '@' . $action);
         }
+    }
+
+    /**
+     * Listener related to all evenements badge.
+     *
+     * @param \Xetaravel\Events\Events\NakorEvent $event The event that was fired.
+     *
+     * @return bool
+     */
+    public function onEvenement(EvenementEvent $event): bool
+    {
+        $user = $event->user;
+        $badges = Badge::where('slug', $event->slug)->get();
+
+        $result = $user->badges()->syncWithoutDetaching($badges);
+
+        return $this->sendNotifications($result, $badges, $user);
     }
 
     /**

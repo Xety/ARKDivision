@@ -27,4 +27,16 @@ class Badge extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * Check if the given user has unlocked this badge.
+     *
+     * @return bool
+     */
+    public function hasUser($user)
+    {
+        return $this->users()
+            ->where('user_id', $user->getKey())
+            ->exists();
+    }
 }

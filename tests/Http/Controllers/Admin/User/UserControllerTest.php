@@ -157,4 +157,44 @@ class UserControllerTest extends TestCase
 
         $this->assertNotSame($old, User::find(1)->avatar_small, 'The path should not be the same.');
     }
+
+    /**
+     * testunlockBadgeSuccess method
+     *
+     * @return void
+     */
+    public function testunlockBadgeSuccess()
+    {
+        $response = $this->post('/admin/user/unlockBadge/1/30');
+        $response->assertSessionHas('success');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * testunlockBadgeNotEvent method
+     *
+     * @return void
+     */
+    public function testunlockBadgeNotEvent()
+    {
+        $response = $this->post('/admin/user/unlockBadge/1/29');
+        $response->assertSessionHas('danger');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * testunlockBadgeAlreadyOwned method
+     *
+     * @return void
+     */
+    public function testunlockBadgeAlreadyOwned()
+    {
+        $response = $this->post('/admin/user/unlockBadge/1/30');
+        $response->assertSessionHas('success');
+        $response->assertStatus(302);
+
+        $response = $this->post('/admin/user/unlockBadge/1/30');
+        $response->assertSessionHas('danger');
+        $response->assertStatus(302);
+    }
 }

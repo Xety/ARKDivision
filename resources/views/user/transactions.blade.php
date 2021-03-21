@@ -16,7 +16,7 @@
 
                 @if ($transactions->isNotEmpty())
                     <div role="alert" class="alert alert-primary">
-                        <i aria-hidden="true" class="fa fa-exclamation"></i> Vous trouverez toutes les transactions de donations que vous avec effectuées sur Division ci-dessous.
+                        <i aria-hidden="true" class="fa fa-exclamation"></i> Vous trouverez toutes les transactions de donations que vous avez effectuées sur Division ci-dessous.
                     </div>
 
                     <table class="table table-hover col-md-12 table-transactions">

@@ -1,7 +1,6 @@
 <?php
 namespace Xetaravel\Listeners\Subscribers\Donation;
 
-use Illuminate\Support\Facades\Log;
 use Xetaravel\Events\Donation\NewDonationEvent;
 use Xetaravel\Models\Reward;
 use Xetaravel\Models\User;

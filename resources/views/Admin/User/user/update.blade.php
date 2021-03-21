@@ -441,6 +441,42 @@
                             {{ $user->updated_at->formatLocalized('%d %B %Y - %T') }}
                         </p>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label">
+                            Evevements
+                        </label>
+                        <p class="form-control-static">
+                            @foreach ($badgesEvent as $badge)
+                                @if ($badge->hasUser($user))
+                                <div class="mb-1" style="color:{{ $badge->color }};" data-toggle="tooltip" title="Cet utilisateur à déjà déverouillé ce badge.">
+                                    <i class="{{ $badge->icon }}" aria-hidden="true"></i> {{  $badge->name }}<br>
+                                </div>
+                                @else
+                                    {{ link_to(
+                                        route('admin.user.user.unlockbadge', [$user->id, $badge->id]),
+                                        "<i class=\"{$badge->icon}\"></i> {$badge->name}",
+                                        [
+                                            'class' => 'btn btn-outline-secondary mb-1',
+                                            'style' => "color:{$badge->color}",
+                                            'data-toggle' => 'tooltip',
+                                            'title' => 'Débloquer ce badge à cet utilisateur.',
+                                            'onclick' => "event.preventDefault();document.getElementById('unlockbadge-{$badge->id}').submit();",
+                                        ],
+                                        null,
+                                        false
+                                    ) }}<br>
+                                    {!! Form::open([
+                                        'route' => ['admin.user.user.unlockbadge', [$user->id, $badge->id]],
+                                        'id' => "unlockbadge-{$badge->id}",
+                                        'method' => 'post',
+                                        'style' => 'display: none;'
+                                    ]) !!}
+                                    {!! Form::close() !!}
+                                @endif
+                            @endforeach
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

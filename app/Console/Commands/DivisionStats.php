@@ -42,11 +42,11 @@ class DivisionStats extends Command
     {
         // Get the content of the pastebin list.
         $now = Carbon::now();
-        $date = $now->modify('-30 days');
+        $date = Carbon::now()->modify('-30 days');
 
         // Get the amount total for the last 30days.
-        $amount = PaypalUser::where('created_at', '>', $date)->sum('amount_total');
-        $count = PaypalUser::where('created_at', '>', $date)->count();
+        $amount = PaypalUser::where('user_id', '!=', 1)->where('created_at', '>', $date)->sum('amount_total');
+        $count = PaypalUser::where('user_id', '!=', 1)->where('created_at', '>', $date)->count();
         $role = Role::where('slug', 'membre')->withCount('users')->first();
 
         $discord = new DiscordClient(['token' => config('discord.bot.token')]);
@@ -75,7 +75,7 @@ class DivisionStats extends Command
                         'inline' => false
                     ],
                     [
-                        'name' => 'Membre',
+                        'name' => 'Membres',
                         'value' => "{$role->users_count} membres",
                         'inline' => false
                     ]

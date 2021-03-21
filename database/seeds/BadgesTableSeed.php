@@ -348,6 +348,17 @@ class BadgesTableSeed extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now
             ],
+            [
+                'name' => 'Disciple de Nakor',
+                'slug' => 'eventnakor',
+                'description' => 'Obtenu lors de la participation à l\'évènement L\'épopée de Nakor le 28/02/2021',
+                'icon' => 'fa fa-dragon',
+                'color' => '#e67e22',
+                'type' => 'eventParticipating',
+                'rule' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
         ];
 
         DB::table('badges')->insert($badges);

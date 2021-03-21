@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Xetaio\Mentions\Parser\MentionParser;
+use Xetaravel\Events\Events\EvenementEvent;
+use Xetaravel\Events\Events\RewardNakor;
 use Xetaravel\Http\Controllers\Admin\Controller;
+use Xetaravel\Models\Badge;
 use Xetaravel\Models\Repositories\UserRepository;
 use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\User;
@@ -117,7 +120,13 @@ class UserController extends Controller
                 route('admin.user.user.update', $user->slug, $user->id)
             );
 
-        return view('Admin::User.user.update', compact('user', 'roles', 'optionsAttributes', 'breadcrumbs'));
+        // Get all events badges to generate the buttons.
+        $badgesEvent = Badge::where('type', 'eventParticipating')->get();
+
+        return view(
+            'Admin::User.user.update',
+            compact('user', 'roles', 'optionsAttributes', 'breadcrumbs', 'badgesEvent')
+        );
     }
 
     /**
@@ -181,6 +190,46 @@ class UserController extends Controller
         return redirect()
             ->route('admin.user.user.index')
             ->with('danger', 'Une erreur s\'est produite lors de la suppression de cet utilisateur !');
+    }
+
+    /**
+     * Delete the avatar for the specified user.
+     *
+     * @param int $user_id The id of the user.
+     * @param int $badge_id The id of the badge.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unlockBadge(int $user_id, int $badge_id): RedirectResponse
+    {
+        $user = User::findOrFail($user_id);
+        $badge = Badge::findOrFail($badge_id);
+
+        // Check if the user has already the badge.
+        if ($badge->hasUser($user)) {
+            return redirect()
+                ->back()
+                ->with('danger', 'Cet utilisateur à déjà débloqué ce badge');
+        }
+
+        // Check if the badge is an event badge.
+        if ($badge->type != 'eventParticipating') {
+            return redirect()
+                ->back()
+                ->with('danger', 'Ce badge n\'est pas un badge d\'event');
+        }
+
+        // Unlock the badge related to the slug of the badge.
+        event(new EvenementEvent($user, $badge->slug));
+
+        // Unlock the rewards for the Nakor badge only.
+        if ($badge->slug == 'eventnakor') {
+            event(new RewardNakor($user));
+        }
+
+        return redirect()
+            ->back()
+            ->with('success', "Le badge {$badge->name} a bien été débloqué pour cet utilisateur.");
     }
 
     /**

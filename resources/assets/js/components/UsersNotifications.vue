@@ -19,6 +19,8 @@
 
                     <i v-else-if="notification.data.type == 'mention'" class="fa fa-at fa-4x text-primary" style="vertical-align: middle;" aria-hidden="true"></i>
 
+                    <img v-else-if="notification.data.type == 'reward'" :src="'/' + notification.data.image" :alt="notification.data.name" width="50px" height="50px">
+
                     <img v-else src="/images/logo.svg" alt="Image" width="60">
 
                     <!-- Message -->

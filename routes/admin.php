@@ -70,6 +70,9 @@ Route::group([
 
             Route::delete('deleteAvatar/{id}', 'UserController@deleteAvatar')
                 ->name('admin.user.user.deleteavatar');
+
+            Route::post('unlockBadge/{user_id}/{badge_id}', 'UserController@unlockBadge')
+                ->name('admin.user.user.unlockbadge');
         });
 
         /*
