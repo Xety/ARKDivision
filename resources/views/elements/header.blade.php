@@ -42,6 +42,9 @@
                     <a class="nav-link-menu" href="{{ route('donation.page.index') }}">
                         <span data-hover="Donation">Donation</span>
                     </a>
+                    <a class="nav-link-menu" href="http://arklog.ark-division.fr">
+                        <span data-hover="ARKLog">ARKLog</span>
+                    </a>
                 </li>
             </ul>
 

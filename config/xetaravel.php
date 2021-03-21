@@ -10,7 +10,8 @@ return [
     | used everywhere around the application.
     */
     'site' => [
-        'description' => 'You will find content related to web development like tutorials, my personal tests on new technologies etc',
+        'description' => 'Bienvenue sur le site Officiel ARK Division France. Serveurs ARK Survival FR créés par '.
+        'des joueurs et pour des joueurs ! Rejoignez-nous !',
         'github_url' => 'https://github.com/Xety',
         'contact_email' => 'contact@ark-division.fr',
         'analytics_tracker_code' => 'UA-40328289-2',

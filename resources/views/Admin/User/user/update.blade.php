@@ -446,12 +446,12 @@
                         <label class="form-control-label">
                             Evevements
                         </label>
-                        <p class="form-control-static">
+                        <br><br>
                             @foreach ($badgesEvent as $badge)
                                 @if ($badge->hasUser($user))
-                                <div class="mb-1" style="color:{{ $badge->color }};" data-toggle="tooltip" title="Cet utilisateur à déjà déverouillé ce badge.">
+                                <span class="mb-1" style="color:{{ $badge->color }};display:block;" data-toggle="tooltip" title="Cet utilisateur à déjà déverouillé ce badge.">
                                     <i class="{{ $badge->icon }}" aria-hidden="true"></i> {{  $badge->name }}<br>
-                                </div>
+                                </span><br>
                                 @else
                                     {{ link_to(
                                         route('admin.user.user.unlockbadge', [$user->id, $badge->id]),
@@ -475,7 +475,6 @@
                                     {!! Form::close() !!}
                                 @endif
                             @endforeach
-                        </p>
                     </div>
                 </div>
             </div>

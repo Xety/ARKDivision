@@ -11,6 +11,9 @@
         <!-- Title -->
         <title>{{ config('app.title') . ' - ' . config('app.name') }}</title>
 
+        <meta name="title" content="{{ config('app.title') . ' - ' . config('app.name') }}">
+        <meta name="description" content="{{ config('xetaravel.site.description') }}">
+
         <!-- Styles -->
         <link href="{{ mix('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ mix('css/bootstrap.plugins.min.css') }}" rel="stylesheet">
