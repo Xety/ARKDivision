@@ -30,10 +30,7 @@ export default class Sidebar
         this.sidebar = document.getElementById("sidebar");
         this.trigger = document.getElementById('sidebar-trigger');
         this.overlay = document.createElement('div');
-
-        if (this.trigger != null) {
-            this.trigger.addEventListener('click', this.triggerListener, false);
-        }
+        this.trigger.addEventListener('click', this.triggerListener, false);
     }
 
     /**
