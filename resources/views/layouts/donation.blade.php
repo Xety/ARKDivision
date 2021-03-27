@@ -12,6 +12,8 @@
         <title>{{ config('app.title') . ' - ' . config('app.name') }}</title>
 
         <!-- Styles -->
+        <link href="{{ mix('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/xetaravel.min.css') }}" rel="stylesheet">
         <link href="{{ mix('css/donation/donation.min.css') }}" rel="stylesheet">
 
         <script src="https://kit.fontawesome.com/61f38896f8.js" crossorigin="anonymous"></script>
@@ -275,14 +277,26 @@
 
     </head>
     <body>
-            <!-- Flash Messages -->
-            @include('elements.flash')
 
-            <!-- Content -->
-            @yield('content')
+            <div id="app-vue">
+                <!-- Header -->
+                @include('elements.header')
 
-       <!-- Scripts -->
+                <!-- Flash Messages -->
+                @include('elements.flash')
+
+                <!-- Content -->
+                @yield('content')
+            </div>
+
+       <!-- CSRF JS Token -->
+        <script type="text/javascript">
+            window.Xetaravel = {!! json_encode(['csrfToken' => csrf_token()]) !!}
+        </script>
+
+        <!-- Scripts -->
         <script src="{{ mix('js/donation/donation.min.js') }}"></script>
+        <script src="{{ mix('js/xetaravel.min.js') }}"></script>
         <script src="https://kit.fontawesome.com/61f38896f8.js" crossorigin="anonymous"></script>
         <script type="text/javascript">
         $("#slider").slider({

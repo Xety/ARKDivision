@@ -19,57 +19,69 @@
         </div>
     </div>
 
-    <nav id="navbar" class="navbar">
+    <nav id="navbar" class="navbar navbar-dark">
         <div class="container">
-            <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-expanded="false" aria-controls="exCollapsingNavbar2" aria-label="Toggle navigation"></button>
             <a class="navbar-brand" href="{{ route('page.index') }}">
                 <img src="{{ asset('images/logo.png') }}" height="80" class="d-inline-block align-middle" alt="Logo">
             </a>
-            <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link-menu" href="{{ route('page.index') }}">
-                        <span data-hover="Accueil">Accueil</span>
-                    </a>
-                    @if (config('settings.discuss.enabled') || (!config('settings.discuss.enabled') && !is_null(Auth::user()) && Auth::user()->level() >= 4))
-                        <a class="nav-link-menu" href="{{ route('discuss.index') }}">
-                            <span data-hover="Discuss">Discuss</span>
+
+            <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#navbarDivision" aria-controls="navbarDivision" aria-expanded="false" aria-label="Toggle navigation">
+            </button>
+
+            <div class="collapse navbar-collapse navbar-toggleable-xs" id="navbarDivision">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item nav-link active">
+                        <a class="nav-link-menu" href="{{ route('page.index') }}">
+                            <span data-hover="Accueil">Accueil</span>
                         </a>
-                    @endif
-                    <a class="nav-link-menu" href="{{ route('statut.page.index') }}">
-                        <span data-hover="Statut">Statut</span>
-                    </a>
-                    <a class="nav-link-menu" href="{{ route('donation.page.index') }}">
-                        <span data-hover="Donation">Donation</span>
-                    </a>
-                    <a class="nav-link-menu" href="http://arklog.ark-division.fr">
-                        <span data-hover="ARKLog">ARKLog</span>
-                    </a>
-                </li>
-            </ul>
+                    </li>
+                        @if (config('settings.discuss.enabled') || (!config('settings.discuss.enabled') && !is_null(Auth::user()) && Auth::user()->level() >= 4))
+                        <li class="nav-item nav-link">
+                            <a class="nav-link-menu" href="{{ route('discuss.index') }}">
+                                <span data-hover="Discuss">Discuss</span>
+                            </a>
+                        </li>
+                        @endif
+                        <li class="nav-item nav-link">
+                            <a class="nav-link-menu" href="{{ route('statut.page.index') }}">
+                                <span data-hover="Statut">Statut</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-link">
+                            <a class="nav-link-menu" href="{{ route('donation.page.index') }}">
+                                <span data-hover="Donation">Donation</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-link">
+                            <a class="nav-link-menu" href="http://arklog.ark-division.fr">
+                                <span data-hover="ARKLog">ARKLog</span>
+                            </a>
+                        </li>
+                    </li>
+                </ul>
 
-            @if (Auth::guest())
-                <div class="float-sm-right">
-                    <a class="btn btn-outline-primary-inverse" href="{{ route('users.auth.register') }}">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
-                    </a>
-                    <a class="btn btn-outline-primary-inverse" href="{{ route('users.auth.login') }}">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
-                    </a>
-                </div>
-            @else
-                <div class="navbar-text btn-group float-sm-right font-weight-bold">
-                    <a href="#" id="sidebar-trigger" class="nav-link">
-                        {{ Auth::user()->username }}
-                    </a>
-                </div>
-                <span class="navbar-text navbar-hello-text float-xs-left float-sm-right font-weight-bold">
-                    Bonjour,&nbsp;
-                </span>
+                @if (Auth::guest())
+                    <div class="nav-item float-sm-right">
+                        <a class="btn btn-outline-primary-inverse" href="{{ route('users.auth.register') }}">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
+                        </a>
+                        <a class="btn btn-outline-primary-inverse" href="{{ route('users.auth.login') }}">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion
+                        </a>
+                    </div>
+                @else
+                    <div class="navbar-text btn-group float-sm-right font-weight-bold">
+                        <a href="#" id="sidebar-trigger" class="nav-link">
+                            {{ Auth::user()->username }}
+                        </a>
+                    </div>
+                    <span class="navbar-text navbar-hello-text float-xs-left float-sm-right font-weight-bold">
+                        Bonjour,&nbsp;
+                    </span>
 
-                <!-- Notifications -->
-                @include('partials._notifications')
-            @endif
+                    <!-- Notifications -->
+                    @include('partials._notifications')
+                @endif
 
             </div>
         </div>

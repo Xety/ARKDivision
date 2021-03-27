@@ -2,12 +2,18 @@
 
 use Illuminate\Http\Request;
 
+$APP_STATUT_URL = 'statut.ark-division.fr';
+
+if (env('APP_ENV') && env('APP_ENV') == 'local') {
+    $APP_STATUT_URL = 'statut.arkdivision.io';
+}
+
 /*
 |--------------------------------------------------------------------------
 | Statut Routes
 |--------------------------------------------------------------------------
 */
-Route::domain('statut.ark-division.fr')->group(function () {
+Route::domain($APP_STATUT_URL)->group(function () {
 
     /*
     |--------------------------------------------------------------------------

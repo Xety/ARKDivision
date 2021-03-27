@@ -42,16 +42,16 @@ mix.scripts([
     ], 'public/js/highlight.min.js')
     .scripts([
         'resources/assets/js/donation/jquery-3.4.1.slim.min.js',
-        'resources/assets/js/donation/popper.min.js',
-        'resources/assets/js/donation/bootstrap.min.js',
+        //'resources/assets/js/donation/popper.min.js',
+        //'resources/assets/js/donation/bootstrap.min.js',
         'resources/assets/js/donation/bootstrap-select.min.js',
         'resources/assets/js/donation/bootstrap-slider.min.js',
     ], 'public/js/donation/donation.min.js')
     .styles([
-        'resources/assets/css/donation/bootstrap.min.css',
+        //'resources/assets/css/donation/bootstrap.min.css',
         'resources/assets/css/donation/bootstrap-select.min.css',
         'resources/assets/css/donation/bootstrap-slider.min.css'
-    ], 'public/css/donation/donation.min.css')
+    ], 'public/css/donation/donation.lib.min.css')
     .copyDirectory('resources/assets/music', 'public/music')
     .copyDirectory('resources/assets/images', 'public/images')
     .copyDirectory('resources/assets/fonts', 'public/fonts')

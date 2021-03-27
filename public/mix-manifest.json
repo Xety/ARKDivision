@@ -1,13 +1,14 @@
 {
-    "/js/xetaravel.admin.min.js": "/js/xetaravel.admin.min.js?id=cdafc630cc5f24387768",
+    "/js/xetaravel.admin.min.js": "/js/xetaravel.admin.min.js?id=29ef315fa06ab9f71aa3",
     "/css/xetaravel.min.css": "/css/xetaravel.min.css?id=f19a5b87a5e6a04ff944",
     "/css/xetaravel.admin.min.css": "/css/xetaravel.admin.min.css?id=eba0fd27c0e4b84e142c",
-    "/css/bootstrap.min.css": "/css/bootstrap.min.css?id=e798bd021ec981037358",
+    "/css/donation/donation.min.css": "/css/donation/donation.min.css?id=ca7e2d3e63eab41b70e5",
+    "/css/bootstrap.min.css": "/css/bootstrap.min.css?id=7cd77ade5a443e8853b4",
     "/css/bootstrap.plugins.min.css": "/css/bootstrap.plugins.min.css?id=c06920ebe78f393974d0",
     "/css/editor-md.custom.min.css": "/css/editor-md.custom.min.css?id=2cffdb36fd05fd360775",
-    "/js/xetaravel.min.js": "/js/xetaravel.min.js?id=fbe4cda836a38654f3b6",
+    "/js/xetaravel.min.js": "/js/xetaravel.min.js?id=e9bfcc25f75e620e7cab",
     "/js/lib.min.js": "/js/lib.min.js?id=0c9937360db3de36155c",
     "/js/highlight.min.js": "/js/highlight.min.js?id=50228c80fa9a82afb8b4",
-    "/js/donation/donation.min.js": "/js/donation/donation.min.js?id=d97f7a04bbb5218825b2",
-    "/css/donation/donation.min.css": "/css/donation/donation.min.css?id=9bc6397341d98c027a57"
+    "/js/donation/donation.min.js": "/js/donation/donation.min.js?id=61ad2b5f409ae4047dd8",
+    "/css/donation/donation.lib.min.css": "/css/donation/donation.lib.min.css?id=0bcedae9e5bdb2e1f0f9"
 }

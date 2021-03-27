@@ -1,17 +1,41 @@
-@extends('layouts.donation')
+@extends('layouts.app')
 {!! config(['app.title' => 'Donation']) !!}
+
+@push('scripts')
+<script src="{{ mix('js/donation/donation.min.js') }}"></script>
+<script type="text/javascript">
+    $("#slider").slider({
+        min: 5,
+        max: 300,
+        scale: 'logarithmic',
+        step: 5
+    });
+
+    $("#slider").on("change", function(slideEvt) {
+        $("#sliderVal").text(slideEvt.value.newValue);
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+@endpush
+
+@push('style')
+<link href="{{ mix('css/donation/donation.lib.min.css') }}" rel="stylesheet">
+<link href="{{ mix('css/donation/donation.min.css') }}" rel="stylesheet">
+@endpush
 
 @section('content')
 <div class="background">
     <div class="logo-container">
-        <a href="{{ route('page.index') }}"><img src="https://ark-division.fr/wp-content/uploads/logo-ark-division-france.png" class="logo" alt="logo-ark-division-france" width="300"></a>
     </div>
     <div class="elementor-shape elementor-shape-bottom">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
             <path class="elementor-shape-fill" d="M761.9,44.1L643.1,27.2L333.8,98L0,3.8V0l1000,0v3.9"></path>
         </svg>
     </div>
-    <h1 class="text-center" style="color: #0d9691;">Contribuez à la Communauté ARK Division France et devenez Membre !</h1>
+    <h1 class="text-xs-center" style="color: #0d9691;">Contribuez à la Communauté ARK Division France et devenez Membre !</h1>
 </div>
 
 <div class="container-fluid" style="margin-top: 150px;">
@@ -26,15 +50,19 @@
             <ul class="widget-icon-list-items">
                 <li class="widget-icon-list-item">
                     <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
-                    <span class="widget-icon-list-text">Couleurs personnalisées sur vos dinos</span>
+                    <span class="widget-icon-list-text">Couleurs personnalisées sur vos dinos (10€+)</span>
                 </li>
                 <li class="widget-icon-list-item">
                     <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
-                    <span class="widget-icon-list-text">Skins pour vos dinos</span>
+                    <span class="widget-icon-list-text">Skins pour vos dinos (15€+)</span>
                 </li>
                 <li class="widget-icon-list-item">
                     <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
-                    <span class="widget-icon-list-text">Couleurs et skins cumulables</span>
+                    <span class="widget-icon-list-text">3 Statues : (20€+) <span class="tag tag-danger">Nouveau</span><br> <lu> - Dragon <br> - Manticore <br> - Mega ! </span>
+                </li>
+                <li class="widget-icon-list-item">
+                    <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
+                    <span class="widget-icon-list-text">Couleurs, skins et Statues <b>cumulables</b></span>
                 </li>
             </ul>
             <div class="widget-divider">
@@ -118,7 +146,7 @@
                     {{-- The user has not linked his Discord to his Division account --}}
                     @else
                         <div class="alert alert-danger">
-                            Vous n'avez pas lié votre Discord à votre compte Division. Vous ne pourrez pas obtenir vos rewards si vous ne lier pas vos comptes.
+                            Vous n'avez pas lié votre Discord à votre compte Division. Vous ne <b>pourrez pas obtenir vos récompenses</b> si vous ne lier pas vos comptes.
                             <div class="row justify-content-center">
                                 <a class="btn btn-discord" href="{{ route('users.social.index') }}" target="_blank"><i class="fab fa-discord"></i> Lier mon Compte</a>
                             </div>
@@ -131,7 +159,7 @@
                 {{-- The user is not connected to his account --}}
                 @guest
                     <div class="alert alert-danger">
-                            Vous n'êtes pas connecté à votre compte Division. Vous ne pourrez pas obtenir vos rewards si vous n'êtes pas connecté.
+                            Vous n'êtes pas connecté à votre compte Division. Vous ne <b>pourrez pas obtenir vos récompenses</b> si vous n'êtes pas connecté.
                             <div class="row justify-content-center">
                                 <a class="btn btn-primary m-md-1" href="{{ route('users.auth.register') }}">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
@@ -148,7 +176,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
 
-                    <div class="donation font-weight-bold text-monospace text-center">
+                    <div class="donation font-weight-bold text-monospace text-xs-center">
                         <span id="sliderVal" class="">5</span>€
                     </div>
 
@@ -162,7 +190,7 @@
 
                     {!! Form::textarea('message', '', ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'Veuillez renseigner votre nom de tribu et/ou un message personnel ici...']) !!}
                 </div>
-                <div class="form-group text-center">
+                <div class="form-group text-xs-center">
                     {!! Form::button('<i class="fab fa-paypal"></i>  Faire un don', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                 </div>
             {!! Form::close() !!}
@@ -210,16 +238,6 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
             <path class="footer-elementor-shape-fill" d="M761.9,44.1L643.1,27.2L333.8,98L0,3.8V0l1000,0v3.9"></path>
         </svg>
-    </div>
-    <div class="footer-text container-fluid">
-        <div class="row">
-            <div class="col-sm-10">
-                © ARK Division 2020
-            </div>
-            <div class="col-sm-2">
-                Fait par <a href="https://github.com/Xety">@ZoRo</a>
-            </div>
-        </div>
     </div>
 </div>
 @endsection

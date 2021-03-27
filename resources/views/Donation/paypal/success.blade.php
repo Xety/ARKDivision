@@ -1,10 +1,14 @@
-@extends('layouts.donation')
+@extends('layouts.app')
 {!! config(['app.title' => 'Donation']) !!}
+
+@push('style')
+<link href="{{ mix('css/donation/donation.lib.min.css') }}" rel="stylesheet">
+<link href="{{ mix('css/donation/donation.min.css') }}" rel="stylesheet">
+@endpush
 
 @section('content')
 <div class="background">
     <div class="logo-container">
-        <img src="https://ark-division.fr/wp-content/uploads/logo-ark-division-france.png" class="logo" alt="logo-ark-division-france" width="300">
     </div>
     <div class="elementor-shape elementor-shape-bottom">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
@@ -15,7 +19,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-6 text-center">
+        <div class="col-6 text-xs-center">
             <div style="font-size: 148px; color: #0d9691;">
                 <i class="fas fa-check"></i>
             </div>
@@ -39,16 +43,6 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
             <path class="footer-elementor-shape-fill" d="M761.9,44.1L643.1,27.2L333.8,98L0,3.8V0l1000,0v3.9"></path>
         </svg>
-    </div>
-    <div class="footer-text container-fluid">
-        <div class="row">
-            <div class="col-sm-10">
-                © ARK Division 2020
-            </div>
-            <div class="col-sm-2">
-                Fait par <a href="https://github.com/Xety">@ZoRo</a>
-            </div>
-        </div>
     </div>
 </div>
 @endsection

@@ -2,12 +2,18 @@
 
 use Illuminate\Http\Request;
 
+$APP_DONATION_URL = 'donation.ark-division.fr';
+
+if (env('APP_ENV') && env('APP_ENV') == 'local') {
+    $APP_DONATION_URL = 'donation.arkdivision.io';
+}
+
 /*
 |--------------------------------------------------------------------------
 | Donation Routes
 |--------------------------------------------------------------------------
 */
-Route::domain('donation.ark-division.fr')->group(function () {
+Route::domain($APP_DONATION_URL)->group(function () {
 
     /*
     |--------------------------------------------------------------------------
