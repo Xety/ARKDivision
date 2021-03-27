@@ -2,7 +2,6 @@
 {!! config(['app.title' => 'Statut']) !!}
 
 @push('style')
-<link href="{{ mix('css/donation/donation.lib.min.css') }}" rel="stylesheet">
 <link href="{{ mix('css/donation/donation.min.css') }}" rel="stylesheet">
 @endpush
 
