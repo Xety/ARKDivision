@@ -54,7 +54,7 @@
                 </li>
                 <li class="widget-icon-list-item">
                     <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
-                    <span class="widget-icon-list-text">3 Statues : (20€+) <span class="tag tag-danger">Nouveau</span><br> <lu> - Dragon <br> - Manticore <br> - Mega ! </span>
+                    <span class="widget-icon-list-text">3 Statues : (20€+) <span class="tag tag-danger">Nouveau</span><br> - Dragon <br> - Manticore <br> - Mega ! </span>
                 </li>
                 <li class="widget-icon-list-item">
                     <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
