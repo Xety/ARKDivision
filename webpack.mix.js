@@ -41,7 +41,7 @@ mix.scripts([
         'resources/assets/js/highlight/highlight.js',
     ], 'public/js/highlight.min.js')
     .scripts([
-        'resources/assets/js/donation/jquery-3.4.1.slim.min.js',
+        //'resources/assets/js/donation/jquery-3.4.1.slim.min.js',
         //'resources/assets/js/donation/popper.min.js',
         //'resources/assets/js/donation/bootstrap.min.js',
         'resources/assets/js/donation/bootstrap-select.min.js',
