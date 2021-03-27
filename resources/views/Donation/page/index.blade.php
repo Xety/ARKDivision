@@ -14,10 +14,6 @@
     $("#slider").on("change", function(slideEvt) {
         $("#sliderVal").text(slideEvt.value.newValue);
     });
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
 </script>
 @endpush
 
