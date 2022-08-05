@@ -4,9 +4,9 @@ namespace Xetaravel\Console\Commands;
 use Carbon\Carbon;
 use GuzzleHttp\Command\Exception\CommandClientException;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use RestCord\DiscordClient;
 use Xetaravel\Models\Role;
-use Xetaravel\Models\User;
 
 class CheckMemberValidation extends Command
 {
@@ -56,11 +56,15 @@ class CheckMemberValidation extends Command
         foreach ($users as $user) {
             // Delete the roles of the user.
             foreach (config('discord.member.roles') as $role) {
-                $discord->guild->removeGuildMemberRole([
-                    'guild.id' => config('discord.guild.id'),
-                    'user.id' => $user->discord_id,
-                    'role.id' => $role
-                ]);
+                try {
+                    $discord->guild->removeGuildMemberRole([
+                        'guild.id' => config('discord.guild.id'),
+                        'user.id' => $user->discord_id,
+                        'role.id' => $role
+                    ]);
+                } catch (CommandClientException $e) {
+                    // The user has left the discord so Discord can't delete it resulting to a 400 NOT FOUND
+                }
             }
 
             // Update the role of the user on the site.
@@ -130,6 +134,28 @@ class CheckMemberValidation extends Command
                     ]
                 ]
             ]);
+
+            // Delete the role "Membres," from the ArkShop for the user
+            $player = DB::connection('arkshop')->table("players")->where('SteamId', $user->steam_id)->first();
+
+            // User not found in database.
+            if ($player == null) {
+                return;
+            }
+
+            // Check that the user has the role "Membres,", if not cancel.
+            if (strpos($player->PermissionGroups, 'Membres,') === false) {
+                return;
+            }
+
+            // Add the group "Membres," to the groups.
+            $permissionGroups = str_replace("Membres,", "", $player->PermissionGroups);
+
+            // Update the PermissionGroups in database.
+            DB::connection('arkshop')->update(
+                'UPDATE players SET PermissionGroups = ? WHERE SteamId = ?',
+                [$permissionGroups, $user->steam_id]
+            );
 
             sleep(2);
         }

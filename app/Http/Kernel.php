@@ -13,11 +13,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Xetaravel\Http\Middleware\CheckForMaintenanceMode::class,
+        // \Xetaravel\Http\Middleware\TrustHosts::class,
+        \Xetaravel\Http\Middleware\TrustProxies::class,
+        \Illuminate\Http\Middleware\HandleCors::class,
+        \Xetaravel\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Xetaravel\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \Xetaravel\Http\Middleware\TrustProxies::class,
     ];
 
     /**
@@ -34,9 +36,11 @@ class Kernel extends HttpKernel
             \Xetaravel\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Xetaio\IpTraceable\Http\Middleware\IpTraceable::class,
+            \Xetaravel\Http\Middleware\SessionLogs::class,
         ],
 
         'api' => [
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
@@ -52,11 +56,12 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \Xetaravel\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+        //'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \Xetaravel\Http\Middleware\RedirectIfAuthenticated::class,
-        //'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
@@ -78,12 +83,12 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
-    /*protected $middlewarePriority = [
+    protected $middlewarePriority = [
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \App\Http\Middleware\Authenticate::class,
+        \Xetaravel\Http\Middleware\Authenticate::class,
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
-    ];*/
+    ];
 }

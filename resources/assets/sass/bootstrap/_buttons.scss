@@ -80,6 +80,9 @@ fieldset[disabled] a.btn {
 .btn-discord {
   @include button-variant($btn-discord-color, $btn-discord-bg, $btn-discord-border);
 }
+.btn-steam {
+  @include button-variant($btn-steam-color, $btn-steam-bg, $btn-steam-border);
+}
 
 // Remove all backgrounds
 .btn-outline-primary {

@@ -17,7 +17,8 @@ return [
     'channels' => [
         'logs-bot' => 607226558645796864,
         'general' => 386615163165605891,
-        'taverne' => 423865190610632704
+        'taverne' => 423865190610632704,
+        'events-notifs' => 1003725379447566346
     ],
     'streamer' => 817133174739828787, // Streamer,
     'member' => [

@@ -4,25 +4,23 @@ namespace Xetaravel\Exceptions;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
     /**
-     * A list of the exception types that should not be reported.
+     * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var array
+     * @var array<int, string>
      */
-    protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-        \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class
+    protected $dontFlash = [
+        'current_password',
+        'password',
+        'password_confirmation',
     ];
 
     /**
@@ -30,14 +28,31 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Throwable   $exception
+     * @param  \Throwable  $exception
      * @return void
-     *
-     * @throws \Exception
      */
     public function report(Throwable $exception)
     {
         parent::report($exception);
+    }
+
+    /**
+     * Register the exception handling callbacks for the application.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->reportable(function (Throwable $e) {
+            //
+        });
+
+        // Manage 419 csrf token expiration error
+        $this->renderable(function (\Exception $e) {
+            if ($e->getPrevious() instanceof TokenMismatchException) {
+                return back()->with('danger', 'You made too much time to validate the form ! Time to take a coffee !');
+            };
+        });
     }
 
     /**
@@ -46,8 +61,6 @@ class Handler extends ExceptionHandler
      * @param  \Illuminate\Http\Request  $request
      * @param  \Throwable  $exception
      * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Throwable
      */
     public function render($request, Throwable $exception)
     {
@@ -79,7 +92,7 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Convert an authentication exception into an unauthenticated response.
+     * Convert an authentication exception into a response.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Illuminate\Auth\AuthenticationException $exception
@@ -88,10 +101,10 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        return $request->expectsJson()
-                    ? response()->json(['error' => 'Unauthenticated.'], 401)
-                    : redirect()
-                        ->guest($exception->redirectTo() ?? route('users.auth.login'))
-                        ->with('danger', 'Vous n\'êtes pas autorisé à voir cette page.');
+        return $this->shouldReturnJson($request, $exception)
+            ? response()->json(['message' => $exception->getMessage()], 401)
+            : redirect()
+                ->guest($exception->redirectTo() ?? route('users.auth.login'))
+                ->with('danger', 'Vous n\'êtes pas autorisé à voir cette page.');
     }
 }

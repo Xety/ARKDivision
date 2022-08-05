@@ -100,7 +100,7 @@ class EventSubController extends Controller
      */
     public function handleStreamOfflineNotification(array $payload): Response
     {
-        $user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();
+        //$user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();
 
         /*$twitch = new Twitch;
         $stream = $twitch->getStreams(['user_id' => $user->twitch_id]);
@@ -110,7 +110,7 @@ class EventSubController extends Controller
             return $this->missingMethod();
         }*/
 
-        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+        /*$discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
         $description = "**<@" . $user->discord_id .
         ">**  vient de couper son Live sur les serveurs ARK Division !\nhttps://www.twitch.tv/" .
@@ -131,13 +131,13 @@ class EventSubController extends Controller
                     '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
                 ]
             ]
-        ]);
+        ]);*/
 
-        $discord->guild->removeGuildMemberRole([
+        /*$discord->guild->removeGuildMemberRole([
             'guild.id' => config('discord.guild.id'),
             'user.id' => $user->discord_id,
             'role.id' => config('discord.streamer')
-        ]);
+        ]);*/
 
         return $this->successMethod(); // handle the channel follow notification...
     }
@@ -153,12 +153,12 @@ class EventSubController extends Controller
      */
     public function handleChannelUpdateNotification(array $payload): Response
     {
-        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+        /*$discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
-        $user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();
+        $user = User::where('twitch_id', $payload['subscription']['condition']['broadcaster_user_id'])->first();*/
 
         //  The user has changed his game
-        if ($payload['event']['category_id'] != "489635") {
+        /*if ($payload['event']['category_id'] != "489635") {
             $description = "**<@" . $user->discord_id .
             ">**  vient de couper son Live sur les serveurs ARK Division ! (Changement de jeu)\n".
             "https://www.twitch.tv/" . $payload['event']['broadcaster_user_name'];
@@ -178,20 +178,20 @@ class EventSubController extends Controller
                         '817129539821240350/twitch-logo-4931D91F85-seeklogo.com.png'
                     ]
                 ]
-            ]);
+            ]);*/
 
             // Delete the Streamer role on Discord
-            $discord->guild->removeGuildMemberRole([
+            /*$discord->guild->removeGuildMemberRole([
                 'guild.id' => config('discord.guild.id'),
                 'user.id' => $user->discord_id,
                 'role.id' => config('discord.streamer')
-            ]);
+            ]);*/
 
-            return $this->successMethod();
-        }
+            //return $this->successMethod();
+        //}
 
         // Check if the user has not changed ARKDivision in his title
-        $matchs = [];
+        /*$matchs = [];
         preg_match('/(ARKDivision)/im', $payload['event']['title'], $matchs);
         if (!$matchs) {
             $description = "**<@" . $user->discord_id .
@@ -223,7 +223,7 @@ class EventSubController extends Controller
             ]);
 
             return $this->successMethod();
-        }
+        }*/
 
         // The user has changed a non required parameter.
         return $this->successMethod();

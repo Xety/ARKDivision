@@ -56,7 +56,7 @@ class RewardControllerTest extends TestCase
     public function testMarkAsRead()
     {
         $user = User::find(1);
-        $rewards = Reward::where('type', \Xetaravel\Events\Donation\NewDonationEvent::class)->get();
+        $rewards = Reward::where('type', \Xetaravel\Events\Donation\DonationRewardEvent::class)->get();
         $user->rewards()->attach($rewards);
 
         $reward = RewardUser::find(1);
@@ -120,7 +120,7 @@ class RewardControllerTest extends TestCase
     public function testClaimRewardAlreadyUsed()
     {
         $user = User::find(1);
-        $rewards = Reward::where('type', \Xetaravel\Events\Donation\NewDonationEvent::class)->get();
+        $rewards = Reward::where('type', \Xetaravel\Events\Donation\DonationRewardEvent::class)->get();
         $user->rewards()->attach($rewards);
 
         $user->rewards()->updateExistingPivot(1, [
@@ -144,7 +144,7 @@ class RewardControllerTest extends TestCase
     public function testClaimRewardNotConnected()
     {
         $user = User::find(1);
-        $rewards = Reward::where('type', \Xetaravel\Events\Donation\NewDonationEvent::class)->get();
+        $rewards = Reward::where('type', \Xetaravel\Events\Donation\DonationRewardEvent::class)->get();
         $user->rewards()->attach($rewards);
 
         $response = $this->json('POST', '/users/reward/claim', ['id' => 1]);

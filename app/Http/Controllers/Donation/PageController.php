@@ -25,22 +25,29 @@ class PageController extends Controller
      */
     public function index()
     {
-        $member = null;
+        $discord = null;
 
         if (Auth::check() && !is_null(Auth::user()->discord_id)) {
             $user = Auth::user();
-            $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+            $discordClient = new DiscordClient(['token' => config('discord.bot.token')]);
 
             try {
-                $member = $discord->guild->getGuildMember([
+                $discord = $discordClient->guild->getGuildMember([
                     'guild.id' => config('discord.guild.id'),
                     'user.id' => $user->discord_id
                 ]);
             } catch (\GuzzleHttp\Command\Exception\CommandClientException $e) {
-                $member = 404;
+                $discord = 404;
             }
         }
 
-        return view('Donation.page.index', compact('member'));
+        $steam = null;
+
+        // Check if the user has link his steam_id
+        if (Auth::check() && !is_null(Auth::user()->steam_id)) {
+            $steam = Auth::user()->steam_id;
+        }
+
+        return view('Donation.page.index', compact('discord', 'steam'));
     }
 }

@@ -82,13 +82,15 @@ class RefreshServersPlayers extends Command
 
             $playersTotal = $playersTotal + $server->user_count;
 
-            sleep(4);
+            sleep(10);
         }
+
+        //sleep(15);
 
         try {
             $discord->channel->editMessage([
                 'channel.id' => 742877577575923762,
-                'message.id' => 769136048700784650,
+                'message.id' => 769136066552004649,
                 'content' => "** **",
                 'embed' => [
                     'description' => '**' . $playersTotal . '** joueur(s) connecté(s) au total.',

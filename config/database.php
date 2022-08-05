@@ -62,6 +62,46 @@ return [
             ]) : [],
         ],
 
+        'arkshop' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL_ARKSHOP'),
+            'host' => env('DB_HOST_ARKSHOP', '127.0.0.1'),
+            'port' => env('DB_PORT_ARKSHOP', '3306'),
+            'database' => env('DB_DATABASE_ARKSHOP', 'forge'),
+            'username' => env('DB_USERNAME_ARKSHOP', 'forge'),
+            'password' => env('DB_PASSWORD_ARKSHOP', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'division' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL_DIVISION'),
+            'host' => env('DB_HOST_DIVISION', '127.0.0.1'),
+            'port' => env('DB_PORT_DIVISION', '3306'),
+            'database' => env('DB_DATABASE_DIVISION', 'forge'),
+            'username' => env('DB_USERNAME_DIVISION', 'forge'),
+            'password' => env('DB_PASSWORD_DIVISION', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

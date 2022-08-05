@@ -1,7 +1,7 @@
 <?php
 namespace Xetaravel\Listeners\Subscribers\Donation;
 
-use Xetaravel\Events\Donation\NewDonationEvent;
+use Xetaravel\Events\Donation\DonationRewardEvent;
 use Xetaravel\Models\Reward;
 use Xetaravel\Models\User;
 
@@ -13,7 +13,7 @@ class DonationSubscriber
      * @var array
      */
     protected $events = [
-        NewDonationEvent::class => 'onNewDonation'
+        DonationRewardEvent::class => 'onNewDonation'
     ];
 
     /**
@@ -33,15 +33,15 @@ class DonationSubscriber
 /**
      * Listener related to the donation.
      *
-     * @param \Xetaravel\Events\Donation\NewDonationEvent $event The event that was fired.
+     * @param \Xetaravel\Events\Donation\DonationRewardEvent $event The event that was fired.
      *
      * @return bool
      */
-    public function onNewDonation(NewDonationEvent $event): bool
+    public function onNewDonation(DonationRewardEvent $event): bool
     {
         $user = $event->user;
         $rewardCount = $event->rewards;
-        $rewards = Reward::where('type', \Xetaravel\Events\Donation\NewDonationEvent::class)->get();
+        $rewards = Reward::where('type', \Xetaravel\Events\Donation\DonationRewardEvent::class)->get();
 
         $collection = collect();
 

@@ -19,8 +19,8 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 use RestCord\DiscordClient;
-use Xetaravel\Events\Badges\DonationEvent;
-use Xetaravel\Events\Donation\NewDonationEvent;
+use Xetaravel\Events\Donation\DonationEvent;
+use Xetaravel\Events\Donation\DonationRewardEvent;
 use Xetaravel\Http\Controllers\Controller;
 use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\Repositories\PaypalUserRepository;
@@ -29,6 +29,7 @@ use Xetaravel\Models\Repositories\UserRepository;
 use Xetaravel\Models\Reward;
 use Xetaravel\Models\Role;
 use Xetaravel\Models\User;
+use Exception;
 
 class PaypalController extends Controller
 {
@@ -64,7 +65,7 @@ class PaypalController extends Controller
         $data = $request->validate([
             'discord' => [
                 'required',
-                'regex:/^\d+$|^[anonymous]+$/i'
+                'numeric'
             ],
             'donation' => [
                 'required',
@@ -84,44 +85,48 @@ class PaypalController extends Controller
             ],
         ], $this->customMessages);
 
-        // Check if the user has not modified the input "discord".
-        if ($discord != "anonymous") {
-            // If the user is not authenticated.
-            if (!Auth::check()) {
-                return redirect()->back()->with(
-                    'danger',
-                    'Vous n\'êtes pas connecté avec votre compte Division.'
-                );
-            }
+        // If the user is not authenticated.
+        if (!Auth::check()) {
+            return redirect()->back()->with(
+                'danger',
+                'Vous n\'êtes pas connecté avec votre compte Division.'
+            );
+        }
 
-            // If the user has not linked his Discord and Division accounts.
-            if (is_null(Auth::user()->discord_id)) {
-                return redirect()->back()->with(
-                    'danger',
-                    ' Vous n\'avez pas lié votre Discord à votre compte Division.'
-                );
-            }
+        // If the user has not linked his Discord and Division accounts.
+        if (is_null(Auth::user()->discord_id)) {
+            return redirect()->back()->with(
+                'danger',
+                ' Vous n\'avez pas lié votre Discord à votre compte Division.'
+            );
+        }
 
-            $user = Auth::user();
-            $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+        if (is_null(Auth::user()->steam_id)) {
+            return redirect()->back()->with(
+                'danger',
+                ' Vous n\'avez pas lié votre Steam à votre compte Division.'
+            );
+        }
 
-            try {
-                $member = $discord->guild->getGuildMember([
-                    'guild.id' => config('discord.guild.id'),
-                    'user.id' => $user->discord_id
-                ]);
-            } catch (CommandClientException $e) {
-                $member = null;
-            }
+        $user = Auth::user();
+        $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
-            // The user is not on our Discord anymore or has not a valid Discord ID.
-            if (is_null($member)) {
-                return redirect()->back()->with(
-                    'danger',
-                    'Vous n\'êtes plus présent sur le discord de ARK Division ou une erreur est survenu' .
-                    'lors de la récupération du compte via Discord, veuillez contacter un administrateur sur discord.'
-                );
-            }
+        try {
+            $member = $discord->guild->getGuildMember([
+                'guild.id' => config('discord.guild.id'),
+                'user.id' => $user->discord_id
+            ]);
+        } catch (CommandClientException $e) {
+            $member = null;
+        }
+
+        // The user is not on our Discord anymore or has not a valid Discord ID.
+        if (is_null($member)) {
+            return redirect()->back()->with(
+                'danger',
+                'Vous n\'êtes plus présent sur le discord de ARK Division ou une erreur est survenu' .
+                'lors de la récupération du compte via Discord, veuillez contacter un administrateur sur discord.'
+            );
         }
 
         if (env('APP_ENV') == 'production') {
@@ -164,12 +169,7 @@ class PaypalController extends Controller
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($itemList);
-
-        if ($discord != "anonymous") {
-            $transaction->setCustom(json_encode(['user_id' => $member->user->id, 'message' => $message]));
-        } else {
-            $transaction->setCustom(json_encode(['user_id' => "anonymous", 'message' => $message]));
-        }
+        $transaction->setCustom(json_encode(['user_id' => $member->user->id, 'message' => $message]));
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl(route('donation.paypal.redirect'))
@@ -180,15 +180,13 @@ class PaypalController extends Controller
             ->setPayer($payer)
             ->setTransactions([$transaction])
             ->setRedirectUrls($redirectUrls);
-
-        if ($discord != "anonymous") {
-            $payment->setNoteToPayer('Récompense pour ' . $member->user->username . '#' . $member->user->discriminator);
-        }
+        $payment->setNoteToPayer('Récompense pour ' . $member->user->username . '#' . $member->user->discriminator);
 
         try {
             $payment->create($apiContext);
         } catch (PayPalConnectionException $e) {
             throw new PayPalConnectionException(
+                $e->getUrl(),
                 'An error occured while creating the Paypal payment : ' . $e->getData()
             );
         }
@@ -266,7 +264,8 @@ class PaypalController extends Controller
                 // The user is not on our Discord anymore or has not a valid Discord ID.
                 Log::error($e);
                 throw new CommandClientException(
-                    'The user is not on our Discord anymore or has not a valid Discord ID'
+                    'The user is not on our Discord anymore or has not a valid Discord ID',
+                    $e->getCommand()
                 );
             }
 
@@ -328,11 +327,11 @@ class PaypalController extends Controller
 
             // Count how many rewards there's for a donation and divide it to the
             // reward_count of the user, since it's only 1 donation for 3 rewards
-            $rewardsCount = Reward::where('type', \Xetaravel\Events\Donation\NewDonationEvent::class)->count();
+            $rewardsCount = Reward::where('type', \Xetaravel\Events\Donation\DonationRewardEvent::class)->count();
             // Create the rewards for the user.
             $rewards = $this->getCount($amount, ($user->reward_count / $rewardsCount), $amountTotal, 'reward');
             if ($rewards >= 1) {
-                event(new NewDonationEvent($user, $rewards));
+                event(new DonationRewardEvent($user, $rewards));
             }
 
             // Handle donation badges event.
@@ -381,17 +380,23 @@ class PaypalController extends Controller
 = Au statut  - Membre -  en vert sur Discord, qui permet de participer aux votes concernant les
 grandes décisions de nos serveurs
 = Au statut  -   DJ   -  donnant des droits prioritaires sur les bots musique
-= Statut valable 6 mois, renouvelable à la demande si actif sur nos serveurs```
+= Statut valable 6 mois, renouvelable avec une nouvelle donation```
 ```asciidoc
 = A une couleur personnalisée sur le dino de ton choix tous les 10€ de dons```
 ```fix
-A un skin ou émote du jeu offert pour toutes les tranches de 20€
+A un skin ou émote du jeu offert pour toutes les tranches de 15€
+```
+```diff
++ 3 Statues de tailles moyennes : Gorille, Dragon, Manticore tout les 20€
 ```
 ```css
 [ De modifier et personnaliser son nom de tribu sur Discord ]
 ```
 ```diff
 - A l'outil ARKLog de Division qui vous permet d'accéder à vos informations de tribu en tout temps et de n'importe où !
+```
+```bash
+"Génération automatique de point de Shop ingame à 16 points/10min au lieu de 10 points/10min pour les non-membres."
 ```
 
 *Pour faire une demande de couleur et/ou de skin, il vous suffit d'ouvrir un ticket dans le channel

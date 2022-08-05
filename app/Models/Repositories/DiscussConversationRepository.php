@@ -2,7 +2,6 @@
 namespace Xetaravel\Models\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Xetaravel\Events\Discuss\CategoryWasChangedEvent;
 use Xetaravel\Events\Discuss\ConversationWasLockedEvent;

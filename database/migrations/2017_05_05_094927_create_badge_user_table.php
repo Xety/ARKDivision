@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBadgeUserTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -41,4 +41,4 @@ class CreateBadgeUserTable extends Migration
     {
         Schema::dropIfExists('badge_user');
     }
-}
+};
