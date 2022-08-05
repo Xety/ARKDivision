@@ -1,6 +1,8 @@
 <?php
 namespace Xetaravel\Models\Presenters;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Xetaravel\Models\Session;
 use Xetaravel\Utility\UserUtility;
 
 trait UserPresenter
@@ -18,6 +20,18 @@ trait UserPresenter
      * @var string
      */
     protected $defaultAvatarPrimaryColor = '#B4AEA4';
+
+    /**
+     * Get the user's username.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function username(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->trashed() ? 'Deleted' : $value
+        );
+    }
 
     /**
      * Get the account first name.
@@ -57,14 +71,14 @@ trait UserPresenter
      */
     public function getFullNameAttribute(): string
     {
+        if ($this->trashed()) {
+            return $this->username;
+        }
+
         $fullName = $this->parse($this->account, 'first_name') . ' ' . $this->parse($this->account, 'last_name');
 
         if (empty(trim($fullName))) {
-            if (isset($this->username)) {
-                return $this->username;
-            }
-
-            return '';
+            return $this->username;
         }
 
         return $fullName;
@@ -208,6 +222,10 @@ trait UserPresenter
             return '';
         }
 
+        if ($this->trashed()) {
+            return route('users.user.show', ['slug' => strtolower($this->username)]);
+        }
+
         return route('users.user.show', ['slug' => $this->slug]);
     }
 
@@ -238,7 +256,19 @@ trait UserPresenter
     }
 
     /**
-     * Parse a mdedia and return it if isset or return the default avatar.
+     * Get the status of the user : online or offline
+     *
+     * @return string
+     */
+    public function getOnlineAttribute(): string
+    {
+        $online = Session::expires()->where('user_id', $this->id)->first();
+
+        return is_null($online) ? false : true;
+    }
+
+    /**
+     * Parse a media and return it if isset or return the default avatar.
      *
      * @param string $type The type of the media to get.
      *

@@ -54,11 +54,15 @@
                 </li>
                 <li class="widget-icon-list-item">
                     <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
-                    <span class="widget-icon-list-text">3 Statues : (20€+) <span class="tag tag-danger">Nouveau</span><br> - Dragon <br> - Manticore <br> - Mega ! </span>
+                    <span class="widget-icon-list-text">3 Statues : (20€+)<br> - Dragon <br> - Manticore <br> - Mega ! </span>
                 </li>
                 <li class="widget-icon-list-item">
                     <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
                     <span class="widget-icon-list-text">Couleurs, skins et Statues <b>cumulables</b></span>
+                </li>
+                <li class="widget-icon-list-item">
+                    <span class="widget-icon-list-icon"><i aria-hidden="true" class="fas fa-check"></i>		</span>
+                    <span class="widget-icon-list-text">Génération automatique de point de Shop ingame à <b>16 points/10min</b> au lieu de 10 points/10min pour les non-membres.<span class="tag tag-danger">Nouveau</span></span>
                 </li>
             </ul>
             <div class="widget-divider">
@@ -113,49 +117,67 @@
                 {{-- The user is connected to his account --}}
                 @auth
 
-                    {{-- The user has a valid Discord ID--}}
-                    @if ($member)
+                    {{-- The user has a valid Discord ID --}}
+                    @if ($discord)
                         <div class="form-group text-md-center">
                             @error('discord')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            <div class="alert alert-success">
-                                <i class="fa fa-check fa-2x " style="vertical-align: middle;" aria-hidden="true"></i> Votre compte Discord est bien lié à votre compte Division, vos rewards vous seront attribués !
-                            </div>
+
+                            @if ($steam)
+                                <div class="alert alert-success">
+                                    <i class="fa fa-check fa-2x " style="vertical-align: middle;" aria-hidden="true"></i> Votre compte <b>Discord</b> et <b>Steam</b>  ont bien été lié à votre compte Division, vos rewards vous seront attribués !
+                                </div>
+                            @else
+                                <div class="alert alert-danger">
+                                    Vous n'avez pas lié votre <b>Steam</b> à votre compte Division. Vous <b>devez lier votre compte Steam à votre compte Division</b> afin d'obtenir vos récompenses.
+                                    <div class="row justify-content-center">
+                                        <a class="btn btn-steam" href="{{ route('users.social.index') }}" target="_blank"><i class="fab fa-steam"></i> Lier mon Compte</a>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="col-md-3 discord">
                                 <i class="fab fa-discord fa-2x"></i>
                                 <span class="discord-text" data-toggle="tooltip" data-placement="top" title="Votre nom d'utilisateur Discord">
-                                    {{ $member->user->username }}#{{ $member->user->discriminator }}
+                                    {{ $discord->user->username }}#{{ $discord->user->discriminator }}
                                 </sapn>
                             </div>
+
+                            {{-- The user has linked his steamid --}}
+                            @if ($steam)
+                                <div class="col-md-3 steam">
+                                    <i class="fab fa-steam fa-2x"></i>
+                                    <span class="steam-text" data-toggle="tooltip" data-placement="top" title="Votre nom d'utilisateur Steam">
+                                        {{ Auth::user()->account->steam_username }}
+                                    </sapn>
+                                </div>
+                            @endif
 
                             {{ Form::hidden('discord', Auth::user()->discord_id, ['class' => 'form-control']) }}
                         </div>
 
                     {{-- The user has not join the Division discord --}}
-                    @elseif ($member == 404)
+                    @elseif ($discord == 404)
                         <div class="alert alert-danger">
                             Le Discord ID associé à votre compte (<b>{{ Auth::user()->discord_nickname }}</b>) n'a pas rejoint le discord de ARK Division France, vous ne pourrez par conséquent pas obtenir vos rewards. Vous pouvez rejoindre notre Discord <b><a href="https://discord.gg/tcud7UG" target="_blank">ici</a></b>.
                         </div>
-                        {{ Form::hidden('discord', 'anonymous', ['class' => 'form-control']) }}
 
                     {{-- The user has not linked his Discord to his Division account --}}
                     @else
                         <div class="alert alert-danger">
-                            Vous n'avez pas lié votre Discord à votre compte Division. Vous ne <b>pourrez pas obtenir vos récompenses</b> si vous ne lier pas vos comptes.
+                            Vous n'avez pas lié votre <b>Discord</b> à votre compte Division. Vous <b>devez lier votre compte Discord à votre compte Division</b> afin d'obtenir vos récompenses.
                             <div class="row justify-content-center">
                                 <a class="btn btn-discord" href="{{ route('users.social.index') }}" target="_blank"><i class="fab fa-discord"></i> Lier mon Compte</a>
                             </div>
                         </div>
-
-                        {{ Form::hidden('discord', 'anonymous', ['class' => 'form-control']) }}
                     @endif
+
                 @endauth
 
                 {{-- The user is not connected to his account --}}
                 @guest
                     <div class="alert alert-danger">
-                            Vous n'êtes pas connecté à votre compte Division. Vous ne <b>pourrez pas obtenir vos récompenses</b> si vous n'êtes pas connecté.
+                            Vous n'êtes pas connecté à votre compte Division. Vous devez <b>être connecté pour obtenir vos récompenses</b>.
                             <div class="row justify-content-center">
                                 <a class="btn btn-primary m-md-1" href="{{ route('users.auth.register') }}">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i> Inscription
@@ -165,16 +187,15 @@
                                 </a>
                             </div>
                         </div>
-
-                        {{ Form::hidden('discord', 'anonymous', ['class' => 'form-control']) }}
                 @endguest
-                    @error('donation')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
 
-                    <div class="donation font-weight-bold text-monospace text-xs-center">
-                        <span id="sliderVal" class="">5</span>€
-                    </div>
+                @error('donation')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                <div class="donation font-weight-bold text-monospace text-xs-center">
+                    <span id="sliderVal" class="">5</span>€
+                </div>
 
                 <div class="form-group">
                     {!! Form::text('donation', '10', ['class' => 'form-control-range', 'id' => 'slider', 'data-toggle' => 'tooltip', 'data-slider-min' => '5', 'data-slider-max' => '300', 'data-slider-step' => '5', 'data-value' => '10']) !!}
@@ -187,7 +208,9 @@
                     {!! Form::textarea('message', '', ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'Veuillez renseigner votre nom de tribu et/ou un message personnel ici...']) !!}
                 </div>
                 <div class="form-group text-xs-center">
-                    {!! Form::button('<i class="fab fa-paypal"></i>  Faire un don', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                    @if (Auth::user() && !is_null(Auth::user()->steam_id) && !is_null(Auth::user()->discord_id))
+                        {!! Form::button('<i class="fab fa-paypal"></i>  Faire un don', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                    @endif
                 </div>
             {!! Form::close() !!}
             <br>

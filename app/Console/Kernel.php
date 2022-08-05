@@ -4,7 +4,6 @@ namespace Xetaravel\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Xetaravel\Console\Commands\RefreshServersStatutes;
 
 class Kernel extends ConsoleKernel
 {
@@ -39,7 +38,8 @@ class Kernel extends ConsoleKernel
 
             $schedule->command('players:refresh')
                 ->everyMinute()
-                ->runInBackground();
+                ->runInBackground()
+                ->withoutOverlapping();
 
             $schedule->command('member:validation')
                 ->everyMinute()

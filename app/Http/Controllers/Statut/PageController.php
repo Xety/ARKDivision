@@ -13,7 +13,7 @@ class PageController extends Controller
      */
     public function __construct()
     {
-        URL::forceRootUrl(config('app.url'));
+        //URL::forceRootUrl(config('app.url'));
     }
 
     /**

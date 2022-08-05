@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Xetaravel\Events\Badges\ExperiencesEvent;
 use Xetaravel\Events\Badges\PostEvent;
 use Xetaravel\Events\Badges\PostSolvedEvent;
-use Xetaravel\Events\Badges\DonationEvent;
 use Xetaravel\Events\Badges\RegisterEvent;
+use Xetaravel\Events\Donation\DonationEvent;
 use Xetaravel\Events\Events\EvenementEvent;
 use Xetaravel\Models\Badge;
 use Xetaravel\Models\DiscussPost;
@@ -88,7 +88,7 @@ class BadgeSubscriber
     /**
      * Listener related to the donation badge.
      *
-     * @param \Xetaravel\Events\DonationEvent $event The event that was fired.
+     * @param \Xetaravel\Events\Donation\DonationEvent $event The event that was fired.
      *
      * @return bool
      */

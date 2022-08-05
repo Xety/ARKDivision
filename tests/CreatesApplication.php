@@ -22,7 +22,7 @@ trait CreatesApplication
 
         Hash::driver('bcrypt')->setRounds(4);
 
-        config(['media-library.disk_name' => 'tests']);
+        config(['medialibrary.defaultFilesystem' => 'tests']);
 
         return $app;
     }
@@ -36,7 +36,7 @@ trait CreatesApplication
     {
         parent::setUp();
 
-        Artisan::call('migrate:refresh');
+        Artisan::call('migrate:fresh');
         Artisan::call('db:seed', ['--class' => 'TestingDatabaseSeeder']);
 
         // Set the all Settings in the config array.

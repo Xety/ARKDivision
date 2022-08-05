@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMentionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMentionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mentions', function(Blueprint $table) {
+        Schema::create('mentions', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('model_type');
             $table->integer('model_id')->unsigned();
@@ -32,4 +32,4 @@ class CreateMentionsTable extends Migration
     {
         Schema::dropIfExists('mentions');
     }
-}
+};

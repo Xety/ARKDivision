@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateMediaTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateMediaTable extends Migration
         Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->morphs('model');
-            $table->uuid('uuid')->nullable();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('collection_name');
             $table->string('name');
             $table->string('file_name');
@@ -27,7 +27,7 @@ class CreateMediaTable extends Migration
             $table->json('manipulations');
             $table->json('custom_properties');
             $table->json('responsive_images');
-            $table->unsignedInteger('order_column')->nullable();
+            $table->unsignedInteger('order_column')->nullable()->index();
             $table->nullableTimestamps();
         });
     }
@@ -40,4 +40,4 @@ class CreateMediaTable extends Migration
     {
         Schema::dropIfExists('media');
     }
-}
+};

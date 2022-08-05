@@ -2,7 +2,7 @@
 namespace Tests\Listeners\Subscribers\Donation;
 
 use Tests\TestCase;
-use Xetaravel\Events\Donation\NewDonationEvent;
+use Xetaravel\Events\Donation\DonationRewardEvent;
 use Xetaravel\Listeners\Subscribers\Donation\DonationSubscriber;
 use Xetaravel\Models\User;
 
@@ -42,7 +42,7 @@ class DonationSubscriberTest extends TestCase
      */
     public function testOnNewDonationWithOneReward()
     {
-        $this->listener->onNewDonation(new NewDonationEvent($this->user, 1));
+        $this->listener->onNewDonation(new DonationRewardEvent($this->user, 1));
 
         $user = User::find(1)->with('Rewards')->first();
         $this->assertSame(3, $user->reward_count);
@@ -56,7 +56,7 @@ class DonationSubscriberTest extends TestCase
      */
     public function testOnNewDonationWithMultipleReward()
     {
-        $this->listener->onNewDonation(new NewDonationEvent($this->user, 3));
+        $this->listener->onNewDonation(new DonationRewardEvent($this->user, 3));
 
         $user = User::find(1)->with('Rewards')->first();
         $this->assertSame(9, $user->reward_count);
