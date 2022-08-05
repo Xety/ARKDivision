@@ -97,7 +97,7 @@
                                 </a>
                             @else
                                 {{ link_to(
-                                    route('discuss.conversation.create'),
+                                    route('discuss.conversation.showcreate'),
                                     '<i class="fa fa-pencil"></i> ' . 'Nouvelle Discussion',
                                     ['class' => 'btn btn-primary'],
                                     true,

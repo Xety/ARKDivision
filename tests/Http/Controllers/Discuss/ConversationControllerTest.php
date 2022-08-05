@@ -40,7 +40,7 @@ class ConversationControllerTest extends TestCase
      */
     public function testShowCreateForm()
     {
-        $response = $this->get(route('discuss.conversation.create'));
+        $response = $this->get(route('discuss.conversation.showcreate'));
         $response->assertSuccessful();
     }
 

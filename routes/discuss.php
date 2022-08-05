@@ -35,7 +35,7 @@ Route::group([
     Route::group(['middleware' => ['auth']], function () {
         // Conversation Routes
         Route::get('conversation/create', 'ConversationController@showCreateForm')
-            ->name('discuss.conversation.create');
+            ->name('discuss.conversation.showcreate');
         Route::post('conversation/create', 'ConversationController@create')
             ->name('discuss.conversation.create');
         Route::put('conversation/update/{slug}.{id}', 'ConversationController@update')

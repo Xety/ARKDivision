@@ -12,7 +12,7 @@
             <div class="sidebar-module">
                 <div class="discuss-new-discussion-btn text-truncate">
                     {{ link_to(
-                        route('discuss.conversation.create'),
+                        route('discuss.conversation.showcreate'),
                         '<i class="fa fa-pencil"></i> Nouvelle Discussion',
                         ['class' => 'btn btn-primary'],
                         true,
