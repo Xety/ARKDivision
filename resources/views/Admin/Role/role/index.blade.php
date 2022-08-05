@@ -12,7 +12,7 @@
         </h5>
 
         <div class="card-block">
-            {{ link_to(route('admin.role.role.create'), '<i class="fa fa-plus"></i> New Role', ['class' => 'btn btn-outline-primary mb-2'], null, false) }}
+            {{ link_to(route('admin.role.role.showcreate'), '<i class="fa fa-plus"></i> New Role', ['class' => 'btn btn-outline-primary mb-2'], null, false) }}
 
             @if ($roles->isNotEmpty())
                 <table class="table table-hover table-inverse">

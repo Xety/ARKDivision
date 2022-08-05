@@ -12,7 +12,7 @@
         </h5>
 
         <div class="card-block">
-            {{ link_to(route('admin.role.permission.create'), '<i class="fa fa-plus"></i> New Permission', ['class' => 'btn btn-outline-primary mb-2'], null, false) }}
+            {{ link_to(route('admin.role.permission.showcreate'), '<i class="fa fa-plus"></i> New Permission', ['class' => 'btn btn-outline-primary mb-2'], null, false) }}
 
             @if ($permissions->isNotEmpty())
                 <table class="table table-hover table-inverse">

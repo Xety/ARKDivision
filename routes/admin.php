@@ -90,7 +90,7 @@ Route::group([
             Route::get('role', 'RoleController@index')->name('admin.role.role.index');
 
             Route::get('role/create', 'RoleController@showCreateForm')
-                ->name('admin.role.role.create');
+                ->name('admin.role.role.showcreate');
             Route::post('role/create', 'RoleController@create')
                 ->name('admin.role.role.create');
 
@@ -106,7 +106,7 @@ Route::group([
             Route::get('permission', 'PermissionController@index')->name('admin.role.permission.index');
 
             Route::get('permission/create', 'PermissionController@showCreateForm')
-                ->name('admin.role.permission.create');
+                ->name('admin.role.permission.showcreate');
             Route::post('permission/create', 'PermissionController@create')
                 ->name('admin.role.permission.create');
 
