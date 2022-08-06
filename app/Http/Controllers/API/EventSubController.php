@@ -253,9 +253,9 @@ class EventSubController extends Controller
      *
      * @return Response
      */
-    public function handleWebhook(Request $request): Response
+    public function handleWebhook(Request $request)//: Response
     {
-        $payload = json_decode($request->getContent(), true);
+        /**$payload = json_decode($request->getContent(), true);
 
         $messageType = $request->header('twitch-eventsub-message-type');
 
@@ -275,7 +275,7 @@ class EventSubController extends Controller
             return $response;
         }
 
-        return $this->missingMethod();
+        return $this->missingMethod();**/
     }
 
     /**
