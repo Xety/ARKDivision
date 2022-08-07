@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->withoutOverlapping(30)
             ->runInBackground();
-            //->appendOutputTo('/srv/users/serverpilot/apps/0website/storage/logs/scheduler.log');
+            //->appendOutputTo('/srv/users/arkdivision/apps/discuss/storage/logs/scheduler.log');
 
         // Dont run the schedule command on dev mode.
         if (env('APP_ENV') != 'local') {
