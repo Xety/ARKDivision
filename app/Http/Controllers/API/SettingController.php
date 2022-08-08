@@ -4,6 +4,7 @@ namespace Xetaravel\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Xetaravel\Http\Resources\Json;
+use Xetaravel\Models\Repositories\SettingRepository;
 use Xetaravel\Models\Setting;
 
 class SettingController extends Controller
@@ -34,9 +35,12 @@ class SettingController extends Controller
     {
         $setting = Setting::where('name', $request->input('name'))->first();
 
-        $setting->new_value = $request->input('value');
-
-        $setting->save();
+        SettingRepository::update([
+            'name' => $setting->name,
+            'type' => 'value_int',
+            'value' => $request->input('value'),
+            'description' => $setting->description
+        ], $setting);
 
         return new Json($setting);
     }

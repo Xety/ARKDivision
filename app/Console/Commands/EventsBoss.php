@@ -68,7 +68,7 @@ class EventsBoss extends Command
         try {
             $discord->channel->createMessage([
                 'channel.id' => config('discord.channels.events-notifs'),
-                'content' => "** **",
+                'content' => "** @everyone **",
                 'embed' => [
                     'description' =>  $body,
                     'color' => hexdec("1DFCEA"),
@@ -88,6 +88,8 @@ class EventsBoss extends Command
 
         // Cooldown before Cancel Event (1 hour before and 1 hour after Event = 7200)
         sleep(7200);
+
+        $rcon = new Rcon($server->ip, $server->rcon_port, $server->password, 3);
 
         if (!$rcon->connect()) {
             return;
