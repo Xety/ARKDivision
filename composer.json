@@ -40,7 +40,6 @@
         "xetaio/roles": "^9.0",
         "xetaio/xetaravel-editor-md": "^9.0",
         "xetaio/xetaravel-iptraceable": "^9.0",
-        "xetaio/xetaravel-mentions": "^9.0",
         "xety/breadcrumbs": "^1.0"
     },
     "require-dev": {

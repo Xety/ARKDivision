@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use League\ColorExtractor\Color;
 use League\ColorExtractor\Palette;
-use Xetaio\Mentions\Parser\MentionParser;
 use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\User;
 use Xetaravel\Models\Validators\AccountValidator;
@@ -47,17 +46,6 @@ class AccountController extends Controller
     {
         AccountValidator::update($request->all())->validate();
         $account = AccountRepository::update($request->all(), Auth::id());
-
-        $parser = new MentionParser($account, [
-            'regex' => '/\s({character}{pattern}{rules})\s/',
-            'mention' => false
-        ]);
-        $signature = $parser->parse($account->signature);
-        $biography = $parser->parse($account->biography);
-
-        $account->signature = $signature;
-        $account->biography = $biography;
-        $account->save();
 
         $user = User::find(Auth::id());
 

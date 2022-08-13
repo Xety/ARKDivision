@@ -57,10 +57,6 @@ const app = new Vue({
          * @return {string} The notification URL.
          */
         getNotificationUrl: function (notification) {
-            if (notification.data.type == 'mention') {
-                return notification.data.link;
-            }
-
             return this.routeUserNotifications;
         },
 

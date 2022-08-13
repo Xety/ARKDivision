@@ -175,7 +175,6 @@ return [
         Xetaio\IpTraceable\Providers\IpTraceableServiceProvider::class,
         Xetaio\Editor\EditorServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
-        Xetaio\Mentions\Providers\MentionServiceProvider::class,
         //Laravel\Socialite\SocialiteServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
         Phattarachai\LaravelMobileDetect\AgentServiceProvider::class,
