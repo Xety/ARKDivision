@@ -162,6 +162,20 @@ class UserController extends Controller
     }
 
     /**
+     * Show informations about the user.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function member(): View
+    {
+        $user = User::find(Auth::id());
+
+        $breadcrumbs = $this->breadcrumbs;
+
+        return view('user.member', compact('breadcrumbs', 'user'));
+    }
+
+    /**
      * Handle a E-mail update request for the user.
      *
      * @param \Illuminate\Http\Request $request
