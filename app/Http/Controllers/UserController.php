@@ -22,26 +22,6 @@ class UserController extends Controller
         parent::__construct();
 
         $action = Route::getFacadeRoot()->current()->getActionMethod();
-
-        if (in_array($action, ['index', 'show'])) {
-            $this->breadcrumbs->addCrumb('Utilisateurs', route('users.user.index'));
-        }
-    }
-
-    /**
-     * Show all the users.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index(): View
-    {
-        $users = User::with('Account')
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('xetaravel.pagination.user.user_per_page'));
-
-        $breadcrumbs = $this->breadcrumbs;
-
-        return view('user.index', compact('users', 'breadcrumbs'));
     }
 
     /**

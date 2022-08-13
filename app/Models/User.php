@@ -93,11 +93,7 @@ class User extends Model implements
         'discord_nickname',
         'steam_nickname',
         'twitch_nickname',
-        'biography',
-        'signature',
-        'facebook',
-        'twitter',
-        'isMember'
+        'is_member'
     ];
 
     /**
@@ -191,66 +187,6 @@ class User extends Model implements
         return $this->morphMany(DatabaseNotification::class, 'notifiable')
                         ->orderBy('read_at', 'asc')
                         ->orderBy('created_at', 'desc');
-    }
-
-    /**
-     * Get the discuss posts for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function discussPosts()
-    {
-        return $this->hasMany(DiscussPost::class);
-    }
-
-    /**
-     * Get the discuss conversations for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function discussConversations()
-    {
-        return $this->hasMany(DiscussConversation::class);
-    }
-
-    /**
-     * Get the discuss users for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function discussUsers()
-    {
-        return $this->hasMany(DiscussUser::class);
-    }
-
-    /**
-     * Get the discuss logs for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function discussLogs()
-    {
-        return $this->hasMany(DiscussLog::class);
-    }
-
-    /**
-     * Get the rubies for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function rubies()
-    {
-        return $this->hasMany(Ruby::class);
-    }
-
-    /**
-     * Get the experiences for the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function experiences()
-    {
-        return $this->hasMany(Experience::class);
     }
 
     /**

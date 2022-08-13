@@ -21,7 +21,7 @@
                     @else
                         <div role="alert" class="alert alert-danger">
                             <i aria-hidden="true" class="fa fa-exclamation"></i> Vous n'êtes pas (plus) <code>Membre</code>, devenez <code>Membre</code> en faisant une donation !<br><br>
-                            {{ link_to(route('admin.role.role.showcreate'), '<i class="fa fa-paypal"></i> Faire une Donation', ['class' => 'btn btn-outline-primary-inverse mb-1'], null, false) }}
+                            {{ link_to(route('donation.page.index'), '<i class="fa fa-paypal"></i> Faire une Donation', ['class' => 'btn btn-outline-primary-inverse mb-1'], null, false) }}
 
                         </div>
                     @endif

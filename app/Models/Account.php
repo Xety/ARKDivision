@@ -12,14 +12,10 @@ class Account extends Model
         'user_id',
         'first_name',
         'last_name',
-        'biography',
-        'signature',
         'discord_username',
         'discord_discriminator',
         'steam_username',
-        'twitch_username',
-        'facebook',
-        'twitter'
+        'twitch_username'
     ];
 
     /**

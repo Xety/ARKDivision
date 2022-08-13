@@ -68,7 +68,6 @@ class Kernel extends HttpKernel
 
         // Applications
         'permission' => \Xetaravel\Http\Middleware\VerifyPermission::class,
-        'discuss.maintenance' => \Xetaravel\Http\Middleware\DiscussMaintenance::class,
         'rewards.maintenance' => \Xetaravel\Http\Middleware\RewardsMaintenance::class,
 
         // Extension

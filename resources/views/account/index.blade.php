@@ -1,33 +1,6 @@
 @extends('layouts.app')
 {!! config(['app.title' => __('Mon compte')]) !!}
 
-@push('style')
-    {!! editor_css() !!}
-    <link href="{{ mix('css/editor-md.custom.min.css') }}" rel="stylesheet">
-@endpush
-
-@push('scripts')
-    {!! editor_js() !!}
-    <script src="{{ asset(config('editor.pluginPath') . '/emoji-dialog/emoji-dialog.js') }}"></script>
-
-    @php
-        $signature = [
-            'id' => 'signatureEditor',
-            'height' => '200',
-        ];
-    @endphp
-    @include('editor/partials/_signature', $signature)
-
-    @php
-        $biography = [
-            'id' => 'biographyEditor',
-            'height' => '250'
-        ];
-    @endphp
-    @include('editor/partials/_biography', [$biography, $signature])
-
-@endpush
-
 @section('content')
 <div class="container pt-6 pb-0">
     {!! $breadcrumbs->render() !!}
@@ -82,31 +55,6 @@
                             ) !!}
                         </div>
                     </div>
-                    {!! Form::bsInputGroup(
-                        'facebook',
-                        'Facebook',
-                        null,
-                        [
-                            'span' => 'http://facebook.com/',
-                            'spanStyle' => 'min-width:180px;',
-                            'placeholder' => 'Votre Facebook ici...'
-                        ]
-                    ) !!}
-
-                    {!! Form::bsInputGroup(
-                        'twitter',
-                        'Twitter',
-                        null,
-                        [
-                            'span' => 'http://twitter.com/',
-                            'spanStyle' => 'min-width:180px;',
-                            'placeholder' => 'Votre Twitter ici...'
-                        ]
-                    ) !!}
-
-                    {!! Form::bsTextarea('biography', 'Biographie', null, ['editor' => 'biographyEditor', 'style' => 'display:none;']) !!}
-
-                    {!! Form::bsTextarea('signature', 'Signature', null, ['editor' => 'signatureEditor', 'style' => 'display:none;']) !!}
 
                     <div class="form-group text-xs-center">
                         <div class="col-md-12">

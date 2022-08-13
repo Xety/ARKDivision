@@ -61,15 +61,6 @@ class SettingsTableSeed extends Seeder
                 'description' => 'Active/Désactive le système de vérification des emails.',
                 'created_at' => $now,
                 'updated_at' => $now
-            ],
-            [
-                'name' => 'discuss.enabled',
-                'value_int' => null,
-                'value_str' => null,
-                'value_bool' => true,
-                'description' => 'Active/Désactive le système Discuss.',
-                'created_at' => $now,
-                'updated_at' => $now
             ]
         ];
 

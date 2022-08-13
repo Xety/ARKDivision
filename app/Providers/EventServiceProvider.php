@@ -27,9 +27,6 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $subscribe = [
         \Xetaravel\Listeners\Subscribers\BadgeSubscriber::class,
-        \Xetaravel\Listeners\Subscribers\Discuss\LogSubscriber::class,
-        \Xetaravel\Listeners\Subscribers\ExperienceSubscriber::class,
-        \Xetaravel\Listeners\Subscribers\RubySubscriber::class,
         \Xetaravel\Listeners\Subscribers\Server\ServerStatusSubscriber::class,
         \Xetaravel\Listeners\Subscribers\RCON\RCONSubscriber::class,
         \Xetaravel\Listeners\Subscribers\Donation\DonationSubscriber::class,

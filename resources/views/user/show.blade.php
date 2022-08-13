@@ -93,77 +93,18 @@
                     {{ $user->created_at->format('d-m-Y') }}
                 </span>
 
-                <ul class="social">
-                    @if ($user->facebook)
-                        <li class="list-inline-item">
-                            {!! Html::link(
-                                url('http://facebook.com/' . e($user->facebook)),
-                                '<i class="fab fa-facebook-square fa-2x"></i>',
-                                [
-                                    'class' => 'text-primary',
-                                    'target' => '_blank',
-                                    'data-toggle' => 'tooltip',
-                                    'data-placement' => 'top',
-                                    'title' => 'http://facebook.com/' . e($user->facebook)
-                                ],
-                                null,
-                                false
-                            ) !!}
-                        </li>
-                    @endif
-                    @if ($user->twitter)
-                        <li class="list-inline-item">
-                            {!! Html::link(
-                                url('http://twitter.com/' . e($user->twitter)),
-                                '<i class="fab fa-twitter-square fa-2x"></i>',
-                                [
-                                    'class' => 'text-primary',
-                                    'target' => '_blank',
-                                    'data-toggle' => 'tooltip',
-                                    'data-placement' => 'top',
-                                    'title' => 'http://twitter.com/' . e($user->twitter)
-                                ],
-                                null,
-                                false
-                            ) !!}
-                        </li>
-                    @endif
-                </ul>
             </section>
         </div>
 
         <div class="col-lg-9">
             <section class="section">
                 <div class="hr-divider">
-                    <h4 class="font-xeta text-xs-center">
-                        @if (Auth::user() && $user->id == Auth::id())
-                            Votre Biographie
-                        @else
-                            Sa Biographie
-                        @endif
-                    </h4>
-                </div>
-                <div class="biography pt-1 pb-2">
-                    @if (!empty($user->biography))
-                        {!! Markdown::convertToHtml($user->biography) !!}
-                    @else
-                        @if (Auth::user() && $user->id == Auth::id())
-                            Vous n'avez pas encore renseigné votre biographie.
-                            {!! Html::link(route('users.account.index'), '<i class="fa fa-plus"></i> Ajouter maintenant', ['class' => 'btn btn-outline-primary'], null, false) !!}
-                        @else
-                            Cet utilisateur n'a pas encore renseigné de biographie.
-                        @endif
-                    @endif
+
                 </div>
 
+
                 <div class="hr-divider">
-                    <h4 class="font-xeta text-xs-center">
-                        @if (Auth::user() && $user->id == Auth::id())
-                            Vos Badges
-                        @else
-                            Ces Badges
-                        @endif
-                    </h4>
+
                 </div>
                 <div class="badges pt-1 pb-2">
 

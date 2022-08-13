@@ -78,21 +78,7 @@
 
         <div class="col-md-4">
             <div class="features-box">
-                @if (config('settings.discuss.enabled'))
-                    <i class="fa fa-comments-o fa-fw text-primary" aria-hidden="true"></i>
-                    <h1 class="font-xeta text-muted">{{ $postsCount }}</h1>
-                    <h4 class="font-xeta">Posts</h4>
-                    <p class="text-muted">
-                        Le nombre de posts sur le forum Discuss.
-                    </p>
-                @else
-                    <i class="fas fa-award text-primary" aria-hidden="true"></i>
-                    <h1 class="font-xeta text-muted">{{ $rewardsCount }}</h1>
-                    <h4 class="font-xeta">Récompenses</h4>
-                    <p class="text-muted">
-                        Le nombre de récompenses totales obtenus par les membres.
-                    </p>
-                @endif
+
             </div>
         </div>
     </div>

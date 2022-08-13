@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Xetaravel\Http\Components\AnalyticsComponent;
 use Xetaravel\Models\User;
-use Xetaravel\Models\DiscussPost;
 use Xetaravel\Models\RewardUser;
 
 class PageController extends Controller
@@ -67,10 +66,6 @@ class PageController extends Controller
             return User::count();
         });
 
-        $postsCount = Cache::remember('Analytics.posts.count', $secondes, function () {
-            return DiscussPost::count();
-        });
-
         $rewardsCount = Cache::remember('Analytics.rewards.count', $secondes, function () {
             return RewardUser::count();
         });
@@ -83,7 +78,7 @@ class PageController extends Controller
             $allTimesVisitors = null;
         }
 
-        return view('page.index', compact('usersCount', 'postsCount', 'rewardsCount', 'allTimesVisitors'));
+        return view('page.index', compact('usersCount', 'rewardsCount', 'allTimesVisitors'));
     }
 
     /**

@@ -38,10 +38,6 @@ return [
         ],
         'user' => [
             'user_per_page' => 15
-        ],
-        'discuss' => [
-            'conversation_per_page' => 15,
-            'post_per_page' => 10
         ]
     ],
 
@@ -57,19 +53,6 @@ return [
         'discuss' => [
             'conversation' => 60
         ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Discuss
-    |--------------------------------------------------------------------------
-    |
-    |
-    */
-    'discuss' => [
-        'categories_sidebar' => 15,
-        // The number in days.
-        'info_message_old_conversation' => 92
     ],
 
     /*

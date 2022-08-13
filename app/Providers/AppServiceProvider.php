@@ -21,7 +21,6 @@ class AppServiceProvider extends ServiceProvider
         // View
         View::addNamespace('Admin', base_path() . '/resources/views/Admin');
         View::addNamespace('Auth', base_path() . '/resources/views/Auth');
-        View::addNamespace('Discuss', base_path() . '/resources/views/Discuss');
 
         // Pagination
         Paginator::defaultView('vendor.pagination.bootstrap-4');

@@ -1,33 +1,6 @@
 @extends('layouts.admin')
 {!! config(['app.title' => 'Editer ' . e($user->username)]) !!}
 
-@push('style')
-    {!! editor_css() !!}
-    <link href="{{ mix('css/editor-md.custom.min.css') }}" rel="stylesheet">
-@endpush
-
-@push('scripts')
-    {!! editor_js() !!}
-    <script src="{{ asset(config('editor.pluginPath') . '/emoji-dialog/emoji-dialog.js') }}"></script>
-
-    @php
-        $signature = [
-            'id' => 'signatureEditor',
-            'height' => '200',
-        ];
-    @endphp
-    @include('editor/partials/_signature', $signature)
-
-    @php
-        $biography = [
-            'id' => 'biographyEditor',
-            'height' => '250'
-        ];
-    @endphp
-    @include('editor/partials/_biography', [$biography, $signature])
-
-@endpush
-
 @section('content')
 {{-- Header --}}
 <div class="col-sm-12 col-md-10 offset-md-2 pl-0 pr-0">
@@ -70,40 +43,6 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6" style="padding-top: 10px;">
-                                        @if ($user->facebook)
-                                            <div class="d-inline-block mr-2">
-                                                {!! Html::link(
-                                                    url('http://facebook.com/' . e($user->facebook)),
-                                                    '<i class="fa fa-facebook fa-2x" style="color:#2d88ff;"></i>',
-                                                    [
-                                                        'class' => 'text-primary',
-                                                        'target' => '_blank',
-                                                        'data-toggle' => 'tooltip',
-                                                        'data-placement' => 'top',
-                                                        'title' => 'http://facebook.com/' . e($user->facebook)
-                                                    ],
-                                                    null,
-                                                    false
-                                                ) !!}
-                                            </div>
-                                        @endif
-                                        @if ($user->twitter)
-                                            <div class="d-inline-block mr-2">
-                                                {!! Html::link(
-                                                    url('http://twitter.com/' . e($user->twitter)),
-                                                    '<i class="fa fa-twitter fa-2x" style="color:#1da1f2;"></i>',
-                                                    [
-                                                        'class' => 'text-primary',
-                                                        'target' => '_blank',
-                                                        'data-toggle' => 'tooltip',
-                                                        'data-placement' => 'top',
-                                                        'title' => 'http://twitter.com/' . e($user->twitter)
-                                                    ],
-                                                    null,
-                                                    false
-                                                ) !!}
-                                            </div>
-                                        @endif
                                         @if ($user->discordNickname != '#')
                                             <div class="d-inline-block mr-2">
                                                 {!! Html::link(
@@ -354,44 +293,6 @@
                             'Nom',
                             null,
                             ['class' => 'form-control form-control-inverse']
-                        ) !!}
-
-                        {!! Form::bsInputGroup(
-                            'account[facebook]',
-                            'Facebook',
-                            null,
-                            [
-                                'span' => 'http://facebook.com/',
-                                'spanStyle' => 'min-width:180px;',
-                                'spanClass' => 'input-group-addon input-group-addon-inverse',
-                                'class' => 'form-control form-control-inverse'
-                            ]
-                        ) !!}
-
-                        {!! Form::bsInputGroup(
-                            'account[twitter]',
-                            'Twitter',
-                            null,
-                            [
-                                'span' => 'http://twitter.com/',
-                                'spanStyle' => 'min-width:180px;',
-                                'spanClass' => 'input-group-addon input-group-addon-inverse',
-                                'class' => 'form-control form-control-inverse'
-                            ]
-                        ) !!}
-
-                        {!! Form::bsTextarea(
-                            'account[biography]',
-                            'Biographie',
-                            null,
-                            ['editor' => 'biographyEditor', 'style' => 'display:none;']
-                        ) !!}
-
-                        {!! Form::bsTextarea(
-                            'account[signature]',
-                            'Signature',
-                            null,
-                            ['editor' => 'signatureEditor', 'style' => 'display:none;']
                         ) !!}
 
                         <div class="form-group">

@@ -35,28 +35,20 @@
                             <span data-hover="Accueil">Accueil</span>
                         </a>
                     </li>
-                        @if (config('settings.discuss.enabled') || (!config('settings.discuss.enabled') && !is_null(Auth::user()) && Auth::user()->level() >= 4))
-                        <li class="nav-item nav-link">
-                            <a class="nav-link-menu" href="{{ route('discuss.index') }}">
-                                <span data-hover="Discuss">Discuss</span>
-                            </a>
-                        </li>
-                        @endif
-                        <li class="nav-item nav-link">
-                            <a class="nav-link-menu" href="{{ route('statut.page.index') }}">
-                                <span data-hover="Statut">Statut</span>
-                            </a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a class="nav-link-menu" href="{{ route('donation.page.index') }}">
-                                <span data-hover="Donation">Donation</span>
-                            </a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a class="nav-link-menu" href="http://arklog.ark-division.fr">
-                                <span data-hover="ARKLog">ARKLog</span>
-                            </a>
-                        </li>
+                    <li class="nav-item nav-link">
+                        <a class="nav-link-menu" href="{{ route('statut.page.index') }}">
+                            <span data-hover="Statut">Statut</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-link">
+                        <a class="nav-link-menu" href="{{ route('donation.page.index') }}">
+                            <span data-hover="Donation">Donation</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-link">
+                        <a class="nav-link-menu" href="http://arklog.ark-division.fr">
+                            <span data-hover="ARKLog">ARKLog</span>
+                        </a>
                     </li>
                 </ul>
 
