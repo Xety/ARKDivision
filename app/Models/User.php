@@ -96,7 +96,8 @@ class User extends Model implements
         'biography',
         'signature',
         'facebook',
-        'twitter'
+        'twitter',
+        'isMember'
     ];
 
     /**
@@ -105,7 +106,8 @@ class User extends Model implements
      * @var array
      */
     protected $dates = [
-        'last_login'
+        'last_login',
+        'member_expire_at'
     ];
 
     /**

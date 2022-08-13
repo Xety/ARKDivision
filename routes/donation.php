@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 $APP_DONATION_URL = 'donation.ark-division.fr';
 

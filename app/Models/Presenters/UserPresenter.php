@@ -1,6 +1,7 @@
 <?php
 namespace Xetaravel\Models\Presenters;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Xetaravel\Models\Session;
 use Xetaravel\Utility\UserUtility;
@@ -30,6 +31,18 @@ trait UserPresenter
     {
         return Attribute::make(
             get: fn ($value) => $this->trashed() ? 'Deleted' : $value
+        );
+    }
+
+    /**
+     * Get the member status of the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function isMember(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->member_expire_at <= Carbon::now() ? false : true
         );
     }
 

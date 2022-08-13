@@ -23,6 +23,10 @@ class MenuServiceProvider extends ServiceProvider
                         ->addClass('nav-link')
                 )
                 ->add(
+                    Link::toRoute('users.user.member', '<i class="fas fa-user-astronaut"></i> Membre')
+                        ->addClass('nav-link')
+                )
+                ->add(
                     Link::toRoute('users.notification.index', '<i class="fas fa-user-tag"></i> Notifications')
                         ->addClass('nav-link')
                 )
