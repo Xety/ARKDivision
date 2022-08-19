@@ -85,8 +85,6 @@ class UserValidator
             ],
             'account.first_name' => 'max:100',
             'account.last_name' => 'max:100',
-            'account.facebook' => 'max:50',
-            'account.twitter' => 'max:50',
             'roles' => 'required'
         ];
 

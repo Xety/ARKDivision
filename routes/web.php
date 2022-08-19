@@ -45,7 +45,6 @@ Route::group([
 Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allowGuest']], function () {
 
     Route::get('profile/@{slug}', 'UserController@show')->name('users.user.show');
-    Route::get('/', 'UserController@index')->name('users.user.index');
 
     // Auth Namespace
     Route::group(['namespace' => 'Auth'], function () {
@@ -80,14 +79,13 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
     // Auth Middleware
     Route::group(['middleware' => ['auth']], function () {
         // User Routes
-        Route::get('settings', 'UserController@showSettingsForm')->name('users.user.settings');
-        Route::put('settings', 'UserController@update');
+        Route::get('account', 'UserController@account')->name('users.user.account');
+        Route::put('settings', 'UserController@update')->name('users.user.settings');
         Route::get('transactions', 'UserController@transactions')->name('users.user.transactions');
         Route::get('member', 'UserController@Member')->name('users.user.member');
         //Route::delete('delete', 'UserController@delete')->name('users.user.delete');
 
         // Account Routes
-        Route::get('account', 'AccountController@index')->name('users.account.index');
         Route::put('account', 'AccountController@update')->name('users.account.update');
 
         // Social Routes

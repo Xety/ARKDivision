@@ -22,8 +22,6 @@ class AccountsTableSeed extends Seeder
                 'discord_username' => 'ZoRo',
                 'discord_discriminator' => '1337',
                 'steam_username' => 'ZoRo',
-                'facebook' => '',
-                'twitter' => 'FMT_ZoRo',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -34,8 +32,6 @@ class AccountsTableSeed extends Seeder
                 'discord_username' => null,
                 'discord_discriminator' => null,
                 'steam_username' => null,
-                'facebook' => 'EditorFB',
-                'twitter' => 'EditorTW',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]

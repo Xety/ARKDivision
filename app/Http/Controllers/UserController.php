@@ -22,26 +22,20 @@ class UserController extends Controller
         parent::__construct();
 
         $action = Route::getFacadeRoot()->current()->getActionMethod();
-
-        if (in_array($action, ['index', 'show'])) {
-            $this->breadcrumbs->addCrumb('Utilisateurs', route('users.user.index'));
-        }
     }
 
     /**
-     * Show all the users.
+     * Show the account page.
      *
      * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function account(): View
     {
-        $users = User::with('Account')
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('xetaravel.pagination.user.user_per_page'));
+        $user = User::find(Auth::id());
 
-        $breadcrumbs = $this->breadcrumbs;
+        $breadcrumbs = $this->breadcrumbs->addCrumb('Compte', route('users.user.account'));
 
-        return view('user.index', compact('users', 'breadcrumbs'));
+        return view('user.account', compact('user', 'breadcrumbs'));
     }
 
     /**
@@ -82,7 +76,7 @@ class UserController extends Controller
         $user = User::find(Auth::id());
 
         $transactions = $user->transactions()
-            ->paginate(config('xetaravel.pagination.transaction.transaction_per_page'));
+            ->paginate(config('division.pagination.transaction.transaction_per_page'));
 
         $breadcrumbs = $this->breadcrumbs;
 
@@ -90,18 +84,6 @@ class UserController extends Controller
             'user.transactions',
             compact('user', 'breadcrumbs', 'transactions')
         );
-    }
-
-    /**
-     * Show the settings form.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showSettingsForm(): View
-    {
-        $this->breadcrumbs->addCrumb('Paramètres', route('users.user.settings'));
-
-        return view('user.settings', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
     /**
@@ -145,7 +127,7 @@ class UserController extends Controller
 
         if (!Hash::check($request->input('password'), $user->password)) {
             return redirect()
-                ->route('users.user.settings')
+                ->route('users.user.account')
                 ->with('danger', 'Vos mots de passe ne correspondent pas !');
         }
         Auth::logout();
@@ -170,6 +152,8 @@ class UserController extends Controller
     {
         $user = User::find(Auth::id());
 
+        $this->breadcrumbs->addCrumb('Membre', route('users.user.member'));
+
         $breadcrumbs = $this->breadcrumbs;
 
         return view('user.member', compact('breadcrumbs', 'user'));
@@ -188,7 +172,7 @@ class UserController extends Controller
         UserRepository::updateEmail($request->all(), Auth::user());
 
         return redirect()
-            ->route('users.user.settings')
+            ->route('users.user.account')
             ->with('success', 'Votre e-mail a été mis à jour avec succès !');
     }
 
@@ -205,7 +189,7 @@ class UserController extends Controller
 
         if (!Hash::check($request->input('oldpassword'), $user->password)) {
             return redirect()
-                ->route('users.user.settings')
+                ->route('users.user.account')
                 ->with('danger', 'Vos mots de passe ne correspondent pas !');
         }
 
@@ -213,7 +197,7 @@ class UserController extends Controller
         UserRepository::updatePassword($request->all(), $user);
 
         return redirect()
-            ->route('users.user.settings')
+            ->route('users.user.account')
             ->with('success', 'Votre mot de passe a été mis à jour avec succès !');
     }
 
@@ -230,7 +214,7 @@ class UserController extends Controller
 
         if (!is_null($user->password)) {
             return redirect()
-                ->route('users.user.settings')
+                ->route('users.user.account')
                 ->with('danger', 'Vous avez déjà défini un mot de passe.');
         }
 
@@ -238,7 +222,7 @@ class UserController extends Controller
         UserRepository::createPassword($request->all(), $user);
 
         return redirect()
-            ->route('users.user.settings')
+            ->route('users.user.account')
             ->with('success', 'Votre mot de passe a été créé avec succès !');
     }
 }

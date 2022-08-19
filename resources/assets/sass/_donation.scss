@@ -1,0 +1,75 @@
+.widget-container {
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+}
+
+.widget-top {
+    margin: 20px 0;
+    padding: 10px 10px;
+    color: $primary;
+    font-size: 21px;
+}
+
+.widget-icon-list-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.widget-icon-list-item {
+    font-size: 17px;
+}
+
+.widget-icon-list-icon i {
+    color: $primary;
+    font-size: 19px;
+}
+
+.widget-icon-list-text {
+    color: #fff;
+}
+
+.widget-text-editor {
+    font-weight: bolder;
+    color: $body-color;
+    font-size: 17px;
+    line-height: 1em;
+    margin: 25px 0 20px;
+}
+
+.discord {
+    background-color: $discord;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-grid;
+    border-radius: .35rem;
+}
+
+.steam {
+    background-color: $steam;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-grid;
+    border-radius: .35rem;
+}
+
+.discord-text,
+.steam-text {
+    font-weight: bold;
+}
+
+.form-range::-webkit-slider-thumb {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+
+.form-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

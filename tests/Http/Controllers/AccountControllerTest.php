@@ -41,8 +41,6 @@ class AccountControllerTest extends TestCase
 
         $this->assertSame('Emeric', $user->first_name);
         $this->assertSame('', $user->last_name);
-        $this->assertSame('', $user->facebook);
-        $this->assertSame('FMT_ZoRo', $user->twitter);
 
         $oldAvatarUrl = $user->avatar_small;
 
@@ -57,10 +55,6 @@ class AccountControllerTest extends TestCase
         $data = [
             'first_name' => 'Jhon',
             'last_name' => 'Doe',
-            'facebook' => 'Jhon_Doe',
-            'twitter' => 'Doe_Jhon',
-            'biography' => '<p>Jhon Doe</p>',
-            'signature' => '<p>Doe Jhon</p>',
             'avatar' => $file
         ];
         $response = $this->put('/users/account', $data);
@@ -71,9 +65,5 @@ class AccountControllerTest extends TestCase
         $this->assertNotSame($oldAvatarUrl, $user->avatar_small, 'The path should not be the same.');
         $this->assertSame('Jhon', $user->first_name);
         $this->assertSame('Doe', $user->last_name);
-        $this->assertSame('Jhon_Doe', $user->facebook);
-        $this->assertSame('Doe_Jhon', $user->twitter);
-        $this->assertSame('<p>Jhon Doe</p>', $user->biography);
-        $this->assertSame('<p>Doe Jhon</p>', $user->signature);
     }
 }

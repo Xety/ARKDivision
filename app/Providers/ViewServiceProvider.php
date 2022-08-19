@@ -3,8 +3,8 @@ namespace Xetaravel\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Xetaravel\View\Composers\Discuss\SidebarComposer as DiscussSidebarComposer;
 use Xetaravel\View\Composers\NotificationsComposer;
+use Xetaravel\View\Composers\PointsComposer;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -16,6 +16,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('partials._notifications', NotificationsComposer::class);
-        View::composer('Discuss::partials._sidebar', DiscussSidebarComposer::class);
+
+        View::composer('partials._points', PointsComposer::class);
     }
 }

@@ -5,11 +5,11 @@
 <div class="container mt-6">
     <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h3 class="text-xs-center mt-4 mb-2">
+                <h3 class="text-center mt-5 mb-4">
                     Conditions Générales d'Utilisation
                 </h3>
 
-                <div class="text-xs-right mb-2">
+                <div class="text-end mb-4">
                     Dernière modification le 22 février 2021
                 </div>
 
@@ -17,7 +17,7 @@
                     Par votre participation à la plateforme Discuss, vous confirmez avoir lu et accepté les règles d’utilisation listées ci-dessous. Les utilisateurs ne respectant pas ces règles courent le risque de perdre la possibilité de participer sur cette plateforme.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Respect
                 </h5>
                 <p>
@@ -30,21 +30,21 @@
                     Vous êtes fortement invité à rédiger correctement vos messages en français. Le langage condensé (langage « SMS ») est proscrit de même que les blasphèmes et le langage profanateur. Il est également apprécié d'utiliser les paragraphes, la grammaire et la conjugaison appropriés qui rendront la lecture de vos messages plus agréable.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Publicités interdites
                 </h5>
                 <p>
                     Notre plateforme ne permet pas la publication de publicité pour biens et services, afin de préserver une qualité de navigation à ses utilisateurs. Ceci concerne aussi les publicités et les sollicitations pour une entreprise commerciale, personnelle, ou sans but lucratif. Les liens hypertextes vers des sites internet autres qu'informatifs seront considérés comme de la publicité.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Respect des auteurs
                 </h5>
                 <p>
                     Lorsque vous partagez du contenu dont vous n’êtes pas le propriétaire, vous êtes fortement invité à citer la source en rappel. Vous pouvez également faire un lien vers la source directement.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Pas de contenu illégal, obscène ou diffamatoire
                 </h5>
                 <p>
@@ -54,14 +54,14 @@
                     L'utilisation du forum est réservée aux personnes de plus de 16 ans. En naviguant et en participant au forum, vous certifiez avoir au moins 16 ans et acceptez les conditions d'utilisation. Si vous n'êtes pas âgé d'au moins 16 ans, nous ne vous recommandons pas l'utilisation de cette plateforme.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Un seul compte par utilisateur
                 </h5>
                 <p>
                     Les utilisateurs ne peuvent posséder qu’un seul compte. Il est interdit de créer d’autres comptes pour profiter notamment d’autres identités.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Consulter l’existant et respecter les sections
                 </h5>
                 <p>
@@ -71,7 +71,7 @@
                     Il est à noter que votre message pourrait être déplacé par l'équipe de modération sans préavis s' il se trouve dans la mauvaise section.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Éviter les messages inutile
                 </h5>
                 <p>
@@ -81,21 +81,21 @@
                     La publication de multiples messages identiques ajoute une surcharge inutile au Forum et fait perdre du temps aux utilisateurs.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Maximum d’un « up » par fil de messages
                 </h5>
                 <p>
                     Nous tolérons un seul « up » (message destiné à faire remonter un sujet dans la liste) par fil et ce, au moins 48h après la dernière publication sur ce fil. De même que pour les messages identiques, la publication de ce type de message surcharge inutilement.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Liens hypertexte
                 </h5>
                 <p>
                     Si vous souhaitez publier un lien vers une information qui vous semble pertinente, veuillez ajouter un commentaire décrivant l’intérêt de ce lien. Les messages ne contenant qu’un/des liens peuvent être supprimés sans avertissement.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Protection de la vie privée
                 </h5>
                 <p>
@@ -105,7 +105,7 @@
                     Il est à noter que toute utilisateur ne respectant pas la vie privée d'un de nos membres en recherchant et publiant ses informations sur le forum, sera bannie définitivement sans avertissement.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Données personnelles et confidentialité
                 </h5>
                 <p>
@@ -118,7 +118,7 @@
                     Ces données peuvent être analysées à des fins de statistique permettant d’adapter notre service d’hébergement et la sécurité de notre site Internet. Ces données sont automatiquement stockées dans des fichiers journaux des serveurs Google et peuvent faire l’objet d’un traitement anonyme par les services Google. L’adresse IP transmise à Google Analytics à partir de votre navigateur n’est pas combinée avec d’autres données Google.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Cookies
                 </h5>
                 <p>
@@ -128,7 +128,7 @@
                     Ces cookies ne permettent pas d’identifier l’utilisateur, mais servent à enregistrer des informations relatives à la navigation de celui-ci sur le site Internet. Ces données ne sont pas personnalisées. L’enregistrement d’un cookie dans votre ordinateur est subordonné à votre volonté. Grâce aux paramétrages de votre logiciel de navigation, vous pouvez gratuitement choisir d’accepter ou non l’enregistrement de cookies sur votre ordinateur. Vous pouvez configurer votre logiciel de navigation selon votre volonté, de manière à ce que des cookies soient acceptés et enregistrés dans votre ordinateur ou, au contraire, afin qu’ils soient refusés.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Responsabilités légales
                 </h5>
                 <p>
@@ -138,16 +138,15 @@
                     L’administration et la modération se chargent de l’application des règles ci-dessus énoncées. Ce n’est pas de la responsabilité des utilisateurs de prendre la responsabilité des modérateurs ou administrateurs. L’Administration se réserve le droit de désactiver un compte utilisateur ou de supprimer du contenu publié sans préavis.
                 </p>
 
-                <h5>
+                <h5 class="mt-4 mb-2">
                     Juridictions compétentes et droit applicable
                 </h5>
                 <p>
                     Les présentes CGU sont exclusivement régies par le droit français. Tout désaccord ou litige qui ne se règle pas par la voie amiable sera soumis exclusivement aux tribunaux compétents.
                 </p>
-                <p>
+                <p class="pb-4">
                     L’ensemble de ces Conditions Générales d’Utilisation peuvent faire l’objet de modifications selon les besoins d’évolution de la plateforme.
                 </p>
-                <div class="pb-4"></div>
             </div>
     </div>
 </div>

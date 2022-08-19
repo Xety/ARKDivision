@@ -4,10 +4,8 @@ namespace Xetaravel\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use League\ColorExtractor\Color;
 use League\ColorExtractor\Palette;
-use Xetaio\Mentions\Parser\MentionParser;
 use Xetaravel\Models\Repositories\AccountRepository;
 use Xetaravel\Models\User;
 use Xetaravel\Models\Validators\AccountValidator;
@@ -21,19 +19,7 @@ class AccountController extends Controller
     {
         parent::__construct();
 
-        $this->breadcrumbs->addCrumb('Account', route('users.account.index'));
-    }
-
-    /**
-     * Show the account update form.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index(): View
-    {
-        $user = User::find(Auth::id());
-
-        return view('account.index', ['user' => $user, 'breadcrumbs' => $this->breadcrumbs]);
+        $this->breadcrumbs->addCrumb('Account', route('users.user.account'));
     }
 
     /**
@@ -47,17 +33,6 @@ class AccountController extends Controller
     {
         AccountValidator::update($request->all())->validate();
         $account = AccountRepository::update($request->all(), Auth::id());
-
-        $parser = new MentionParser($account, [
-            'regex' => '/\s({character}{pattern}{rules})\s/',
-            'mention' => false
-        ]);
-        $signature = $parser->parse($account->signature);
-        $biography = $parser->parse($account->biography);
-
-        $account->signature = $signature;
-        $account->biography = $biography;
-        $account->save();
 
         $user = User::find(Auth::id());
 
@@ -80,7 +55,7 @@ class AccountController extends Controller
         }
 
         return redirect()
-            ->route('users.account.index')
+            ->route('users.user.account')
             ->with('success', 'Votre compte a été mis à jour avec succès!');
     }
 }

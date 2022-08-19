@@ -35,7 +35,7 @@ class RewardController extends Controller
 
         $rewards = $user->rewards()
             ->orderBy('reward_user.created_at', 'desc')
-            ->paginate(config('xetaravel.pagination.reward.reward_per_page'));
+            ->paginate(config('division.pagination.reward.reward_per_page'));
 
         $breadcrumbs = $this->breadcrumbs;
 

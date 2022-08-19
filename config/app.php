@@ -174,11 +174,10 @@ return [
         Spatie\Analytics\AnalyticsServiceProvider::class,
         Xetaio\IpTraceable\Providers\IpTraceableServiceProvider::class,
         Xetaio\Editor\EditorServiceProvider::class,
-        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
-        Xetaio\Mentions\Providers\MentionServiceProvider::class,
         //Laravel\Socialite\SocialiteServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
         Phattarachai\LaravelMobileDetect\AgentServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
         /*
          * Application Service Providers
@@ -213,8 +212,8 @@ return [
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'Menu' => Spatie\Menu\Laravel\Facades\Menu::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
-        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Agent' => Phattarachai\LaravelMobileDetect\Facades\Agent::class
+        'Agent' => Phattarachai\LaravelMobileDetect\Facades\Agent::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class
     ])->toArray()
 ];

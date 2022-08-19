@@ -117,7 +117,7 @@ class UserRepository
         $user->skin_remain = $data['skin_remain'];
         $user->color_count = $data['color_count'];
         $user->color_remain = $data['color_remain'];
-        $user->member_expire_at = Carbon::now()->modify(config('xetaravel.donation.expire'));
+        $user->member_expire_at = Carbon::now()->modify(config('division.donation.expire'));
 
         return $user->save();
     }
@@ -139,11 +139,11 @@ class UserRepository
             // Check if it's not an UNLINK action
             if (!is_null($data['steam_id'])) {
                 if (is_null($user->member_expire_at)) {
-                    $user->member_expire_at = Carbon::now()->modify(config('xetaravel.arklog.expire'));
+                    $user->member_expire_at = Carbon::now()->modify(config('division.arklog.expire'));
                 } else {
                     // The user has already an member_expire_at, just add arklog.expire to it.
                     $user->member_expire_at = Carbon::create($user->member_expire_at)
-                                                                            ->modify(config('xetaravel.arklog.expire'));
+                                                                            ->modify(config('division.arklog.expire'));
                 }
             }
         }

@@ -133,8 +133,8 @@ class PaypalController extends Controller
             // Live
             $apiContext = new ApiContext(
                 new OAuthTokenCredential(
-                    config('xetaravel.paypal.production.client_id'),
-                    config('xetaravel.paypal.production.client_secret')
+                    config('division.paypal.production.client_id'),
+                    config('division.paypal.production.client_secret')
                 )
             );
             $apiContext->setConfig([
@@ -144,8 +144,8 @@ class PaypalController extends Controller
             // Sandbox
             $apiContext = new ApiContext(
                 new OAuthTokenCredential(
-                    config('xetaravel.paypal.test.client_id'),
-                    config('xetaravel.paypal.test.client_secret')
+                    config('division.paypal.test.client_id'),
+                    config('division.paypal.test.client_secret')
                 )
             );
         }
@@ -207,8 +207,8 @@ class PaypalController extends Controller
             // Live
             $apiContext = new ApiContext(
                 new OAuthTokenCredential(
-                    config('xetaravel.paypal.production.client_id'),
-                    config('xetaravel.paypal.production.client_secret')
+                    config('division.paypal.production.client_id'),
+                    config('division.paypal.production.client_secret')
                 )
             );
 
@@ -219,8 +219,8 @@ class PaypalController extends Controller
             // Sandbox
             $apiContext = new ApiContext(
                 new OAuthTokenCredential(
-                    config('xetaravel.paypal.test.client_id'),
-                    config('xetaravel.paypal.test.client_secret')
+                    config('division.paypal.test.client_id'),
+                    config('division.paypal.test.client_secret')
                 )
             );
         }
@@ -420,7 +420,9 @@ EOT;
             }
         }
 
-        return redirect()->route('donation.paypal.success');
+        return redirect()
+            ->route('users.user.member')
+            ->with('success', 'Merci pour votre donation survivant !');
     }
 
     /**
@@ -446,7 +448,7 @@ EOT;
     protected function getCount(int $amount, int $countTotal, int $amountTotal, string $type = null) : int
     {
         // We count the donation related to the type count total.
-        $donationForTotal = config('xetaravel.donation.' . $type . '_interval') * $countTotal;
+        $donationForTotal = config('division.donation.' . $type . '_interval') * $countTotal;
 
         // We soustrac the amount total from the total type amount.
         $remain = $amountTotal - $donationForTotal;
@@ -456,9 +458,9 @@ EOT;
 
         $count = 0;
 
-        while ($amount >= config('xetaravel.donation.' . $type . '_interval')) {
+        while ($amount >= config('division.donation.' . $type . '_interval')) {
             $count++;
-            $amount = $amount - config('xetaravel.donation.' . $type . '_interval');
+            $amount = $amount - config('division.donation.' . $type . '_interval');
         }
 
         return $count;

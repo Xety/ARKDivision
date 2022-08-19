@@ -46,10 +46,7 @@ return [
 
     'extensions' => [
         League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
-        League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension::class,
-        League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
-        Xetaravel\Markdown\Emoji\EmojiExtension::class,
-        Xetaravel\Markdown\Reply\ReplyExtension::class
+        League\CommonMark\Extension\Table\TableExtension::class,
     ],
 
     /*
@@ -109,7 +106,7 @@ return [
     |
     */
 
-    'html_input' => 'strip',
+    'html_input' => 'escape',
 
     /*
     |--------------------------------------------------------------------------
@@ -154,21 +151,6 @@ return [
     'slug_normalizer' => [
         'max_length' => 255,
         'unique'     => 'document',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The option allows you to apply default HTML classes and other attributes using configuration options.
-    |
-    */
-
-    'default_attributes' => [
-        League\CommonMark\Extension\Table\Table::class => [
-            'class' => 'table',
-        ],
     ],
 
 ];

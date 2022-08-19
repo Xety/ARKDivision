@@ -19,13 +19,9 @@ return new class extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
-            $table->text('biography')->nullable();
-            $table->text('signature')->nullable();
             $table->string('discord_username', 50)->nullable();
             $table->string('discord_discriminator', 5)->nullable();
             $table->string('steam_username', 50)->nullable();
-            $table->string('facebook', 50)->nullable();
-            $table->string('twitter', 50)->nullable();
             $table->timestamps();
         });
 

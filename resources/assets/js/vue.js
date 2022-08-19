@@ -4,10 +4,6 @@ import Notifications from './components/Notifications.vue'
 import UsersNotifications from './components/UsersNotifications.vue'
 import UsersRewards from './components/UsersRewards.vue'
 
-// Discuss
-import DiscussUser from './components/Discuss/User.vue'
-import DiscussShare from './components/Discuss/Share.vue'
-
 Vue.config.productionTip = false;
 
 Vue.filter('formatDate', function(date) {
@@ -22,11 +18,7 @@ const app = new Vue({
     components: {
         Notifications,
         UsersNotifications,
-        UsersRewards,
-
-        // Discuss
-        DiscussUser,
-        DiscussShare
+        UsersRewards
     },
 
     data: {
@@ -57,10 +49,6 @@ const app = new Vue({
          * @return {string} The notification URL.
          */
         getNotificationUrl: function (notification) {
-            if (notification.data.type == 'mention') {
-                return notification.data.link;
-            }
-
             return this.routeUserNotifications;
         },
 

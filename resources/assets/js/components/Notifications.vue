@@ -1,56 +1,66 @@
 <template>
-    <div class="dropdown navbar-notifications float-xs-right pr-1">
+    <div class="dropdown navbar-notifications d-inline">
         <!-- Toggle notification menu -->
-        <a ref="toggle_notifications" class="dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a ref="toggle_notifications" class="dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i ref="toggle_icon_notifications" class="icon fa fa-bell-o"></i>
         </a>
 
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-            <h6 class="dropdown-header text-xs-center">
-                Nouvelles Notifications
-            </h6>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" data-bs-container="body">
+            <li>
+                <h6 class="dropdown-header text-center">
+                    Nouvelles Notifications
+                </h6>
+            </li>
 
-            <div class="dropdown-divider mb-0"></div>
+            <li>
+                <hr class="dropdown-divider mb-0">
+            </li>
 
             <!-- Notifications -->
-            <a v-for="notification in notifications"
-                v-on:mouseover.prevent="markNotificationAsRead(notification)"
-                :href="getNotificationUrl(notification)" :class="'notification-' + notification.id + ' dropdown-item notification-item'">
+            <li>
+                <a v-for="notification in notifications"
+                    v-on:mouseover.prevent="markNotificationAsRead(notification)"
+                    :href="getNotificationUrl(notification)" :class="'notification-' + notification.id + ' dropdown-item notification-item'">
 
-                <!-- Image -->
-                <i v-if="notification.data.type == 'badge'" :class="notification.data.icon + ' fa-2x'" :style="'color:' + notification.data.color"></i>
-                <i v-else-if="notification.data.type == 'mention'" class="fa fa-at fa-2x text-primary"
-                    aria-hidden="true"></i>
-                <img v-else-if="notification.data.type == 'reward'" :src="'/' + notification.data.image" :alt="notification.data.name">
-                <img v-else src="/images/logo.svg" alt="Image">
+                    <!-- Image -->
+                    <i v-if="notification.data.type == 'badge'" :class="notification.data.icon + ' fa-2x'" :style="'color:' + notification.data.color"></i>
+                    <img v-else-if="notification.data.type == 'reward'" :src="'/' + notification.data.image" :alt="notification.data.name">
+                    <img v-else src="/images/logo.svg" alt="Image">
 
-                <!-- Message -->
-                <span v-html="notification.data.hasOwnProperty('message_key') ? formatMessage(notification) : notification.data.message"
-                    class="message"></span>
+                    <!-- Message -->
+                    <span v-html="notification.data.hasOwnProperty('message_key') ? formatMessage(notification) : notification.data.message"
+                        class="message"></span>
 
-                <!-- Badge new -->
-                <strong v-if="notification.read_at === null" :class="'notification-' + notification.id + '-new'" class="new">
-                    <span></span>
-                    New
-                </strong>
-            </a>
+                    <!-- Badge new -->
+                    <strong v-if="notification.read_at === null" :class="'notification-' + notification.id + '-new'" class="new">
+                        <span></span>
+                        New
+                    </strong>
+                </a>
+            </li>
 
             <!-- Mark all as read -->
-            <button v-if="hasUnreadNotifs" v-on:click.prevent="markAllNotificationsAsRead" class="dropdown-item text-xs-center">
-                    Marquer toutes les notifs comme lues
-            </button>
+            <li>
+                <button v-if="hasUnreadNotifs" v-on:click.prevent="markAllNotificationsAsRead" class="dropdown-item text-center">
+                        Marquer toutes les notifs comme lues
+                </button>
+            </li>
 
-            <p v-if="!Array.isArray(notifications) || !notifications.length" class="dropdown-item mb-0 text-xs-center">
-                Vous n'avez pas de notifications.
-            </p>
+            <li>
+                <p v-if="!Array.isArray(notifications) || !notifications.length" class="dropdown-item mb-0 text-center">
+                    Vous n'avez pas de notifications.
+                </p>
+            </li>
 
-            <div class="dropdown-divider"></div>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
 
             <!-- All notifications. -->
-            <a :href="routeUserNotifications" class="dropdown-item text-xs-center">
+            <a :href="routeUserNotifications" class="dropdown-item text-center">
                 Toutes les Notifications
             </a>
-        </div>
+        </ul>
     </div>
 </template>
 

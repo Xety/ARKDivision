@@ -29,38 +29,38 @@
     &:focus,
     &:active {
         text-decoration: none;
-        background-color: $btn-secondary-color;
+        background-color: #666;
     }
 }
 
 .ma-btn-primary {
-     @include ma-button-variant($btn-primary-color, $btn-primary-bg);
+     @include ma-button-variant(color-contrast($primary), $primary);
 }
 
 .ma-btn-secondary {
-     @include ma-button-variant($btn-secondary-color, $btn-secondary-bg);
+     @include ma-button-variant(color-contrast($secondary), $secondary);
 }
 
 .ma-btn-success {
-     @include ma-button-variant($btn-success-color, $btn-success-bg);
+     @include ma-button-variant(color-contrast($success), $success);
 }
 
 .ma-btn-info {
-     @include ma-button-variant($btn-info-color, $btn-info-bg);
+     @include ma-button-variant(color-contrast($info), $info);
 }
 
 .ma-btn-warning {
-     @include ma-button-variant($btn-warning-color, $btn-warning-bg);
+     @include ma-button-variant(color-contrast($warning), $warning);
 }
 
 .ma-btn-danger {
-     @include ma-button-variant($btn-danger-color, $btn-danger-bg);
+     @include ma-button-variant(color-contrast($danger), $danger);
 }
 
 .ma-btn-femme {
-    @include ma-button-variant($btn-danger-color, #ef3c7e);
+    @include ma-button-variant(color-contrast($femme), $femme);
 }
 
 .ma-btn-homme {
-    @include ma-button-variant($btn-danger-color, #18aaff);
+    @include ma-button-variant(color-contrast($homme), $homme);
 }

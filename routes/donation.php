@@ -31,7 +31,5 @@ Route::domain($APP_DONATION_URL)->group(function () {
         //
         Route::post('checkout', 'PaypalController@checkout')->name('donation.paypal.checkout');
         Route::get('redirect', 'PaypalController@redirect')->name('donation.paypal.redirect');
-
-        Route::get('success', 'PaypalController@success')->name('donation.paypal.success');
     });
 });

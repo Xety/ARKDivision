@@ -22,11 +22,7 @@ class AccountRepository
             [
                 'user_id' => $id,
                 'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'facebook' => $data['facebook'],
-                'twitter' => $data['twitter'],
-                'biography' => $data['biography'],
-                'signature' => $data['signature']
+                'last_name' => $data['last_name']
             ]
         );
     }

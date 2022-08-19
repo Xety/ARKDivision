@@ -61,12 +61,12 @@ class Meta extends Component
         string $url = null,
         string $description = null
     ) {
-        $this->title = $title ? Str::of($title)->limit(60, '...') . ' - Xetaravel' : config('xetaravel.site.title');
-        $this->author = $author ?? config('xetaravel.site.copyright');
+        $this->title = $title ? Str::of($title)->limit(60, '...') . ' - Xetaravel' : config('division.site.title');
+        $this->author = $author ?? config('division.site.copyright');
         $this->url = $url ?? URL::full();
         $this->description =
-            $description ? Str::of(strip_tags($description))->limit(150, '...') : config('xetaravel.site.description');
-        $this->copyright = config('xetaravel.site.copyright');
+            $description ? Str::of(strip_tags($description))->limit(150, '...') : config('division.site.description');
+        $this->copyright = config('division.site.copyright');
         $this->image = URL::asset('images/logo300x300.png');
     }
 

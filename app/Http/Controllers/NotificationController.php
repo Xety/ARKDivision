@@ -29,7 +29,7 @@ class NotificationController extends Controller
         $user = User::find(Auth::id());
 
         $notifications = $user->notifications()
-            ->paginate(config('xetaravel.pagination.notification.notification_per_page'));
+            ->paginate(config('division.pagination.notification.notification_per_page'));
         $hasUnreadNotifications = $user->unreadNotifications->isNotEmpty();
 
         $breadcrumbs = $this->breadcrumbs;

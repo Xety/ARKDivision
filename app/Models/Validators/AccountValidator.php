@@ -18,9 +18,7 @@ class AccountValidator
         $rules = [
             'first_name' => 'max:100',
             'last_name' => 'max:100',
-            'avatar' => 'image',
-            'facebook' => 'max:50',
-            'twitter' => 'max:50'
+            'avatar' => 'image'
         ];
 
         return FacadeValidator::make($data, $rules);

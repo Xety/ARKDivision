@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
-use Xetaio\Mentions\Parser\MentionParser;
 use Xetaravel\Events\Events\EvenementEvent;
 use Xetaravel\Events\Events\RewardNakor;
 use Xetaravel\Http\Controllers\Admin\Controller;
@@ -144,17 +143,6 @@ class UserController extends Controller
         UserValidator::update($request->all(), $user->id)->validate();
         UserRepository::update($request->all(), $user);
         $account = AccountRepository::update($request->get('account'), $user->id);
-
-        $parser = new MentionParser($account, [
-            'regex' => '/\s({character}{pattern}{rules})\s/',
-            'mention' => false
-        ]);
-        $signature = $parser->parse($account->signature);
-        $biography = $parser->parse($account->biography);
-
-        $account->signature = $signature;
-        $account->biography = $biography;
-        $account->save();
 
         $user->roles()->sync($request->get('roles'));
 

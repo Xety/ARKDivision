@@ -19,9 +19,9 @@
         "php": "^8.0.2",
         "anhskohbo/no-captcha": "^3.0",
         "doctrine/dbal": "^3.3",
-        "graham-campbell/markdown": "^14.0.x-dev",
+        "graham-campbell/markdown": "^14.0",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^9.2",
+        "laravel/framework": "^9.3",
         "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.0",
@@ -41,7 +41,6 @@
         "xetaio/roles": "^9.0",
         "xetaio/xetaravel-editor-md": "^9.0",
         "xetaio/xetaravel-iptraceable": "^9.0",
-        "xetaio/xetaravel-mentions": "^9.0",
         "xety/breadcrumbs": "^1.0"
     },
     "require-dev": {

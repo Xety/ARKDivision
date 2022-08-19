@@ -1,12 +1,13 @@
-<div class="form-group {{ $errors->has($name) ? 'has-danger' : '' }}">
-    {!! Form::label($name, $label, ['class' => 'form-control-label']) !!}
+<div class="form-floating mb-3">
     {!! Form::email(
         $name,
         $value,
-        array_merge(['class' => $errors->has($name) ? 'form-control form-control-danger' : 'form-control'], $attributes)
+        array_merge(['class' => $errors->has($name) ? 'form-control  is-invalid' : 'form-control'], $attributes)
     ) !!}
+    {!! Form::label($name, $label) !!}
+
     @if ($errors->has($name))
-        <div class="form-control-feedback">
+        <div class="invalid-feedback">
             {{ $errors->first($name) }}
         </div>
     @endif
