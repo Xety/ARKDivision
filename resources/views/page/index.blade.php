@@ -196,7 +196,7 @@
 
         <div class="col-md-4">
             <div class="features-box">
-                <img src="http://arkdivision.io/images/icon-point.png" style="margin-right: 6px;" height="50px">
+                <img src="{{ asset('images/icon-point.png') }}" style="margin-right: 6px;" height="50px">
                 <div class="fs-1 total-points">{{ $pointsCount }}</div>
                 <div class="fs-3 text-primary">Points Total</div>
                 <p>
