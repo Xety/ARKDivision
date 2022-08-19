@@ -103,7 +103,7 @@
                     <div class="col-lg-4 text-center">
                         <div class="shortcuts">
                             <a href=# data-bs-title="Coming soon..." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
-                                <img class="d-block svg" src="http://arkdivision.io/images/svg/coffre.svg">
+                                <img class="d-block svg" src="{{ asset('images/svg/coffre.svg') }}">
                                 <h3 class="fs-6">Coffres</h3>
                             </a>
                         </div>
@@ -111,7 +111,7 @@
                     <div class="col-lg-4 text-center">
                         <div class="shortcuts">
                             <a href=# data-bs-title="Coming soon..." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
-                                <img class="d-block svg" src="http://arkdivision.io/images/svg/trophee-du-championnat.svg">
+                                <img class="d-block svg" src="{{ asset('images/svg/trophee-du-championnat.svg') }}">
                                 <h3 class="fs-6">Classements</h3>
                             </a>
                         </div>
