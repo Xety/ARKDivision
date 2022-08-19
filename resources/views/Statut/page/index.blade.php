@@ -1,49 +1,40 @@
 @extends('layouts.app')
 {!! config(['app.title' => 'Statut']) !!}
 
-@push('style')
-<link href="{{ mix('css/donation/donation.min.css') }}" rel="stylesheet">
-@endpush
-
 @section('content')
-<div class="background">
-    <div class="logo-container">
-    </div>
-    <div class="elementor-shape elementor-shape-bottom">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-            <path class="elementor-shape-fill" d="M761.9,44.1L643.1,27.2L333.8,98L0,3.8V0l1000,0v3.9"></path>
-        </svg>
-    </div>
-    <h1 class="text-md-center" style="color: #0d9691;">Statut des serveurs ARK Division France</h1>
-</div>
+<h1 class="text-center" style="color:#bfb59e;border-bottom:1px solid #443c32">
+    Statut des serveurs ARK Division France
+</h1>
 
-<div class="container-fluid" style="margin-top: 150px;">
-    <div class="container  justify-content-center mb-md-4">
-        <div class="alert alert-{{ $alert }} text-xs-center" role="alert">
-            @if($alert == "danger")
-                <i class="fa fa-exclamation-triangle fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
-                Certains de nos serveurs sont actuellement <b>hors ligne</b>, l'équipe travaille dessus !
-            @elseif ($alert == "warning")
-                <i class="fa fa-exclamation fa-2x " style="vertical-align: middle;"  aria-hidden="true"></i>
-                Des opérations sont actuellement en cours sur certains de nos serveurs.
-            @elseif ($alert == "success")
-                <i class="fa fa-check fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
-                Tous nos serveurs sont actuellement en ligne !
-            @endif
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-{{ $alert }} text-center" role="alert">
+                @if($alert == "danger")
+                    <i class="fa fa-exclamation-triangle fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
+                    Certains de nos serveurs sont actuellement <b>hors ligne</b>, l'équipe travaille dessus !
+                @elseif ($alert == "warning")
+                    <i class="fa fa-exclamation fa-2x " style="vertical-align: middle;"  aria-hidden="true"></i>
+                    Des opérations sont actuellement en cours sur certains de nos serveurs.
+                @elseif ($alert == "success")
+                    <i class="fa fa-check fa-2x " style="vertical-align: middle;" aria-hidden="true"></i>
+                    Tous nos serveurs sont actuellement en ligne !
+                @endif
+            </div>
         </div>
     </div>
-    <div class="row justify-content-center">
+
+    <div class="row">
         @foreach ($servers as $server)
-            <div class="col-md-3 card text-md-center mr-md-3 mb-md-2 card text-md-center" style="width: 18rem;">
-                <img class="card-img-top" src="{{ $server->image_small }}" alt="Card image cap" height="90px">
+            <div class="col-lg-3 card ms-0 me-0 ms-sm-3 me-sm-3 ms-xxl-5 me-xxl-5 p-0 mb-4 card text-center">
+                <img class="d-block m-auto" src="{{ $server->image_small }}" alt="Card image cap" width="100">
                 <div class="card-body">
                     <h5 class="card-title" style="color: #{{ $server->color }}; font-weight: bold;">{{ $server->name }}</h5>
                     <p class="card-text">
                         <span style="display: block;">
                             <span class="dot" style="background-color: #{{ $server->status->color }}; box-shadow: 0px 0px 10px #{{ $server->status->color }};"></span> <span>{{ $server->status->type_formatted }}</span>
                         </span>
-
-                    Joueurs en ligne : <b>{{ $server->user_count }}</b>
+                        Joueurs en ligne : <b>{{ $server->user_count }}</b>
                     </p>
 
                     {{-- The user is connected to his account --}}
@@ -52,10 +43,10 @@
                         @if (Auth::user()->hasPermission('access.administration'))
                             <p>
                             @if ($server->user_count != 0)
-                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{ $server->slug }}" aria-expanded="false" aria-controls="{{ $server->slug }}">Afficher les joueurs</button>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $server->slug }}" aria-expanded="false" aria-controls="{{ $server->slug }}">Afficher les joueurs</button>
                             @endif
                             </p>
-                            <div class="row-fluid">
+                            <div class="row">
                                 <div class="col">
                                     <div class="collapse multi-collapse" id="{{ $server->slug }}">
                                     <div class="list-group">
@@ -66,7 +57,7 @@
                                                     <small class="text-muted">Connecté depuis {{ $player->created_at->format('H:i:s d-m-Y') }}</small>
                                                 </div>
                                                 <small class="text-muted">
-                                                    <dl class="row">
+                                                    <dl class="row text-start">
                                                         <dt class="col-sm-4">Steam ID :</dt>
                                                         <dd class="col-sm-8"><code>{{ $player->steam_id }}</code></dd>
                                                         <dt class="col-sm-4">Nom Steam :</dt>
@@ -108,14 +99,6 @@
                 </div>
             </div>
         @endforeach
-    </div>
-</div>
-<div class="footer-background">
-    <div class="footer-background-overlay"></div>
-    <div class="footer-elementor-shape">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-            <path class="footer-elementor-shape-fill" d="M761.9,44.1L643.1,27.2L333.8,98L0,3.8V0l1000,0v3.9"></path>
-        </svg>
     </div>
 </div>
 @endsection

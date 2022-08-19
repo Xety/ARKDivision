@@ -8,8 +8,8 @@
             {!! Html::image($user->profile_background, 'Profil background', ['class' => 'background']) !!}
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="profile-information text-xs-center">
+            <div class="col-12">
+                <div class="profile-information text-center">
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <div class="profile-information-topleaderboard">
@@ -26,14 +26,6 @@
                         </li>
                     </ul>
                 </div>
-
-                <div class="profile-information text-xs-center">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -41,13 +33,13 @@
     <div class="profile-header-navbar">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <ul class="profile-header-navbar-badge list-inline pull-left">
                         @if ($user->badges->isNotEmpty())
                             @foreach ($user->badges as $badge)
                             @if ($badge->slug !== 'topleaderboard')
                                     <li class="list-inline-item">
-                                    <i aria-hidden="true" data-toggle="popover" class="profile-badges-item {{ $badge->icon }}" title="{{ $badge->name }}" data-content="{{ $badge->description }}" data-placement="top" data-trigger="hover" style="color:{{ $badge->color }}; {{ $badge->slug == "topleaderboard" ? "border-color: #eefc24;color:#fff;background-color:" . $badge->color : "" }}"></i>
+                                    <i aria-hidden="true" data-bs-toggle="popover" class="profile-badges-item {{ $badge->icon }}" title="{{ $badge->name }}" data-bs-content="{{ $badge->description }}" data-placement="top" data-bs-trigger="hover" style="color:{{ $badge->color }};"></i>
                                 </li>
                             @endif
                             @endforeach
@@ -68,7 +60,7 @@
 
 <div class="container pt-1">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             {!! $breadcrumbs->render() !!}
         </div>
     </div>
@@ -98,17 +90,7 @@
 
         <div class="col-lg-9">
             <section class="section">
-                <div class="hr-divider">
 
-                </div>
-
-
-                <div class="hr-divider">
-
-                </div>
-                <div class="badges pt-1 pb-2">
-
-                </div>
             </section>
         </div>
     </div>

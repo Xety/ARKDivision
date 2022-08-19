@@ -6,9 +6,6 @@ const mix = require('laravel-mix');
  |--------------------------------------------------------------------------
  */
 mix.webpackConfig({
-    node: {
-        console: true
-    },
     resolve: {
         extensions: ['.ts']
     },
@@ -23,11 +20,11 @@ mix.webpackConfig({
 });
 
 mix.js([
-        'resources/assets/js/xetaravel.admin.js',
-        'resources/assets/ts/Xetaravel.admin.ts'
-    ], 'public/js/xetaravel.admin.min.js')
+        'resources/assets/js/division.admin.js',
+        'resources/assets/ts/Division.admin.ts'
+    ], 'public/js/division.admin.min.js').vue()
     .js([
-        'resources/assets/js/xetaravel.js',
-        'resources/assets/ts/Xetaravel.ts'
-    ], 'public/js/xetaravel.min.js')
+        'resources/assets/js/division.js',
+        'resources/assets/ts/Division.ts'
+    ], 'public/js/division.min.js').vue()
     .version();

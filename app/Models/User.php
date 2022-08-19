@@ -185,7 +185,7 @@ class User extends Model implements
     public function notifications()
     {
         return $this->morphMany(DatabaseNotification::class, 'notifiable')
-                        ->orderBy('read_at', 'asc')
+                        ->orderBy('read_at')
                         ->orderBy('created_at', 'desc');
     }
 

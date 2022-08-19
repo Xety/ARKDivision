@@ -117,7 +117,7 @@ class SocialController extends Controller
         $client = new Client();
         $res = $client->request(
             'GET',
-            sprintf(config('xetaravel.steam.api_url'), config('xetaravel.steam.api_key'), $steamId)
+            sprintf(config('division.steam.api_url'), config('division.steam.api_key'), $steamId)
         );
         $steamUsers = json_decode($res->getBody())->response->players;
 

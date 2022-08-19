@@ -5,7 +5,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use RestCord\DiscordClient;
 use Xetaravel\Http\Components\AnalyticsComponent;
+use Xetaravel\Models\Arkshopplayer;
 use Xetaravel\Models\User;
 use Xetaravel\Models\RewardUser;
 
@@ -70,6 +72,10 @@ class PageController extends Controller
             return RewardUser::count();
         });
 
+        $pointsCount = Cache::remember('Analytics.points.count', $secondes, function () {
+            return Arkshopplayer::where('SteamId', '<>', 76561198099250608)->sum('Points');
+        });
+
         if (config('analytics.enabled')) {
             $allTimesVisitors = Cache::remember('Analytics.alltimesvisitors', $secondes, function () {
                 return $this->buildAllTimeVisitors();
@@ -78,7 +84,32 @@ class PageController extends Controller
             $allTimesVisitors = null;
         }
 
-        return view('page.index', compact('usersCount', 'rewardsCount', 'allTimesVisitors'));
+        // Get the last news from Division Discord.
+        $discordAnnonces = Cache::remember('Analytics.discord.news', $secondes, function () {
+            $discord = new DiscordClient(['token' => config('discord.bot.token')]);
+            return $discord->channel->getChannelMessages(['channel.id' => 386898828109938688, 'limit' => 3]);
+        });
+
+        // Get the notifications for the user.
+        $notifications= null;
+
+        if (Auth::user()) {
+            $user = User::find(Auth::id());
+            $notifications = $user->notifications()->limit(2)->get();
+        }
+
+
+        return view(
+            'page.index',
+            compact(
+                'usersCount',
+                'rewardsCount',
+                'allTimesVisitors',
+                'pointsCount',
+                'discordAnnonces',
+                'notifications'
+            )
+        );
     }
 
     /**

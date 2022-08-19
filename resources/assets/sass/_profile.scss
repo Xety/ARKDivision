@@ -15,6 +15,7 @@
             bottom: 0;
             overflow: hidden;
             background-image: url(/images/profile/overlay.png);
+            border-bottom: 1px solid $body-color;
 
             .background {
                 position: absolute;
@@ -24,16 +25,13 @@
                 bottom: -9999px;
                 margin: auto 0;
                 width: 100%;
-                opacity: 0.8;
-
-                @include media-breakpoint-down(xs) {
-                    width: inherit;
-                }
+                opacity: .7;
             }
         }
     }
 
     .profile-information {
+        position: relative;
         padding-top: 50px;
 
         ul {
@@ -56,19 +54,10 @@
                 text-shadow: 0 0 4px #FFF;
             }
         }
-
-        .profile-information-topleaderboard {
-            position: relative;
-
-            i {
-                position: absolute;
-                right: 0;
-            }
-        }
     }
 
     .profile-header-navbar {
-        border-bottom: 1px solid #e1e8ed;
+        border-bottom: 1px solid #d9d3c3;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
 
@@ -91,14 +80,14 @@
 .profile {
     .section {
         padding: 25px 30px;
-        border: 1px solid #e1e8ed;
+        border: 1px solid #d9d3c3;
         border-radius: $border-radius;
     }
 
     .sidebar-profile {
         text-align: center;
         padding: 30px 60px 20px;
-        border: 1px solid #e1e8ed;
+        border: 1px solid #d9d3c3;
         border-radius: $border-radius;
 
         img {

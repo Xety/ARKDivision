@@ -12,9 +12,7 @@
         <title>{{ config('app.title') . ' - ' . config('app.name') }}</title>
 
         <!-- Styles -->
-        <link href="{{ mix('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ mix('css/bootstrap.plugins.min.css') }}" rel="stylesheet">
-        <link href="{{ mix('css/xetaravel.admin.min.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/division.admin.min.css') }}" rel="stylesheet">
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
@@ -26,33 +24,37 @@
     </head>
     <body>
 
-        <!-- Header -->
-        @include('Admin::elements.header')
+        <div id="app-vue">
+            <!-- Header -->
+            @include('Admin::elements.header')
 
-        <!-- Flash Messages -->
-        @include('elements.flash')
+            <!-- Flash Messages -->
+            @include('elements.flash')
 
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Sidebar -->
-                @include('Admin::elements.interface')
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar -->
+                    @include('Admin::elements.interface')
 
-                <!-- Content -->
-                @yield('content')
+                    <main class="ms-sm-auto col-lg-10 px-md-4 pt-5">
+                        <!-- Content -->
+                        @yield('content')
+                    </main>
 
-                <!-- Footer -->
-                @include('Admin::elements.footer')
+                    <!-- Footer -->
+                    @include('Admin::elements.footer')
+                </div>
             </div>
         </div>
 
         <!-- Scripts -->
-        <script src="{{ mix('js/lib.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
 
         <!-- CSRF JS Token -->
         <script type="text/javascript">
-            window.Xetaravel = {!! json_encode(['csrfToken' => csrf_token()]) !!}
+            window.Division = {!! json_encode(['csrfToken' => csrf_token()]) !!}
         </script>
-        <script src="{{ mix('js/xetaravel.admin.min.js') }}"></script>
+        <script src="{{ mix('js/division.admin.min.js') }}"></script>
         <script src="https://kit.fontawesome.com/61f38896f8.js" crossorigin="anonymous"></script>
 
         <!-- Embed Scripts -->

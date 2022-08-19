@@ -1,26 +1,22 @@
-html {
-    position: relative;
-    min-height: 100%;
-    word-wrap: break-word;
+@font-face {
+    font-family: "MagmaWave";
+    src: url("/fonts/MagmaWaveCaps.otf");
 }
 
 body {
-  padding-top: 102px;
-  /* Margin bottom by footer height */
-  margin-bottom: 60px !important;
-  color: $body-color;
+    background-image: url('/images/background-division.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    font-family: 'Marcellus SC', serif;
+
+    color: $body-color;
 }
 
-@media (max-width: 768px) {
-    body {
-        padding-top: 0;
-        margin-bottom: 120px !important;
-    }
-    .pos-f-t {
-        position: static;
-    }
-}
-
-.font-xeta {
-    font-family: $font-family-xeta;
+.footer {
+    padding: 20px 0;
+	border-top: 1px solid #d9d3c3;
+	color: #fff;
 }

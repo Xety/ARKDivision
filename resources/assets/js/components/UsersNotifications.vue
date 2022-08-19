@@ -6,38 +6,42 @@
                 <i class="fa fa-check" aria-hidden="true"></i> Marquer toutes les notifs comme lues
         </button>
 
-        <table class="table table-hover table-notifications">
+        <ul class="list-group">
 
-            <tr v-for="notification in notifications"
+            <li v-for="notification in notifications"
                 v-on:mouseover.prevent="markNotificationAsRead(notification)"
-                :class="'notification-' + notification.id + ' alert notification-item'">
+                :class="'notification-' + notification.id + ' list-group-item'" style="border-bottom: 1px solid rgba(68, 60, 50, 0.3);">
+                <div class="row">
 
-                <td style="position: relative;">
+                    <div  :class="homepage ? 'col-12 d-flex align-items-center' : 'col-10 d-flex align-items-center'">
+                        <!-- Image -->
+                        <i v-if="notification.data.type == 'badge'" :class="notification.data.icon + ' fa-2x me-3'" :style="'color:' + notification.data.color"></i>
 
-                    <!-- Image -->
-                    <i v-if="notification.data.type == 'badge'" :class="notification.data.icon + ' fa-2x'" :style="'color:' + notification.data.color"></i>
+                        <img v-else-if="notification.data.type == 'reward'" :src="'/' + notification.data.image" :alt="notification.data.name" width="50px" height="50px">
 
-                    <img v-else-if="notification.data.type == 'reward'" :src="'/' + notification.data.image" :alt="notification.data.name" width="50px" height="50px">
+                        <img v-else src="/images/logo.svg" alt="Image" width="60">
 
-                    <img v-else src="/images/logo.svg" alt="Image" width="60">
+                        <!-- Message -->
+                        <span v-html="notification.data.hasOwnProperty('message_key') ? formatMessage(notification) : notification.data.message" class="message"></span>
 
-                    <!-- Message -->
-                    <span v-html="notification.data.hasOwnProperty('message_key') ? formatMessage(notification) : notification.data.message" class="message"></span>
+                        <!-- Badge new -->
+                        <strong v-if="notification.read_at === null" :class="'notification-' + notification.id + '-new'" class="new">
+                            <span></span>
+                            New
+                        </strong>
+                    </div>
 
-                    <!-- Badge new -->
-                    <strong v-if="notification.read_at === null" :class="'notification-' + notification.id + '-new'" class="new">
-                        <span></span>
-                        New
-                    </strong>
+                    <div v-if="homepage == false" class="col-2 text-end">
+                        <!-- Delete -->
+                        <a v-on:click.prevent="deleteNotification(notification)" type="button" class="close text-white" data-bs-toggle="tooltip" style="font-size: xxx-large;" title="Supprimer cette notification" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
 
-                    <!-- Delete -->
-                    <button v-on:click.prevent="deleteNotification(notification)" type="button" class="close text-danger" data-toggle="tooltip" title="Supprimer cette notification" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </td>
-            </tr>
+                </div>
+            </li>
 
-        </table>
+        </ul>
     </div>
 </template>
 
@@ -45,7 +49,8 @@
     export default {
         props: {
             notifications: Array,
-            routeDeleteNotification: String
+            routeDeleteNotification: String,
+            homepage: Boolean
         },
 
         data: function () {

@@ -19,32 +19,34 @@ class MenuServiceProvider extends ServiceProvider
                 ->addClass('mb-2 nav nav-menu flex-column')
                 ->setAttribute('role', 'navigation')
                 ->add(
-                    Link::toRoute('users.account.index', '<i class="fas fa-user-edit"></i> Compte')
+                    Link::toRoute('users.user.account', '<i class="fas fa-user-edit"></i> Compte')
                         ->addClass('nav-link')
+                        ->addParentClass('nav-item')
                 )
                 ->add(
                     Link::toRoute('users.user.member', '<i class="fas fa-user-astronaut"></i> Membre')
                         ->addClass('nav-link')
+                        ->addParentClass('nav-item')
                 )
                 ->add(
                     Link::toRoute('users.notification.index', '<i class="fas fa-user-tag"></i> Notifications')
                         ->addClass('nav-link')
+                        ->addParentClass('nav-item')
                 )
                 ->add(
                     Link::toRoute('users.reward.index', '<i class="fas fa-award"></i> Récompenses')
                         ->addClass('nav-link')
+                        ->addParentClass('nav-item')
                 )
                 ->add(
                     Link::toRoute('users.social.index', '<i class="fas fa-user-plus"></i> Social')
                         ->addClass('nav-link')
+                        ->addParentClass('nav-item')
                 )
                 ->add(
                     Link::toRoute('users.user.transactions', '<i class="fab fa-paypal"></i> Transactions')
                         ->addClass('nav-link')
-                )
-                ->add(
-                    Link::toRoute('users.user.settings', '<i class="fas fa-user-cog"></i> Paramètres')
-                        ->addClass('nav-link')
+                        ->addParentClass('nav-item')
                 )
                 ->setActiveFromRequest();
         });

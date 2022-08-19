@@ -59,6 +59,6 @@ class ResetPassword extends Notification implements ShouldQueue
             )
             ->level('primary')
             ->subject('Réinitialisation de Mot de Passe - ' . config('app.name'))
-            ->from(config('xetaravel.site.contact_email'), config('app.name'));
+            ->from(config('division.site.contact_email'), config('app.name'));
     }
 }

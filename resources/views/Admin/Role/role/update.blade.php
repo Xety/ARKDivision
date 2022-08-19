@@ -2,12 +2,12 @@
 {!! config(['app.title' => 'Update ' . e($role->name)]) !!}
 
 @section('content')
-<div class="col-sm-12 col-md-10 offset-md-2 p-2">
+<div class="col-s12 p-2">
     {!! $breadcrumbs->render() !!}
 </div>
-<div class="col-sm-12 col-md-10 offset-md-2 pl-2 pr-2 pb-2">
-    <div class="card card-inverse bg-inverse">
-        <h5 class="card-header">
+<div class="col-12 pl-2 pr-2 pb-2">
+    <div class="card card-inverse bg-inverse p-4">
+        <h5 class="card-header mb-4">
             Update : {{ $role->name }}
         </h5>
 

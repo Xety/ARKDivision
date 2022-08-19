@@ -1,0 +1,75 @@
+// theme-color-variables
+$primary: #f6d48c; //OLD : #ecd0a8
+$dark:#25221d;
+$discord: #7289da;
+$steam: #15346a;
+$twitch: #a970ff;
+$femme: #ef3c7e;
+$homme: #18aaff;
+
+// Settings for the `<body>` element.
+$body-color: #d9d3c3;
+
+// Style anchor elements.
+$link-decoration: none;
+
+// Components
+$border-color-translucent: rgba(#e6cb8e, .175);
+
+// Tooltips
+$tooltip-color: #e6cb8e;
+$tooltip-bg: $dark;
+
+// Dropdowns
+$dropdown-dark-bg: $dark;
+$dropdown-dark-link-active-bg: tint-color($primary, 50%);
+
+// Tooltips
+$popover-bg: $dark;
+
+// Form Input
+$input-bg: transparent;
+//$input-color: $primary;
+$input-border-color: $primary;
+
+// Input Group
+$input-group-addon-bg: transparent;
+
+// List Group
+$list-group-color: $body-color;
+$list-group-bg: transparent;
+$list-group-border-width: 0;
+$list-group-hover-bg: rgba(0, 0, 0, 0.3);
+$list-group-action-hover-color: $body-color;
+
+// Cards
+$card-color: null;
+$card-bg: transparent;
+
+// Breadcrumb
+$breadcrumb-active-color: $body-color;
+
+// Modals
+$modal-content-bg: $dark;
+
+// Alert
+$alert-danger-bg-color: #251d1d;
+$alert-danger-color:#d04848;
+$alert-danger-border-color: rgba(200, 56, 56, 0.57);
+
+$alert-success-bg-color: #1e251d;
+$alert-success-color:#48d057;
+$alert-success-border-color: rgba(61, 200, 56, 0.57);
+
+$alert-warning-bg-color: #24251d;
+$alert-warning-color:#d0ce48;
+$alert-warning-border-color: rgba(200, 191, 56, 0.57);
+
+// Toast
+$toast-danger-bg-color: #251d1d;
+$toast-danger-color:#d04848;
+$toast-danger-border-color: rgba(200, 56, 56, 0.57) !important;
+
+$toast-success-bg-color: #1e251d;
+$toast-success-color:#48d057;
+$toast-success-border-color: rgba(61, 200, 56, 0.57) !important;

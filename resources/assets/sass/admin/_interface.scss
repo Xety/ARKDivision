@@ -1,60 +1,41 @@
 .interface {
     position: fixed;
-    top: 102px;
+    top: 0;
     bottom: 0;
     left: 0;
-    padding: 0;
-    z-index: 1000;
+    z-index: 100;
+    padding: 80px 0 0;
+    color: #fff;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, 0.4);
+    border-right:1px solid #443c32;
+}
+
+.interface-sticky {
+    height: calc(100vh - 48px);
     overflow-x: hidden;
-    overflow-y: auto;
-    border-right: 4px solid $brand-primary;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
 
-    .nav {
-        margin-bottom: 20px;
-    }
+.interface .nav-link {
+    font-weight: 500;
 
-    .nav-item {
-        width: 100%;
-    }
-
-    .nav-item + .nav-item {
-        margin-left: 0;
-    }
-
-    .nav-link {
-        border-radius: 0;
-
-        &:hover {
-            color: $white;
-            background-color: $brand-primary;
-        }
-    }
-
-    .interface-header {
-        height: 70px;
-        border-bottom: 1px solid $brand-primary;
-
-        .avatar {
-            float: left;
-            width: 40px;
-            margin: 15px;
-            border-radius: 50%;
-            border: 2px solid $white;
-        }
-
-        .information {
-            padding-right: 15px;
-            padding-top: 25px;
-            margin-left: 70px;
-            text-align: left;
-        }
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.4);
     }
 }
 
+.interface .nav-pills .active {
+    color: $primary;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
-@media (max-width: 768px) {
+.interface .nav-pills {
+    border-bottom:1px solid #443c32;
+}
+
+@media (max-width: 767.98px) {
     .interface {
-        position: static;
-        border: none;
+        top: 5rem;
     }
 }

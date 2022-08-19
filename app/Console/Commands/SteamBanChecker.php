@@ -44,7 +44,7 @@ class SteamBanChecker extends Command
     {
         // Get the content of the pastebin list.
         $client = new Client();
-        $response = $client->request('GET', config('xetaravel.pastebin.banlist_url'));
+        $response = $client->request('GET', config('division.pastebin.banlist_url'));
         $status = $response->getStatusCode();
         $body = $response->getBody();
 

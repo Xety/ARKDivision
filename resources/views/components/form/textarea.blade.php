@@ -1,8 +1,4 @@
-<div class="form-group {{ $errors->has($name) ? 'has-danger' : '' }}">
-    @if ($label !== false)
-        {!! Form::label($name, $label, ['class' => $labelClass]) !!}
-    @endif
-
+<div class="form-floating mb-3">
     @isset($attributes['editor'])
         <div id="{{ $attributes['editor'] }}">
     @endisset
@@ -13,12 +9,16 @@
         array_merge(['class' => $errors->has($name) ? 'form-control form-control-danger' : 'form-control', 'rows' => 5], $attributes)
     ) !!}
 
+    @if ($label !== false)
+        {!! Form::label($name, $label, ['class' => $labelClass]) !!}
+    @endif
+
     @isset($attributes['editor'])
         </div>
     @endisset
 
     @if ($errors->has($name))
-        <div class="form-control-feedback">
+    <div class="invalid-feedback">
             {{ $errors->first($name) }}
         </div>
     @endif

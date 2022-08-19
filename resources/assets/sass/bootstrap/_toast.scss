@@ -1,0 +1,6 @@
+.toast-danger {
+    @include toast-variant($toast-danger-bg-color, $toast-danger-border-color, $toast-danger-color);
+}
+.toast-success {
+    @include toast-variant($toast-success-bg-color, $toast-success-border-color, $toast-success-color);
+}

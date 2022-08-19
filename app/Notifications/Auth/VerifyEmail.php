@@ -53,7 +53,7 @@ class VerifyEmail extends Notification implements ShouldQueue
             ->action('Vérifier mon E-mail', $verificationUrl)
             ->line('Si vous n\'avez pas créé de compte sur le site ' . config('app.name') . ', aucune autre ' .
             'action n\'est requise et vous pouvez ignorer cet e-mail.')
-            ->from(config('xetaravel.site.contact_email'), config('app.name'));
+            ->from(config('division.site.contact_email'), config('app.name'));
     }
 
     /**

@@ -1,35 +1,16 @@
-<header class="pos-f-t">
-    <nav class="navbar navbar-toggleable-md navbar-dark bg-inverse">
-        <button class="navbar-toggler hidden-md-up float-xs-right" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-expanded="false" aria-controls="exCollapsingNavbar2" aria-label="Toggle navigation"></button>
-        <a class="navbar-brand float-xs-none float-md-left" href="{{ route('page.index') }}">
-            <img src="{{ asset('images/logo.png') }}" height="74" class="d-inline-block align-middle" alt="Logo">
-        </a>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-lg-2 me-0 px-3 fs-6" href="#">
+        <img src="{{ asset('images/logo.png') }}" height="70" class="d-inline-block align-middle" alt="Logo">
+    </a>
+    <button class="navbar-toggler position-absolute d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#interfaceMenu" aria-controls="interfaceMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+    <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
 
-        @if (Auth::guest())
-            <div class="float-sm-right">
-                <a class="btn btn-outline-primary" href="{{ route('users.auth.register') }}">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i> Register
-                </a>
-                <a class="btn btn-outline-primary" href="{{ route('users.auth.login') }}">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i> Login
-                </a>
-            </div>
-        @else
-            <div class="navbar-text btn-group float-md-right font-weight-bold">
-                <a href="#" id="sidebar-trigger" class="nav-link">
-                    {{ Auth::user()->username }}
-                </a>
-            </div>
-            <span class="navbar-text navbar-hello-text text-white float-xs-left float-md-right font-weight-bold">
-              Hello,&nbsp;
-            </span>
-        @endif
-
-
-      </div>
-    </nav>
+        </div>
+    </div>
 </header>
 
 <!-- Sidebar -->

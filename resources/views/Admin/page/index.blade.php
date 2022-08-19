@@ -2,9 +2,9 @@
 {!! config(['app.title' => 'Dashboard']) !!}
 
 @section('content')
-<main class="col-sm-12 col-md-10 offset-md-2 p-2">
+
     <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12 mb-2">
+        <div class="col-lg-3 mb-2">
             <div class="widget widget-stats bg-info">
 	            <div class="stats-icon">
                     <i class="fa fa-users fa-fw"></i>
@@ -23,7 +23,7 @@
 	        </div>
         </div>
 
-        <div class="col-md-3 col-sm-6 col-xs-12 mb-2">
+        <div class="col-lg-3 mb-2">
             <div class="widget widget-stats" style="background:#00acac;">
 	            <div class="stats-icon">
                     <i class="fa fa-newspaper-o fa-fw"></i>
@@ -42,7 +42,7 @@
 	        </div>
         </div>
 
-        <div class="col-md-3 col-sm-6 col-xs-12 mb-2">
+        <div class="col-lg-3 mb-2">
             <div class="widget widget-stats" style="background:#727cb6;">
 	            <div class="stats-icon">
                     <i class="fa fa-comments-o fa-fw"></i>
@@ -62,7 +62,7 @@
         </div>
 
         @if (config('analytics.enabled'))
-            <div class="col-md-3 col-sm-6 col-xs-12 mb-2">
+            <div class="col-lg-3 mb-2">
                 <div class="widget widget-stats" style="background:#348fe2;">
     	            <div class="stats-icon">
                         <i class="fa fa-globe fa-fw"></i>
@@ -83,11 +83,11 @@
         @endif
 
     </div>
-    @if (config('analytics.enabled'))
+    {{-- @if (config('analytics.enabled'))
         @include('Admin::partials.page._analytics')
-    @endif
-</main>
+    @endif--}}
+
 @endsection
-@if (config('analytics.enabled'))
+{{--@if (config('analytics.enabled'))
     @include('Admin::partials.page._analytics-scripts')
-@endif
+@endif--}}
