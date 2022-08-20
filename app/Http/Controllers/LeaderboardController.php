@@ -44,7 +44,7 @@ class LeaderboardController extends Controller
             return Carbon::now()->addSeconds($secondes);
         });
 
-        $breadcrumbs = $this->breadcrumbs->addCrumb('Leaderboard', route('leaderboard.index'));
+        $breadcrumbs = $this->breadcrumbs->addCrumb('Classements', route('leaderboard.index'));
 
         return view(
             'leaderboard.index',

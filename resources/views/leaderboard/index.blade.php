@@ -11,7 +11,7 @@
     </div>
 
     <h1 class="text-center fs-3 pt-3 mb-4" style="color:#bfb59e;border-bottom:1px solid #443c32">
-        Classement des joueurs Division
+        Classements des joueurs Division
     </h1>
 
     <div class="row">
