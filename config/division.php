@@ -140,5 +140,16 @@ return [
     'arklog' => [
         // Set the expiration delay used for ARKLog free access.
         'expire' => '+48 hours',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Leaderboard
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'leaderboard' => [
+        'cache_in_secondes' => 7200,  // 2 hours
     ]
 ];

@@ -11,6 +11,9 @@ Route::group(['middleware' => ['permission:access.site,allowGuest']], function (
     Route::get('/', 'PageController@index')->name('page.index');
 
     Route::get('terms', 'PageController@terms')->name('page.terms');
+
+    // Leaderboard
+    Route::get('leaderboard', 'LeaderboardController@index')->name('leaderboard.index');
 });
 
 Route::group(['middleware' => ['auth', 'permission:show.banished']], function () {
