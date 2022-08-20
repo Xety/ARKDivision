@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! config(['app.title' => 'Welcome !']) !!}
+{!! config(['app.title' => 'Bienvenue !']) !!}
 
 @section('content')
 <div class="container">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="col-lg-4 text-center">
                         <div class="shortcuts">
-                            <a href=# data-bs-title="Coming soon..." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
+                            <a href="{{ route('leaderboard.index') }}">
                                 <img class="d-block svg" src="{{ asset('images/svg/trophee-du-championnat.svg') }}">
                                 <h3 class="fs-6">Classements</h3>
                             </a>

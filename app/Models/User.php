@@ -158,6 +158,16 @@ class User extends Model implements
     }
 
     /**
+     * Get the Quests Stats for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function questStats()
+    {
+        return $this->hasOne(LethalquestsStat::class);
+    }
+
+    /**
      * Get the account for the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
