@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Xetaravel\Events\Events\EvenementEvent;
+use Xetaravel\Events\Events\RewardLabyrintheTatie;
 use Xetaravel\Events\Events\RewardNakor;
 use Xetaravel\Http\Controllers\Admin\Controller;
 use Xetaravel\Models\Badge;
@@ -181,7 +182,7 @@ class UserController extends Controller
     }
 
     /**
-     * Delete the avatar for the specified user.
+     * Unlock the badge for the user.
      *
      * @param int $user_id The id of the user.
      * @param int $badge_id The id of the badge.
@@ -197,14 +198,26 @@ class UserController extends Controller
         if ($badge->hasUser($user)) {
             return redirect()
                 ->back()
-                ->with('danger', 'Cet utilisateur à déjà débloqué ce badge');
+                ->with('danger', 'Cet utilisateur à déjà débloqué ce badge!');
         }
 
         // Check if the badge is an event badge.
         if ($badge->type != 'eventParticipating') {
             return redirect()
                 ->back()
-                ->with('danger', 'Ce badge n\'est pas un badge d\'event');
+                ->with('danger', 'Ce badge n\'est pas un badge d\'event!');
+        }
+
+        // Check if the user has set a Steam ID because there're rewards in the ArkShop.
+        if ($badge->slug == 'eventlabyrinthetatie') {
+            if (is_null($user->steam_id)) {
+                return redirect()
+                    ->back()
+                    ->with(
+                        'danger',
+                        'L\'utilisateur n\'a pas de Steam ID, il faut un Steam ID pour les rewards dans le ArkShop.'
+                    );
+            }
         }
 
         // Unlock the badge related to the slug of the badge.
@@ -213,6 +226,11 @@ class UserController extends Controller
         // Unlock the rewards for the Nakor badge only.
         if ($badge->slug == 'eventnakor') {
             event(new RewardNakor($user));
+        }
+
+        // Unlock the rewards for the Le Labyrinthe de Tatie badge.
+        if ($badge->slug == 'eventlabyrinthetatie') {
+            event(new RewardLabyrintheTatie($user));
         }
 
         return redirect()
