@@ -118,7 +118,53 @@ class BadgesTableSeed extends Seeder
                 'rule' => 20,
                 'created_at' => $now,
                 'updated_at' => $now
-            ]
+            ],
+
+            // Events
+            [
+                'name' => 'Aventuriers de Rockwell',
+                'slug' => 'eventrockwell',
+                'description' => 'Obtenu lors de la participation à l\'évènement Aventurier de Rockwell le 11/05/2019',
+                'icon' => 'fas fa-dragon',
+                'color' => '#d800ff',
+                'type' => 'eventParticipating',
+                'rule' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Aventuriers de Santiago',
+                'slug' => 'eventsantiago',
+                'description' => 'Obtenu lors de la participation à l\'évènement Aventurier de Santiago le 07/06/2019',
+                'icon' => 'fas fa-dragon',
+                'color' => '#3498db',
+                'type' => 'eventParticipating',
+                'rule' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Disciple de Nakor',
+                'slug' => 'eventnakor',
+                'description' => 'Obtenu lors de la participation à l\'évènement L\'épopée de Nakor le 28/02/2021',
+                'icon' => 'fas fa-dragon',
+                'color' => '#e67e22',
+                'type' => 'eventParticipating',
+                'rule' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Le Labyrinthe de Tatie',
+                'slug' => 'eventlabyrinthetatie',
+                'description' => 'Obtenu lors de la participation à l\'évènement Le Labyrinthe de Tatie le 20/08/2022',
+                'icon' => 'fas fa-dragon',
+                'color' => '#39c635',
+                'type' => 'eventParticipating',
+                'rule' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
         ];
 
         DB::table('badges')->insert($badges);

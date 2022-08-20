@@ -82,7 +82,7 @@
                     </div>
                     {{ link_to(route('users.social.index'), '<i class="fab fa-steam"></i> Lier mon compte', ['class' => 'btn btn-sm btn-primary'], null, false) }}
                 @else
-                    @if ($notifications)
+                    @if (!$notifications->isEmpty())
                         <users-notifications
                             :notifications="{{ json_encode($notifications) }}"
                             :route-delete-notification="{{ var_export(route('users.notification.delete')) }}"
@@ -131,9 +131,31 @@
     <hr/>
 
     <div class="row">
-        <div class="col-lg-3 align-self-stretch">
-            <div class="home-widget h-100">
+        <div class="col-lg-4 align-self-stretch">
+            <div class="home-widget h-100" style="background-color: #312e27;">
+                @auth
+                    <h2 class="fs-4 text-primary">
+                        Vos Events terminés
+                    </h2>
+                @else
+                    <h2 class="fs-4 text-primary">
+                        Les Events terminés
+                    </h2>
+                @endauth
 
+                    @if (!$badges->isEmpty())
+                        <ul class="list-group">
+                        @foreach ($badges as $badge)
+                            <li class="list-group-item fs-5" style="border-bottom:1px solid #443c32" data-bs-title="{{ $badge->description }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
+                                <img src="{{ asset('images/events/' . $badge->slug . '.svg') }}" width="40px">
+                                {{ $badge->name }}
+                                <span class="d-block text-muted text-end" style="font-size:0.8rem">Le {{ $badge->created_at->format('d-m-Y') }}</span>
+                            </li>
+                        @endforeach
+                        </ul>
+                    @else
+                        Vous avez terminé aucun Event encore !
+                    @endif
             </div>
         </div>
         <div class="col-lg-4 align-self-stretch">
@@ -142,7 +164,7 @@
                     Comming soon...
             </div>
         </div>
-        <div class="col-lg-5 align-self-stretch">
+        <div class="col-lg-4 align-self-stretch">
             <div class="home-widget h-100" style="background-color: #2d2c31;">
                 <h2 class="fs-4 text-primary">Suivre la communauté</h2>
 

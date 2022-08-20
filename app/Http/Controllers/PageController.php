@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use RestCord\DiscordClient;
 use Xetaravel\Http\Components\AnalyticsComponent;
 use Xetaravel\Models\Arkshopplayer;
+use Xetaravel\Models\Badge;
 use Xetaravel\Models\User;
 use Xetaravel\Models\RewardUser;
 
@@ -98,6 +99,13 @@ class PageController extends Controller
             $notifications = $user->notifications()->limit(2)->get();
         }
 
+        $badges= Badge::where('type', 'eventParticipating')->get();
+
+        if (Auth::user()) {
+            $user = User::find(Auth::id());
+            $badges = $user->badges()->where('type', 'eventParticipating')->get();
+        }
+
 
         return view(
             'page.index',
@@ -107,7 +115,8 @@ class PageController extends Controller
                 'allTimesVisitors',
                 'pointsCount',
                 'discordAnnonces',
-                'notifications'
+                'notifications',
+                'badges'
             )
         );
     }
