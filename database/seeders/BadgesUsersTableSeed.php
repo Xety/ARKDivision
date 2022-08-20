@@ -88,12 +88,6 @@ class BadgesUsersTableSeed extends Seeder
                 'user_id' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
-            ],
-            [
-                'badge_id' => 13,
-                'user_id' => 1,
-                'created_at' => $now,
-                'updated_at' => $now
             ]
         ];
 
