@@ -2,11 +2,11 @@
 {!! config(['app.title' => 'Search an User']) !!}
 
 @section('content')
-<div class="col-sm-12 col-md-10 offset-md-2 p-2">
+<div class="col-12 p-2">
     {!! $breadcrumbs->render() !!}
 </div>
-<div class="col-sm-12 col-md-10 offset-md-2 pl-2 pr-2 pb-2">
-    <div class="card card-inverse bg-inverse">
+<div class="col-12 pl-2 pr-2 pb-2">
+    <div class="card p-4">
         <h5 class="card-header">
             Search an User
         </h5>
@@ -103,11 +103,11 @@
                     </tbody>
                 </table>
 
-                <div class="col-md 12 text-xs-center">
+                <div class="col-lg-12 text-center">
                     {{ $users->links() }}
                 </div>
             @else
-                <div class="col-md-12">
+                <div class="col-lg-12">
                     <div class="alert alert-primary" role="alert">
                         <i class="fa fa-exclamation" aria-hidden="true"></i>
                         Il n'y a pas de résultat pour votre recherche !

@@ -6,7 +6,7 @@
     {!! $breadcrumbs->render() !!}
 </div>
 <div class="col-12 pl-2 pr-2 pb-2">
-    <div class="card card-inverse bg-inverse p-4">
+    <div class="card p-4">
         <h5 class="card-header mb-4">
             Rechercher un Utilisateur
         </h5>
@@ -75,7 +75,7 @@
                 ) !!}
 
                 <div class="form-group">
-                    <div class="col-md-12">
+                    <div class="col-12">
                         {!! Form::button('<i class="fa fa-search" aria-hidden="true"></i> Rechercher', ['type' => 'submit', 'class' => 'btn btn-outline-primary']) !!}
                     </div>
                 </div>
