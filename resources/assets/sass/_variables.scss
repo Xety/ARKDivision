@@ -49,6 +49,15 @@ $card-bg: transparent;
 // Breadcrumb
 $breadcrumb-active-color: $body-color;
 
+// Pagination
+$pagination-bg: transparent;
+$pagination-focus-bg: transparent;
+$pagination-hover-bg: rgba(0, 0, 0, 0.3);
+$pagination-disabled-bg: transparent;
+$pagination-border-color: $primary;
+$pagination-hover-border-color: $primary;
+$pagination-disabled-border-color: $primary;
+
 // Modals
 $modal-content-bg: $dark;
 

@@ -31,7 +31,7 @@ return [
             'notification_per_page' => 10
         ],
         'reward' => [
-            'reward_per_page' => 10
+            'reward_per_page' => 2
         ],
         'transaction' => [
             'transaction_per_page' => 10

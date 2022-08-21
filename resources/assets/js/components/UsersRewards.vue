@@ -5,7 +5,7 @@
             <i :class="{ 'fa fa-check': !alert.error, 'fa fa-exclamation': alert.error}" aria-hidden="true"></i> {{ alert.message }}
         </diV>
 
-        <ul class="list-group">
+        <ul class="list-group mb-5">
 
             <li v-for="reward in rewards"
                 v-on:mouseover.prevent="markRewardAsRead(reward)"
@@ -19,10 +19,12 @@
 
                         <!-- Name -->
                         <span v-html="reward.name" class="fs-4"></span>
+                    </div>
 
+                    <div class="col-2 text-end">
                         <!-- Claim -->
                         <div v-if="reward.gender == true && reward.pivot.was_used == false" style="display: initial;">
-                            <button type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="modal" data-target="#selectGender" title="Obtenir la récompense">
+                            <button type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-bs-toggle="modal" data-bs-target="#selectGender" title="Obtenir la récompense">
                                 <i class="fas fa-download" aria-hidden="true"></i>
                             </button>
 
@@ -33,11 +35,9 @@
                                             <h5 class="modal-title" id="selectGender">
                                                 Selectionner le Genre de votre personnage
                                             </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body text-center">
                                             <div class="form-group">
                                                 <div role="alert" class="alert alert-danger">
                                                     <i aria-hidden="true" class="fa fa-exclamation"></i> Un skin <i>Homme</i> <b>ne peut pas</b> s'équiper sur un personnage <i>Femme</i> et inversement !
@@ -48,10 +48,10 @@
                                             </div>
                                         </div>
                                         <div class="modal-actions">
-                                            <button type="button" class="ma ma-btn ma-btn-femme" data-dismiss="modal" v-on:click.prevent="claimReward(reward, 'female')">
+                                            <button type="button" class="ma ma-btn ma-btn-femme" data-bs-dismiss="modal" v-on:click.prevent="claimReward(reward, 'female')">
                                                 Femme
                                             </button>
-                                            <button type="button" class="ma ma-btn ma-btn-homme" data-dismiss="modal" v-on:click.prevent="claimReward(reward, 'male')">
+                                            <button type="button" class="ma ma-btn ma-btn-homme" data-bs-dismiss="modal" v-on:click.prevent="claimReward(reward, 'male')">
                                                 Homme
                                             </button>
                                         </div>
@@ -59,11 +59,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-2 text-end">
-                        <button v-if="reward.pivot.was_used == false" v-on:click.prevent="claimReward(reward)" type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="tooltip" title="Obtenir la récompense">
+
+
+                        <button v-if="reward.pivot.was_used == false && reward.gender == false" v-on:click.prevent="claimReward(reward)" type="button" :class="'reward-'  + reward.pivot.id + '-button btn btn btn-outline-primary float-sm-right download'" data-toggle="tooltip" title="Obtenir la récompense">
                             <i class="fas fa-download" aria-hidden="true"></i>
                         </button>
+
+
                     </div>
 
                 </div>

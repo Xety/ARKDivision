@@ -34,7 +34,7 @@
                                 :route-reward-mark-as-read="{{ var_export(route('users.reward.markasread')) }}">
                             </users-rewards>
 
-                            <div class="col-md 12 text-center">
+                            <div class="col-12 text-center">
                                 {{ $rewards->render() }}
                             </div>
                         @else

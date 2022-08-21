@@ -7,7 +7,7 @@
             $paginatorClass = "pagination-inverse";
         }
     @endphp
-    <ul class="pagination {{ $paginatorClass }}">
+    <ul class="pagination  justify-content-center {{ $paginatorClass }}">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
