@@ -14,7 +14,7 @@ return [
     /*
      * The view id of which you want to display data.
      *
-     * 30945888 // View discuss.ark-division.fr
+     * 30945888 // View membre.ark-division.fr
      * 166645612 // View ark-division.fr
      */
     'view_id' => env('ANALYTICS_VIEW_ID'),

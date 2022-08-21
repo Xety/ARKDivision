@@ -75,7 +75,7 @@
                                                             <dd class="col-sm-8"><code>{{ $player->user->discord_id }}</code></dd>
                                                             <dt class="col-sm-4">Profil Discuss :</dt>
                                                             <dd class="col-sm-8 font-weight-bold">{!! Html::link(
-                                                                    url('http://discuss.ark-division.fr/users/profile/@' . e($player->user->username)),
+                                                                    url('http://membre.ark-division.fr/users/profile/@' . e($player->user->username)),
                                                                     "@" . $player->user->username,
                                                                     [
                                                                         'class' => 'text-primary',

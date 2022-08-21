@@ -85,8 +85,11 @@ Route::group(['prefix' => 'users', 'middleware' => ['permission:access.site,allo
         Route::get('account', 'UserController@account')->name('users.user.account');
         Route::put('settings', 'UserController@update')->name('users.user.settings');
         Route::get('transactions', 'UserController@transactions')->name('users.user.transactions');
-        Route::get('member', 'UserController@Member')->name('users.user.member');
+        Route::get('member', 'UserController@member')->name('users.user.member');
         //Route::delete('delete', 'UserController@delete')->name('users.user.delete');
+
+        // Coffres
+        Route::get('coffres', 'CoffreController@index')->name('users.coffre.index');
 
         // Account Routes
         Route::put('account', 'AccountController@update')->name('users.account.update');

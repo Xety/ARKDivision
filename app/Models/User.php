@@ -57,7 +57,9 @@ class User extends Model implements
         'transaction_count',
         'last_login_ip',
         'last_login',
-        'email_verified_at'
+        'email_verified_at',
+        'claimed_coffre_count_total',
+        'claimed_coffre_count_monthly'
     ];
 
     /**
@@ -103,7 +105,8 @@ class User extends Model implements
      */
     protected $dates = [
         'last_login',
-        'member_expire_at'
+        'member_expire_at',
+        'last_claimed_coffre'
     ];
 
     /**

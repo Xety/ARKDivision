@@ -151,5 +151,25 @@ return [
     */
     'leaderboard' => [
         'cache_in_secondes' => 7200,  // 2 hours
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Leaderboard
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'coffres' => [
+        // The number of points bonus they get for each 5 days.
+        'bonus_points' => [
+            'bonus_5_days_points_amount' => 500,
+            'bonus_10_days_points_amount' => 1000,
+            'bonus_15_days_points_amount' => 1500,
+            'bonus_20_days_points_amount' => 2500,
+            'bonus_25_days_points_amount' => 5000,
+            'bonus_30_days_points_amount' => 10000
+        ],
+        'max_days_claim' => 30
     ]
 ];
