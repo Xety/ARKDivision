@@ -1,6 +1,41 @@
 @extends('layouts.app')
 {!! config(['app.title' => 'Bienvenue !']) !!}
 
+@push('scripts')
+@if ($nextClaimDate > $now)
+<script>
+    // The data/time we want to countdown to
+    var countDownDate = new Date('{{ $nextClaimDate->format('F d, Y H:i:s') }}').getTime();
+
+    // Run myfunc every second
+    var myfunc = setInterval(function() {
+
+    var now = new Date().getTime();
+    var timeleft = countDownDate - now;
+
+    // Calculating the days, hours, minutes and seconds left
+    var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+
+    // Result is output to the specific element
+    document.getElementById("hours").innerHTML = hours + "h "
+    document.getElementById("mins").innerHTML = minutes + "m "
+    document.getElementById("secs").innerHTML = seconds + "s "
+
+    // Display the message when countdown is over
+    if (timeleft < 0) {
+        clearInterval(myfunc);
+        document.getElementById("hours").innerHTML = ""
+        document.getElementById("mins").innerHTML = ""
+        document.getElementById("secs").innerHTML = ""
+        document.getElementById("timer-end").innerHTML = "";
+    }
+    }, 1000);
+</script>
+@endif
+@endpush
+
 @section('content')
 <div class="container">
 
@@ -101,7 +136,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 text-center">
-                        <div class="shortcuts">
+                        <div class="shortcuts" data-bs-toggle="popover" data-bs-html="true" data-bs-content="{{ $nextClaimDate > $now ? 'Prochain coffre dans <span id="hours">23h</span>  <span id="mins">29m</span> <span id="secs">59s</span>' : 'Vous pouvez réclamer votre coffre !' }}" data-bs-placement="top" data-bs-trigger="hover">
                             <a href="{{ route('users.coffre.index') }}">
                                 <img class="d-block svg" src="{{ asset('images/svg/coffre.svg') }}">
                                 <h3 class="fs-6">Coffres</h3>
@@ -109,7 +144,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 text-center">
-                        <div class="shortcuts">
+                        <div class="shortcuts" data-bs-title="Voir les classements des joueurs" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
                             <a href="{{ route('leaderboard.index') }}">
                                 <img class="d-block svg" src="{{ asset('images/svg/trophee-du-championnat.svg') }}">
                                 <h3 class="fs-6">Classements</h3>
@@ -117,9 +152,11 @@
                         </div>
                     </div>
                     <div class="col-lg-4 text-center">
-                        <div class="shortcuts">
-
-                            <h3 class="fs-6">Packs Shop</h3>
+                        <div class="shortcuts" data-bs-title="Voir les packs Divison Shop" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
+                            <a href="https://ark-division.fr/packs-division-shop/" target="_blank">
+                                <img class="svg" src="{{ asset('images/svg/icon-points.svg') }}">
+                                <h3 class="fs-6">Packs Shop</h3>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -218,7 +255,7 @@
 
         <div class="col-md-4">
             <div class="features-box">
-                <img src="{{ asset('images/icon-point.png') }}" style="margin-right: 6px;" height="50px">
+                <img src="{{ asset('images/svg/icon-points.svg') }}" style="margin-right: 6px;" height="50px">
                 <div class="fs-1 total-points">{{ $pointsCount }}</div>
                 <div class="fs-3 text-primary">Points Total</div>
                 <p>
