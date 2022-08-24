@@ -204,7 +204,7 @@ class User extends Model implements
     public function notifications()
     {
         return $this->morphMany(DatabaseNotification::class, 'notifiable')
-                        ->orderBy('read_at')
+        ->orderByRaw("case when read_at IS NULL then 0 else 1 end")
                         ->orderBy('created_at', 'desc');
     }
 

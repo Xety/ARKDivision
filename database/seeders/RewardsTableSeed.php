@@ -207,13 +207,13 @@ class RewardsTableSeed extends Seeder
             ],
             [
                 'name' => 'Polymères',
-                'description' => '200 Polymères obtenu dans les coffres journaliers.',
+                'description' => '100 Polymères obtenu dans les coffres journaliers.',
                 'image' => 'images/rewards/coffres/polymer.webp',
                 'gender' => 0,
                 'gender_male' => null,
                 'gender_female' => null,
                 'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
-                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Polymer.PrimalItemResource_Polymer\' 200 0 0"}',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Polymer.PrimalItemResource_Polymer\' 100 0 0"}',
                 'rule' => '1',
                 'created_at' => $now,
                 'updated_at' => $now
@@ -272,13 +272,13 @@ class RewardsTableSeed extends Seeder
             ],
             [
                 'name' => 'Gâteaux aux légumes',
-                'description' => '30 Gâteaux aux légumes obtenu dans les coffres journaliers.',
+                'description' => '10 Gâteaux aux légumes obtenu dans les coffres journaliers.',
                 'image' => 'images/rewards/coffres/sweet_vegetable_cake.webp',
                 'gender' => 0,
                 'gender_male' => null,
                 'gender_female' => null,
                 'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
-                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_SweetVeggieCake.PrimalItemConsumable_SweetVeggieCake\' 30 0 0"}',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_SweetVeggieCake.PrimalItemConsumable_SweetVeggieCake\' 10 0 0"}',
                 'rule' => '1',
                 'created_at' => $now,
                 'updated_at' => $now
