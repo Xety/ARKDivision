@@ -59,6 +59,12 @@ class User extends Model implements
         'last_login',
         'email_verified_at',
         'claimed_coffre_count_total',
+        'claimed_coffre_bonus_5_count_total',
+        'claimed_coffre_bonus_10_count_total',
+        'claimed_coffre_bonus_15_count_total',
+        'claimed_coffre_bonus_20_count_total',
+        'claimed_coffre_bonus_25_count_total',
+        'claimed_coffre_bonus_30_count_total',
         'claimed_coffre_count_monthly'
     ];
 

@@ -13,4 +13,9 @@
     padding: 15px;
     border:1px solid #8b8472;
     border-radius: $border-radius;
+
+    .svg {
+        max-height: 113px;
+        max-width: 113px;
+    }
 }

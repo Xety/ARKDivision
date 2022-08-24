@@ -58,9 +58,6 @@ class PageController extends Controller
         }
         dd($increment);**/
 
-
-
-
         $secondes = config('analytics.cache_lifetime_in_secondes');
 
         $viewDatas = [];
@@ -106,6 +103,14 @@ class PageController extends Controller
             $badges = $user->badges()->where('type', 'eventParticipating')->get();
         }
 
+        // Get the next claiming date for the user or null if not connected.
+        $now = Carbon::now();
+        $nextClaimDate = null;
+        if (Auth::user()) {
+            $nextClaimDate = Carbon::create(Auth::user()->last_claimed_coffre)->addHours(24);
+        }
+
+
 
         return view(
             'page.index',
@@ -116,7 +121,9 @@ class PageController extends Controller
                 'pointsCount',
                 'discordAnnonces',
                 'notifications',
-                'badges'
+                'badges',
+                'now',
+                'nextClaimDate'
             )
         );
     }
