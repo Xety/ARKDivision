@@ -2,6 +2,7 @@
 namespace Xetaravel\Listeners\Subscribers\Reward;
 
 use Illuminate\Support\Facades\DB;
+use Xetaravel\Events\Events\RewardDailyCoffre;
 use Xetaravel\Events\Events\RewardLabyrintheTatie;
 use Xetaravel\Events\Events\RewardNakor;
 use Xetaravel\Models\Reward;
@@ -17,7 +18,8 @@ class RewardSubscriber
      */
     protected $events = [
         RewardNakor::class => 'onRewardNakor',
-        RewardLabyrintheTatie::class => 'onRewardLabyrintheTatie'
+        RewardLabyrintheTatie::class => 'onRewardLabyrintheTatie',
+        RewardDailyCoffre::class => 'onRewardDailyCoffre'
     ];
 
     /**
@@ -70,7 +72,7 @@ class RewardSubscriber
     }
 
     /**
-     * Listener related to the RewardNakor.
+     * Listener related to the RewardLabyrintheTatie.
      *
      * @param \Xetaravel\Events\Events\RewardLabyrintheTatie $event The event that was fired.
      *
@@ -117,6 +119,48 @@ class RewardSubscriber
                 'UPDATE players SET PermissionGroups = ? WHERE SteamId = ?',
                 [$permissionGroups, $user->steam_id]
             );
+        }
+
+        return true;
+    }
+
+    /**
+     * Listener related to the RewardDailyCoffre.
+     *
+     * @param \Xetaravel\Events\Events\RewardDailyCoffre $event The event that was fired.
+     *
+     * @return bool
+     */
+    public function onRewardDailyCoffre(RewardDailyCoffre $event): bool
+    {
+        $user = $event->user;
+        $reward = $event->reward;
+        $bonusReward = $event->bonusReward;
+
+        $collection = collect();
+
+        // Duplicate reward item regarding to the rule set of each reward.
+        $count = 0;
+
+        while ($count < $reward->rule) {
+            $collection->push($reward->id);
+            $count++;
+        }
+
+        // Attach the reward bonus if not null
+        if (!is_null($bonusReward)) {
+            $collection->push($bonusReward->id);
+        }
+
+        // Attach all the rewards to the user.
+        $user->rewards()->attach($collection);
+
+        // Send a notification for the reward unlocked.
+        $user->notify(new RewardNotification($reward));
+
+        // Send a notification for the bonus reward too.
+        if (!is_null($bonusReward)) {
+            $user->notify(new RewardNotification($bonusReward));
         }
 
         return true;
