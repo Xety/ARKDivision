@@ -13,7 +13,7 @@
     var now = new Date().getTime();
     var timeleft = countDownDate - now;
 
-    // Calculating the days, hours, minutes and seconds left
+    // Calculating the hours, minutes and seconds left
     var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
@@ -136,7 +136,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 text-center">
-                        <div class="shortcuts" data-bs-toggle="popover" data-bs-html="true" data-bs-content="{{ $nextClaimDate > $now ? 'Prochain coffre dans <span id="hours">23h</span>  <span id="mins">29m</span> <span id="secs">59s</span>' : 'Vous pouvez réclamer votre coffre !' }}" data-bs-placement="top" data-bs-trigger="hover">
+                        <div class="shortcuts" data-bs-toggle="popover" data-bs-html="true" data-bs-content="{{ $nextClaimDate > $now ? 'Prochain coffre dans <span id="hours">21h</span>  <span id="mins">59m</span> <span id="secs">59s</span>' : 'Vous pouvez réclamer votre coffre !' }}" data-bs-placement="top" data-bs-trigger="hover">
                             <a href="{{ route('users.coffre.index') }}">
                                 <img class="d-block svg" src="{{ asset('images/svg/coffre.svg') }}">
                                 <h3 class="fs-6">Coffres</h3>

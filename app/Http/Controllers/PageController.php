@@ -107,7 +107,8 @@ class PageController extends Controller
         $now = Carbon::now();
         $nextClaimDate = null;
         if (Auth::user()) {
-            $nextClaimDate = Carbon::create(Auth::user()->last_claimed_coffre)->addHours(24);
+            $nextClaimDate = Carbon::create(Auth::user()->last_claimed_coffre)
+            ->addHours(config('division.coffres.interval_claim_hours'));
         }
 
 

@@ -170,6 +170,8 @@ return [
             'bonus_25_days_points_amount' => 5000,
             'bonus_30_days_points_amount' => 10000
         ],
-        'max_days_claim' => 30
+        'max_days_claim' => 30,
+        // Interval in hours between each claim.
+        'interval_claim_hours' => 22
     ]
 ];

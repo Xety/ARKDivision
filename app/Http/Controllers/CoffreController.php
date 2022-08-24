@@ -22,7 +22,8 @@ class CoffreController extends Controller
 
         $days = config('division.coffres.max_days_claim');
         $now = Carbon::now();
-        $nextClaimDate = Carbon::create(Auth::user()->last_claimed_coffre)->addHours(24);
+        $nextClaimDate = Carbon::create(Auth::user()->last_claimed_coffre)
+            ->addHours(config('division.coffres.interval_claim_hours'));
 
         $firstDayOfNextMonth = Carbon::now();
         $firstDayOfNextMonth->modify('first day of next month');
@@ -46,7 +47,8 @@ class CoffreController extends Controller
         $nextClaimDay = $day +1;
         $days = config('division.coffres.max_days_claim');
         $now = Carbon::now();
-        $nextClaimDate = Carbon::create($user->last_claimed_coffre)->addHours(24);
+        $nextClaimDate = Carbon::create($user->last_claimed_coffre)
+            ->addHours(config('division.coffres.interval_claim_hours'));
 
         // Check the next claim date.
         if ($nextClaimDate > $now) {
