@@ -19,7 +19,7 @@ items.forEach((el) => {
     }
 });
 </script>
-    @if ($user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true)
+    @if (!is_null($user->last_claimed_coffre) && $user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true)
     <script>
         // The data/time we want to countdown to
         var countDownDate = new Date('{{ $nextClaimDate->format('F d, Y H:i:s') }}').getTime();
@@ -79,7 +79,7 @@ items.forEach((el) => {
 
                     <div class="mb-3">
                         <span id="timer-end" class="test-muted">
-                            @if ($user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true)
+                            @if (!is_null($user->last_claimed_coffre) && $user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true)
                                 Le prochain coffre sera dévérouillé dans <span id="hours">xh</span>  <span id="mins">xm</span> <span id="secs">xs</span>
                             @endif
                         </span>
@@ -101,7 +101,7 @@ items.forEach((el) => {
                                             $claimed = true;
                                         }
 
-                                        if (($day == $user->claimed_coffre_count_monthly + 1) && ($user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == false)) {
+                                        if (($day == $user->claimed_coffre_count_monthly + 1) && ((!is_null($user->last_claimed_coffre) && $user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == false) || is_null($user->last_claimed_coffre))) {
                                             $claimable = true;
                                         }
 

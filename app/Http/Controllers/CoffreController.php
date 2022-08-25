@@ -64,7 +64,8 @@ class CoffreController extends Controller
         $nextClaimDatePreviousDay->subDay();
 
         // Check the next claim date.
-        if ($user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true) {
+        if (!is_null($user->last_claimed_coffre) &&
+            $user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true) {
             return redirect()
                 ->route('users.coffre.index')
                 ->with(

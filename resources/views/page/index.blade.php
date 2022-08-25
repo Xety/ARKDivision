@@ -2,7 +2,7 @@
 {!! config(['app.title' => 'Bienvenue !']) !!}
 
 @push('scripts')
-@if (!is_null($nextClaimDate) && Auth::user()->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true)
+@if (!is_null($nextClaimDate) && !is_null(Auth::user()->last_claimed_coffre) && Auth::user()->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true)
 <script>
     // The data/time we want to countdown to
     var countDownDate = new Date('{{ $nextClaimDate->format('F d, Y H:i:s') }}').getTime();
@@ -136,7 +136,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 mb-4 text-center">
-                        <div class="shortcuts" data-bs-toggle="popover" data-bs-html="true" data-bs-content="{{ (!is_null($nextClaimDate) && Auth::user()->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true) ? 'Prochain coffre dans <span id="hours">XXh</span>  <span id="mins">XXm</span> <span id="secs">XXs</span>' : 'Vous pouvez réclamer votre coffre !' }}" data-bs-placement="top" data-bs-trigger="hover">
+                        <div class="shortcuts" data-bs-toggle="popover" data-bs-html="true" data-bs-content="{{ (!is_null($nextClaimDate) && !is_null(Auth::user()->last_claimed_coffre) && Auth::user()->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true) ? 'Prochain coffre dans <span id="hours">XXh</span>  <span id="mins">XXm</span> <span id="secs">XXs</span>' : 'Vous pouvez réclamer votre coffre !' }}" data-bs-placement="top" data-bs-trigger="hover">
                             <a href="{{ route('users.coffre.index') }}">
                                 <img class="svg" src="{{ asset('images/svg/coffre.svg') }}">
                                 <h3 class="fs-6">Coffres</h3>
@@ -214,7 +214,7 @@
                                         <h5 class="card-title">{{ $discordAnnonce->author["username"] }}#{{ $discordAnnonce->author["discriminator"] }}</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">{{ $discordAnnonce->timestamp->format('d-m-Y à H:i:s') }}</h6>
 
-                                        <p class="card-text">{!! Markdown::convertToHtml(preg_replace(config('discord.regex.emoji'), '', $discordAnnonce->content)) !!}</p>
+                                        <p class="card-text">{!! Markdown::convert(preg_replace(config('discord.regex.emoji'), '', $discordAnnonce->content)) !!}</p>
                                         <a href="https://discord.com/channels/{{ config('discord.guild.id') }}/{{ $discordAnnonce->channel_id }}/{{ $discordAnnonce->id }}" class="card-link">Lire sur le Discord</a>
                                     </div>
                                 </div>
