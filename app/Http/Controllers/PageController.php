@@ -104,14 +104,13 @@ class PageController extends Controller
         }
 
         // Get the next claiming date for the user or null if not connected.
-        $now = Carbon::now();
         $nextClaimDate = null;
+        $nextClaimDatePreviousDay = Carbon::now()->addDay()->hour(0)->minute(0)->second(0);
+        $nextClaimDatePreviousDay->subDay();
+
         if (Auth::user()) {
-            $nextClaimDate = Carbon::create(Auth::user()->last_claimed_coffre)
-            ->addHours(config('division.coffres.interval_claim_hours'));
+            $nextClaimDate = Carbon::now()->addDay()->hour(0)->minute(0)->second(0);
         }
-
-
 
         return view(
             'page.index',
@@ -123,8 +122,8 @@ class PageController extends Controller
                 'discordAnnonces',
                 'notifications',
                 'badges',
-                'now',
-                'nextClaimDate'
+                'nextClaimDate',
+                'nextClaimDatePreviousDay'
             )
         );
     }

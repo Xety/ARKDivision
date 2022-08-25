@@ -2,7 +2,7 @@
 {!! config(['app.title' => 'Bienvenue !']) !!}
 
 @push('scripts')
-@if ($nextClaimDate > $now)
+@if (!is_null($nextClaimDate) && Auth::user()->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true)
 <script>
     // The data/time we want to countdown to
     var countDownDate = new Date('{{ $nextClaimDate->format('F d, Y H:i:s') }}').getTime();
@@ -44,7 +44,7 @@
     </h1>
 
     <div class="row">
-        <div class="col-lg-4 align-self-stretch">
+        <div class="col-lg-4 mb-4 align-self-stretch">
 
             <div class="home-widget h-100" style="background-color: #090909;">
                 <div class="d-flex justify-content-between pb-4">
@@ -98,7 +98,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 align-self-stretch">
+        <div class="col-lg-3 mb-4 align-self-stretch">
             <div class="home-widget h-100" style="background-color: #312e27;">
                 <h2 class="fs-4 text-primary">Dernières notifications</h2>
                 @if(is_null(Auth::user()))
@@ -130,28 +130,28 @@
             </div>
         </div>
 
-        <div class="col-lg-5 align-self-stretch">
+        <div class="col-lg-5 mb-4 align-self-stretch">
             <div class="home-widget h-100" style="background-color: #312e27;">
                 <h2 class="fs-4 text-primary">Raccourcis</h2>
 
                 <div class="row">
-                    <div class="col-lg-4 text-center">
-                        <div class="shortcuts" data-bs-toggle="popover" data-bs-html="true" data-bs-content="{{ $nextClaimDate > $now ? 'Prochain coffre dans <span id="hours">21h</span>  <span id="mins">59m</span> <span id="secs">59s</span>' : 'Vous pouvez réclamer votre coffre !' }}" data-bs-placement="top" data-bs-trigger="hover">
+                    <div class="col-lg-4 mb-4 text-center">
+                        <div class="shortcuts" data-bs-toggle="popover" data-bs-html="true" data-bs-content="{{ (!is_null($nextClaimDate) && Auth::user()->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true) ? 'Prochain coffre dans <span id="hours">XXh</span>  <span id="mins">XXm</span> <span id="secs">XXs</span>' : 'Vous pouvez réclamer votre coffre !' }}" data-bs-placement="top" data-bs-trigger="hover">
                             <a href="{{ route('users.coffre.index') }}">
-                                <img class="d-block svg" src="{{ asset('images/svg/coffre.svg') }}">
+                                <img class="svg" src="{{ asset('images/svg/coffre.svg') }}">
                                 <h3 class="fs-6">Coffres</h3>
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-4 text-center">
+                    <div class="col-lg-4 mb-4 text-center">
                         <div class="shortcuts" data-bs-title="Voir les classements des joueurs" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
                             <a href="{{ route('leaderboard.index') }}">
-                                <img class="d-block svg" src="{{ asset('images/svg/trophee-du-championnat.svg') }}">
+                                <img class="svg" src="{{ asset('images/svg/trophee-du-championnat.svg') }}">
                                 <h3 class="fs-6">Classements</h3>
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-4 text-center">
+                    <div class="col-lg-4 mb-4 text-center">
                         <div class="shortcuts" data-bs-title="Voir les packs Divison Shop" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-container="body">
                             <a href="https://ark-division.fr/packs-division-shop/" target="_blank">
                                 <img class="svg" src="{{ asset('images/svg/icon-points.svg') }}">
@@ -168,7 +168,7 @@
     <hr/>
 
     <div class="row">
-        <div class="col-lg-4 align-self-stretch">
+        <div class="col-lg-4 mb-4 align-self-stretch">
             <div class="home-widget h-100" style="background-color: #312e27;">
                 @auth
                     <h2 class="fs-4 text-primary">
@@ -195,13 +195,13 @@
                     @endif
             </div>
         </div>
-        <div class="col-lg-4 align-self-stretch">
+        <div class="col-lg-4 mb-4 align-self-stretch">
             <div class="home-widget h-100" style="background-color: #090909;">
                 <h2 class="fs-4 text-primary">Avancement des Quêtes</h2>
                     Comming soon...
             </div>
         </div>
-        <div class="col-lg-4 align-self-stretch">
+        <div class="col-lg-4 mb-4 align-self-stretch">
             <div class="home-widget h-100" style="background-color: #2d2c31;">
                 <h2 class="fs-4 text-primary">Suivre la communauté</h2>
 

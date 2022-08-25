@@ -20,10 +20,13 @@ class CoffreController extends Controller
     {
         $breadcrumbs = $this->breadcrumbs->addCrumb('Coffres', route('users.coffre.index'));
 
+        $user = User::find(Auth::id());
+
         $days = config('division.coffres.max_days_claim');
-        $now = Carbon::now();
-        $nextClaimDate = Carbon::create(Auth::user()->last_claimed_coffre)
-            ->addHours(config('division.coffres.interval_claim_hours'));
+        $nextClaimDate = Carbon::now()->addDay()->hour(0)->minute(0)->second(0);
+
+        $nextClaimDatePreviousDay = Carbon::now()->addDay()->hour(0)->minute(0)->second(0);
+        $nextClaimDatePreviousDay->subDay();
 
         $firstDayOfNextMonth = Carbon::now();
         $firstDayOfNextMonth->modify('first day of next month');
@@ -31,7 +34,17 @@ class CoffreController extends Controller
         $firstDayOfNextMonth->minute(0);
         $firstDayOfNextMonth->second(0);
 
-        return view('coffre.index', compact('breadcrumbs', 'days', 'now', 'nextClaimDate', 'firstDayOfNextMonth'));
+        return view(
+            'coffre.index',
+            compact(
+                'breadcrumbs',
+                'days',
+                'nextClaimDate',
+                'firstDayOfNextMonth',
+                'user',
+                'nextClaimDatePreviousDay'
+            )
+        );
     }
 
     /**
@@ -45,13 +58,13 @@ class CoffreController extends Controller
 
         $day = $user->claimed_coffre_count_monthly;
         $nextClaimDay = $day +1;
-        $days = config('division.coffres.max_days_claim');
-        $now = Carbon::now();
-        $nextClaimDate = Carbon::create($user->last_claimed_coffre)
-            ->addHours(config('division.coffres.interval_claim_hours'));
+        $nextClaimDate = Carbon::now()->addDay()->hour(0)->minute(0)->second(0);
+
+        $nextClaimDatePreviousDay = Carbon::now()->addDay()->hour(0)->minute(0)->second(0);
+        $nextClaimDatePreviousDay->subDay();
 
         // Check the next claim date.
-        if ($nextClaimDate > $now) {
+        if ($user->last_claimed_coffre->isSameDay($nextClaimDatePreviousDay) == true) {
             return redirect()
                 ->route('users.coffre.index')
                 ->with(

@@ -6,21 +6,21 @@ use Illuminate\Console\Command;
 use RestCord\DiscordClient;
 use Xetaravel\Models\User;
 
-class RefreshCoffres extends Command
+class RefreshCoffresMonthly extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'coffres:refresh';
+    protected $signature = 'coffres:refreshmonthly';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Refresh the monthly coffres ofr everyone.';
+    protected $description = 'Refresh the monthly coffres for everyone.';
 
     /**
      * Create a new command instance.
