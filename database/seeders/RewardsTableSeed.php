@@ -439,6 +439,112 @@ class RewardsTableSeed extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now
             ],
+            [
+                'name' => '5 Kibbles Extraordinaires',
+                'description' => '5 Kibbles Extraordinaires obtenu dans les coffres journaliers.',
+                'image' => 'images/rewards/coffres/extraordinary_kibble.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Special.PrimalItemConsumable_Kibble_Base_Special\' 5 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => '3 Soupes Piquantes',
+                'description' => '3 Soupes Piquantes obtenues dans les coffres journaliers.',
+                'image' => 'images/rewards/coffres/calien_soup.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_CalienSoup.PrimalItemConsumable_Soup_CalienSoup\' 3 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => '100 Pétroles',
+                'description' => '100 Pétroles obtenus dans les coffres journaliers.',
+                'image' => 'images/rewards/coffres/oil.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Oil.PrimalItemResource_Oil\' 100 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => '5 Mutagens',
+                'description' => '5 Mutagens obtenus dans les coffres journaliers.',
+                'image' => 'images/rewards/coffres/mutagen.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/Genesis2/CoreBlueprints/Environment/Mutagen/PrimalItemConsumable_Mutagen.PrimalItemConsumable_Mutagen\' 5 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => '5 Gros excréments',
+                'description' => '5 Gros excréments obtenus dans les coffres journaliers.' .
+                                                'On peut le dire, tu as choppé le pack de merde !',
+                'image' => 'images/rewards/coffres/feces.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_DinoPoopLarge.PrimalItemConsumable_DinoPoopLarge\' 5 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => '50 Narcotiques',
+                'description' => '50 Narcotiques obtenu dans les coffres journaliers.',
+                'image' => 'images/rewards/coffres/narcotic.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Narcotic.PrimalItemConsumable_Narcotic\' 50 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => '1 Cristal de Gacha',
+                'description' => '1 Cristal de Gacha obtenu dans les coffres journaliers.' .
+                                                ' Il semblerait que c\'est ton jour de chance !',
+                'image' => 'images/rewards/coffres/gacha_crystal.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/Extinction/Dinos/Gacha/PrimalItemConsumable_GachaPod.PrimalItemConsumable_GachaPod\' 1 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => '50 Pommes de Terre',
+                'description' => '50 Pommes de Terre obtenu dans les coffres journaliers.',
+                'image' => 'images/rewards/coffres/savoroot.webp',
+                'gender' => 0,
+                'gender_male' => null,
+                'gender_female' => null,
+                'type' => 'Xetaravel\Events\Events\RewardDailyCoffre',
+                'data' => '{"command":"GiveItemToSteamId %s Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Savoroot.PrimalItemConsumable_Veggie_Savoroot\' 50 0 0"}',
+                'rule' => '1',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
 
             // Coffres Bonus
             [
