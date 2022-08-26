@@ -39,13 +39,6 @@ class RefreshCoffresDaily extends Command
      */
     public function handle()
     {
-        // Update the users.
-        $updatedRows = User::where('claimed_coffre_count_monthly', '<>', 0)
-            ->update([
-                'last_claimed_coffre' => null
-            ]);
-
-
         $discord = new DiscordClient(['token' => config('discord.bot.token')]);
 
         // Send the notification on Discord.
@@ -55,7 +48,7 @@ class RefreshCoffresDaily extends Command
             'content' => "\n",
             'embed' => [
                 'description' => "Les coffres journaliers sur le site " . env('APP_URL') .
-                                                " viennent d'être réinitialisés.",
+                                                " viennent d'être réinitialisés !",
                 'color' => hexdec("1DFCEA"),
                 'thumbnail' => [
                     'url' => 'https://cdn.discordapp.com/app-icons/635391187301433380/'.

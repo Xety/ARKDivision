@@ -53,6 +53,10 @@ class Kernel extends ConsoleKernel
                 ->monthlyOn(24, '19:00')
                 ->runInBackground();
 
+            $schedule->command('coffres:refreshdaily')
+                ->dailyAt('00:00')
+                ->runInBackground();
+
             $schedule->command('coffres:refreshmonthly')
                 ->monthly()
                 ->runInBackground();
